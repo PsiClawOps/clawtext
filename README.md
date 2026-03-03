@@ -182,6 +182,105 @@ More memories injected; trade off precision for broader context.
 ```
 Smaller injection; snippets instead of full text.
 
+## Data Ingestion
+
+ClawText works with any memories stored in OpenClaw's memory format (Markdown files in `~/.openclaw/workspace/memory/`). This enables you to populate context from existing sources:
+
+### From Files
+
+```bash
+# Convert project documentation to memory
+cat project-docs.md >> ~/.openclaw/workspace/MEMORY.md
+
+# Add context from chat exports
+node -e "
+const fs = require('fs');
+const chatLog = JSON.parse(fs.readFileSync('chat-export.json'));
+const memories = chatLog.map(m => 
+  \`---\ndate: \${m.date}\ntype: fact\n---\n\n## \${m.topic}\n\n\${m.content}\`
+).join('\n\n');
+fs.appendFileSync(process.env.HOME + '/.openclaw/workspace/memory/imports.md', memories);
+"
+```
+
+### From Web Pages
+
+```bash
+# Fetch and convert webpage to memory
+curl -s https://example.com/docs | \
+  pandoc --from html --to markdown | \
+  sed 's/^/---\ndate: '$(date +%Y-%m-%d)'\ntype: fact\n---\n\n/' >> \
+  ~/.openclaw/workspace/memory/web-imports.md
+```
+
+### From Channels
+
+```bash
+# Export Discord thread to memory (using discord.py or similar)
+python3 <<'EOF'
+import json
+import sys
+
+with open('discord-export.json') as f:
+    messages = json.load(f)
+
+memories = []
+for msg in messages:
+    memory = f"""---
+date: {msg['timestamp'][:10]}
+type: fact
+entities: [{msg['author']}]
+---
+
+## {msg['author']} - {msg['timestamp']}
+
+{msg['content']}
+"""
+    memories.append(memory)
+
+with open(f"{os.getenv('HOME')}/.openclaw/workspace/memory/discord-imports.md", 'a') as f:
+    f.write('\n\n'.join(memories))
+EOF
+```
+
+### Best Practices for Ingestion
+
+1. **Add YAML headers** — Include `date`, `type` (fact/decision/code/etc), and relevant `entities`
+2. **Organize by source** — Use separate files (memory/web-imports.md, memory/discord-imports.md)
+3. **Include context** — Add enough metadata so memories make sense out of context
+4. **Rebuild clusters** — After bulk imports, ClawText auto-rebuilds on next session start
+5. **Start small** — Test with 10-50 imports before bulk loading thousands
+
+### Example: Building Context from Multiple Sources
+
+```bash
+#!/bin/bash
+
+# Import docs
+cat docs/architecture.md >> ~/.openclaw/workspace/memory/docs-import.md
+
+# Import previous chat history
+node extract-chat.js previous-sessions.json >> \
+  ~/.openclaw/workspace/memory/chat-import.md
+
+# Import team decisions from Discord
+python3 export-discord-decisions.py #decisions-channel >> \
+  ~/.openclaw/workspace/memory/decisions-import.md
+
+# Force cluster rebuild on next session
+rm -f ~/.openclaw/workspace/memory/clusters/*.json
+
+echo "Data imported. ClawText will rebuild clusters on next session start."
+```
+
+After ingestion, ClawText automatically:
+- Detects new memories on next session
+- Rebuilds clusters if they're stale
+- Indexes all imported data
+- Makes context available for injection
+
+This enables agents to build on existing knowledge bases—documentation, past decisions, team discussions—without manual indexing.
+
 ## Docs
 
 - **README.md** — Full guide, API, examples
