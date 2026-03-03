@@ -1,20 +1,33 @@
 # ClawSaver
 
-Automatic session message batching for OpenClaw. Reduces model API costs by 20–40% with zero configuration.
+**Reduce model API costs by 20–40% through intelligent message batching.**
 
-## What It Does
+Most agent systems waste money on redundant API calls. When users send follow-up messages, you call the model separately for each one. ClawSaver fixes this by waiting ~800ms to collect related messages, then sending them together in a single optimized request. Same response quality. Lower cost. No user friction.
 
-When users send multiple messages in quick succession, ClawSaver waits ~800ms to collect them, then sends **one batched request** instead of multiple calls. Same answer quality, lower cost.
+## The Problem
 
-**Example:**
 ```
 User: "What is machine learning?"
-(300ms) User: "Give me an example."
-(400ms) User: "How does that apply to fraud detection?"
+(pause)
+User: "Give an example"
+(pause) 
+User: "How does that apply to healthcare?"
 ```
 
-- Without batching: 3 API calls
-- With ClawSaver: 1 API call + 1 concatenated prompt
+Without optimization: **3 API calls = 3x cost**  
+With ClawSaver: **1 batched call = 1/3 the price**
+
+Across thousands of conversations, this compounds fast.
+
+## How It Works
+
+1. User sends message → ClawSaver buffers it
+2. Waits ~800ms for follow-ups from same user
+3. If more messages arrive → keep buffering
+4. Timer expires → send all messages together
+5. Model responds once → you get complete answer
+
+**Why users don't notice:** They're already waiting for your model response. Buffering input doesn't feel slower because the response comes right after the batch sends.
 
 ## Install
 
@@ -22,14 +35,14 @@ User: "What is machine learning?"
 clawhub install clawsaver
 ```
 
-## Setup (10 lines)
+## Quick Start (10 lines)
 
 ```javascript
 import SessionDebouncer from 'clawsaver';
 
 const debouncers = new Map();
 
-function handleUserMessage(userId, text) {
+function handleMessage(userId, text) {
   if (!debouncers.has(userId)) {
     debouncers.set(userId, new SessionDebouncer(
       userId,
@@ -40,104 +53,81 @@ function handleUserMessage(userId, text) {
 }
 ```
 
-That's it. No config needed. Default settings work for most use cases.
+## Impact
 
-## Profiles
+| Metric | Value |
+|--------|-------|
+| **Cost reduction** | 20–40% typical |
+| **Setup time** | 10 minutes |
+| **Code added** | ~10 lines |
+| **Dependencies** | 0 |
+| **File size** | 4.2 KB |
+| **Latency added** | +800ms (user-imperceptible) |
+| **Maintenance** | None |
 
-Three pre-tuned configurations:
+## Three Profiles
 
-### Balanced (default)
+Choose based on your use case:
+
+### Balanced (Default)
 - 25–35% savings
-- 800ms wait
-- Good for: general chat
+- 800ms buffer
+- Chat, Q&A, general conversation
 
-### Aggressive
+### Aggressive  
 - 35–45% savings
-- 1.5s wait
-- Good for: batch workflows
+- 1.5s buffer
+- Batch workflows, high-volume ingestion
 
 ### Real-Time
 - 5–10% savings
-- 200ms wait
-- Good for: voice assistants
-
-See **INTEGRATION.md** for usage examples.
-
-## Why It Works
-
-**Users don't notice the delay.** They're already waiting for your model to respond anyway. ClawSaver batches while they wait—same total latency, lower cost.
-
-Typical flow:
-- Without batching: send → (3s model latency) → respond
-- With batching: send → (0.8s wait) → (2.2s model latency) → respond
-
-Same 3s end-to-end. No user friction.
+- 200ms buffer
+- Interactive, voice-first systems
 
 ## When to Use
 
 ✅ Chat applications  
 ✅ Customer support bots  
-✅ Q&A systems  
-✅ Any conversation with follow-up questions  
+✅ Multi-turn Q&A  
+✅ Any conversation with follow-ups  
 
-❌ Single-message workflows  
-❌ Voice assistants needing <100ms response  
+❌ Single-request workflows  
+❌ Sub-100ms response requirements  
 
-## Metrics
+## API
 
-| Metric | Value |
-|--------|-------|
-| Cost savings | 20–40% |
-| Code size | 4.2 KB |
-| Dependencies | Zero |
-| Setup time | 10 minutes |
-| Maintenance | None |
-| Latency impact | +800ms avg (configurable) |
-
-## Key API
-
-### Constructor
 ```javascript
-new SessionDebouncer(userId, handler, options?)
+new SessionDebouncer(userId, handler, {
+  debounceMs: 800,      // wait time
+  maxWaitMs: 3000,      // absolute max
+  maxMessages: 5,       // batch size cap
+  maxTokens: 2048       // reserved
+})
+
+// Methods
+debouncer.enqueue(message)      // add to batch
+debouncer.forceFlush(reason)    // send now
+debouncer.getState()            // buffer + metrics
+debouncer.getStatusString()     // human-readable
 ```
 
-### Methods
-- `enqueue(message)` — Add to batch
-- `forceFlush(reason)` — Send now
-- `getState()` — Check buffer & metrics
-- `getStatusString()` — Human-readable status
+## Docs
 
-### Options
-```javascript
-{
-  debounceMs: 800,        // wait time
-  maxWaitMs: 3000,        // max wait
-  maxMessages: 5,         // batch size
-  maxTokens: 2048         // reserved
-}
-```
-
-## Documentation
-
-- **START_HERE.md** — Navigation guide (pick your path)
-- **QUICKSTART.md** — 5-minute walkthrough
-- **INTEGRATION.md** — Patterns, edge cases, config examples
-- **SUMMARY.md** — Metrics and ROI for decision makers
-- **SKILL.md** — Complete API reference
+- **START_HERE.md** — Navigation (pick your role/timeline)
+- **QUICKSTART.md** — 5-minute integration
+- **INTEGRATION.md** — Patterns, edge cases, full config
+- **SUMMARY.md** — Metrics and ROI (decision makers)
+- **SKILL.md** — Full API reference
 - **example-integration.js** — Copy-paste templates
 
-## External Endpoints
+## Security
 
-None. ClawSaver runs locally and forwards to your existing model caller.
+- **No telemetry** — Doesn't phone home
+- **No network calls** — Runs locally
+- **No dependencies** — Pure JavaScript
+- **You control output** — You decide what goes to your model
 
-## Security & Privacy
-
-- **No telemetry** — Doesn't track batches or usage
-- **No network calls** — All logic runs on your machine
-- **No dependencies** — Pure JavaScript, zero npm packages
-- **Your model handler** — You control what gets sent
-
-Data stays on your machine.
+Data never leaves your machine.
 
 ## License
 
@@ -145,4 +135,4 @@ MIT
 
 ---
 
-**Getting started?** Pick your path in **START_HERE.md** or jump straight to **QUICKSTART.md** (5 min).
+**Start here:** Pick your path in **START_HERE.md**, or jump to **QUICKSTART.md** for 5-minute setup.
