@@ -1,0 +1,66 @@
+{
+  "name": "clawtext",
+  "version": "1.2.0",
+  "title": "ClawText RAG — Automatic Working Memory for OpenClaw",
+  "description": "RAG (Retrieval-Augmented Generation) layer that provides automatic context injection for OpenClaw agents. Clusters memories by project, learns topic importance, and injects relevant context at session start.",
+  "author": "ragesaq",
+  "license": "MIT",
+  "repository": "https://github.com/ragesaq/clawtext",
+  "homepage": "https://github.com/ragesaq/clawtext",
+  "categories": [
+    "memory",
+    "rag",
+    "context-injection",
+    "semantic-search"
+  ],
+  "keywords": [
+    "rag",
+    "memory",
+    "context-injection",
+    "bm25",
+    "clustering",
+    "semantic-search",
+    "knowledge-management",
+    "agent-memory"
+  ],
+  "features": [
+    "Auto-project clustering from memory files",
+    "BM25 hybrid search with metadata awareness",
+    "Smart context injection with token budgeting",
+    "Project-aware memory routing",
+    "Entity linking and pattern-key matching",
+    "Efficient memory loading (<100ms)",
+    "RAG quality validation tool",
+    "Local Ollama embeddings support"
+  ],
+  "companion_tools": {
+    "clawtext-ingest": "Multi-source data ingestion for populating memory"
+  },
+  "documentation": {
+    "quick_start": "https://github.com/ragesaq/clawtext#quick-install",
+    "configuration": "https://github.com/ragesaq/clawtext#configuration",
+    "how_it_works": "https://github.com/ragesaq/clawtext#how-it-works",
+    "ingestion": "https://github.com/ragesaq/clawtext#ingesting-external-data",
+    "validation": "https://github.com/ragesaq/clawtext/blob/main/scripts/validate-rag.js"
+  },
+  "relatedSkills": [
+    "clawtext-ingest"
+  ],
+  "tags": [
+    "production-ready",
+    "v1.2.0",
+    "tested",
+    "rag",
+    "memory-system",
+    "context-injection"
+  ],
+  "tested": true,
+  "maintained": true,
+  "author_contact": "https://github.com/ragesaq",
+  "performance": {
+    "search_latency_ms": 7,
+    "memory_footprint_mb": 8,
+    "max_injection_tokens": 4000,
+    "recommended_max_memories": 7
+  }
+}
