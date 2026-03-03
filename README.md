@@ -2,20 +2,21 @@
 
 **Version:** 1.0.0 | **Status:** Production-Ready
 
-Intelligent retrieval-augmented generation (RAG) layer for OpenClaw. Automatically searches your memories and injects relevant context into every prompt before execution.
+**Context Layer Augmentation with Text** — Intelligent retrieval-augmented generation (RAG) layer for OpenClaw. Automatically searches your memories and injects relevant context into every prompt before execution.
 
 Think of it as a smart filter: instead of passing all memories to your model, ClawText identifies what matters and injects only that context.
 
 ## Why
 
-OpenClaw's `memory-core` stores memories. ClawText retrieves them automatically:
+OpenClaw's `memory-core` provides storage. ClawText adds intelligent retrieval:
 
-| Without ClawText | With ClawText |
-|---|---|
-| Manual memory retrieval | Automatic search (5-7ms) |
-| Inconsistent context | 85%+ confidence scoring |
-| Wasted token budget | 12% efficient injection |
-| Every conversation from scratch | Agents learn and improve |
+| Capability | memory-core | + ClawText | Benefit |
+|---|---|---|---|
+| **Storage & Persistence** | ✅ SQLite/JSON | — | Reliable data layer |
+| **Automatic Retrieval** | ❌ Manual | ✅ 5-7ms search | Always accessible |
+| **Relevance Filtering** | ❌ All-or-nothing | ✅ 85%+ confidence | Smart injection |
+| **Token Efficiency** | N/A | ✅ 12% budget | Safe, predictable |
+| **Learning Over Time** | ❌ Static responses | ✅ Context-aware | Agents improve |
 
 ## Features
 
