@@ -8,25 +8,38 @@ Think of it as a smart filter: instead of passing all memories to your model, Cl
 
 ## Why
 
-OpenClaw's `memory-core` provides storage. ClawText adds intelligent retrieval:
+OpenClaw's `memory-core` provides search tools (`memory_search`, `memory_get`). ClawText adds automatic context injection:
 
 | Capability | memory-core | + ClawText | Benefit |
 |---|---|---|---|
 | **Storage & Persistence** | ✅ SQLite/JSON | — | Reliable data layer |
-| **Automatic Retrieval** | ❌ Manual | ✅ 5-7ms search | Always accessible |
-| **Relevance Filtering** | ❌ All-or-nothing | ✅ 85%+ confidence | Smart injection |
+| **Manual Search Tools** | ✅ memory_search tool | — | Agent-initiated lookup |
+| **Automatic Injection** | ❌ Manual | ✅ 5-7ms search | Always available |
+| **Relevance Filtering** | ❌ All results | ✅ 85%+ confidence | Smart filtering |
 | **Token Efficiency** | N/A | ✅ 12% budget | Safe, predictable |
-| **Learning Over Time** | ❌ Static responses | ✅ Context-aware | Agents improve |
 
 ## Features
 
-- **Automatic retrieval** — Searches memories on every prompt
-- **RAG-based scoring** — BM25 keyword matching + metadata awareness (project routing, pattern recognition, entity tracking)
-- **Efficient injection** — Only relevant memories, token-aware (~12% of budget)
-- **Agent-friendly** — Fully automated setup with exit codes for automation
-- **No breaking changes** — Works alongside memory-core, optional YAML headers
+- **Automatic context injection** — Searches on every prompt, injects relevant memories before agent execution
+- **BM25 keyword matching** — Fast, accurate, project-aware filtering
+- **Smart filtering** — Only injects memories above confidence threshold, preventing noise
+- **Token efficient** — Respects OpenClaw budgets (~12% per query)
+- **Agent-friendly** — Automated setup with exit codes; agents can configure at runtime
+- **Compatible** — Works alongside memory-core search tools; no conflicts
 
 ## Installation
+
+### For Agents (Recommended)
+
+ClawText is designed to be installed and configured automatically by agents. Simply ask your agent to review and install the repository:
+
+```
+"Review and install ClawText from https://github.com/ragesaq/clawtext"
+```
+
+The agent will handle: git clone, npm install, configuration, and validation. Exit codes indicate success (0) or issues (1–3).
+
+### Manual (Human Setup)
 
 ```bash
 git clone https://github.com/ragesaq/clawtext.git
