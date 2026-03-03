@@ -1,0 +1,29 @@
+{
+  "name": "@openclaw/sqlite-memory",
+  "version": "1.0.0",
+  "description": "SQLite-based structured memory with auto-sync to Markdown",
+  "type": "module",
+  "main": "./index.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "node --test dist/**/*.test.js"
+  },
+  "dependencies": {
+    "better-sqlite3": "^9.4.3",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.9",
+    "@types/node": "^20.11.0",
+    "openclaw": "workspace:*",
+    "typescript": "^5.3.3"
+  },
+  "openclaw": {
+    "extensions": [
+      "./index.ts"
+    ]
+  },
+  "peerDependencies": {
+    "openclaw": ">=2026.1.26"
+  }
+}

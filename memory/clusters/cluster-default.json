@@ -1,0 +1,475 @@
+{
+  "projectId": "default",
+  "memories": [
+    {
+      "content": "## Summary: All Standardization Goals Complete",
+      "confidence": 0.7,
+      "type": "context",
+      "project": "default",
+      "keywords": [
+        "summary",
+        "all",
+        "standardization",
+        "goals",
+        "complete"
+      ],
+      "updatedAt": "2026-03-03T15:25:59.836Z"
+    },
+    {
+      "content": "---\ndate: 2026-03-03\nproject: rgcs\ntype: error\narea: infrastructure\nentities: [smoothing.ini, QDir, QFileInfo, mkpath]\npattern-key: rgcs.smoothing_ini_folder_bug\nkeywords: [smoothing, ini, folder, qdir, qfileinfo, mkpath]\n---",
+      "confidence": 0.7,
+      "type": "context",
+      "project": "default",
+      "keywords": [
+        "date",
+        "2026",
+        "03",
+        "03",
+        "project",
+        "rgcs",
+        "type",
+        "error",
+        "area",
+        "infrastructure"
+      ],
+      "updatedAt": "2026-03-03T15:25:59.836Z"
+    },
+    {
+      "content": "## RGCS v1.2.335 — smoothing.ini Created as Folder (Bug + Fix)\n\n**Root cause:** `QDir().mkpath(QDir(path).absolutePath())` where `path` is a file path\n— `QDir` treats the file path as a directory path, so `mkpath` creates it as a folder.\n**Fix (commit 1024d36):** `QDir().mkpath(QFileInfo(path).absolutePath())` — gets parent dir correctly.\n**User action required:** Delete `C:\\Users\\saq\\AppData\\Local\\RGCS\\smoothing.ini` folder before installing fixed build.\n\n---\ndate: 2026-03-03\nproject: rgcs\ntype: error\narea: game-mechanics\nentities: [OneEuro, strength, normalization, cutoff, DiagMax]\npattern-key: rgcs.oneeuro_strength_normalization\nkeywords: [smoothing, oneeuro, cutoff, normalization, physical-range, no-effect]\n---",
+      "confidence": 0.8,
+      "type": "code",
+      "project": "default",
+      "keywords": [
+        "rgcs",
+        "v1",
+        "2",
+        "335",
+        "smoothing",
+        "ini",
+        "created",
+        "as",
+        "folder",
+        "bug"
+      ],
+      "updatedAt": "2026-03-03T15:25:59.836Z"
+    },
+    {
+      "content": "## RGCS v1.2.335 — Smoothing Had No Discernible Effect (Bug + Fix)",
+      "confidence": 0.7,
+      "type": "context",
+      "project": "default",
+      "keywords": [
+        "rgcs",
+        "v1",
+        "2",
+        "335",
+        "smoothing",
+        "had",
+        "no",
+        "discernible",
+        "effect",
+        "bug"
+      ],
+      "updatedAt": "2026-03-03T15:25:59.836Z"
+    },
+    {
+      "content": "**Root cause:** `effectiveMinCutoff = configuredMinCutoff * 0.01^strength` curve was designed\nfor strength in 0–1. After rescaling physical max to 0.16 (ctrl) / 0.02 (HMD), DiagMax only\nput 0.16 into the exponent → `1.5 * 0.01^0.16 = 0.747Hz` (barely any smoothing).\nAt 50% (0.08 ctrl) it computed `~0.87Hz` — effectively nothing.",
+      "confidence": 0.8,
+      "type": "code",
+      "project": "default",
+      "keywords": [
+        "root",
+        "cause",
+        "effectivemincutoff",
+        "configuredmincutoff",
+        "0",
+        "01",
+        "strength",
+        "curve",
+        "was",
+        "designed"
+      ],
+      "updatedAt": "2026-03-03T15:25:59.836Z"
+    },
+    {
+      "content": "**Fix (commit 1024d36):** Normalize physical strength by per-device max before applying curve:\n```cpp\nfloat ctrlNormalized = ctrlStrength / CONTROLLER_MAX_PHYSICAL;  // 0.16/0.16 = 1.0 at DiagMax\nfloat cutoff = configuredMinCutoff * pow(0.01f, ctrlNormalized);  // → ~0.015Hz as intended\n```\nSame fix for HMD path using HMD_MAX_PHYSICAL.",
+      "confidence": 0.8,
+      "type": "code",
+      "project": "default",
+      "keywords": [
+        "fix",
+        "commit",
+        "1024d36",
+        "normalize",
+        "physical",
+        "strength",
+        "by",
+        "per",
+        "device",
+        "max"
+      ],
+      "updatedAt": "2026-03-03T15:25:59.836Z"
+    },
+    {
+      "content": "**Expected after fix:** DiagMax controller → `~0.015Hz` (heavy), Recommended (50%) → `~0.12Hz` (moderate).\nSmoothing should now be perceptible at all preset levels.",
+      "confidence": 0.8,
+      "type": "code",
+      "project": "default",
+      "keywords": [
+        "expected",
+        "after",
+        "fix",
+        "diagmax",
+        "controller",
+        "0",
+        "015hz",
+        "heavy",
+        "recommended",
+        "50"
+      ],
+      "updatedAt": "2026-03-03T15:25:59.836Z"
+    },
+    {
+      "content": "**Commit:** `1024d36` — pushed to main, repo at /tmp/rgcs-repo\n**Version:** v1.2.335 → pending rebuild as v1.2.336 (or continue as .335 patch)",
+      "confidence": 0.8,
+      "type": "code",
+      "project": "default",
+      "keywords": [
+        "commit",
+        "1024d36",
+        "pushed",
+        "to",
+        "main",
+        "repo",
+        "at",
+        "tmp",
+        "rgcs",
+        "repo"
+      ],
+      "updatedAt": "2026-03-03T15:25:59.836Z"
+    },
+    {
+      "content": "## wbtrv32: Two v6 Import Bugs Fixed (2026-03-03)",
+      "confidence": 0.7,
+      "type": "context",
+      "project": "default",
+      "keywords": [
+        "wbtrv32",
+        "two",
+        "v6",
+        "import",
+        "bugs",
+        "fixed",
+        "2026",
+        "03",
+        "03"
+      ],
+      "updatedAt": "2026-03-03T15:25:59.837Z"
+    },
+    {
+      "content": "### Bug 1 — Shadow pages imported as duplicates (commit `bd6872d`)\n- **Root cause:** Btrieve v6 stores each data page twice (active + shadow copy for crash recovery). PAT type byte distinguishes active (`D`=0x44) from shadow (0x00). `loadRecords()` iterated all logical pages via `logicalPageToPhysicalOffset()` without checking PAT type, importing both copies of every page.\n- **Fix:** Added `logicalPagePATType()` helper; `loadRecords()` now skips pages where PAT type ≠ `D` or `V`.\n- **Files:** `btrieve/BtrieveDatabase.cc`, `btrieve/BtrieveDatabase.h`",
+      "confidence": 0.8,
+      "type": "code",
+      "project": "default",
+      "keywords": [
+        "bug",
+        "1",
+        "shadow",
+        "pages",
+        "imported",
+        "as",
+        "duplicates",
+        "commit",
+        "bd6872d",
+        "root"
+      ],
+      "updatedAt": "2026-03-03T15:25:59.837Z"
+    },
+    {
+      "content": "### Key forensics methods used\n- Hex dump + Python simulation of PAT decode to find shadow page mapping\n- Page type scan: `type=D active=True/False` per physical page\n- PAT entry layout: `[pageNumHigh][typeCode][pageNumLow][pageNumMid]` (4 bytes, type at index 1)\n- `physicalRecordLength = recordLength + 6` (2-byte usage prefix + 4-byte B-tree link pointer)\n- Log grep for `KeyValueNotFound` on `wgsmenu2` revealed ATOP missing from SQLite",
+      "confidence": 0.8,
+      "type": "code",
+      "project": "default",
+      "keywords": [
+        "key",
+        "forensics",
+        "methods",
+        "used",
+        "hex",
+        "dump",
+        "python",
+        "simulation",
+        "of",
+        "pat"
+      ],
+      "updatedAt": "2026-03-03T15:25:59.837Z"
+    },
+    {
+      "content": "### v6 Physical Record Layout (confirmed)\n```\n[2 bytes: usage count (big-endian)] [recordLength bytes: data] [4 bytes: B-tree link pointer]\n= physicalRecordLength total\n```",
+      "confidence": 0.8,
+      "type": "code",
+      "project": "default",
+      "keywords": [
+        "v6",
+        "physical",
+        "record",
+        "layout",
+        "confirmed",
+        "2",
+        "bytes",
+        "usage",
+        "count",
+        "big"
+      ],
+      "updatedAt": "2026-03-03T15:25:59.837Z"
+    },
+    {
+      "content": "## RGCS v1.2.336 — Smoothing Still Had No Effect After Cutoff Normalization (Second Bug)",
+      "confidence": 0.7,
+      "type": "context",
+      "project": "default",
+      "keywords": [
+        "rgcs",
+        "v1",
+        "2",
+        "336",
+        "smoothing",
+        "still",
+        "had",
+        "no",
+        "effect",
+        "after"
+      ],
+      "updatedAt": "2026-03-03T15:25:59.837Z"
+    },
+    {
+      "content": "**Root cause (driver-side):** Even after overlay correctly normalized physical→cutoff mapping,\nthe lean driver has its OWN per-pose adaptive calculations using `config.strength` as 0–1 input:",
+      "confidence": 0.8,
+      "type": "code",
+      "project": "default",
+      "keywords": [
+        "root",
+        "cause",
+        "driver",
+        "side",
+        "even",
+        "after",
+        "overlay",
+        "correctly",
+        "normalized",
+        "physical"
+      ],
+      "updatedAt": "2026-03-03T15:25:59.837Z"
+    },
+    {
+      "content": "```cpp\nconst double strength = clamp(m_smoothingStrength, 0.0, 1.0);\nconst double lowStrengthBoost = 1.0 + ((1.0 - strength) * 6.0);\neffectiveMinCutoff = m_oneEuroMinCutoff * lowStrengthBoost;  // line 609\neffectiveBeta      = m_oneEuroBeta + (strength * 0.35);\neffectiveDCutoff   = m_oneEuroDCutoff + ((1.0 - strength) * 1.5);\n```",
+      "confidence": 0.8,
+      "type": "code",
+      "project": "default",
+      "keywords": [
+        "cpp",
+        "const",
+        "double",
+        "strength",
+        "clamp",
+        "m",
+        "smoothingstrength",
+        "0",
+        "0",
+        "1"
+      ],
+      "updatedAt": "2026-03-03T15:25:59.837Z"
+    },
+    {
+      "content": "With raw physical `strength=0.16` (DiagMax controllers):\n- `lowStrengthBoost = 1 + (0.84 × 6) = 6.04×` ← multiplied effective cutoff by 6x\n- `effectiveDCutoff = 2.0 + (0.84×1.5) = 3.26` ← allowed fast motion through\n- Result: filter neutralized on any non-stationary motion despite correct `minCutoff=0.05Hz`",
+      "confidence": 0.8,
+      "type": "code",
+      "project": "default",
+      "keywords": [
+        "with",
+        "raw",
+        "physical",
+        "strength",
+        "0",
+        "16",
+        "diagmax",
+        "controllers",
+        "lowstrengthboost",
+        "1"
+      ],
+      "updatedAt": "2026-03-03T15:25:59.837Z"
+    },
+    {
+      "content": "This is why DiagMax felt like nothing — the adaptive boost assumed strength was nearly zero.",
+      "confidence": 0.7,
+      "type": "context",
+      "project": "default",
+      "keywords": [
+        "this",
+        "is",
+        "why",
+        "diagmax",
+        "felt",
+        "like",
+        "nothing",
+        "the",
+        "adaptive",
+        "boost"
+      ],
+      "updatedAt": "2026-03-03T15:25:59.837Z"
+    },
+    {
+      "content": "**Fix (commit `20baac2`):** Overlay sends `ctrlNormalized = physicalStrength / CONTROLLER_MAX_PHYSICAL`\nas `config.strength` (always 0–1). Same fix for HMD path.",
+      "confidence": 0.85,
+      "type": "preference",
+      "project": "default",
+      "keywords": [
+        "fix",
+        "commit",
+        "20baac2",
+        "overlay",
+        "sends",
+        "ctrlnormalized",
+        "physicalstrength",
+        "controller",
+        "max",
+        "physical"
+      ],
+      "updatedAt": "2026-03-03T15:25:59.837Z"
+    },
+    {
+      "content": "At DiagMax: `0.16 / 0.16 = 1.0` → `lowStrengthBoost = 1.0` (no boost, correct)\nAt Recommended (50%): `0.08 / 0.16 = 0.5` → `lowStrengthBoost = 3.5` (moderate, correct)",
+      "confidence": 0.8,
+      "type": "code",
+      "project": "default",
+      "keywords": [
+        "at",
+        "diagmax",
+        "0",
+        "16",
+        "0",
+        "16",
+        "1",
+        "0",
+        "lowstrengthboost",
+        "1"
+      ],
+      "updatedAt": "2026-03-03T15:25:59.837Z"
+    },
+    {
+      "content": "**Key insight:** There were TWO separate places strength is used in the pipeline:\n1. **Overlay** — `strength → cutoff` curve (fixed in `1024d36`)\n2. **Driver** — `strength → adaptive beta/boost` (fixed in `20baac2`)\nBoth needed normalization to 0–1. The overlay now normalizes once and sends 0–1 everywhere.",
+      "confidence": 0.8,
+      "type": "code",
+      "project": "default",
+      "keywords": [
+        "key",
+        "insight",
+        "there",
+        "were",
+        "two",
+        "separate",
+        "places",
+        "strength",
+        "is",
+        "used"
+      ],
+      "updatedAt": "2026-03-03T15:25:59.837Z"
+    },
+    {
+      "content": "**Commit:** `20baac2` — pushed to main\n**Version:** v1.2.336 → build pending",
+      "confidence": 0.8,
+      "type": "code",
+      "project": "default",
+      "keywords": [
+        "commit",
+        "20baac2",
+        "pushed",
+        "to",
+        "main",
+        "version",
+        "v1",
+        "2",
+        "336",
+        "build"
+      ],
+      "updatedAt": "2026-03-03T15:25:59.837Z"
+    },
+    {
+      "content": "---\ndate: 2026-03-03\nproject: rgcs\ntype: decision\narea: operations\nentities: [RGCS, version, v1.2.336, build-history]\npattern-key: rgcs.version_build_history\nkeywords: [version, build, commits, history, smoothing]\n---",
+      "confidence": 0.9,
+      "type": "decision",
+      "project": "default",
+      "keywords": [
+        "date",
+        "2026",
+        "03",
+        "03",
+        "project",
+        "rgcs",
+        "type",
+        "decision",
+        "area",
+        "operations"
+      ],
+      "updatedAt": "2026-03-03T15:25:59.837Z"
+    },
+    {
+      "content": "## RGCS Build + Commit History (as of 2026-03-03)",
+      "confidence": 0.7,
+      "type": "context",
+      "project": "default",
+      "keywords": [
+        "rgcs",
+        "build",
+        "commit",
+        "history",
+        "as",
+        "of",
+        "2026",
+        "03",
+        "03"
+      ],
+      "updatedAt": "2026-03-03T15:25:59.837Z"
+    },
+    {
+      "content": "| Commit | Version | Description |\n|--------|---------|-------------|\n| `15c1669` | v1.2.325 | Percentage UI + new physical ranges (HMD 0–0.02, Ctrl 0–0.16) |\n| `4221d62` | v1.2.325 | Preset fix (Recommended/High/DiagMax correct physical values) |\n| `7888c9e` | ~v1.2.333 | INI load clamping + zero-value guard |\n| `a8c410d` | v1.2.332 | Docs: clean build record |\n| `70dbce5` | v1.2.333 | Merge commit (version bump) |\n| `1024d36` | v1.2.335 | Normalize physical→cutoff in overlay + smoothing.ini folder fix |\n| `20baac2` | v1.2.336 | Send normalized strength (0–1) to driver (fixes adaptive beta/boost) |",
+      "confidence": 0.8,
+      "type": "code",
+      "project": "default",
+      "keywords": [
+        "commit",
+        "version",
+        "description",
+        "15c1669",
+        "v1",
+        "2",
+        "325",
+        "percentage",
+        "ui",
+        "new"
+      ],
+      "updatedAt": "2026-03-03T15:25:59.837Z"
+    },
+    {
+      "content": "**Physical ranges:** HMD 0.0–0.02, Controller 0.0–0.16\n**Default 50%:** HMD 0.01, Controller 0.08\n**Last installed:** v1.2.336 (build pending as of this entry)\n**Local clone:** `/tmp/rgcs-repo`",
+      "confidence": 0.8,
+      "type": "code",
+      "project": "default",
+      "keywords": [
+        "physical",
+        "ranges",
+        "hmd",
+        "0",
+        "0",
+        "0",
+        "02",
+        "controller",
+        "0",
+        "0"
+      ],
+      "updatedAt": "2026-03-03T15:25:59.837Z"
+    }
+  ],
+  "builtAt": "2026-03-03T15:25:59.836Z",
+  "sourceFiles": 30
+}

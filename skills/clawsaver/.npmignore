@@ -1,0 +1,43 @@
+# Development files
+.git
+.gitignore
+.github/
+.eslintrc
+.prettierrc
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Test files (optional - remove this line if you want tests included)
+# test/
+
+# Development dependencies
+node_modules/
+.npm/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary files
+tmp/
+temp/
+
+# Build artifacts (if any)
+dist/
+build/
+
+# Optional npm cache directory
+.cache/
+
+# Optional lock files (decide based on your policy)
+# package-lock.json
+# yarn.lock

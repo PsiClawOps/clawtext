@@ -1,0 +1,36 @@
+
+
+## 8:37:47 AM - DECISION
+
+**ID: `mem_3fd00716127c4d62` | Priority: 0.85 | TTL: 180 days**
+
+Decision: use postgresql for the database good choice, postgresql is reliable and has great json support.
+
+---
+
+
+## 8:37:47 AM - PREFERENCE
+
+**ID: `mem_ada92ad8c40b4de2` | Priority: 0.9 | TTL: 365 days**
+
+Preference: dark mode in all my applications i'll make sure to use dark themes for everything.
+
+---
+
+
+## 8:37:47 AM - DECISION
+
+**ID: `mem_19032ebad14e4a49` | Priority: 0.85 | TTL: 180 days**
+
+Decision: switch to sqlite instead sqlite is a good choice for local-first apps.
+
+---
+
+
+## 8:38:26 AM - PREFERENCE
+
+**ID: `mem_00cb7e210e8c48dc` | Priority: 0.9 | TTL: 365 days**
+
+User prefers dark mode in all applications
+
+---

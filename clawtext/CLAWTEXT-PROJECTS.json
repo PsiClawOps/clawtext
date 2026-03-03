@@ -1,0 +1,77 @@
+{
+  "version": 1,
+  "projects": {
+    "moltmud": {
+      "keywords": [
+        "moltmud",
+        "majormud",
+        "majorbbs",
+        "zorthak",
+        "telnet",
+        "crustserv",
+        "moltbook"
+      ],
+      "score": 100,
+      "confirmedAt": "2026-03-01T00:00:00Z",
+      "autoDetected": false
+    },
+    "clawtext": {
+      "keywords": [
+        "clawtext",
+        "cluster",
+        "embedding",
+        "rag",
+        "injection",
+        "clawtext"
+      ],
+      "score": 100,
+      "confirmedAt": "2026-03-01T00:00:00Z",
+      "autoDetected": false
+    },
+    "openclaw": {
+      "keywords": [
+        "openclaw",
+        "lumbot",
+        "gateway",
+        "plugin",
+        "extension"
+      ],
+      "score": 100,
+      "confirmedAt": "2026-03-01T00:00:00Z",
+      "autoDetected": false
+    },
+    "strength": {
+      "keywords": [
+        "strength",
+        "physical",
+        "cutoff",
+        "driver",
+        "smoothing",
+        "commit",
+        "normalization",
+        "diagmax",
+        "adaptive",
+        "oneeuro"
+      ],
+      "score": 68,
+      "confirmedAt": "2026-03-03T15:25:59.846Z",
+      "autoDetected": true
+    }
+  },
+  "candidates": {
+    "physical": {
+      "score": 50,
+      "seenAt": "2026-03-03T15:25:59.850Z"
+    },
+    "smoothing": {
+      "score": 47,
+      "seenAt": "2026-03-03T15:25:59.852Z"
+    },
+    "commit": {
+      "score": 40,
+      "seenAt": "2026-03-03T15:25:59.853Z"
+    }
+  },
+  "autoCreateThreshold": 60,
+  "decayDays": 60
+}

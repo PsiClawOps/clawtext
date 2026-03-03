@@ -1,0 +1,40 @@
+{
+  "id": "sqlite-memory",
+  "kind": "memory",
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "dailyLogDir": {
+        "type": "string",
+        "default": "./memory",
+        "description": "Directory for daily markdown logs"
+      },
+      "structuredExportDir": {
+        "type": "string",
+        "default": "./memory/structured",
+        "description": "Directory for structured markdown exports"
+      },
+      "autoSyncIntervalMinutes": {
+        "type": "number",
+        "default": 5,
+        "description": "Auto-sync interval in minutes"
+      },
+      "defaultTtl": {
+        "type": "object",
+        "description": "Default TTL per memory type (days)",
+        "properties": {
+          "preference": { "type": "number", "default": 365 },
+          "decision": { "type": "number", "default": 180 },
+          "fact": { "type": "number", "default": 90 },
+          "error": { "type": "number", "default": 365 },
+          "plan": { "type": "number", "default": 90 },
+          "task": { "type": "number", "default": 30 },
+          "summary": { "type": "number", "default": 30 },
+          "project_context": { "type": "number", "default": 365 },
+          "code": { "type": "number", "default": 365 }
+        }
+      }
+    }
+  }
+}

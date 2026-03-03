@@ -1,0 +1,83 @@
+{
+  "projectId": "moltmud",
+  "memories": [
+    {
+      "content": "**Features:**\n- Samples 9 representative queries across projects (MoltMUD, OpenClaw, Memory System)\n- Per-query confidence scoring (0.0–1.0)\n- Memory injection counting\n- Token usage estimation\n- Overall quality score (0–100%)\n- Intelligent recommendations based on results",
+      "confidence": 0.75,
+      "type": "fact",
+      "project": "moltmud",
+      "keywords": [
+        "features",
+        "samples",
+        "9",
+        "representative",
+        "queries",
+        "across",
+        "projects",
+        "moltmud",
+        "openclaw",
+        "memory"
+      ],
+      "updatedAt": "2026-03-03T15:25:59.836Z"
+    },
+    {
+      "content": "---\ndate: 2026-03-03\nproject: wbtrv32\ntype: error\narea: infrastructure\nentities: [wbtrv32, BtrieveDatabase, MajorBBS, SYSOP, wgsmenu2]\npattern-key: wbtrv32.v6_page_scan_break_bug\nkeywords: [btrieve, v6, page-scan, free-slot, break-vs-continue, ATOP, import]\n---",
+      "confidence": 0.7,
+      "type": "context",
+      "project": "moltmud",
+      "keywords": [
+        "date",
+        "2026",
+        "03",
+        "03",
+        "project",
+        "wbtrv32",
+        "type",
+        "error",
+        "area",
+        "infrastructure"
+      ],
+      "updatedAt": "2026-03-03T15:25:59.836Z"
+    },
+    {
+      "content": "### Bug 2 — Free slots stopping page scan early (commit `14c6e91`) ← ATOP/SYSOP disconnect bug\n- **Root cause:** `isUnusedRecord()` for v6 checks `data[0]<<8 | data[1]` (big-endian usage count prefix) == 0. When that returned true, the inner loop did `break`, abandoning the rest of the page. Btrieve v6 pages can have free/deleted slots (usage count 0) anywhere — live records follow them. `wgsmenu2.dat` page 12 slot 0 is a free slot, so AREMOTE (slot 1) and ATOP (slot 5) were never imported into SQLite. MajorBBS looked up `ATOP` (top-level menu), got `KeyValueNotFound`, and immediately disconnected SYSOP.\n- **Fix:** Changed `break` → `continue` for v6 in `loadRecords()`. v5 keeps `break` (packed sequential, no gaps).\n- **Files:** `btrieve/BtrieveDatabase.cc`",
+      "confidence": 0.85,
+      "type": "preference",
+      "project": "moltmud",
+      "keywords": [
+        "bug",
+        "2",
+        "free",
+        "slots",
+        "stopping",
+        "page",
+        "scan",
+        "early",
+        "commit",
+        "14c6e91"
+      ],
+      "updatedAt": "2026-03-03T15:25:59.837Z"
+    },
+    {
+      "content": "### Status\n- Both fixes deployed to `C:\\BBSV10\\wbtrv32.dll` on CrustServ (SHA256: `e76dfaaaee...`)\n- Awaiting SYSOP login test confirmation from ragesaq\n\n---\ndate: 2026-03-03\nproject: rgcs\ntype: error\narea: infrastructure\nentities: [OneEuro, lowStrengthBoost, driver, adaptive-beta, strength-normalization]\npattern-key: rgcs.driver_low_strength_boost_bug\nkeywords: [smoothing, oneeuro, adaptive-beta, lowStrengthBoost, driver, no-effect, normalization]\n---",
+      "confidence": 0.8,
+      "type": "code",
+      "project": "moltmud",
+      "keywords": [
+        "status",
+        "both",
+        "fixes",
+        "deployed",
+        "to",
+        "c",
+        "bbsv10",
+        "wbtrv32",
+        "dll",
+        "on"
+      ],
+      "updatedAt": "2026-03-03T15:25:59.837Z"
+    }
+  ],
+  "builtAt": "2026-03-03T15:25:59.836Z",
+  "sourceFiles": 39
+}

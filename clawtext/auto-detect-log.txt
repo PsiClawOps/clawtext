@@ -1,0 +1,1 @@
+2026-03-03T15:25:59.846Z [Clawtext] Auto-detected new project: strength (score: 68). Keywords: physical, cutoff, driver, smoothing, commit. To undo: delete clawtext/CLAWTEXT-PROJECTS.json entry or run 'clawtext reject strength'.

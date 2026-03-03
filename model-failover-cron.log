@@ -1,0 +1,54 @@
+Traceback (most recent call last):
+  File "/home/lumadmin/.openclaw/workspace/model-failover.py", line 317, in <module>
+    failover = ModelFailover()
+               ^^^^^^^^^^^^^^^
+  File "/home/lumadmin/.openclaw/workspace/model-failover.py", line 73, in __init__
+    self.state = self.load_state()
+                 ^^^^^^^^^^^^^^^^^
+  File "/home/lumadmin/.openclaw/workspace/model-failover.py", line 116, in load_state
+    if model not in self.state.model_states:
+                    ^^^^^^^^^^
+AttributeError: 'ModelFailover' object has no attribute 'state'
+2026-02-27 00:36:01,989 - INFO - 🔍 Model health monitor started
+2026-02-27 00:36:01,989 - INFO - ✅ Model openrouter/qwen/qwen3.5-flash-02-23 recovered from unknown
+2026-02-27 00:36:01,989 - INFO - ✅ Model openrouter/deepseek/deepseek-v3.2 recovered from unknown
+2026-02-27 00:36:01,989 - INFO - ✅ Model github-copilot/gpt-5-mini recovered from unknown
+2026-02-27 00:38:01,992 - INFO - Loaded state from /home/lumadmin/.openclaw/workspace/model-failover-state.json
+2026-02-27 00:38:01,993 - INFO - 🔍 Model health monitor started
+2026-02-27 00:40:02,032 - INFO - Loaded state from /home/lumadmin/.openclaw/workspace/model-failover-state.json
+2026-02-27 00:40:02,032 - INFO - 🔍 Model health monitor started
+2026-02-27 00:42:01,993 - INFO - Loaded state from /home/lumadmin/.openclaw/workspace/model-failover-state.json
+2026-02-27 00:42:01,993 - INFO - 🔍 Model health monitor started
+2026-02-27 00:44:01,995 - INFO - Loaded state from /home/lumadmin/.openclaw/workspace/model-failover-state.json
+2026-02-27 00:44:01,995 - INFO - 🔍 Model health monitor started
+2026-02-27 00:46:01,998 - INFO - Loaded state from /home/lumadmin/.openclaw/workspace/model-failover-state.json
+2026-02-27 00:46:01,998 - INFO - 🔍 Model health monitor started
+2026-02-27 00:48:02,000 - INFO - Loaded state from /home/lumadmin/.openclaw/workspace/model-failover-state.json
+2026-02-27 00:48:02,001 - INFO - 🔍 Model health monitor started
+2026-02-27 00:50:02,060 - INFO - Loaded state from /home/lumadmin/.openclaw/workspace/model-failover-state.json
+2026-02-27 00:50:02,060 - INFO - 🔍 Model health monitor started
+2026-02-27 00:52:01,999 - INFO - Loaded state from /home/lumadmin/.openclaw/workspace/model-failover-state.json
+2026-02-27 00:52:01,999 - INFO - 🔍 Model health monitor started
+2026-02-27 00:54:02,001 - INFO - Loaded state from /home/lumadmin/.openclaw/workspace/model-failover-state.json
+2026-02-27 00:54:02,001 - INFO - 🔍 Model health monitor started
+2026-02-27 00:56:02,008 - INFO - Loaded state from /home/lumadmin/.openclaw/workspace/model-failover-state.json
+2026-02-27 00:56:02,008 - INFO - 🔍 Model health monitor started
+2026-02-27 00:58:02,008 - INFO - Loaded state from /home/lumadmin/.openclaw/workspace/model-failover-state.json
+2026-02-27 00:58:02,008 - INFO - 🔍 Model health monitor started
+2026-02-27 01:00:02,040 - INFO - Loaded state from /home/lumadmin/.openclaw/workspace/model-failover-state.json
+2026-02-27 01:00:02,040 - INFO - 🔍 Model health monitor started
+2026-02-27 01:02:02,012 - WARNING - Could not load state: Expecting value: line 1 column 1 (char 0), starting fresh
+2026-02-27 01:02:02,012 - INFO - 🔍 Model health monitor started
+2026-02-27 01:02:02,012 - INFO - ✅ Model openrouter/qwen/qwen3.5-flash-02-23 recovered from unknown
+2026-02-27 01:02:02,012 - INFO - ✅ Model openrouter/deepseek/deepseek-v3.2 recovered from unknown
+2026-02-27 01:02:02,012 - INFO - ✅ Model github-copilot/gpt-5-mini recovered from unknown
+2026-02-27 01:04:02,010 - INFO - Loaded state from /home/lumadmin/.openclaw/workspace/model-failover-state.json
+2026-02-27 01:04:02,011 - INFO - 🔍 Model health monitor started
+2026-02-27 01:06:02,024 - INFO - Loaded state from /home/lumadmin/.openclaw/workspace/model-failover-state.json
+2026-02-27 01:06:02,025 - INFO - 🔍 Model health monitor started
+2026-02-27 01:08:02,021 - INFO - Loaded state from /home/lumadmin/.openclaw/workspace/model-failover-state.json
+2026-02-27 01:08:02,021 - INFO - 🔍 Model health monitor started
+2026-02-27 01:10:02,049 - INFO - Loaded state from /home/lumadmin/.openclaw/workspace/model-failover-state.json
+2026-02-27 01:10:02,049 - INFO - 🔍 Model health monitor started
+2026-02-27 01:12:02,019 - INFO - Loaded state from /home/lumadmin/.openclaw/workspace/model-failover-state.json
+2026-02-27 01:12:02,019 - INFO - 🔍 Model health monitor started

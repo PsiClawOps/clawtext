@@ -1,0 +1,254 @@
+{
+  "projectId": "clawtext",
+  "memories": [
+    {
+      "content": "---\ndate: 2026-03-03\nproject: clawtext\ntype: decision\narea: operations\nentities: [ClawText, validation, Phase2, standardization]\nkeywords: [rag-quality, validation-tool, metrics, tuning, phase2]\npattern-key: clawtext.phase2_completion\n---",
+      "confidence": 0.9,
+      "type": "decision",
+      "project": "clawtext",
+      "keywords": [
+        "date",
+        "2026",
+        "03",
+        "03",
+        "project",
+        "clawtext",
+        "type",
+        "decision",
+        "area",
+        "operations"
+      ],
+      "updatedAt": "2026-03-03T15:25:59.835Z"
+    },
+    {
+      "content": "## Phase 2 Complete: RAG Validation Tool + Enhanced Deduplication (2026-03-03 10:05 UTC)",
+      "confidence": 0.7,
+      "type": "context",
+      "project": "clawtext",
+      "keywords": [
+        "phase",
+        "2",
+        "complete",
+        "rag",
+        "validation",
+        "tool",
+        "enhanced",
+        "deduplication",
+        "2026",
+        "03"
+      ],
+      "updatedAt": "2026-03-03T15:25:59.835Z"
+    },
+    {
+      "content": "### Phase 2a: RAG Validation Tool ✅\n**File:** `~/.openclaw/workspace/skills/clawtext/scripts/validate-rag.js`\n**Status:** Live on GitHub (commit b1555ee)",
+      "confidence": 0.8,
+      "type": "code",
+      "project": "clawtext",
+      "keywords": [
+        "phase",
+        "2a",
+        "rag",
+        "validation",
+        "tool",
+        "file",
+        "openclaw",
+        "workspace",
+        "skills",
+        "clawtext"
+      ],
+      "updatedAt": "2026-03-03T15:25:59.835Z"
+    },
+    {
+      "content": "**Usage:**\n```bash\nnode scripts/validate-rag.js              # Concise output\nnode scripts/validate-rag.js --verbose    # Detailed per-query\nnode scripts/validate-rag.js --output json # Machine-readable\n```",
+      "confidence": 0.8,
+      "type": "code",
+      "project": "clawtext",
+      "keywords": [
+        "usage",
+        "bash",
+        "node",
+        "scripts",
+        "validate",
+        "rag",
+        "js",
+        "concise",
+        "output",
+        "node"
+      ],
+      "updatedAt": "2026-03-03T15:25:59.836Z"
+    },
+    {
+      "content": "**Exit codes:**\n- 0: Quality ≥70% (healthy RAG system)\n- 1: Quality <70% (tuning recommended)",
+      "confidence": 0.75,
+      "type": "fact",
+      "project": "clawtext",
+      "keywords": [
+        "exit",
+        "codes",
+        "0",
+        "quality",
+        "70",
+        "healthy",
+        "rag",
+        "system",
+        "1",
+        "quality"
+      ],
+      "updatedAt": "2026-03-03T15:25:59.836Z"
+    },
+    {
+      "content": "**When to Use:**\n- After cluster rebuilds (verify quality)\n- Troubleshooting missing context (diagnose injection)\n- Before/after RAG tuning (baseline comparison)\n- During agent onboarding (system verification)",
+      "confidence": 0.75,
+      "type": "fact",
+      "project": "clawtext",
+      "keywords": [
+        "when",
+        "to",
+        "use",
+        "after",
+        "cluster",
+        "rebuilds",
+        "verify",
+        "quality",
+        "troubleshooting",
+        "missing"
+      ],
+      "updatedAt": "2026-03-03T15:25:59.836Z"
+    },
+    {
+      "content": "### Phase 2b: Enhanced Deduplication Controls ✅\n**File:** `~/.openclaw/workspace/skills/clawtext-ingest/src/index.js`\n**Status:** Live on GitHub (v1.2.0)\n\n**New Feature:**\n- Added `checkDedupe` option to `fromFiles()` and `fromJSON()`\n- Allows agents to disable dedup checks for performance if needed\n- Default: `checkDedupe: true` (preserves safety)\n\n**Usage:**\n```javascript\n// Skip dedup checks (faster, risky if duplicates exist)\nawait ingest.fromFiles(patterns, metadata, { checkDedupe: false });\n\n// Keep dedup checks (default, safe)\nawait ingest.fromFiles(patterns, metadata, { checkDedupe: true });\n```",
+      "confidence": 0.8,
+      "type": "code",
+      "project": "clawtext",
+      "keywords": [
+        "phase",
+        "2b",
+        "enhanced",
+        "deduplication",
+        "controls",
+        "file",
+        "openclaw",
+        "workspace",
+        "skills",
+        "clawtext"
+      ],
+      "updatedAt": "2026-03-03T15:25:59.836Z"
+    },
+    {
+      "content": "### Phase 2 Documentation Updates ✅\n**File:** `HOW_THINGS_WORK.md`\n**Sections Updated:**\n- Section 3: Added validation tool step after cluster rebuild\n- Section 4: New \"Validate RAG Quality\" diagnostic section\n- Data Ingestion section: Explained dedup importance and workflows",
+      "confidence": 0.8,
+      "type": "code",
+      "project": "clawtext",
+      "keywords": [
+        "phase",
+        "2",
+        "documentation",
+        "updates",
+        "file",
+        "how",
+        "things",
+        "work",
+        "md",
+        "sections"
+      ],
+      "updatedAt": "2026-03-03T15:25:59.836Z"
+    },
+    {
+      "content": "### What's Production-Ready ✅\n- RAG validation tool can diagnose quality issues independently\n- Agents can use validation during onboarding setup\n- Operators can use validation to tune RAG parameters empirically\n- Dedup controls give agents flexibility for edge cases\n- Documentation covers all use cases",
+      "confidence": 0.7,
+      "type": "context",
+      "project": "clawtext",
+      "keywords": [
+        "what",
+        "s",
+        "production",
+        "ready",
+        "rag",
+        "validation",
+        "tool",
+        "can",
+        "diagnose",
+        "quality"
+      ],
+      "updatedAt": "2026-03-03T15:25:59.836Z"
+    },
+    {
+      "content": "### Next Phase Opportunities (Deferred)\n- **Phase 3a:** Cluster rebuild monitoring (auto-trigger if >X days old)\n- **Phase 3b:** Persistent quality metrics (track validation scores over time)\n- **Phase 3c:** Automated tuning (suggest maxMemories/minConfidence changes based on patterns)",
+      "confidence": 0.75,
+      "type": "fact",
+      "project": "clawtext",
+      "keywords": [
+        "next",
+        "phase",
+        "opportunities",
+        "deferred",
+        "phase",
+        "3a",
+        "cluster",
+        "rebuild",
+        "monitoring",
+        "auto"
+      ],
+      "updatedAt": "2026-03-03T15:25:59.836Z"
+    },
+    {
+      "content": "### Commits & Tags\n- ClawText: b1555ee (validation tool)\n- ClawText-Ingest: v1.2.0 tag created\n- Workspace: 8d0772b (HOW_THINGS_WORK.md update)\n\n---",
+      "confidence": 0.7,
+      "type": "context",
+      "project": "clawtext",
+      "keywords": [
+        "commits",
+        "tags",
+        "clawtext",
+        "b1555ee",
+        "validation",
+        "tool",
+        "clawtext",
+        "ingest",
+        "v1",
+        "2"
+      ],
+      "updatedAt": "2026-03-03T15:25:59.836Z"
+    },
+    {
+      "content": "| Goal | Status | Location |\n|------|--------|----------|\n| Deduplication as standard | ✅ | HOW_THINGS_WORK.md §3, ClawTextIngest source |\n| Cluster rebuild automation | ✅ | HOW_THINGS_WORK.md §3, Agent onboarding guide |\n| RAG validation tool | ✅ | `scripts/validate-rag.js` |\n| Enhanced dedupe controls | ✅ | ClawTextIngest v1.2.0 |\n| Agent onboarding guide | ✅ | `AGENT_ONBOARDING.md` in ClawText repo |\n| Operational documentation | ✅ | HOW_THINGS_WORK.md (12.9KB, complete) |",
+      "confidence": 0.8,
+      "type": "code",
+      "project": "clawtext",
+      "keywords": [
+        "goal",
+        "status",
+        "location",
+        "deduplication",
+        "as",
+        "standard",
+        "how",
+        "things",
+        "work",
+        "md"
+      ],
+      "updatedAt": "2026-03-03T15:25:59.836Z"
+    },
+    {
+      "content": "**Status:** All identified improvements from summary are now implemented and production-ready. Two deferred optional enhancements (cluster monitoring, auto-tuning) available for future Phase 3.",
+      "confidence": 0.75,
+      "type": "fact",
+      "project": "clawtext",
+      "keywords": [
+        "status",
+        "all",
+        "identified",
+        "improvements",
+        "from",
+        "summary",
+        "are",
+        "now",
+        "implemented",
+        "and"
+      ],
+      "updatedAt": "2026-03-03T15:25:59.836Z"
+    }
+  ],
+  "builtAt": "2026-03-03T15:25:59.835Z",
+  "sourceFiles": 42
+}

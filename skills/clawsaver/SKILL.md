@@ -126,6 +126,7 @@ debouncer.getStatusString()     // human-readable
 ## Docs
 
 - **START_HERE.md** — Navigation (pick your role/timeline)
+- **AUTO-INTEGRATION.md** — ⭐ Drop-in middleware wrapper (2 min setup)
 - **QUICKSTART.md** — 5-minute integration
 - **INTEGRATION.md** — Patterns, edge cases, full config
 - **SUMMARY.md** — Metrics and ROI (decision makers)
