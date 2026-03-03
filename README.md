@@ -86,7 +86,7 @@ Enable in OpenClaw config:
 ```
 ┌─────────────────────────────────────┐
 │ User Prompt                         │
-│ "What did we decide about X?"       │
+│ "Should agent restart the task?"    │
 └────────────────┬────────────────────┘
                  │
         ┌────────▼─────────┐
@@ -111,18 +111,23 @@ Enable in OpenClaw config:
                  │
         ┌────────▼──────────────────┐
         │ Enriched Prompt           │
-        │ "What did we decide...    │
+        │ "Should agent restart...  │
         │                           │
-        │ <!-- Relevant Memories: │
-        │ 1. [decision] ZORTHAK...  │
-        │ 2. [fact] Arena strategy..│
+        │ <!-- Context:             │
+        │ [decision] Restart on:    │
+        │   - Network timeout >30s  │
+        │   - Rate limit 429 error  │
+        │                           │
+        │ [fact] Last restart:      │
+        │   Task resumed at step 4  │
+        │   of 12                   │
         │ -->                       │
         │                           │
-        │ What did we decide...?"   │
+        │ Should agent restart...?"│
         └────────┬──────────────────┘
                  │
         ┌────────▼──────────────┐
-        │ Model/Agent           │
+        │ Agent/Model           │
         │ (receives context)    │
         └───────────────────────┘
 ```
