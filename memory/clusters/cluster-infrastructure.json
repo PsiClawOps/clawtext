@@ -1,0 +1,112 @@
+{
+  "projectId": "infrastructure",
+  "memories": [
+    {
+      "content": "## Implementation Timeline\n\n```\nDay 1 (6-8 hours):\n├─ Morning (2-3h):\n│  ├─ P1: Automatic Integration (middleware)\n│  └─ P2: Typoglycemia Detector (50%)\n├─ Afternoon (3-4h):\n│  ├─ P2: Typoglycemia (50%)\n│  └─ P3: Output Guard (50%)\n└─ Evening (1-2h):\n   └─ Integration testing, code review\n\nDay 2 (6-8 hours):\n├─ Morning (2-3h):\n│  ├─ P3: Output Guard (50%)\n│  └─ P4: Structured Prompt Enforcer\n├─ Afternoon (3-4h):\n│  ├─ P4: Structured Prompt (50%)\n│  └─ P5: Best-of-N Defense\n└─ Evening (1-2h):\n   └─ Code review, unit tests\n\nDay 3 (3-4 hours):\n├─ Morning (3-4h):\n│  ├─ P6: Adversarial Test Suite (50%)\n│  ├─ P6: Canary Tests (50%)\n│  └─ Integration testing\n└─ Afternoon:\n   └─ Documentation, deployment prep\n```",
+      "keywords": [
+        "hours",
+        "morning",
+        "integration",
+        "afternoon",
+        "typoglycemia",
+        "output",
+        "guard",
+        "evening",
+        "testing",
+        "code"
+      ],
+      "type": "code-pattern",
+      "project": "infrastructure",
+      "confidence": 0.8,
+      "sourceFile": "memory/clawsec-hardening-plan.md",
+      "updatedAt": "2026-03-05T07:09:24.894Z"
+    },
+    {
+      "content": "## Deployment Checklist\n\n- [ ] All code compiles without errors\n- [ ] Unit tests pass (100%)\n- [ ] Integration tests pass (100%)\n- [ ] Adversarial tests pass (>99%)\n- [ ] Canary tests pass (attack success <1%)\n- [ ] Documentation complete\n- [ ] Code review approved\n- [ ] Performance benchmarks acceptable\n- [ ] Security audit passed\n- [ ] Ready for production deployment",
+      "keywords": [
+        "tests",
+        "pass",
+        "100",
+        "deployment",
+        "code",
+        "checklist",
+        "compiles",
+        "without",
+        "errors",
+        "unit"
+      ],
+      "type": "error-pattern",
+      "project": "infrastructure",
+      "confidence": 0.8,
+      "sourceFile": "memory/clawsec-hardening-plan.md",
+      "updatedAt": "2026-03-05T07:09:24.894Z"
+    },
+    {
+      "content": "## Troubleshooting\n\n**Issue:** \"Middleware not installed\" error  \n**Fix:** Call `install_clawsec()` before any searches\n\n**Issue:** Legitimate queries being blocked  \n**Fix:** Check `web_search_config.json` for overly strict patterns\n\n**Issue:** Performance degradation  \n**Fix:** Profile with cProfile: `python -m cProfile -s cumulative src/web_search_wrapper.py`",
+      "keywords": [
+        "issue",
+        "fix",
+        "web",
+        "search",
+        "cprofile",
+        "troubleshooting",
+        "middleware",
+        "installed",
+        "error",
+        "install"
+      ],
+      "type": "error-pattern",
+      "project": "infrastructure",
+      "confidence": 0.8,
+      "sourceFile": "memory/clawsec-quickstart.md",
+      "updatedAt": "2026-03-05T07:09:24.896Z"
+    },
+    {
+      "content": "### 2. **Config File Path Assumptions**\n**Issue:** Wrapper assumes `web_search_config.json` location; path might not exist.  \n**Status:** Has fallback defaults, but logs warning (good).",
+      "keywords": [
+        "config",
+        "path",
+        "file",
+        "assumptions",
+        "issue",
+        "wrapper",
+        "assumes",
+        "web",
+        "search",
+        "json"
+      ],
+      "type": "fact",
+      "project": "infrastructure",
+      "confidence": 0.8,
+      "sourceFile": "memory/clawsec-security-audit-report.md",
+      "updatedAt": "2026-03-05T07:09:24.897Z"
+    },
+    {
+      "content": "## Deployment Readiness\n\n```\nPhase 1 (Middleware)        ✅ READY (v1.3.0)\n├─ Code complete\n├─ Tests written\n├─ Docs done\n└─ Deploy: npm update\n\nPhase 2-5 (Enhancements)    ✅ READY (v1.4.0)\n├─ Code complete\n├─ Tests written\n├─ Docs done\n└─ Deploy: npm update\n\nPhase 6 (Testing)           ✅ READY\n├─ Adversarial suite written\n├─ Canary tests written\n└─ Deploy: integration test before release\n\nFull Hardening Release      🎯 v2.0.0\n└─ Target: 2026-03-05 (after testing)\n```",
+      "keywords": [
+        "written",
+        "phase",
+        "ready",
+        "tests",
+        "deploy",
+        "code",
+        "complete",
+        "docs",
+        "done",
+        "npm"
+      ],
+      "type": "code-pattern",
+      "project": "infrastructure",
+      "confidence": 0.8,
+      "sourceFile": "memory/clawsec-visual-summary.md",
+      "updatedAt": "2026-03-05T07:09:24.898Z"
+    }
+  ],
+  "builtAt": "2026-03-05T07:09:24.901Z",
+  "sourceFiles": [
+    "memory/clawsec-hardening-plan.md",
+    "memory/clawsec-quickstart.md",
+    "memory/clawsec-security-audit-report.md",
+    "memory/clawsec-visual-summary.md"
+  ]
+}

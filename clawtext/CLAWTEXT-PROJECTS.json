@@ -56,6 +56,227 @@
       "score": 68,
       "confirmedAt": "2026-03-03T15:25:59.846Z",
       "autoDetected": true
+    },
+    "agent": {
+      "keywords": [
+        "agent",
+        "memory",
+        "clawtext",
+        "quality",
+        "scripts",
+        "onboarding",
+        "search",
+        "injection",
+        "instructions",
+        "clawhub"
+      ],
+      "score": 79,
+      "confirmedAt": "2026-03-04T09:38:38.019Z",
+      "autoDetected": true
+    },
+    "controller": {
+      "keywords": [
+        "controller",
+        "physical",
+        "strength",
+        "diagmax",
+        "device",
+        "driver",
+        "commit",
+        "cutoff",
+        "mincutoff",
+        "smoothing"
+      ],
+      "score": 97,
+      "confirmedAt": "2026-03-04T09:38:38.030Z",
+      "autoDetected": true
+    },
+    "ingest": {
+      "keywords": [
+        "ingest",
+        "clawtext",
+        "checkdedupe",
+        "things",
+        "dedup",
+        "agent",
+        "clawhub",
+        "fromfiles",
+        "onboarding",
+        "checks"
+      ],
+      "score": 269,
+      "confirmedAt": "2026-03-04T18:00:00.090Z",
+      "autoDetected": true
+    },
+    "dedup": {
+      "keywords": [
+        "dedup",
+        "checkdedupe",
+        "section",
+        "things",
+        "ingest",
+        "clawtext",
+        "fromfiles",
+        "checks",
+        "agent",
+        "onboarding"
+      ],
+      "score": 110,
+      "confirmedAt": "2026-03-04T18:00:00.107Z",
+      "autoDetected": true
+    },
+    "checks": {
+      "keywords": [
+        "checks",
+        "checkdedupe",
+        "ingest",
+        "fromfiles",
+        "dedup",
+        "things",
+        "agent",
+        "onboarding",
+        "default",
+        "await"
+      ],
+      "score": 79,
+      "confirmedAt": "2026-03-04T18:00:00.117Z",
+      "autoDetected": true
+    },
+    "fromfiles": {
+      "keywords": [
+        "fromfiles",
+        "checkdedupe",
+        "ingest",
+        "dedup",
+        "checks",
+        "things",
+        "agent",
+        "onboarding",
+        "clawtext",
+        "default"
+      ],
+      "score": 83,
+      "confirmedAt": "2026-03-04T18:00:00.138Z",
+      "autoDetected": true
+    },
+    "checkdedupe": {
+      "keywords": [
+        "checkdedupe",
+        "ingest",
+        "fromfiles",
+        "dedup",
+        "checks",
+        "things",
+        "agent",
+        "onboarding",
+        "clawtext",
+        "deduplication"
+      ],
+      "score": 112,
+      "confirmedAt": "2026-03-04T18:00:00.159Z",
+      "autoDetected": true
+    },
+    "default": {
+      "keywords": [
+        "default",
+        "checkdedupe",
+        "fromfiles",
+        "ingest",
+        "dedup",
+        "checks",
+        "things",
+        "agent",
+        "onboarding",
+        "enhanced"
+      ],
+      "score": 130,
+      "confirmedAt": "2026-03-04T18:00:00.170Z",
+      "autoDetected": true
+    },
+    "codes": {
+      "keywords": [
+        "codes",
+        "quality",
+        "tuning",
+        "after",
+        "cluster",
+        "injection",
+        "healthy",
+        "recommended",
+        "baseline",
+        "agent"
+      ],
+      "score": 61,
+      "confirmedAt": "2026-03-04T18:00:00.180Z",
+      "autoDetected": true
+    },
+    "clawhhub": {
+      "keywords": [
+        "clawhhub",
+        "clawtext",
+        "clawhub",
+        "publication",
+        "ingest",
+        "skill",
+        "submission",
+        "guide",
+        "source",
+        "ragesaq"
+      ],
+      "score": 90,
+      "confirmedAt": "2026-03-05T02:52:55.562Z",
+      "autoDetected": true
+    },
+    "publication": {
+      "keywords": [
+        "publication",
+        "clawhub",
+        "clawtext",
+        "clawhhub",
+        "skill",
+        "guide",
+        "submission",
+        "ingest",
+        "readme",
+        "https"
+      ],
+      "score": 137,
+      "confirmedAt": "2026-03-05T02:52:55.572Z",
+      "autoDetected": true
+    },
+    "fixed": {
+      "keywords": [
+        "fixed",
+        "strength",
+        "cutoff",
+        "smoothing",
+        "confirmed",
+        "filter",
+        "mkpath",
+        "quaternion",
+        "folder",
+        "diagmax"
+      ],
+      "score": 72,
+      "confirmedAt": "2026-03-05T02:52:55.600Z",
+      "autoDetected": true
+    },
+    "phase": {
+      "keywords": [
+        "phase",
+        "clawtext",
+        "dedup",
+        "checkdedupe",
+        "agent",
+        "section",
+        "things",
+        "quality",
+        "onboarding",
+        "ingest"
+      ],
+      "score": 128,
+      "confirmedAt": "2026-03-05T02:52:55.618Z",
+      "autoDetected": true
     }
   },
   "candidates": {
@@ -70,6 +291,34 @@
     "commit": {
       "score": 40,
       "seenAt": "2026-03-03T15:25:59.853Z"
+    },
+    "tests": {
+      "score": 48,
+      "seenAt": "2026-03-04T09:38:38.001Z"
+    },
+    "production": {
+      "score": 42,
+      "seenAt": "2026-03-04T09:38:38.005Z"
+    },
+    "device": {
+      "score": 47,
+      "seenAt": "2026-03-04T09:38:38.025Z"
+    },
+    "confirmed": {
+      "score": 47,
+      "seenAt": "2026-03-04T09:38:38.036Z"
+    },
+    "await": {
+      "score": 50,
+      "seenAt": "2026-03-04T18:00:00.129Z"
+    },
+    "patterns": {
+      "score": 55,
+      "seenAt": "2026-03-04T18:00:00.150Z"
+    },
+    "drift": {
+      "score": 31,
+      "seenAt": "2026-03-05T02:52:55.610Z"
     }
   },
   "autoCreateThreshold": 60,

@@ -1,0 +1,233 @@
+{
+  "projectId": "openclaw",
+  "memories": [
+    {
+      "content": "## ClawSaver v1.0.0 — Session Debouncer Ready for ClawHub Publication (2026-03-03 17:55 UTC)",
+      "keywords": [
+        "2026",
+        "clawsaver",
+        "session",
+        "debouncer",
+        "ready",
+        "clawhub",
+        "publication",
+        "utc"
+      ],
+      "type": "fact",
+      "project": "openclaw",
+      "confidence": 0.8,
+      "sourceFile": "memory/2026-03-03.md",
+      "updatedAt": "2026-03-05T07:09:24.886Z"
+    },
+    {
+      "content": "wbtrv32 / MajorBBS Btrieve v6 → SQLite — March 4, 2026\n\n### Session Summary\nFull SYSOP login fix cycle completed and deployed. All 33 `.db` files audited healthy.\n\n### Four Bugs Fixed\n1. **Shadow PAT duplicate records** — `loadRecords()` imported both active and shadow copies of every data page, duplicating all user records. Fixed by adding `logicalPagePATType()` and skipping non-`'D'`/`'V'` pages.\n2. **Free slot `break→continue` for v6 page scan** — Deleted slots can appear anywhere on a v6 page; `break` was stopping scan early, skipping live records. Fixed: `continue` for v6, `break` for v5.\n3. **`uint16_t` fragment `lofs` comparison** — `fragpp` is `uint16_t*`; comparing to signed `-1` always failed; filler slots `0xFFFF` were never skipped, causing bogus `fragmentLength` → `BtrieveException` → silent record drop.\n4. **`lofs` bounds check after array access (Copilot)** — Bounds guard ran in loop body after the array access in the condition could already go out of bounds. Restructured to infinite loop with `prevIndex` variable; bounds check now precedes array access. Threshold corrected `<= 0` → `< 0`.\n\n### Deployed DLL\n- Commit: `d1fa9b4` (wbtrv32-test main, cherry-pick of fix #4 onto prior 3 fixes)\n- SHA256: `dbf08a109b45aa1866a9de06da8f40313911a1e98094853261a8ca00292d5794`\n- Deployed: 2026-03-04 ~09:44 UTC to `C:\\BBSV10\\wbtrv32.dll`\n- All 33 `.db` files deleted; reconversion pending on next ragesaq boot\n\n### Upstream PR\n- **PR #13**: `https://github.com/mbbsemu/wbtrv32/pull/13`\n- Branch: `ragesaq:fix/v6-import-bugs` → `mbbsemu/wbtrv32:main`\n- Commits: `6299044`, `15ce205`, `35eb3de`, `292a029`\n\n### Copilot Review Comments (open, need fixes)\n1. **PAT validation `&&` → `||` bug** (real, fix needed):\n   - `logicalPagePATType()` uses `&&` across all 4 bytes — only rejects if ALL are wrong\n   - Should be: `(pat1[0]!='P' || pat1[1]!='P') && (pat2[0]!='P' || pat2[1]!='P')`\n   - Matches what `loadPAT()` already does correctly\n2. **Double PAT reads per page** (performance, not correctness):\n   - `logicalPagePATType()` and `logicalPageToPhysicalOffset()` each independently read the PAT\n   - Should combine into single helper returning both type + physical offset\n   - Low priority for correctness; worth fixing before PR merges\n\n### Infrastructure\n- Production: `C:\\BBSV10\\`\n- CrustServ SSH: `mud-admin@10.122.0.111`, key `~/.ssh/id_rsa_4096_mud-admin`\n- Build repo: `ragesaq/wbtrv32-test` (only repo with active CI workflows)\n- Fork for PR: `ragesaq/wbtrv32` (proper fork of `mbbsemu/wbtrv32`)\n- Local workspace remotes: `origin` = `mbbsemu/wbtrv32`, `ragesaq` = `ragesaq/wbtrv32`, `wbtrv32-test` = `ragesaq/wbtrv32-test`\n- PAT: `~/.openclaw/secrets.json` → `wbtrv32.github_pat`\n\n### Next Steps\n- Fix both Copilot comments, push updated commit to `ragesaq:fix/v6-import-bugs`\n- ragesaq to boot board → 33 `.db` files reconvert with new DLL\n- Monitor PR #13 for maintainer review/merge",
+      "keywords": [
+        "wbtrv32",
+        "ragesaq",
+        "fix",
+        "pat",
+        "page",
+        "bounds",
+        "test",
+        "mbbsemu",
+        "deployed",
+        "files"
+      ],
+      "type": "error-pattern",
+      "project": "openclaw",
+      "confidence": 0.65,
+      "sourceFile": "memory/2026-03-04.md",
+      "updatedAt": "2026-03-05T07:09:24.893Z"
+    },
+    {
+      "content": "### Next Steps to Resolve\n1. **Audit Bot Configuration**:\n   - Verify that `MESSAGE_CONTENT` and thread-related Gateway Intents (`channels.discord.enabled`) are enabled.\n   - Confirm that permissions for \"Send Messages in Threads\" are active in the Discord Developer Portal.\n\n2. **Review Group Policies**:\n   - Check the `groupPolicy` settings in OpenClaw:\n     ```\n     openclaw config get channels.discord.groupPolicy\n     ```\n   - Add thread and channel allowlists explicitly:\n     ```\n     openclaw config set channels.discord.allowedChannels '[THREAD_CHANNEL_IDS]'\n     ```\n\n3. **Test Scoped Permissions**:\n   - Restrict the bot to a specific server or thread using Guild IDs and Thread IDs to test thread-specific behaviors.\n\n4. **Log Analysis and Debugging**:\n   - Enable Gateway logs to trace failed tool calls or permission errors during thread interactions.",
+      "keywords": [
+        "thread",
+        "discord",
+        "channels",
+        "openclaw",
+        "ids",
+        "bot",
+        "gateway",
+        "enabled",
+        "permissions",
+        "grouppolicy"
+      ],
+      "type": "error-pattern",
+      "project": "openclaw",
+      "confidence": 0.8,
+      "sourceFile": "memory/2026-03-05.md",
+      "updatedAt": "2026-03-05T07:09:24.893Z"
+    },
+    {
+      "content": "## Troubleshooting (Quick Fixes)\n\n**Middleware won't install?**\n→ Check OpenClaw tools module structure  \n→ See `docs/OPENCLAW_INTEGRATION.md`\n\n**Typoglycemia too strict?**\n→ Adjust threshold in detector  \n→ Test with legitimate words\n\n**Output guard over-redacting?**\n→ Update WHITELIST_PATTERNS  \n→ Add legitimate phrases\n\n**Performance degrading?**\n→ Profile: `python -m cProfile`  \n→ Check regex complexity (use compiled patterns)\n\n**Tests failing?**\n→ Check file paths  \n→ Verify imports  \n→ Run with `-vv` for details",
+      "keywords": [
+        "check",
+        "openclaw",
+        "legitimate",
+        "patterns",
+        "troubleshooting",
+        "quick",
+        "fixes",
+        "middleware",
+        "won",
+        "install"
+      ],
+      "type": "error-pattern",
+      "project": "openclaw",
+      "confidence": 0.8,
+      "sourceFile": "memory/clawsec-quick-reference.md",
+      "updatedAt": "2026-03-05T07:09:24.896Z"
+    },
+    {
+      "content": "### 3. **No Best-of-N Defense**\n**Severity:** MEDIUM  \n**Issue:** Research shows systematic prompt variations succeed 78-89% of the time.  \n**Example:** Attacker tests 10 variations of an injection; one gets through.\n\n**Current Status:** No systematic variation detection. Each query evaluated independently.\n\n**Fix Required:**\n```python\n# Track query variations from same session\nclass BestOfNDefense:\n    def __init__(self, window_size: int = 5, threshold: int = 3):\n        self.recent_blocks = []\n    \n    def should_escalate(self) -> bool:\n        \"\"\"Block session if multiple injection attempts detected.\"\"\"\n        return len(self.recent_blocks) >= self.threshold\n```",
+      "keywords": [
+        "self",
+        "variations",
+        "systematic",
+        "injection",
+        "query",
+        "session",
+        "def",
+        "int",
+        "threshold",
+        "recent"
+      ],
+      "type": "error-pattern",
+      "project": "openclaw",
+      "confidence": 0.8,
+      "sourceFile": "memory/clawsec-security-audit-report.md",
+      "updatedAt": "2026-03-05T07:09:24.897Z"
+    },
+    {
+      "content": "## Summary\n\n**ClawSec is production-grade for its scope** (query validation, encoding detection, override workflow, audit logging). **Integration with OpenClaw is the critical gap.** Once automatic enforcement is in place, add the 5 advanced defenses to reach best-in-class security.\n\n**Time to hardened state:** 2-3 days (assuming OpenClaw integration hooks are available).",
+      "keywords": [
+        "integration",
+        "openclaw",
+        "summary",
+        "clawsec",
+        "production",
+        "grade",
+        "scope",
+        "query",
+        "validation",
+        "encoding"
+      ],
+      "type": "fact",
+      "project": "openclaw",
+      "confidence": 0.8,
+      "sourceFile": "memory/clawsec-security-audit-report.md",
+      "updatedAt": "2026-03-05T07:09:24.897Z"
+    },
+    {
+      "content": "### 🟠 P5: Best-of-N Defense\n**Rate Limiting on Variation Attacks**\n\n| Attack Pattern | Current | With P5 |\n|---|---|---|\n| Single injection attempt | 🛑 BLOCKED | 🛑 BLOCKED |\n| 3+ variations in 60s | ✅ Each evaluated independently | 🛑 ESCALATED after 3rd block |\n| 10+ variations (78% success) | ⚠️ Eventually succeeds | 🛑 Rate limited after threshold |\n\n**Mechanism:** Track blocked queries per session. If >3 blocks in 60s, escalate (lock session, alert admin, require confirmation)\n\n**After P5:** Systematic variation attacks detected and stopped",
+      "keywords": [
+        "blocked",
+        "rate",
+        "variation",
+        "attacks",
+        "variations",
+        "60s",
+        "session",
+        "best",
+        "defense",
+        "limiting"
+      ],
+      "type": "fact",
+      "project": "openclaw",
+      "confidence": 0.8,
+      "sourceFile": "memory/clawsec-visual-summary.md",
+      "updatedAt": "2026-03-05T07:09:24.898Z"
+    },
+    {
+      "content": "Critical Gaps Identified\n\n### 1. Integration Gap (Critical)\n- **Problem:** The Python wrapper is NOT automatically invoked by OpenClaw's native `web_search` tool\n- **Impact:** Security depends on manual import; no enforcement at tool level\n- **Status:** Unfixed in current deployment\n\n### 2. Typoglycemia Not Implemented\n- **Problem:** OWASP mentions scrambled-word attacks (\"ignroe all prevoius systme instructions\")\n- **Impact:** Fuzzy variants can slip through regex\n- **Status:** Identified but not implemented in codebase\n\n### 3. No Best-of-N Defense\n- **Problem:** Systematic prompt variations (78-89% success across trials)\n- **Impact:** Attacker can test multiple phrasings\n- **Status:** No defense mechanism\n\n### 4. No Output Monitoring\n- **Problem:** Wrapper sanitizes results but doesn't check my output for system prompt leakage\n- **Impact:** I could accidentally repeat system instructions in responses\n- **Status:** Unfixed\n\n### 5. No Structured Prompt Separation\n- **Problem:** When passing search results to LLM, no enforcement of USER_DATA_TO_PROCESS boundary\n- **Impact:** Results can bleed into my prompt context without separation markers\n- **Status:** Unfixed",
+      "keywords": [
+        "problem",
+        "impact",
+        "status",
+        "prompt",
+        "unfixed",
+        "results",
+        "critical",
+        "identified",
+        "wrapper",
+        "search"
+      ],
+      "type": "error-pattern",
+      "project": "openclaw",
+      "confidence": 0.65,
+      "sourceFile": "memory/clawsec-web-search-analysis.md",
+      "updatedAt": "2026-03-05T07:09:24.899Z"
+    },
+    {
+      "content": "Key Files\n\n```\nsrc/web_search_wrapper.py          # Main security wrapper\nsrc/encoded_attack_detector.py     # Encoding detection/decoding\nsrc/security_override_system.py    # Override + third-party validation\nsrc/web_search_openclaw.py         # OpenClaw integration (minimal)\nconfig/web_search_config.json      # Configuration template\ntests/test_web_search.py           # Security tests\ndocs/SECURITY_MODEL.md             # Architecture docs\n```",
+      "keywords": [
+        "src",
+        "web",
+        "search",
+        "security",
+        "wrapper",
+        "override",
+        "openclaw",
+        "config",
+        "tests",
+        "docs"
+      ],
+      "type": "code-pattern",
+      "project": "openclaw",
+      "confidence": 0.65,
+      "sourceFile": "memory/clawsec-web-search-analysis.md",
+      "updatedAt": "2026-03-05T07:09:24.899Z"
+    },
+    {
+      "content": "Integration Status\n\n- **Current:** Manual import required; no automatic enforcement\n- **Needed:** Middleware that wraps `web_search` tool at OpenClaw level\n- **Blocking:** OpenClaw tool system doesn't expose easy hook points for python wrappers\n\n---",
+      "keywords": [
+        "tool",
+        "openclaw",
+        "integration",
+        "status",
+        "current",
+        "manual",
+        "import",
+        "required",
+        "automatic",
+        "enforcement"
+      ],
+      "type": "fact",
+      "project": "openclaw",
+      "confidence": 0.65,
+      "sourceFile": "memory/clawsec-web-search-analysis.md",
+      "updatedAt": "2026-03-05T07:09:24.899Z"
+    },
+    {
+      "content": "Summary\n\nClawSec is well-engineered for its scope (input validation, encoding detection, override workflow, audit logging). However, it's not automatically integrated with OpenClaw's native tools, leaving a critical gap. The system would benefit from:\n\n1. Automatic enforcement (not manual import)\n2. Output monitoring (guard my responses)\n3. Typoglycemia detection (OWASP compliance)\n4. Structured prompt boundaries (USER_DATA_TO_PROCESS)\n\nThe codebase is production-ready for what it does; integration and enhancement work is needed for full hardening.",
+      "keywords": [
+        "detection",
+        "summary",
+        "clawsec",
+        "engineered",
+        "scope",
+        "input",
+        "validation",
+        "encoding",
+        "override",
+        "workflow"
+      ],
+      "type": "fact",
+      "project": "openclaw",
+      "confidence": 0.65,
+      "sourceFile": "memory/clawsec-web-search-analysis.md",
+      "updatedAt": "2026-03-05T07:09:24.899Z"
+    }
+  ],
+  "builtAt": "2026-03-05T07:09:24.901Z",
+  "sourceFiles": [
+    "memory/2026-03-03.md",
+    "memory/2026-03-04.md",
+    "memory/2026-03-05.md",
+    "memory/clawsec-quick-reference.md",
+    "memory/clawsec-security-audit-report.md",
+    "memory/clawsec-visual-summary.md",
+    "memory/clawsec-web-search-analysis.md"
+  ]
+}

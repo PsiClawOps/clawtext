@@ -6,28 +6,80 @@ const path = require('path');
 
 const LOG_PATH = path.resolve(process.cwd(), 'memory/thread-bridge-log.jsonl');
 
-async function createThread(forumChannelId, title, initialMessage) {
-  // openclaw message --action=thread-create --channel=<forumChannelId> --name="<title>" --message='<initialMessage>'
+async function createForumPost(forumChannelId, title, initialMessage) {
+  // For Discord forum channels (type 15) use the dedicated thread create subcommand
   const safeMsg = JSON.stringify(String(initialMessage || ''));
-  const cmd = `openclaw message --action=thread-create --channel=${forumChannelId} --name=${JSON.stringify(title || 'New Thread')} --message=${safeMsg}`;
+  const safeTitle = JSON.stringify(title || 'New Thread');
+  const cmd = `openclaw message thread create --channel discord --target channel:${forumChannelId} --thread-name=${safeTitle} -m ${safeMsg} --json`;
   try {
     const { stdout } = await execp(cmd, { timeout: 20000 });
     try {
       const parsed = JSON.parse(stdout);
-      const id = parsed.id || (parsed.thread && parsed.thread.id) || parsed.thread_id;
-      const url = parsed.url || parsed.thread && parsed.thread.url;
+      // thread info may be under parsed.thread or parsed.channel
+      const id = parsed.id || (parsed.thread && parsed.thread.id) || (parsed.channel && parsed.channel.id) || parsed.thread_id;
+      const url = parsed.url || (parsed.thread && parsed.thread.url) || (parsed.channel && parsed.channel.url);
       return { id, url, raw: parsed };
     } catch (e) {
       return { id: null, url: null, raw: stdout };
     }
   } catch (err) {
-    throw new Error(`Failed to create thread: ${err.message}`);
+    throw new Error(`Failed to create forum post: ${err.message}`);
+  }
+}
+
+async function createChannelThread(channelId, title, initialMessage) {
+  const safeMsg = JSON.stringify(String(initialMessage || ''));
+  const safeTitle = JSON.stringify(title || 'New Thread');
+  const cmd = `openclaw message thread create --channel discord --target channel:${channelId} --thread-name=${safeTitle} -m ${safeMsg} --json`;
+  try {
+    const { stdout } = await execp(cmd, { timeout: 20000 });
+    try {
+      const parsed = JSON.parse(stdout);
+      const id = parsed.id || (parsed.thread && parsed.thread.id) || (parsed.channel && parsed.channel.id) || parsed.thread_id;
+      const url = parsed.url || (parsed.thread && parsed.thread.url) || (parsed.channel && parsed.channel.url);
+      return { id, url, raw: parsed };
+    } catch (e) {
+      return { id: null, url: null, raw: stdout };
+    }
+  } catch (err) {
+    throw new Error(`Failed to create channel thread: ${err.message}`);
+  }
+}
+
+async function createThread(targetChannelId, title, initialMessage) {
+  // Backwards-compatible wrapper: try to detect channel type and pick forum vs channel thread
+  try {
+    const infoCmd = `openclaw message channel info --channel discord --target channel:${targetChannelId} --json`;
+    const { stdout } = await execp(infoCmd, { timeout: 8000 });
+    const parsed = JSON.parse(stdout);
+    const ch = parsed && parsed.channel;
+    if (ch && (ch.type === 15 || ch.type === 'GUILD_FORUM' || ch.type_name === 'GUILD_FORUM')) {
+      return await createForumPost(targetChannelId, title, initialMessage);
+    }
+    // default: channel thread
+    return await createChannelThread(targetChannelId, title, initialMessage);
+  } catch (err) {
+    // If we couldn't determine type, default to forum post (safe for our callers) but still try
+    return await createForumPost(targetChannelId, title, initialMessage);
+  }
+}
+
+async function verifyThreadInForum(threadId, expectedForumId) {
+  // Validate that thread's parent_id matches expected forum
+  const cmd = `openclaw message channel info --channel discord --target channel:${threadId} --json`;
+  try {
+    const { stdout } = await execp(cmd, { timeout: 8000 });
+    const parsed = JSON.parse(stdout);
+    const parent = parsed && parsed.channel && parsed.channel.parent_id;
+    return String(parent) === String(expectedForumId);
+  } catch (err) {
+    return false;
   }
 }
 
 async function nextPartNumber(forumChannelId, sourceTitle) {
   // Best-effort: query recent threads in forum and count parts
-  const cmd = `openclaw message --action=list --channel=${forumChannelId} --limit=50`;
+  const cmd = `openclaw message thread list --channel discord --channel-id ${forumChannelId} --limit 50 --json`;
   try {
     const { stdout } = await execp(cmd, { timeout: 8000 });
     let parsed;
@@ -49,7 +101,7 @@ async function nextPartNumber(forumChannelId, sourceTitle) {
   }
 }
 
-function escapeRegex(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+function escapeRegex(s) { return s.replace(/[.*+?^${}()|[\\]\\/g, '\\\\$&'); }
 
 function buildThreadUrl(forumId, threadId) {
   // Best-effort constructing Discord URL
@@ -75,4 +127,4 @@ async function logOperation(obj) {
   }
 }
 
-module.exports = { createThread, nextPartNumber, buildThreadUrl, autoTitleFromSummary, logOperation };
+module.exports = { createForumPost, createChannelThread, createThread, verifyThreadInForum, nextPartNumber, buildThreadUrl, autoTitleFromSummary, logOperation };

@@ -1,11 +1,11 @@
 {
   "version": 1,
-  "updatedAt": "2026-03-03T18:07:27.967Z",
+  "updatedAt": "2026-03-05T04:11:37.300Z",
   "signals": {
     "ragesaq": {
-      "count": 124,
-      "lastSeen": "2026-03-03T18:01:04.878Z",
-      "sessions": 62.5
+      "count": 383,
+      "lastSeen": "2026-03-05T04:11:21.869Z",
+      "sessions": 192
     },
     "pluins": {
       "count": 1,
@@ -18,9 +18,9 @@
       "sessions": 1
     },
     "enabled": {
-      "count": 723,
-      "lastSeen": "2026-03-03T18:05:01.479Z",
-      "sessions": 362
+      "count": 945,
+      "lastSeen": "2026-03-04T18:05:01.537Z",
+      "sessions": 473
     },
     "whitelist": {
       "count": 1,
@@ -28,114 +28,114 @@
       "sessions": 1
     },
     "smoothing": {
-      "count": 464,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 232.5
+      "count": 575,
+      "lastSeen": "2026-03-04T23:23:38.143Z",
+      "sessions": 288
     },
     "development": {
-      "count": 74,
-      "lastSeen": "2026-03-03T18:01:04.878Z",
-      "sessions": 37.5
+      "count": 104,
+      "lastSeen": "2026-03-04T10:13:09.654Z",
+      "sessions": 52.5
     },
     "fresh": {
-      "count": 40,
-      "lastSeen": "2026-03-03T18:01:04.878Z",
-      "sessions": 20.5
+      "count": 58,
+      "lastSeen": "2026-03-04T01:37:29.966Z",
+      "sessions": 29.5
     },
     "master": {
-      "count": 6,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 3.5
+      "count": 9,
+      "lastSeen": "2026-03-04T01:37:29.966Z",
+      "sessions": 5
     },
     "toggle": {
-      "count": 6,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 3.5
+      "count": 9,
+      "lastSeen": "2026-03-04T01:37:29.966Z",
+      "sessions": 5
     },
     "model": {
-      "count": 14,
-      "lastSeen": "2026-03-03T18:01:04.878Z",
-      "sessions": 7.5
+      "count": 84,
+      "lastSeen": "2026-03-05T03:11:33.327Z",
+      "sessions": 42.5
     },
     "iterations": {
-      "count": 6,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 3.5
+      "count": 9,
+      "lastSeen": "2026-03-04T01:37:29.966Z",
+      "sessions": 5
     },
     "updated": {
-      "count": 27,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 14
+      "count": 38,
+      "lastSeen": "2026-03-04T19:28:06.709Z",
+      "sessions": 19.5
     },
     "scale": {
-      "count": 7,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 4
+      "count": 10,
+      "lastSeen": "2026-03-04T01:37:29.966Z",
+      "sessions": 5.5
     },
     "gravity": {
-      "count": 6,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 3.5
+      "count": 9,
+      "lastSeen": "2026-03-04T01:37:29.966Z",
+      "sessions": 5
     },
     "compensation": {
-      "count": 6,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 3.5
+      "count": 9,
+      "lastSeen": "2026-03-04T01:37:29.966Z",
+      "sessions": 5
     },
     "controller": {
-      "count": 416,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 208.5
+      "count": 554,
+      "lastSeen": "2026-03-04T23:24:57.567Z",
+      "sessions": 277.5
     },
     "eliminate": {
-      "count": 6,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 3.5
+      "count": 9,
+      "lastSeen": "2026-03-04T01:37:29.966Z",
+      "sessions": 5
     },
     "frequency": {
-      "count": 6,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 3.5
+      "count": 9,
+      "lastSeen": "2026-03-04T01:37:29.966Z",
+      "sessions": 5
     },
     "jitter": {
-      "count": 6,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 3.5
+      "count": 9,
+      "lastSeen": "2026-03-04T01:37:29.966Z",
+      "sessions": 5
     },
     "filtering": {
-      "count": 6,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 3.5
+      "count": 18,
+      "lastSeen": "2026-03-05T04:11:21.869Z",
+      "sessions": 9.5
     },
     "oneeuro": {
-      "count": 34,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 17.5
+      "count": 42,
+      "lastSeen": "2026-03-04T01:37:29.966Z",
+      "sessions": 21.5
     },
     "algorithm": {
-      "count": 6,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 3.5
+      "count": 9,
+      "lastSeen": "2026-03-04T01:37:29.966Z",
+      "sessions": 5
     },
     "devices": {
-      "count": 52,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 26.5
+      "count": 64,
+      "lastSeen": "2026-03-04T01:37:29.966Z",
+      "sessions": 32.5
     },
     "device": {
-      "count": 1391,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 696
+      "count": 1732,
+      "lastSeen": "2026-03-04T01:37:29.966Z",
+      "sessions": 866.5
     },
     "right": {
-      "count": 167,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 84
+      "count": 178,
+      "lastSeen": "2026-03-04T19:28:06.709Z",
+      "sessions": 89.5
     },
     "projects": {
-      "count": 22,
-      "lastSeen": "2026-03-03T18:01:04.878Z",
-      "sessions": 11.5
+      "count": 59,
+      "lastSeen": "2026-03-05T04:11:21.869Z",
+      "sessions": 30
     },
     "uninstalled": {
       "count": 3,
@@ -143,9 +143,9 @@
       "sessions": 2
     },
     "version": {
-      "count": 25,
-      "lastSeen": "2026-03-03T18:05:01.479Z",
-      "sessions": 13
+      "count": 39,
+      "lastSeen": "2026-03-05T04:11:21.869Z",
+      "sessions": 20
     },
     "launched": {
       "count": 3,
@@ -153,9 +153,9 @@
       "sessions": 2
     },
     "steamvr": {
-      "count": 6,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 3.5
+      "count": 7,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 4
     },
     "opened": {
       "count": 5,
@@ -163,14 +163,14 @@
       "sessions": 3
     },
     "still": {
-      "count": 7,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 4
+      "count": 12,
+      "lastSeen": "2026-03-04T19:28:06.709Z",
+      "sessions": 6.5
     },
     "controllers": {
-      "count": 230,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 115.5
+      "count": 289,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 145
     },
     "listed": {
       "count": 3,
@@ -178,9 +178,9 @@
       "sessions": 2
     },
     "strength": {
-      "count": 903,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 452
+      "count": 1161,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 581
     },
     "clicked": {
       "count": 3,
@@ -188,9 +188,9 @@
       "sessions": 2
     },
     "diagnostic": {
-      "count": 4,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 2.5
+      "count": 7,
+      "lastSeen": "2026-03-04T23:23:38.143Z",
+      "sessions": 4
     },
     "discernable": {
       "count": 4,
@@ -203,34 +203,34 @@
       "sessions": 2
     },
     "media": {
-      "count": 53,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 27
+      "count": 67,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 34
     },
     "attached": {
-      "count": 15,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 8
+      "count": 19,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 10
     },
     "lumadmin": {
-      "count": 25,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 13
+      "count": 35,
+      "lastSeen": "2026-03-05T03:58:09.167Z",
+      "sessions": 18
     },
     "openclaw": {
-      "count": 44,
-      "lastSeen": "2026-03-03T18:01:04.878Z",
-      "sessions": 22.5
+      "count": 123,
+      "lastSeen": "2026-03-05T03:58:09.167Z",
+      "sessions": 62
     },
     "inbound": {
-      "count": 24,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 12.5
+      "count": 30,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 15.5
     },
     "plain": {
-      "count": 25,
-      "lastSeen": "2026-03-03T18:05:01.479Z",
-      "sessions": 13
+      "count": 34,
+      "lastSeen": "2026-03-05T03:11:33.327Z",
+      "sessions": 17.5
     },
     "ccdaee23": {
       "count": 3,
@@ -243,834 +243,834 @@
       "sessions": 2
     },
     "image": {
-      "count": 9,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 5
+      "count": 12,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 6.5
     },
     "prefer": {
-      "count": 3,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 2
+      "count": 6,
+      "lastSeen": "2026-03-04T18:14:40.582Z",
+      "sessions": 3.5
     },
     "filepath": {
-      "count": 3,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 2
+      "count": 4,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 2.5
     },
     "inline": {
-      "count": 3,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 2
+      "count": 4,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 2.5
     },
     "https": {
-      "count": 4,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 2.5
+      "count": 7,
+      "lastSeen": "2026-03-04T10:11:48.187Z",
+      "sessions": 4
     },
     "spaces": {
-      "count": 3,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 2
+      "count": 4,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 2.5
     },
     "quote": {
-      "count": 3,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 2
+      "count": 4,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 2.5
     },
     "needed": {
-      "count": 9,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 5
+      "count": 29,
+      "lastSeen": "2026-03-05T03:58:01.183Z",
+      "sessions": 15
     },
     "relative": {
-      "count": 3,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 2
+      "count": 4,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 2.5
     },
     "absolute": {
-      "count": 3,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 2
+      "count": 4,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 2.5
     },
     "paths": {
-      "count": 9,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 5
-    },
-    "blocked": {
-      "count": 3,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 2
-    },
-    "security": {
-      "count": 3,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 2
-    },
-    "caption": {
-      "count": 3,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 2
-    },
-    "document": {
-      "count": 2,
-      "lastSeen": "2026-03-03T16:54:36.828Z",
-      "sessions": 1.5
-    },
-    "entry": {
-      "count": 3,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 2
-    },
-    "point": {
-      "count": 3,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 2
-    },
-    "starting": {
       "count": 13,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
+      "lastSeen": "2026-03-04T10:12:15.239Z",
       "sessions": 7
     },
-    "argument": {
-      "count": 6,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 3.5
-    },
-    "parsing": {
-      "count": 6,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 3.5
-    },
-    "exited": {
-      "count": 3,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 2
-    },
-    "enter": {
-      "count": 3,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 2
-    },
-    "block": {
-      "count": 9,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 5
-    },
-    "startup": {
-      "count": 69,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 35
-    },
-    "entered": {
-      "count": 6,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 3.5
-    },
-    "desktopmode": {
-      "count": 3,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 2
-    },
-    "qapplication": {
-      "count": 6,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 3.5
-    },
-    "created": {
-      "count": 11,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 6
-    },
-    "directory": {
-      "count": 8,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 4.5
-    },
-    "program": {
-      "count": 16,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 8.5
-    },
-    "organization": {
-      "count": 6,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 3.5
-    },
-    "double": {
-      "count": 3,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 2
-    },
-    "nesting": {
-      "count": 3,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 2
-    },
-    "application": {
-      "count": 15,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 8
-    },
-    "setting": {
-      "count": 7,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 4
-    },
-    "display": {
+    "blocked": {
       "count": 4,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
+      "lastSeen": "2026-03-03T19:38:24.536Z",
       "sessions": 2.5
     },
-    "installing": {
-      "count": 3,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 2
-    },
-    "handler": {
-      "count": 6,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 3.5
-    },
-    "logging": {
-      "count": 3,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 2
-    },
-    "applogger": {
-      "count": 3,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 2
-    },
-    "initialized": {
-      "count": 18,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 9.5
-    },
-    "users": {
-      "count": 16,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 8.5
-    },
-    "appdata": {
-      "count": 15,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 8
-    },
-    "moving": {
-      "count": 3,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 2
-    },
-    "creating": {
-      "count": 3,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 2
-    },
-    "qsettings": {
-      "count": 9,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 5
-    },
-    "engine": {
-      "count": 3,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 2
-    },
-    "import": {
-      "count": 3,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 2
-    },
-    "overlaycontroller": {
-      "count": 3,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 2
-    },
-    "shutdown": {
-      "count": 6,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 3.5
-    },
-    "normal": {
-      "count": 3,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 2
-    },
-    "letting": {
-      "count": 3,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 2
-    },
-    "clean": {
-      "count": 3,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 2
-    },
-    "openvr": {
-      "count": 28,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 14.5
-    },
-    "emulator": {
-      "count": 3,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 2
-    },
-    "gamestatestore": {
-      "count": 11,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 6
-    },
-    "state": {
-      "count": 46,
-      "lastSeen": "2026-03-03T18:05:01.479Z",
-      "sessions": 23.5
-    },
-    "management": {
-      "count": 3,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 2
-    },
-    "gameprofilecontroller": {
-      "count": 28,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 14.5
-    },
-    "initstage1": {
-      "count": 3,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 2
-    },
-    "debug": {
-      "count": 598,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 299.5
-    },
-    "trackers": {
-      "count": 168,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 84.5
-    },
-    "startgamedetection": {
-      "count": 3,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 2
-    },
-    "called": {
-      "count": 270,
-      "lastSeen": "2026-03-03T18:01:04.878Z",
-      "sessions": 135.5
-    },
-    "delegated": {
-      "count": 3,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 2
-    },
-    "gamedetector": {
-      "count": 376,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 188.5
-    },
-    "statestore": {
-      "count": 3,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 2
-    },
-    "architecture": {
-      "count": 24,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 12.5
-    },
-    "attempting": {
-      "count": 3,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 2
-    },
-    "dashboard": {
-      "count": 31,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 16
-    },
-    "thumbnail": {
-      "count": 6,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 3.5
-    },
-    "thumbicon": {
-      "count": 3,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 2
-    },
-    "loaded": {
-      "count": 11,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 6
-    },
-    "successfully": {
-      "count": 11,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 6
-    },
-    "connecting": {
-      "count": 3,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 2
-    },
-    "render": {
-      "count": 9,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 5
-    },
-    "control": {
-      "count": 6,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 3.5
-    },
-    "signals": {
-      "count": 6,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 3.5
-    },
-    "connected": {
-      "count": 9,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 5
-    },
-    "initial": {
-      "count": 10,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 5.5
-    },
-    "scheduled": {
+    "security": {
       "count": 4,
-      "lastSeen": "2026-03-03T18:07:26.860Z",
+      "lastSeen": "2026-03-03T19:38:24.536Z",
       "sessions": 2.5
     },
-    "driver": {
-      "count": 244,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 122.5
-    },
-    "rgcsclient": {
-      "count": 3,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 2
-    },
-    "resolver": {
+    "caption": {
       "count": 4,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
+      "lastSeen": "2026-03-03T19:38:24.536Z",
       "sessions": 2.5
     },
-    "falling": {
-      "count": 4,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 2.5
-    },
-    "default": {
-      "count": 12,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 6.5
-    },
-    "initstage2": {
-      "count": 6,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 3.5
-    },
-    "store": {
-      "count": 20,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 10.5
-    },
-    "profilemanager": {
-      "count": 3,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 2
-    },
-    "contractors": {
-      "count": 153,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 77
-    },
-    "showdown": {
-      "count": 153,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 77
-    },
-    "abbreviation": {
-      "count": 3,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 2
-    },
-    "displayname": {
-      "count": 3,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 2
-    },
-    "exfil": {
-      "count": 3,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 2
-    },
-    "wired": {
-      "count": 6,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 3.5
-    },
-    "listening": {
-      "count": 3,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 2
-    },
-    "activegamechanged": {
-      "count": 3,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 2
-    },
-    "equippedweaponchanged": {
-      "count": 3,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 2
-    },
-    "gamerunningchanged": {
-      "count": 3,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 2
-    },
-    "enumeration": {
-      "count": 3,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 2
-    },
-    "completed": {
-      "count": 6,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 3.5
-    },
-    "initializing": {
-      "count": 6,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 3.5
-    },
-    "detection": {
-      "count": 46,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 23.5
-    },
-    "gamedatabase": {
-      "count": 3,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 2
-    },
-    "found": {
-      "count": 6,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 3.5
-    },
-    "steamapps": {
-      "count": 12,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 6.5
-    },
-    "common": {
-      "count": 12,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 6.5
-    },
-    "exfilzone": {
-      "count": 23,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 12
-    },
-    "registered": {
-      "count": 63,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 32
-    },
-    "executable": {
-      "count": 6,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 3.5
-    },
-    "steam": {
-      "count": 30,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 15.5
-    },
-    "startdetection": {
-      "count": 3,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 2
-    },
-    "games": {
-      "count": 3,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 2
-    },
-    "installations": {
-      "count": 3,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 2
-    },
-    "performing": {
-      "count": 3,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 2
-    },
-    "performdetection": {
-      "count": 233,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 117
-    },
-    "timer": {
-      "count": 26,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 13.5
-    },
-    "started": {
-      "count": 20,
-      "lastSeen": "2026-03-03T18:01:04.878Z",
-      "sessions": 10.5
-    },
-    "polling": {
-      "count": 3,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 2
-    },
-    "every": {
-      "count": 4,
-      "lastSeen": "2026-03-03T18:07:26.860Z",
-      "sessions": 2.5
-    },
-    "roles": {
-      "count": 31,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 16
-    },
-    "defined": {
-      "count": 28,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 14.5
-    },
-    "enabling": {
-      "count": 3,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 2
-    },
-    "sequence": {
-      "count": 3,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 2
-    },
-    "secondary": {
-      "count": 3,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 2
-    },
-    "refresh": {
-      "count": 11,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 6
-    },
-    "missing": {
-      "count": 25,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 13
-    },
-    "detected": {
-      "count": 131,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 66
-    },
-    "triggering": {
-      "count": 3,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 2
-    },
-    "continuous": {
-      "count": 3,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 2
-    },
-    "retry": {
-      "count": 25,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 13
-    },
-    "interval": {
-      "count": 3,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 2
-    },
-    "timeout": {
-      "count": 3,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 2
-    },
-    "scanning": {
-      "count": 22,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 11.5
-    },
-    "required": {
-      "count": 4,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 2.5
-    },
-    "satisfied": {
-      "count": 3,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 2
-    },
-    "success": {
-      "count": 31,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 16
-    },
-    "after": {
-      "count": 14,
-      "lastSeen": "2026-03-03T18:01:04.878Z",
-      "sessions": 7.5
-    },
-    "retries": {
-      "count": 3,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 2
-    },
-    "seconds": {
-      "count": 3,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 2
-    },
-    "deactivated": {
-      "count": 10,
-      "lastSeen": "2026-03-03T16:54:36.828Z",
-      "sessions": 5.5
-    },
-    "button": {
-      "count": 87,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 44
-    },
-    "notified": {
+    "document": {
       "count": 5,
-      "lastSeen": "2026-03-03T16:54:36.828Z",
+      "lastSeen": "2026-03-04T10:25:15.439Z",
       "sessions": 3
     },
-    "activated": {
-      "count": 3,
-      "lastSeen": "2026-03-03T16:54:36.828Z",
-      "sessions": 2
+    "entry": {
+      "count": 6,
+      "lastSeen": "2026-03-04T10:25:15.439Z",
+      "sessions": 3.5
     },
-    "activation": {
-      "count": 3,
-      "lastSeen": "2026-03-03T16:54:36.828Z",
-      "sessions": 2
-    },
-    "events": {
-      "count": 140,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 70.5
-    },
-    "mousebuttondown": {
-      "count": 35,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 18
-    },
-    "mousebuttonpress": {
-      "count": 35,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 18
-    },
-    "accepted": {
-      "count": 70,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 35.5
-    },
-    "isaccepted": {
-      "count": 70,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 35.5
-    },
-    "mousebuttonup": {
-      "count": 35,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 18
-    },
-    "mousebuttonrelease": {
-      "count": 35,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 18
-    },
-    "applying": {
-      "count": 322,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 161.5
-    },
-    "change": {
-      "count": 15,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 8
-    },
-    "applysettings": {
-      "count": 15,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 8
-    },
-    "setsmoothingenabled": {
+    "point": {
       "count": 7,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
+      "lastSeen": "2026-03-05T02:54:28.591Z",
       "sessions": 4
     },
-    "tracked": {
+    "starting": {
+      "count": 17,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 9
+    },
+    "argument": {
+      "count": 8,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 4.5
+    },
+    "parsing": {
+      "count": 8,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 4.5
+    },
+    "exited": {
+      "count": 4,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 2.5
+    },
+    "enter": {
+      "count": 4,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 2.5
+    },
+    "block": {
+      "count": 12,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 6.5
+    },
+    "startup": {
+      "count": 92,
+      "lastSeen": "2026-03-04T09:38:41.502Z",
+      "sessions": 46.5
+    },
+    "entered": {
+      "count": 8,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 4.5
+    },
+    "desktopmode": {
+      "count": 4,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 2.5
+    },
+    "qapplication": {
+      "count": 8,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 4.5
+    },
+    "created": {
+      "count": 20,
+      "lastSeen": "2026-03-04T20:54:58.634Z",
+      "sessions": 10.5
+    },
+    "directory": {
+      "count": 12,
+      "lastSeen": "2026-03-04T19:31:52.205Z",
+      "sessions": 6.5
+    },
+    "program": {
+      "count": 20,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 10.5
+    },
+    "organization": {
+      "count": 8,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 4.5
+    },
+    "double": {
+      "count": 4,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 2.5
+    },
+    "nesting": {
+      "count": 4,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 2.5
+    },
+    "application": {
+      "count": 21,
+      "lastSeen": "2026-03-04T01:37:29.966Z",
+      "sessions": 11
+    },
+    "setting": {
+      "count": 9,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 5
+    },
+    "display": {
+      "count": 5,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 3
+    },
+    "installing": {
+      "count": 4,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 2.5
+    },
+    "handler": {
+      "count": 8,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 4.5
+    },
+    "logging": {
+      "count": 5,
+      "lastSeen": "2026-03-04T01:37:29.966Z",
+      "sessions": 3
+    },
+    "applogger": {
+      "count": 4,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 2.5
+    },
+    "initialized": {
       "count": 24,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
+      "lastSeen": "2026-03-03T19:38:24.536Z",
       "sessions": 12.5
     },
-    "applied": {
-      "count": 42,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 21.5
+    "users": {
+      "count": 44,
+      "lastSeen": "2026-03-04T10:25:15.439Z",
+      "sessions": 22.5
     },
-    "filtertype": {
-      "count": 24,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 12.5
+    "appdata": {
+      "count": 20,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 10.5
     },
-    "adaptive": {
-      "count": 24,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 12.5
+    "moving": {
+      "count": 4,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 2.5
     },
-    "written": {
-      "count": 24,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 12.5
+    "creating": {
+      "count": 4,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 2.5
     },
-    "shared": {
-      "count": 31,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 16
+    "qsettings": {
+      "count": 12,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 6.5
     },
-    "memory": {
-      "count": 98,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 49.5
+    "engine": {
+      "count": 4,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 2.5
     },
-    "applydiagnosticmaxsmoothing": {
+    "import": {
+      "count": 7,
+      "lastSeen": "2026-03-05T04:11:37.300Z",
+      "sessions": 4
+    },
+    "overlaycontroller": {
+      "count": 4,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 2.5
+    },
+    "shutdown": {
+      "count": 8,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 4.5
+    },
+    "normal": {
+      "count": 4,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 2.5
+    },
+    "letting": {
+      "count": 4,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 2.5
+    },
+    "clean": {
+      "count": 4,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 2.5
+    },
+    "openvr": {
+      "count": 36,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 18.5
+    },
+    "emulator": {
+      "count": 4,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 2.5
+    },
+    "gamestatestore": {
+      "count": 13,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 7
+    },
+    "state": {
+      "count": 62,
+      "lastSeen": "2026-03-04T18:05:01.537Z",
+      "sessions": 31.5
+    },
+    "management": {
+      "count": 4,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 2.5
+    },
+    "gameprofilecontroller": {
+      "count": 34,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 17.5
+    },
+    "initstage1": {
+      "count": 4,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 2.5
+    },
+    "debug": {
+      "count": 747,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 374
+    },
+    "trackers": {
+      "count": 219,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 110
+    },
+    "startgamedetection": {
+      "count": 4,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 2.5
+    },
+    "called": {
+      "count": 343,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 172
+    },
+    "delegated": {
+      "count": 4,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 2.5
+    },
+    "gamedetector": {
+      "count": 453,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 227
+    },
+    "statestore": {
+      "count": 4,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 2.5
+    },
+    "architecture": {
+      "count": 34,
+      "lastSeen": "2026-03-05T04:11:21.869Z",
+      "sessions": 17.5
+    },
+    "attempting": {
+      "count": 4,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 2.5
+    },
+    "dashboard": {
+      "count": 43,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 22
+    },
+    "thumbnail": {
+      "count": 8,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 4.5
+    },
+    "thumbicon": {
+      "count": 4,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 2.5
+    },
+    "loaded": {
+      "count": 14,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 7.5
+    },
+    "successfully": {
+      "count": 17,
+      "lastSeen": "2026-03-04T10:12:15.239Z",
+      "sessions": 9
+    },
+    "connecting": {
+      "count": 4,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 2.5
+    },
+    "render": {
+      "count": 12,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 6.5
+    },
+    "control": {
+      "count": 8,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 4.5
+    },
+    "signals": {
+      "count": 8,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 4.5
+    },
+    "connected": {
+      "count": 11,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 6
+    },
+    "initial": {
+      "count": 14,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 7.5
+    },
+    "scheduled": {
+      "count": 9,
+      "lastSeen": "2026-03-04T22:00:00.590Z",
+      "sessions": 5
+    },
+    "driver": {
+      "count": 247,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 124
+    },
+    "rgcsclient": {
+      "count": 4,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 2.5
+    },
+    "resolver": {
+      "count": 5,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 3
+    },
+    "falling": {
+      "count": 5,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 3
+    },
+    "default": {
+      "count": 20,
+      "lastSeen": "2026-03-05T03:00:17.128Z",
+      "sessions": 10.5
+    },
+    "initstage2": {
+      "count": 8,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 4.5
+    },
+    "store": {
+      "count": 38,
+      "lastSeen": "2026-03-05T03:58:01.183Z",
+      "sessions": 19.5
+    },
+    "profilemanager": {
+      "count": 4,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 2.5
+    },
+    "contractors": {
+      "count": 165,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 83
+    },
+    "showdown": {
+      "count": 165,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 83
+    },
+    "abbreviation": {
+      "count": 4,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 2.5
+    },
+    "displayname": {
+      "count": 4,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 2.5
+    },
+    "exfil": {
+      "count": 4,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 2.5
+    },
+    "wired": {
+      "count": 8,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 4.5
+    },
+    "listening": {
+      "count": 4,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 2.5
+    },
+    "activegamechanged": {
+      "count": 4,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 2.5
+    },
+    "equippedweaponchanged": {
+      "count": 4,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 2.5
+    },
+    "gamerunningchanged": {
+      "count": 4,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 2.5
+    },
+    "enumeration": {
+      "count": 4,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 2.5
+    },
+    "completed": {
       "count": 10,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
+      "lastSeen": "2026-03-04T10:12:15.239Z",
       "sessions": 5.5
     },
+    "initializing": {
+      "count": 8,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 4.5
+    },
+    "detection": {
+      "count": 55,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 28
+    },
+    "gamedatabase": {
+      "count": 4,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 2.5
+    },
+    "found": {
+      "count": 10,
+      "lastSeen": "2026-03-04T10:25:15.439Z",
+      "sessions": 5.5
+    },
+    "steamapps": {
+      "count": 14,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 7.5
+    },
+    "common": {
+      "count": 14,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 7.5
+    },
+    "exfilzone": {
+      "count": 27,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 14
+    },
+    "registered": {
+      "count": 84,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 42.5
+    },
+    "executable": {
+      "count": 8,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 4.5
+    },
+    "steam": {
+      "count": 33,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 17
+    },
+    "startdetection": {
+      "count": 4,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 2.5
+    },
+    "games": {
+      "count": 5,
+      "lastSeen": "2026-03-04T01:37:29.966Z",
+      "sessions": 3
+    },
+    "installations": {
+      "count": 5,
+      "lastSeen": "2026-03-05T03:00:17.128Z",
+      "sessions": 3
+    },
+    "performing": {
+      "count": 4,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 2.5
+    },
+    "performdetection": {
+      "count": 295,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 148
+    },
+    "timer": {
+      "count": 34,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 17.5
+    },
+    "started": {
+      "count": 26,
+      "lastSeen": "2026-03-04T09:38:41.502Z",
+      "sessions": 13.5
+    },
+    "polling": {
+      "count": 4,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 2.5
+    },
+    "every": {
+      "count": 9,
+      "lastSeen": "2026-03-05T02:56:18.431Z",
+      "sessions": 5
+    },
+    "roles": {
+      "count": 35,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 18
+    },
+    "defined": {
+      "count": 32,
+      "lastSeen": "2026-03-04T09:38:41.502Z",
+      "sessions": 16.5
+    },
+    "enabling": {
+      "count": 4,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 2.5
+    },
+    "sequence": {
+      "count": 5,
+      "lastSeen": "2026-03-04T09:38:41.502Z",
+      "sessions": 3
+    },
+    "secondary": {
+      "count": 4,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 2.5
+    },
+    "refresh": {
+      "count": 15,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 8
+    },
+    "missing": {
+      "count": 27,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 14
+    },
+    "detected": {
+      "count": 136,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 68.5
+    },
+    "triggering": {
+      "count": 4,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 2.5
+    },
+    "continuous": {
+      "count": 4,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 2.5
+    },
+    "retry": {
+      "count": 28,
+      "lastSeen": "2026-03-04T10:12:15.239Z",
+      "sessions": 14.5
+    },
+    "interval": {
+      "count": 4,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 2.5
+    },
+    "timeout": {
+      "count": 4,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 2.5
+    },
+    "scanning": {
+      "count": 23,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 12
+    },
+    "required": {
+      "count": 8,
+      "lastSeen": "2026-03-05T03:00:17.128Z",
+      "sessions": 4.5
+    },
+    "satisfied": {
+      "count": 4,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 2.5
+    },
+    "success": {
+      "count": 37,
+      "lastSeen": "2026-03-05T04:11:37.300Z",
+      "sessions": 19
+    },
+    "after": {
+      "count": 25,
+      "lastSeen": "2026-03-04T23:24:57.567Z",
+      "sessions": 13
+    },
+    "retries": {
+      "count": 4,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 2.5
+    },
+    "seconds": {
+      "count": 4,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 2.5
+    },
+    "deactivated": {
+      "count": 16,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 8.5
+    },
+    "button": {
+      "count": 104,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 52.5
+    },
+    "notified": {
+      "count": 8,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 4.5
+    },
+    "activated": {
+      "count": 5,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 3
+    },
+    "activation": {
+      "count": 5,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 3
+    },
+    "events": {
+      "count": 164,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 82.5
+    },
+    "mousebuttondown": {
+      "count": 41,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 21
+    },
+    "mousebuttonpress": {
+      "count": 41,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 21
+    },
+    "accepted": {
+      "count": 82,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 41.5
+    },
+    "isaccepted": {
+      "count": 82,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 41.5
+    },
+    "mousebuttonup": {
+      "count": 41,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 21
+    },
+    "mousebuttonrelease": {
+      "count": 41,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 21
+    },
+    "applying": {
+      "count": 340,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 170.5
+    },
+    "change": {
+      "count": 18,
+      "lastSeen": "2026-03-04T21:02:37.737Z",
+      "sessions": 9.5
+    },
+    "applysettings": {
+      "count": 18,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 9.5
+    },
+    "setsmoothingenabled": {
+      "count": 9,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 5
+    },
+    "tracked": {
+      "count": 28,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 14.5
+    },
+    "applied": {
+      "count": 52,
+      "lastSeen": "2026-03-04T01:51:52.236Z",
+      "sessions": 26.5
+    },
+    "filtertype": {
+      "count": 28,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 14.5
+    },
+    "adaptive": {
+      "count": 29,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 15
+    },
+    "written": {
+      "count": 28,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 14.5
+    },
+    "shared": {
+      "count": 38,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 19.5
+    },
+    "memory": {
+      "count": 145,
+      "lastSeen": "2026-03-05T04:11:21.869Z",
+      "sessions": 73
+    },
+    "applydiagnosticmaxsmoothing": {
+      "count": 12,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 6.5
+    },
     "effcutoff": {
-      "count": 7,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 4
+      "count": 8,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 4.5
     },
     "gunstock": {
-      "count": 8,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 4.5
+      "count": 9,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 5
     },
     "sharedmemoryipc": {
       "count": 7,
@@ -1108,9 +1108,9 @@
       "sessions": 4.5
     },
     "source": {
-      "count": 8,
-      "lastSeen": "2026-03-03T16:54:36.828Z",
-      "sessions": 4.5
+      "count": 15,
+      "lastSeen": "2026-03-04T23:24:57.567Z",
+      "sessions": 8
     },
     "deactivate": {
       "count": 5,
@@ -1158,294 +1158,294 @@
       "sessions": 1
     },
     "event": {
-      "count": 1,
-      "lastSeen": "2026-03-03T16:10:53.928Z",
-      "sessions": 1
+      "count": 3,
+      "lastSeen": "2026-03-04T10:12:15.239Z",
+      "sessions": 2
     },
     "session": {
-      "count": 11,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 6
+      "count": 32,
+      "lastSeen": "2026-03-05T04:11:37.300Z",
+      "sessions": 16.5
     },
     "manager": {
-      "count": 3,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 2
+      "count": 4,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 2.5
     },
     "ivrdrivercontext": {
-      "count": 3,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 2
+      "count": 4,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 2.5
     },
     "getgenericinterface": {
-      "count": 3,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 2
+      "count": 4,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 2.5
     },
     "intercepted": {
-      "count": 3,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 2
+      "count": 4,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 2.5
     },
     "ivrserverdriverhost": {
-      "count": 3,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 2
+      "count": 4,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 2.5
     },
     "server": {
-      "count": 7,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 4
+      "count": 27,
+      "lastSeen": "2026-03-05T03:00:17.128Z",
+      "sessions": 14
     },
     "named": {
-      "count": 7,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 4
+      "count": 10,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 5.5
     },
     "loading": {
-      "count": 7,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 4
+      "count": 9,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 5
     },
     "profile": {
-      "count": 20,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 10.5
+      "count": 23,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 12
     },
     "profiles": {
-      "count": 4,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 2.5
+      "count": 5,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 3
     },
     "schemaversion": {
-      "count": 3,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 2
+      "count": 4,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 2.5
     },
     "fileversion": {
-      "count": 3,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 2
+      "count": 4,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 2.5
     },
     "assigned": {
-      "count": 12,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 6.5
+      "count": 16,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 8.5
     },
     "invalidated": {
-      "count": 3,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 2
+      "count": 4,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 2.5
     },
     "added": {
-      "count": 21,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 11
-    },
-    "class": {
-      "count": 712,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 356.5
-    },
-    "serial": {
-      "count": 42,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 21.5
-    },
-    "openvrid": {
-      "count": 21,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 11
-    },
-    "pending": {
-      "count": 21,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 11
-    },
-    "effectiveconfig": {
-      "count": 646,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 323.5
-    },
-    "mincutoff": {
-      "count": 699,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 350
-    },
-    "dcutoff": {
-      "count": 699,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 350
-    },
-    "hasshmconfig": {
-      "count": 646,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 323.5
-    },
-    "other": {
-      "count": 68,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 34.5
-    },
-    "deviceid": {
-      "count": 101,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 51
-    },
-    "count": {
-      "count": 43,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 22
-    },
-    "joystick": {
-      "count": 30,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 15.5
-    },
-    "component": {
-      "count": 30,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 15.5
-    },
-    "trackpad": {
-      "count": 18,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 9.5
-    },
-    "handle": {
-      "count": 31,
-      "lastSeen": "2026-03-03T18:07:26.860Z",
-      "sessions": 16
-    },
-    "force": {
-      "count": 6,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 3.5
-    },
-    "thumbstick": {
-      "count": 12,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 6.5
-    },
-    "setcalibrationactive": {
-      "count": 6,
-      "lastSeen": "2026-03-03T16:54:36.828Z",
-      "sessions": 3.5
-    },
-    "changed": {
-      "count": 71,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 36
-    },
-    "params": {
       "count": 28,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
+      "lastSeen": "2026-03-03T19:38:24.536Z",
       "sessions": 14.5
     },
+    "class": {
+      "count": 940,
+      "lastSeen": "2026-03-04T10:25:15.439Z",
+      "sessions": 470.5
+    },
+    "serial": {
+      "count": 56,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 28.5
+    },
+    "openvrid": {
+      "count": 28,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 14.5
+    },
+    "pending": {
+      "count": 28,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 14.5
+    },
+    "effectiveconfig": {
+      "count": 850,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 425.5
+    },
+    "mincutoff": {
+      "count": 917,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 459
+    },
+    "dcutoff": {
+      "count": 917,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 459
+    },
+    "hasshmconfig": {
+      "count": 850,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 425.5
+    },
+    "other": {
+      "count": 85,
+      "lastSeen": "2026-03-04T10:12:15.239Z",
+      "sessions": 43
+    },
+    "deviceid": {
+      "count": 133,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 67
+    },
+    "count": {
+      "count": 56,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 28.5
+    },
+    "joystick": {
+      "count": 40,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 20.5
+    },
+    "component": {
+      "count": 40,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 20.5
+    },
+    "trackpad": {
+      "count": 24,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 12.5
+    },
+    "handle": {
+      "count": 44,
+      "lastSeen": "2026-03-04T22:00:00.590Z",
+      "sessions": 22.5
+    },
+    "force": {
+      "count": 8,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 4.5
+    },
+    "thumbstick": {
+      "count": 16,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 8.5
+    },
+    "setcalibrationactive": {
+      "count": 10,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 5.5
+    },
+    "changed": {
+      "count": 93,
+      "lastSeen": "2026-03-04T01:49:53.461Z",
+      "sessions": 47
+    },
+    "params": {
+      "count": 33,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 17
+    },
     "delta": {
-      "count": 128,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 64.5
+      "count": 151,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 76
     },
     "posdeltamm": {
-      "count": 128,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 64.5
+      "count": 151,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 76
     },
     "rotdeltadeg": {
-      "count": 128,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 64.5
+      "count": 151,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 76
     },
     "cleanup": {
-      "count": 24,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 12.5
+      "count": 36,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 18.5
     },
     "shuttingdown": {
-      "count": 2,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 1.5
+      "count": 3,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 2
     },
     "removing": {
-      "count": 2,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 1.5
+      "count": 3,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 2
     },
     "removed": {
-      "count": 3,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 2
+      "count": 4,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 2.5
     },
     "delay": {
-      "count": 2,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 1.5
-    },
-    "complete": {
-      "count": 4,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 2.5
-    },
-    "stopping": {
-      "count": 4,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 2.5
-    },
-    "stopped": {
-      "count": 4,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 2.5
-    },
-    "clearing": {
-      "count": 2,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 1.5
-    },
-    "tracking": {
-      "count": 4,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 2.5
-    },
-    "cleared": {
       "count": 3,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
+      "lastSeen": "2026-03-03T19:38:24.536Z",
       "sessions": 2
     },
+    "complete": {
+      "count": 6,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 3.5
+    },
+    "stopping": {
+      "count": 6,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 3.5
+    },
+    "stopped": {
+      "count": 6,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 3.5
+    },
+    "clearing": {
+      "count": 3,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 2
+    },
+    "tracking": {
+      "count": 7,
+      "lastSeen": "2026-03-05T04:11:37.300Z",
+      "sessions": 4
+    },
+    "cleared": {
+      "count": 4,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 2.5
+    },
     "smoothingtelemetry": {
-      "count": 24,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 12.5
+      "count": 33,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 17
     },
     "samples": {
-      "count": 25,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 13
+      "count": 34,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 17.5
     },
     "avgposdeltamm": {
-      "count": 25,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 13
+      "count": 34,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 17.5
     },
     "maxposdeltamm": {
-      "count": 25,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 13
+      "count": 34,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 17.5
     },
     "avgrotdeltadeg": {
-      "count": 25,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 13
+      "count": 34,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 17.5
     },
     "maxrotdeltadeg": {
-      "count": 25,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 13
+      "count": 34,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 17.5
     },
     "estvel": {
-      "count": 25,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 13
+      "count": 34,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 17.5
     },
     "rethinking": {
       "count": 1,
@@ -1473,9 +1473,9 @@
       "sessions": 2.5
     },
     "because": {
-      "count": 2,
-      "lastSeen": "2026-03-03T16:20:30.811Z",
-      "sessions": 1.5
+      "count": 5,
+      "lastSeen": "2026-03-04T18:21:36.069Z",
+      "sessions": 3
     },
     "situation": {
       "count": 1,
@@ -1493,14 +1493,14 @@
       "sessions": 1
     },
     "level": {
-      "count": 2,
-      "lastSeen": "2026-03-03T17:38:18.006Z",
-      "sessions": 1.5
+      "count": 13,
+      "lastSeen": "2026-03-03T19:11:45.754Z",
+      "sessions": 7
     },
     "probably": {
-      "count": 1,
-      "lastSeen": "2026-03-03T16:20:30.811Z",
-      "sessions": 1
+      "count": 2,
+      "lastSeen": "2026-03-03T19:07:32.148Z",
+      "sessions": 1.5
     },
     "widely": {
       "count": 1,
@@ -1533,9 +1533,9 @@
       "sessions": 1
     },
     "global": {
-      "count": 8,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 4.5
+      "count": 9,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 5
     },
     "values": {
       "count": 234,
@@ -1543,14 +1543,14 @@
       "sessions": 117.5
     },
     "lower": {
-      "count": 1,
-      "lastSeen": "2026-03-03T16:20:30.811Z",
-      "sessions": 1
+      "count": 2,
+      "lastSeen": "2026-03-05T03:00:17.128Z",
+      "sessions": 1.5
     },
     "think": {
-      "count": 1,
-      "lastSeen": "2026-03-03T16:20:30.811Z",
-      "sessions": 1
+      "count": 5,
+      "lastSeen": "2026-03-05T03:00:17.128Z",
+      "sessions": 3
     },
     "autostart": {
       "count": 2,
@@ -1563,84 +1563,84 @@
       "sessions": 1
     },
     "enable": {
-      "count": 1,
-      "lastSeen": "2026-03-03T16:20:30.811Z",
-      "sessions": 1
-    },
-    "compaction": {
-      "count": 5,
-      "lastSeen": "2026-03-03T17:56:50.664Z",
-      "sessions": 3
-    },
-    "flush": {
-      "count": 5,
-      "lastSeen": "2026-03-03T17:56:50.664Z",
-      "sessions": 3
-    },
-    "durable": {
-      "count": 5,
-      "lastSeen": "2026-03-03T17:56:50.664Z",
-      "sessions": 3
-    },
-    "memories": {
-      "count": 8,
-      "lastSeen": "2026-03-03T17:56:50.664Z",
-      "sessions": 4.5
-    },
-    "important": {
-      "count": 5,
-      "lastSeen": "2026-03-03T17:56:50.664Z",
-      "sessions": 3
-    },
-    "already": {
-      "count": 5,
-      "lastSeen": "2026-03-03T17:56:50.664Z",
-      "sessions": 3
-    },
-    "exists": {
-      "count": 6,
-      "lastSeen": "2026-03-03T18:07:27.967Z",
-      "sessions": 3.5
-    },
-    "append": {
-      "count": 5,
-      "lastSeen": "2026-03-03T17:56:50.664Z",
-      "sessions": 3
-    },
-    "content": {
-      "count": 7,
-      "lastSeen": "2026-03-03T18:07:26.860Z",
-      "sessions": 4
-    },
-    "overwrite": {
-      "count": 5,
-      "lastSeen": "2026-03-03T17:56:50.664Z",
-      "sessions": 3
-    },
-    "existing": {
       "count": 9,
-      "lastSeen": "2026-03-03T17:56:50.664Z",
+      "lastSeen": "2026-03-05T04:11:21.869Z",
       "sessions": 5
     },
+    "compaction": {
+      "count": 13,
+      "lastSeen": "2026-03-05T03:58:01.183Z",
+      "sessions": 7
+    },
+    "flush": {
+      "count": 13,
+      "lastSeen": "2026-03-05T03:58:01.183Z",
+      "sessions": 7
+    },
+    "durable": {
+      "count": 13,
+      "lastSeen": "2026-03-05T03:58:01.183Z",
+      "sessions": 7
+    },
+    "memories": {
+      "count": 16,
+      "lastSeen": "2026-03-05T03:58:01.183Z",
+      "sessions": 8.5
+    },
+    "important": {
+      "count": 14,
+      "lastSeen": "2026-03-05T03:58:01.183Z",
+      "sessions": 7.5
+    },
+    "already": {
+      "count": 15,
+      "lastSeen": "2026-03-05T03:58:01.183Z",
+      "sessions": 8
+    },
+    "exists": {
+      "count": 14,
+      "lastSeen": "2026-03-05T03:58:01.183Z",
+      "sessions": 7.5
+    },
+    "append": {
+      "count": 13,
+      "lastSeen": "2026-03-05T03:58:01.183Z",
+      "sessions": 7
+    },
+    "content": {
+      "count": 28,
+      "lastSeen": "2026-03-05T03:58:01.183Z",
+      "sessions": 14.5
+    },
+    "overwrite": {
+      "count": 13,
+      "lastSeen": "2026-03-05T03:58:01.183Z",
+      "sessions": 7
+    },
+    "existing": {
+      "count": 34,
+      "lastSeen": "2026-03-05T04:11:21.869Z",
+      "sessions": 17.5
+    },
     "entries": {
-      "count": 5,
-      "lastSeen": "2026-03-03T17:56:50.664Z",
-      "sessions": 3
+      "count": 13,
+      "lastSeen": "2026-03-05T03:58:01.183Z",
+      "sessions": 7
     },
     "nothing": {
-      "count": 6,
-      "lastSeen": "2026-03-03T18:07:27.967Z",
-      "sessions": 3.5
+      "count": 14,
+      "lastSeen": "2026-03-05T03:58:01.183Z",
+      "sessions": 7.5
     },
     "tuesday": {
-      "count": 8,
-      "lastSeen": "2026-03-03T18:07:27.967Z",
-      "sessions": 4.5
+      "count": 10,
+      "lastSeen": "2026-03-03T19:42:39.370Z",
+      "sessions": 5.5
     },
     "march": {
-      "count": 8,
-      "lastSeen": "2026-03-03T18:07:27.967Z",
-      "sessions": 4.5
+      "count": 22,
+      "lastSeen": "2026-03-05T03:58:01.183Z",
+      "sessions": 11.5
     },
     "noticable": {
       "count": 1,
@@ -1663,19 +1663,19 @@
       "sessions": 1
     },
     "doing": {
-      "count": 7,
-      "lastSeen": "2026-03-03T17:23:33.956Z",
-      "sessions": 4
+      "count": 8,
+      "lastSeen": "2026-03-04T21:02:37.737Z",
+      "sessions": 4.5
     },
     "things": {
-      "count": 2,
-      "lastSeen": "2026-03-03T16:49:52.101Z",
-      "sessions": 1.5
+      "count": 3,
+      "lastSeen": "2026-03-04T10:25:15.439Z",
+      "sessions": 2
     },
     "worked": {
-      "count": 2,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 1.5
+      "count": 3,
+      "lastSeen": "2026-03-04T19:29:41.990Z",
+      "sessions": 2
     },
     "conservative": {
       "count": 1,
@@ -1688,9 +1688,9 @@
       "sessions": 1
     },
     "small": {
-      "count": 1,
-      "lastSeen": "2026-03-03T16:49:52.101Z",
-      "sessions": 1
+      "count": 2,
+      "lastSeen": "2026-03-03T19:10:31.150Z",
+      "sessions": 1.5
     },
     "awlays": {
       "count": 1,
@@ -1723,9 +1723,9 @@
       "sessions": 1
     },
     "baseline": {
-      "count": 3,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 2
+      "count": 4,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 2.5
     },
     "applyrecommendedsmoothing": {
       "count": 2,
@@ -1783,9 +1783,9 @@
       "sessions": 1
     },
     "doesn": {
-      "count": 5,
-      "lastSeen": "2026-03-03T17:34:30.790Z",
-      "sessions": 3
+      "count": 6,
+      "lastSeen": "2026-03-04T10:25:15.439Z",
+      "sessions": 3.5
     },
     "exist": {
       "count": 2,
@@ -1798,9 +1798,9 @@
       "sessions": 1.5
     },
     "creation": {
-      "count": 2,
-      "lastSeen": "2026-03-03T16:54:36.828Z",
-      "sessions": 1.5
+      "count": 3,
+      "lastSeen": "2026-03-04T18:14:40.582Z",
+      "sessions": 2
     },
     "watching": {
       "count": 2,
@@ -1853,9 +1853,9 @@
       "sessions": 1
     },
     "running": {
-      "count": 1,
-      "lastSeen": "2026-03-03T16:54:36.828Z",
-      "sessions": 1
+      "count": 7,
+      "lastSeen": "2026-03-05T04:11:37.300Z",
+      "sessions": 4
     },
     "inherited": {
       "count": 1,
@@ -1883,9 +1883,9 @@
       "sessions": 1
     },
     "target": {
-      "count": 1,
-      "lastSeen": "2026-03-03T16:54:36.828Z",
-      "sessions": 1
+      "count": 3,
+      "lastSeen": "2026-03-05T02:56:18.431Z",
+      "sessions": 2
     },
     "switching": {
       "count": 1,
@@ -2018,9 +2018,9 @@
       "sessions": 116
     },
     "project": {
-      "count": 13,
-      "lastSeen": "2026-03-03T18:01:04.878Z",
-      "sessions": 7
+      "count": 19,
+      "lastSeen": "2026-03-05T03:45:04.066Z",
+      "sessions": 10
     },
     "embeddings": {
       "count": 6,
@@ -2033,9 +2033,9 @@
       "sessions": 2
     },
     "sqlite": {
-      "count": 12,
-      "lastSeen": "2026-03-03T17:34:30.790Z",
-      "sessions": 6.5
+      "count": 27,
+      "lastSeen": "2026-03-04T23:23:38.143Z",
+      "sessions": 14
     },
     "incompatibility": {
       "count": 3,
@@ -2043,9 +2043,9 @@
       "sessions": 2
     },
     "messages": {
-      "count": 3,
-      "lastSeen": "2026-03-03T17:34:30.790Z",
-      "sessions": 2
+      "count": 51,
+      "lastSeen": "2026-03-05T04:11:37.300Z",
+      "sessions": 26
     },
     "moonshot": {
       "count": 3,
@@ -2053,9 +2053,9 @@
       "sessions": 2
     },
     "automatic": {
-      "count": 7,
-      "lastSeen": "2026-03-03T17:41:15.341Z",
-      "sessions": 4
+      "count": 18,
+      "lastSeen": "2026-03-03T19:11:45.754Z",
+      "sessions": 9.5
     },
     "injection": {
       "count": 12,
@@ -2068,14 +2068,14 @@
       "sessions": 3.5
     },
     "search": {
-      "count": 41,
-      "lastSeen": "2026-03-03T17:34:30.790Z",
-      "sessions": 21
+      "count": 43,
+      "lastSeen": "2026-03-03T18:37:43.953Z",
+      "sessions": 22
     },
     "semantic": {
-      "count": 6,
-      "lastSeen": "2026-03-03T17:34:30.790Z",
-      "sessions": 3.5
+      "count": 10,
+      "lastSeen": "2026-03-04T10:12:15.239Z",
+      "sessions": 5.5
     },
     "keyword": {
       "count": 6,
@@ -2093,9 +2093,9 @@
       "sessions": 2
     },
     "decision": {
-      "count": 3,
-      "lastSeen": "2026-03-03T17:34:30.790Z",
-      "sessions": 2
+      "count": 4,
+      "lastSeen": "2026-03-05T03:00:17.128Z",
+      "sessions": 2.5
     },
     "aware": {
       "count": 3,
@@ -2133,29 +2133,29 @@
       "sessions": 2
     },
     "publish": {
-      "count": 12,
-      "lastSeen": "2026-03-03T18:01:04.878Z",
-      "sessions": 6.5
+      "count": 17,
+      "lastSeen": "2026-03-03T18:45:38.216Z",
+      "sessions": 9
     },
     "clawtext": {
-      "count": 2,
-      "lastSeen": "2026-03-03T17:10:55.131Z",
-      "sessions": 1.5
+      "count": 136,
+      "lastSeen": "2026-03-05T04:11:37.300Z",
+      "sessions": 68.5
     },
     "ingest": {
-      "count": 2,
-      "lastSeen": "2026-03-03T17:09:44.020Z",
-      "sessions": 1.5
+      "count": 103,
+      "lastSeen": "2026-03-05T04:11:37.300Z",
+      "sessions": 52
     },
     "skill": {
-      "count": 52,
-      "lastSeen": "2026-03-03T18:01:04.878Z",
-      "sessions": 26.5
+      "count": 78,
+      "lastSeen": "2026-03-04T10:11:08.973Z",
+      "sessions": 39.5
     },
     "clawhub": {
-      "count": 10,
-      "lastSeen": "2026-03-03T18:01:04.878Z",
-      "sessions": 5.5
+      "count": 100,
+      "lastSeen": "2026-03-05T03:52:42.770Z",
+      "sessions": 50.5
     },
     "hello": {
       "count": 6,
@@ -2163,9 +2163,9 @@
       "sessions": 3.5
     },
     "value": {
-      "count": 13,
-      "lastSeen": "2026-03-03T18:01:04.878Z",
-      "sessions": 7
+      "count": 16,
+      "lastSeen": "2026-03-05T03:00:17.128Z",
+      "sessions": 8.5
     },
     "increases": {
       "count": 6,
@@ -2183,9 +2183,9 @@
       "sessions": 3.5
     },
     "doesnt": {
-      "count": 6,
-      "lastSeen": "2026-03-03T17:23:33.956Z",
-      "sessions": 3.5
+      "count": 7,
+      "lastSeen": "2026-03-03T19:02:45.858Z",
+      "sessions": 4
     },
     "expose": {
       "count": 6,
@@ -2193,9 +2193,9 @@
       "sessions": 3.5
     },
     "prompt": {
-      "count": 6,
-      "lastSeen": "2026-03-03T17:23:33.956Z",
-      "sessions": 3.5
+      "count": 7,
+      "lastSeen": "2026-03-04T09:38:41.502Z",
+      "sessions": 4
     },
     "attacks": {
       "count": 6,
@@ -2218,9 +2218,9 @@
       "sessions": 3.5
     },
     "ingestion": {
-      "count": 6,
-      "lastSeen": "2026-03-03T17:23:33.956Z",
-      "sessions": 3.5
+      "count": 36,
+      "lastSeen": "2026-03-05T04:11:37.300Z",
+      "sessions": 18.5
     },
     "prevent": {
       "count": 6,
@@ -2263,29 +2263,29 @@
       "sessions": 1
     },
     "correctly": {
-      "count": 1,
-      "lastSeen": "2026-03-03T17:03:09.152Z",
-      "sessions": 1
-    },
-    "needs": {
       "count": 2,
-      "lastSeen": "2026-03-03T18:07:27.967Z",
+      "lastSeen": "2026-03-04T23:24:57.567Z",
       "sessions": 1.5
     },
+    "needs": {
+      "count": 3,
+      "lastSeen": "2026-03-04T19:46:44.954Z",
+      "sessions": 2
+    },
     "additional": {
-      "count": 1,
-      "lastSeen": "2026-03-03T17:03:09.152Z",
-      "sessions": 1
+      "count": 6,
+      "lastSeen": "2026-03-05T03:45:04.066Z",
+      "sessions": 3.5
     },
     "integration": {
-      "count": 1,
-      "lastSeen": "2026-03-03T17:03:09.152Z",
-      "sessions": 1
+      "count": 17,
+      "lastSeen": "2026-03-05T04:11:21.869Z",
+      "sessions": 9
     },
     "access": {
-      "count": 1,
-      "lastSeen": "2026-03-03T17:04:51.251Z",
-      "sessions": 1
+      "count": 3,
+      "lastSeen": "2026-03-04T21:02:37.737Z",
+      "sessions": 2
     },
     "public": {
       "count": 1,
@@ -2293,9 +2293,9 @@
       "sessions": 1
     },
     "again": {
-      "count": 1,
-      "lastSeen": "2026-03-03T17:09:44.020Z",
-      "sessions": 1
+      "count": 2,
+      "lastSeen": "2026-03-04T19:37:33.766Z",
+      "sessions": 1.5
     },
     "extensively": {
       "count": 1,
@@ -2303,9 +2303,9 @@
       "sessions": 1
     },
     "understand": {
-      "count": 2,
-      "lastSeen": "2026-03-03T17:48:17.032Z",
-      "sessions": 1.5
+      "count": 3,
+      "lastSeen": "2026-03-05T02:56:18.431Z",
+      "sessions": 2
     },
     "useful": {
       "count": 1,
@@ -2333,9 +2333,9 @@
       "sessions": 1
     },
     "concise": {
-      "count": 1,
-      "lastSeen": "2026-03-03T17:10:55.131Z",
-      "sessions": 1
+      "count": 10,
+      "lastSeen": "2026-03-05T03:11:33.327Z",
+      "sessions": 5.5
     },
     "recommended": {
       "count": 2,
@@ -2343,9 +2343,9 @@
       "sessions": 1.5
     },
     "functionality": {
-      "count": 2,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 1.5
+      "count": 10,
+      "lastSeen": "2026-03-05T04:11:21.869Z",
+      "sessions": 5.5
     },
     "within": {
       "count": 1,
@@ -2358,9 +2358,9 @@
       "sessions": 1
     },
     "address": {
-      "count": 1,
-      "lastSeen": "2026-03-03T17:23:33.956Z",
-      "sessions": 1
+      "count": 2,
+      "lastSeen": "2026-03-04T18:14:40.582Z",
+      "sessions": 1.5
     },
     "additions": {
       "count": 1,
@@ -2368,134 +2368,134 @@
       "sessions": 1
     },
     "clawsaver": {
-      "count": 50,
-      "lastSeen": "2026-03-03T18:01:04.878Z",
-      "sessions": 25.5
+      "count": 153,
+      "lastSeen": "2026-03-03T19:11:45.754Z",
+      "sessions": 77
     },
     "summary": {
-      "count": 37,
-      "lastSeen": "2026-03-03T18:05:01.479Z",
-      "sessions": 19
+      "count": 52,
+      "lastSeen": "2026-03-05T03:11:33.327Z",
+      "sessions": 26.5
     },
     "agent": {
-      "count": 7,
-      "lastSeen": "2026-03-03T18:01:04.878Z",
-      "sessions": 4
+      "count": 26,
+      "lastSeen": "2026-03-05T04:11:21.869Z",
+      "sessions": 13.5
     },
     "execution": {
-      "count": 7,
-      "lastSeen": "2026-03-03T18:01:04.878Z",
-      "sessions": 4
+      "count": 12,
+      "lastSeen": "2026-03-04T10:12:15.239Z",
+      "sessions": 6.5
     },
     "overview": {
-      "count": 7,
-      "lastSeen": "2026-03-03T18:01:04.878Z",
-      "sessions": 4
+      "count": 9,
+      "lastSeen": "2026-03-03T18:18:35.160Z",
+      "sessions": 5
     },
     "reduces": {
-      "count": 7,
-      "lastSeen": "2026-03-03T18:01:04.878Z",
-      "sessions": 4
+      "count": 9,
+      "lastSeen": "2026-03-03T18:18:35.160Z",
+      "sessions": 5
     },
     "request": {
-      "count": 7,
-      "lastSeen": "2026-03-03T18:01:04.878Z",
-      "sessions": 4
+      "count": 25,
+      "lastSeen": "2026-03-05T03:00:17.128Z",
+      "sessions": 13
     },
     "token": {
-      "count": 7,
-      "lastSeen": "2026-03-03T18:01:04.878Z",
-      "sessions": 4
+      "count": 14,
+      "lastSeen": "2026-03-05T04:11:37.300Z",
+      "sessions": 7.5
     },
     "costs": {
-      "count": 7,
-      "lastSeen": "2026-03-03T18:01:04.878Z",
-      "sessions": 4
+      "count": 20,
+      "lastSeen": "2026-03-03T19:11:45.754Z",
+      "sessions": 10.5
     },
     "intelligently": {
-      "count": 7,
-      "lastSeen": "2026-03-03T18:01:04.878Z",
-      "sessions": 4
+      "count": 9,
+      "lastSeen": "2026-03-03T18:18:35.160Z",
+      "sessions": 5
     },
     "batching": {
-      "count": 8,
-      "lastSeen": "2026-03-03T18:01:04.878Z",
-      "sessions": 4.5
+      "count": 36,
+      "lastSeen": "2026-03-03T19:11:45.754Z",
+      "sessions": 18.5
     },
     "related": {
-      "count": 7,
-      "lastSeen": "2026-03-03T18:01:04.878Z",
-      "sessions": 4
+      "count": 24,
+      "lastSeen": "2026-03-04T23:23:38.143Z",
+      "sessions": 12.5
     },
     "tasks": {
-      "count": 8,
-      "lastSeen": "2026-03-03T18:07:27.967Z",
-      "sessions": 4.5
+      "count": 10,
+      "lastSeen": "2026-03-03T18:18:35.160Z",
+      "sessions": 5.5
     },
     "fewer": {
-      "count": 7,
-      "lastSeen": "2026-03-03T18:01:04.878Z",
-      "sessions": 4
+      "count": 9,
+      "lastSeen": "2026-03-03T18:18:35.160Z",
+      "sessions": 5
     },
     "higher": {
-      "count": 7,
-      "lastSeen": "2026-03-03T18:01:04.878Z",
-      "sessions": 4
+      "count": 9,
+      "lastSeen": "2026-03-03T18:18:35.160Z",
+      "sessions": 5
     },
     "responses": {
-      "count": 7,
-      "lastSeen": "2026-03-03T18:01:04.878Z",
-      "sessions": 4
+      "count": 9,
+      "lastSeen": "2026-03-03T18:18:35.160Z",
+      "sessions": 5
     },
     "accomplished": {
-      "count": 7,
-      "lastSeen": "2026-03-03T18:01:04.878Z",
-      "sessions": 4
+      "count": 9,
+      "lastSeen": "2026-03-03T18:18:35.160Z",
+      "sessions": 5
     },
     "selection": {
-      "count": 7,
-      "lastSeen": "2026-03-03T18:01:04.878Z",
-      "sessions": 4
+      "count": 9,
+      "lastSeen": "2026-03-03T18:18:35.160Z",
+      "sessions": 5
     },
     "settled": {
-      "count": 7,
-      "lastSeen": "2026-03-03T18:01:04.878Z",
-      "sessions": 4
+      "count": 9,
+      "lastSeen": "2026-03-03T18:18:35.160Z",
+      "sessions": 5
     },
     "backronym": {
-      "count": 7,
-      "lastSeen": "2026-03-03T18:01:04.878Z",
-      "sessions": 4
+      "count": 9,
+      "lastSeen": "2026-03-03T18:18:35.160Z",
+      "sessions": 5
     },
     "ombines": {
-      "count": 7,
-      "lastSeen": "2026-03-03T18:01:04.878Z",
-      "sessions": 4
+      "count": 9,
+      "lastSeen": "2026-03-03T18:18:35.160Z",
+      "sessions": 5
     },
     "inked": {
-      "count": 7,
-      "lastSeen": "2026-03-03T18:01:04.878Z",
-      "sessions": 4
+      "count": 9,
+      "lastSeen": "2026-03-03T18:18:35.160Z",
+      "sessions": 5
     },
     "ffordable": {
-      "count": 7,
-      "lastSeen": "2026-03-03T18:01:04.878Z",
-      "sessions": 4
+      "count": 9,
+      "lastSeen": "2026-03-03T18:18:35.160Z",
+      "sessions": 5
     },
     "erified": {
-      "count": 7,
-      "lastSeen": "2026-03-03T18:01:04.878Z",
-      "sessions": 4
+      "count": 9,
+      "lastSeen": "2026-03-03T18:18:35.160Z",
+      "sessions": 5
     },
     "fficient": {
-      "count": 7,
-      "lastSeen": "2026-03-03T18:01:04.878Z",
-      "sessions": 4
+      "count": 9,
+      "lastSeen": "2026-03-03T18:18:35.160Z",
+      "sessions": 5
     },
     "esponses": {
-      "count": 7,
-      "lastSeen": "2026-03-03T18:01:04.878Z",
-      "sessions": 4
+      "count": 9,
+      "lastSeen": "2026-03-03T18:18:35.160Z",
+      "sessions": 5
     },
     "opporitunity": {
       "count": 1,
@@ -2503,14 +2503,14 @@
       "sessions": 1
     },
     "increase": {
-      "count": 1,
-      "lastSeen": "2026-03-03T17:34:00.827Z",
-      "sessions": 1
+      "count": 2,
+      "lastSeen": "2026-03-04T01:37:29.966Z",
+      "sessions": 1.5
     },
     "having": {
-      "count": 1,
-      "lastSeen": "2026-03-03T17:34:00.827Z",
-      "sessions": 1
+      "count": 2,
+      "lastSeen": "2026-03-05T03:00:17.128Z",
+      "sessions": 1.5
     },
     "brief": {
       "count": 1,
@@ -2533,19 +2533,19 @@
       "sessions": 1
     },
     "before": {
-      "count": 2,
-      "lastSeen": "2026-03-03T17:38:18.006Z",
-      "sessions": 1.5
+      "count": 7,
+      "lastSeen": "2026-03-05T03:00:17.128Z",
+      "sessions": 4
     },
     "sending": {
-      "count": 2,
-      "lastSeen": "2026-03-03T18:05:01.479Z",
-      "sessions": 1.5
+      "count": 7,
+      "lastSeen": "2026-03-05T03:11:33.327Z",
+      "sessions": 4
     },
     "someone": {
-      "count": 1,
-      "lastSeen": "2026-03-03T17:34:00.827Z",
-      "sessions": 1
+      "count": 2,
+      "lastSeen": "2026-03-05T03:00:17.128Z",
+      "sessions": 1.5
     },
     "accidentally": {
       "count": 1,
@@ -2563,9 +2563,9 @@
       "sessions": 1.5
     },
     "another": {
-      "count": 1,
-      "lastSeen": "2026-03-03T17:34:00.827Z",
-      "sessions": 1
+      "count": 3,
+      "lastSeen": "2026-03-04T23:24:57.567Z",
+      "sessions": 2
     },
     "slightly": {
       "count": 1,
@@ -2583,9 +2583,9 @@
       "sessions": 1
     },
     "batch": {
-      "count": 1,
-      "lastSeen": "2026-03-03T17:34:00.827Z",
-      "sessions": 1
+      "count": 6,
+      "lastSeen": "2026-03-05T04:11:37.300Z",
+      "sessions": 3.5
     },
     "further": {
       "count": 1,
@@ -2613,9 +2613,9 @@
       "sessions": 1
     },
     "looking": {
-      "count": 1,
-      "lastSeen": "2026-03-03T17:38:18.006Z",
-      "sessions": 1
+      "count": 6,
+      "lastSeen": "2026-03-04T20:54:58.634Z",
+      "sessions": 3.5
     },
     "larger": {
       "count": 1,
@@ -2633,14 +2633,14 @@
       "sessions": 1
     },
     "design": {
-      "count": 1,
-      "lastSeen": "2026-03-03T17:41:15.341Z",
-      "sessions": 1
+      "count": 10,
+      "lastSeen": "2026-03-05T04:11:21.869Z",
+      "sessions": 5.5
     },
     "configured": {
-      "count": 1,
-      "lastSeen": "2026-03-03T17:41:15.341Z",
-      "sessions": 1
+      "count": 2,
+      "lastSeen": "2026-03-04T09:38:41.502Z",
+      "sessions": 1.5
     },
     "guidance": {
       "count": 1,
@@ -2648,14 +2648,14 @@
       "sessions": 1
     },
     "readme": {
-      "count": 2,
-      "lastSeen": "2026-03-03T17:48:17.032Z",
-      "sessions": 1.5
+      "count": 6,
+      "lastSeen": "2026-03-03T19:02:45.858Z",
+      "sessions": 3.5
     },
     "instructions": {
-      "count": 1,
-      "lastSeen": "2026-03-03T17:48:17.032Z",
-      "sessions": 1
+      "count": 2,
+      "lastSeen": "2026-03-05T03:45:04.066Z",
+      "sessions": 1.5
     },
     "designed": {
       "count": 1,
@@ -2663,9 +2663,9 @@
       "sessions": 1
     },
     "agents": {
-      "count": 1,
-      "lastSeen": "2026-03-03T17:48:17.032Z",
-      "sessions": 1
+      "count": 9,
+      "lastSeen": "2026-03-05T03:58:36.391Z",
+      "sessions": 5
     },
     "easily": {
       "count": 1,
@@ -2678,9 +2678,9 @@
       "sessions": 1
     },
     "benefits": {
-      "count": 1,
-      "lastSeen": "2026-03-03T17:48:17.032Z",
-      "sessions": 1
+      "count": 5,
+      "lastSeen": "2026-03-03T19:10:31.150Z",
+      "sessions": 3
     },
     "configure": {
       "count": 1,
@@ -2708,9 +2708,9 @@
       "sessions": 1
     },
     "critical": {
-      "count": 1,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 1
+      "count": 2,
+      "lastSeen": "2026-03-04T18:14:40.582Z",
+      "sessions": 1.5
     },
     "failure": {
       "count": 1,
@@ -2718,9 +2718,9 @@
       "sessions": 1
     },
     "progress": {
-      "count": 1,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 1
+      "count": 5,
+      "lastSeen": "2026-03-05T04:11:37.300Z",
+      "sessions": 3
     },
     "builds": {
       "count": 1,
@@ -2748,9 +2748,9 @@
       "sessions": 1
     },
     "actually": {
-      "count": 1,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 1
+      "count": 2,
+      "lastSeen": "2026-03-04T18:14:40.582Z",
+      "sessions": 1.5
     },
     "wanted": {
       "count": 1,
@@ -2758,14 +2758,14 @@
       "sessions": 1
     },
     "better": {
-      "count": 1,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 1
+      "count": 2,
+      "lastSeen": "2026-03-04T01:37:29.966Z",
+      "sessions": 1.5
     },
     "adjust": {
-      "count": 1,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 1
+      "count": 3,
+      "lastSeen": "2026-03-04T19:31:52.205Z",
+      "sessions": 2
     },
     "slowly": {
       "count": 1,
@@ -2773,9 +2773,9 @@
       "sessions": 1
     },
     "optimal": {
-      "count": 1,
-      "lastSeen": "2026-03-03T17:57:26.601Z",
-      "sessions": 1
+      "count": 2,
+      "lastSeen": "2026-03-03T19:01:21.334Z",
+      "sessions": 1.5
     },
     "range": {
       "count": 1,
@@ -2803,9 +2803,9 @@
       "sessions": 1
     },
     "updates": {
-      "count": 1,
-      "lastSeen": "2026-03-03T18:01:04.878Z",
-      "sessions": 1
+      "count": 2,
+      "lastSeen": "2026-03-05T04:11:37.300Z",
+      "sessions": 1.5
     },
     "happened": {
       "count": 1,
@@ -2813,154 +2813,154 @@
       "sessions": 1
     },
     "reconcile": {
-      "count": 1,
-      "lastSeen": "2026-03-03T18:05:01.479Z",
-      "sessions": 1
-    },
-    "report": {
-      "count": 1,
-      "lastSeen": "2026-03-03T18:05:01.479Z",
-      "sessions": 1
-    },
-    "perform": {
-      "count": 1,
-      "lastSeen": "2026-03-03T18:05:01.479Z",
-      "sessions": 1
-    },
-    "focused": {
-      "count": 1,
-      "lastSeen": "2026-03-03T18:05:01.479Z",
-      "sessions": 1
-    },
-    "failed": {
-      "count": 1,
-      "lastSeen": "2026-03-03T18:05:01.479Z",
-      "sessions": 1
-    },
-    "provide": {
-      "count": 1,
-      "lastSeen": "2026-03-03T18:05:01.479Z",
-      "sessions": 1
-    },
-    "misconfigurations": {
-      "count": 1,
-      "lastSeen": "2026-03-03T18:05:01.479Z",
-      "sessions": 1
-    },
-    "failures": {
-      "count": 1,
-      "lastSeen": "2026-03-03T18:05:01.479Z",
-      "sessions": 1
-    },
-    "conciseness": {
-      "count": 1,
-      "lastSeen": "2026-03-03T18:05:01.479Z",
-      "sessions": 1
-    },
-    "return": {
-      "count": 1,
-      "lastSeen": "2026-03-03T18:05:01.479Z",
-      "sessions": 1
-    },
-    "delivered": {
-      "count": 1,
-      "lastSeen": "2026-03-03T18:05:01.479Z",
-      "sessions": 1
-    },
-    "automatically": {
-      "count": 1,
-      "lastSeen": "2026-03-03T18:05:01.479Z",
-      "sessions": 1
-    },
-    "explicitly": {
       "count": 2,
-      "lastSeen": "2026-03-03T18:07:26.860Z",
+      "lastSeen": "2026-03-04T18:05:01.537Z",
       "sessions": 1.5
     },
+    "report": {
+      "count": 15,
+      "lastSeen": "2026-03-05T04:11:37.300Z",
+      "sessions": 8
+    },
+    "perform": {
+      "count": 2,
+      "lastSeen": "2026-03-04T18:05:01.537Z",
+      "sessions": 1.5
+    },
+    "focused": {
+      "count": 6,
+      "lastSeen": "2026-03-04T18:05:01.537Z",
+      "sessions": 3.5
+    },
+    "failed": {
+      "count": 8,
+      "lastSeen": "2026-03-04T23:24:57.567Z",
+      "sessions": 4.5
+    },
+    "provide": {
+      "count": 2,
+      "lastSeen": "2026-03-04T18:05:01.537Z",
+      "sessions": 1.5
+    },
+    "misconfigurations": {
+      "count": 2,
+      "lastSeen": "2026-03-04T18:05:01.537Z",
+      "sessions": 1.5
+    },
+    "failures": {
+      "count": 2,
+      "lastSeen": "2026-03-04T18:05:01.537Z",
+      "sessions": 1.5
+    },
+    "conciseness": {
+      "count": 2,
+      "lastSeen": "2026-03-04T18:05:01.537Z",
+      "sessions": 1.5
+    },
+    "return": {
+      "count": 5,
+      "lastSeen": "2026-03-05T04:11:37.300Z",
+      "sessions": 3
+    },
+    "delivered": {
+      "count": 4,
+      "lastSeen": "2026-03-05T03:11:33.327Z",
+      "sessions": 2.5
+    },
+    "automatically": {
+      "count": 4,
+      "lastSeen": "2026-03-05T03:11:33.327Z",
+      "sessions": 2.5
+    },
+    "explicitly": {
+      "count": 8,
+      "lastSeen": "2026-03-05T03:11:33.327Z",
+      "sessions": 4.5
+    },
     "calls": {
-      "count": 1,
-      "lastSeen": "2026-03-03T18:05:01.479Z",
-      "sessions": 1
+      "count": 15,
+      "lastSeen": "2026-03-05T03:11:33.327Z",
+      "sessions": 8
     },
     "messaging": {
-      "count": 1,
-      "lastSeen": "2026-03-03T18:05:01.479Z",
-      "sessions": 1
+      "count": 4,
+      "lastSeen": "2026-03-05T03:11:33.327Z",
+      "sessions": 2.5
     },
     "specific": {
-      "count": 1,
-      "lastSeen": "2026-03-03T18:05:01.479Z",
-      "sessions": 1
+      "count": 15,
+      "lastSeen": "2026-03-05T03:11:33.327Z",
+      "sessions": 8
     },
     "external": {
-      "count": 1,
-      "lastSeen": "2026-03-03T18:05:01.479Z",
-      "sessions": 1
+      "count": 4,
+      "lastSeen": "2026-03-05T03:11:33.327Z",
+      "sessions": 2.5
     },
     "recipient": {
-      "count": 1,
-      "lastSeen": "2026-03-03T18:05:01.479Z",
-      "sessions": 1
+      "count": 4,
+      "lastSeen": "2026-03-05T03:11:33.327Z",
+      "sessions": 2.5
     },
     "instead": {
-      "count": 1,
-      "lastSeen": "2026-03-03T18:05:01.479Z",
-      "sessions": 1
+      "count": 16,
+      "lastSeen": "2026-03-05T03:11:33.327Z",
+      "sessions": 8.5
     },
     "yourself": {
-      "count": 1,
-      "lastSeen": "2026-03-03T18:05:01.479Z",
-      "sessions": 1
+      "count": 5,
+      "lastSeen": "2026-03-05T03:11:33.327Z",
+      "sessions": 3
     },
     "reminder": {
-      "count": 3,
-      "lastSeen": "2026-03-03T18:07:26.860Z",
-      "sessions": 2
+      "count": 12,
+      "lastSeen": "2026-03-04T22:00:00.590Z",
+      "sessions": 6.5
     },
     "triggered": {
-      "count": 1,
-      "lastSeen": "2026-03-03T18:07:26.860Z",
-      "sessions": 1
+      "count": 4,
+      "lastSeen": "2026-03-04T22:00:00.590Z",
+      "sessions": 2.5
     },
     "heartbeats": {
-      "count": 1,
-      "lastSeen": "2026-03-03T18:07:26.860Z",
-      "sessions": 1
+      "count": 4,
+      "lastSeen": "2026-03-04T22:00:00.590Z",
+      "sessions": 2.5
     },
     "minutes": {
-      "count": 1,
-      "lastSeen": "2026-03-03T18:07:26.860Z",
-      "sessions": 1
+      "count": 7,
+      "lastSeen": "2026-03-04T23:24:57.567Z",
+      "sessions": 4
     },
     "heartbeat": {
-      "count": 3,
-      "lastSeen": "2026-03-03T18:07:27.967Z",
-      "sessions": 2
+      "count": 6,
+      "lastSeen": "2026-03-04T22:00:00.590Z",
+      "sessions": 3.5
     },
     "internally": {
-      "count": 1,
-      "lastSeen": "2026-03-03T18:07:26.860Z",
-      "sessions": 1
+      "count": 4,
+      "lastSeen": "2026-03-04T22:00:00.590Z",
+      "sessions": 2.5
     },
     "relay": {
-      "count": 1,
-      "lastSeen": "2026-03-03T18:07:26.860Z",
-      "sessions": 1
+      "count": 4,
+      "lastSeen": "2026-03-04T22:00:00.590Z",
+      "sessions": 2.5
     },
     "unless": {
-      "count": 1,
-      "lastSeen": "2026-03-03T18:07:26.860Z",
-      "sessions": 1
+      "count": 4,
+      "lastSeen": "2026-03-04T22:00:00.590Z",
+      "sessions": 2.5
     },
     "requested": {
-      "count": 1,
-      "lastSeen": "2026-03-03T18:07:26.860Z",
-      "sessions": 1
+      "count": 5,
+      "lastSeen": "2026-03-05T02:56:18.431Z",
+      "sessions": 3
     },
     "follow": {
-      "count": 1,
-      "lastSeen": "2026-03-03T18:07:27.967Z",
-      "sessions": 1
+      "count": 6,
+      "lastSeen": "2026-03-05T04:11:37.300Z",
+      "sessions": 3.5
     },
     "strictly": {
       "count": 1,
@@ -2978,9 +2978,9 @@
       "sessions": 1
     },
     "prior": {
-      "count": 1,
-      "lastSeen": "2026-03-03T18:07:27.967Z",
-      "sessions": 1
+      "count": 2,
+      "lastSeen": "2026-03-04T10:12:15.239Z",
+      "sessions": 1.5
     },
     "chats": {
       "count": 1,
@@ -2990,6 +2990,2371 @@
     "attention": {
       "count": 1,
       "lastSeen": "2026-03-03T18:07:27.967Z",
+      "sessions": 1
+    },
+    "revise": {
+      "count": 1,
+      "lastSeen": "2026-03-03T18:07:30.486Z",
+      "sessions": 1
+    },
+    "readable": {
+      "count": 1,
+      "lastSeen": "2026-03-03T18:07:30.486Z",
+      "sessions": 1
+    },
+    "priority": {
+      "count": 3,
+      "lastSeen": "2026-03-05T03:00:17.128Z",
+      "sessions": 2
+    },
+    "supply": {
+      "count": 1,
+      "lastSeen": "2026-03-03T18:07:30.486Z",
+      "sessions": 1
+    },
+    "areas": {
+      "count": 1,
+      "lastSeen": "2026-03-03T18:07:30.486Z",
+      "sessions": 1
+    },
+    "allow": {
+      "count": 2,
+      "lastSeen": "2026-03-04T18:05:04.984Z",
+      "sessions": 1.5
+    },
+    "forum": {
+      "count": 17,
+      "lastSeen": "2026-03-05T04:11:37.300Z",
+      "sessions": 9
+    },
+    "publishing": {
+      "count": 2,
+      "lastSeen": "2026-03-03T18:18:35.160Z",
+      "sessions": 1.5
+    },
+    "adding": {
+      "count": 1,
+      "lastSeen": "2026-03-03T18:18:35.160Z",
+      "sessions": 1
+    },
+    "specifics": {
+      "count": 1,
+      "lastSeen": "2026-03-03T18:18:35.160Z",
+      "sessions": 1
+    },
+    "published": {
+      "count": 63,
+      "lastSeen": "2026-03-05T04:11:21.869Z",
+      "sessions": 32
+    },
+    "through": {
+      "count": 17,
+      "lastSeen": "2026-03-05T02:56:18.431Z",
+      "sessions": 9
+    },
+    "installation": {
+      "count": 12,
+      "lastSeen": "2026-03-04T10:11:48.187Z",
+      "sessions": 6.5
+    },
+    "multiple": {
+      "count": 27,
+      "lastSeen": "2026-03-04T23:23:38.143Z",
+      "sessions": 14
+    },
+    "quickly": {
+      "count": 11,
+      "lastSeen": "2026-03-03T19:11:45.754Z",
+      "sessions": 6
+    },
+    "waits": {
+      "count": 11,
+      "lastSeen": "2026-03-03T19:11:45.754Z",
+      "sessions": 6
+    },
+    "collect": {
+      "count": 15,
+      "lastSeen": "2026-03-04T10:12:15.239Z",
+      "sessions": 8
+    },
+    "sends": {
+      "count": 11,
+      "lastSeen": "2026-03-03T19:11:45.754Z",
+      "sessions": 6
+    },
+    "batched": {
+      "count": 11,
+      "lastSeen": "2026-03-03T19:11:45.754Z",
+      "sessions": 6
+    },
+    "separate": {
+      "count": 11,
+      "lastSeen": "2026-03-03T19:11:45.754Z",
+      "sessions": 6
+    },
+    "reduction": {
+      "count": 11,
+      "lastSeen": "2026-03-03T19:11:45.754Z",
+      "sessions": 6
+    },
+    "facing": {
+      "count": 11,
+      "lastSeen": "2026-03-03T19:11:45.754Z",
+      "sessions": 6
+    },
+    "latency": {
+      "count": 11,
+      "lastSeen": "2026-03-03T19:11:45.754Z",
+      "sessions": 6
+    },
+    "problem": {
+      "count": 12,
+      "lastSeen": "2026-03-04T01:37:29.966Z",
+      "sessions": 6.5
+    },
+    "solves": {
+      "count": 11,
+      "lastSeen": "2026-03-03T19:11:45.754Z",
+      "sessions": 6
+    },
+    "naturally": {
+      "count": 11,
+      "lastSeen": "2026-03-03T19:11:45.754Z",
+      "sessions": 6
+    },
+    "sequences": {
+      "count": 11,
+      "lastSeen": "2026-03-03T19:11:45.754Z",
+      "sessions": 6
+    },
+    "skills": {
+      "count": 9,
+      "lastSeen": "2026-03-05T03:52:42.770Z",
+      "sessions": 5
+    },
+    "style": {
+      "count": 2,
+      "lastSeen": "2026-03-03T18:37:43.953Z",
+      "sessions": 1.5
+    },
+    "contents": {
+      "count": 2,
+      "lastSeen": "2026-03-03T18:37:43.953Z",
+      "sessions": 1.5
+    },
+    "wording": {
+      "count": 2,
+      "lastSeen": "2026-03-03T18:37:43.953Z",
+      "sessions": 1.5
+    },
+    "adapt": {
+      "count": 2,
+      "lastSeen": "2026-03-03T18:37:43.953Z",
+      "sessions": 1.5
+    },
+    "wordy": {
+      "count": 2,
+      "lastSeen": "2026-03-03T18:37:43.953Z",
+      "sessions": 1.5
+    },
+    "process": {
+      "count": 11,
+      "lastSeen": "2026-03-05T02:56:18.431Z",
+      "sessions": 6
+    },
+    "review": {
+      "count": 2,
+      "lastSeen": "2026-03-04T01:36:01.654Z",
+      "sessions": 1.5
+    },
+    "triyng": {
+      "count": 1,
+      "lastSeen": "2026-03-03T19:01:21.334Z",
+      "sessions": 1
+    },
+    "deliver": {
+      "count": 1,
+      "lastSeen": "2026-03-03T19:01:21.334Z",
+      "sessions": 1
+    },
+    "optimization": {
+      "count": 1,
+      "lastSeen": "2026-03-03T19:01:21.334Z",
+      "sessions": 1
+    },
+    "discuss": {
+      "count": 9,
+      "lastSeen": "2026-03-05T04:11:21.869Z",
+      "sessions": 5
+    },
+    "helping": {
+      "count": 1,
+      "lastSeen": "2026-03-03T19:01:21.334Z",
+      "sessions": 1
+    },
+    "buffering": {
+      "count": 5,
+      "lastSeen": "2026-03-03T19:10:31.150Z",
+      "sessions": 3
+    },
+    "whats": {
+      "count": 1,
+      "lastSeen": "2026-03-03T19:02:45.858Z",
+      "sessions": 1
+    },
+    "going": {
+      "count": 1,
+      "lastSeen": "2026-03-03T19:02:45.858Z",
+      "sessions": 1
+    },
+    "automation": {
+      "count": 1,
+      "lastSeen": "2026-03-03T19:07:32.148Z",
+      "sessions": 1
+    },
+    "getting": {
+      "count": 3,
+      "lastSeen": "2026-03-04T19:28:06.709Z",
+      "sessions": 2
+    },
+    "basic": {
+      "count": 1,
+      "lastSeen": "2026-03-03T19:07:32.148Z",
+      "sessions": 1
+    },
+    "virtually": {
+      "count": 1,
+      "lastSeen": "2026-03-03T19:07:32.148Z",
+      "sessions": 1
+    },
+    "friction": {
+      "count": 1,
+      "lastSeen": "2026-03-03T19:07:32.148Z",
+      "sessions": 1
+    },
+    "great": {
+      "count": 2,
+      "lastSeen": "2026-03-05T03:00:17.128Z",
+      "sessions": 1.5
+    },
+    "efficiecny": {
+      "count": 1,
+      "lastSeen": "2026-03-03T19:09:39.015Z",
+      "sessions": 1
+    },
+    "mention": {
+      "count": 3,
+      "lastSeen": "2026-03-04T09:38:41.502Z",
+      "sessions": 2
+    },
+    "maybe": {
+      "count": 2,
+      "lastSeen": "2026-03-04T18:14:40.582Z",
+      "sessions": 1.5
+    },
+    "diagram": {
+      "count": 1,
+      "lastSeen": "2026-03-03T19:10:31.150Z",
+      "sessions": 1
+    },
+    "included": {
+      "count": 2,
+      "lastSeen": "2026-03-05T03:45:04.066Z",
+      "sessions": 1.5
+    },
+    "overhead": {
+      "count": 1,
+      "lastSeen": "2026-03-03T19:11:45.754Z",
+      "sessions": 1
+    },
+    "understood": {
+      "count": 1,
+      "lastSeen": "2026-03-03T19:11:45.754Z",
+      "sessions": 1
+    },
+    "makes": {
+      "count": 3,
+      "lastSeen": "2026-03-05T03:00:17.128Z",
+      "sessions": 2
+    },
+    "savings": {
+      "count": 1,
+      "lastSeen": "2026-03-03T19:11:45.754Z",
+      "sessions": 1
+    },
+    "apparant": {
+      "count": 1,
+      "lastSeen": "2026-03-03T19:11:45.754Z",
+      "sessions": 1
+    },
+    "f23c8dfb18df": {
+      "count": 3,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 2
+    },
+    "detectable": {
+      "count": 1,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 1
+    },
+    "observed": {
+      "count": 1,
+      "lastSeen": "2026-03-03T19:38:24.536Z",
+      "sessions": 1
+    },
+    "mentioned": {
+      "count": 6,
+      "lastSeen": "2026-03-04T23:23:38.143Z",
+      "sessions": 3.5
+    },
+    "replied": {
+      "count": 3,
+      "lastSeen": "2026-03-04T19:28:06.709Z",
+      "sessions": 2
+    },
+    "lumbot": {
+      "count": 3,
+      "lastSeen": "2026-03-04T19:28:06.709Z",
+      "sessions": 2
+    },
+    "invalid": {
+      "count": 2,
+      "lastSeen": "2026-03-04T23:24:57.567Z",
+      "sessions": 1.5
+    },
+    "recreating": {
+      "count": 3,
+      "lastSeen": "2026-03-04T23:23:38.143Z",
+      "sessions": 2
+    },
+    "moved": {
+      "count": 3,
+      "lastSeen": "2026-03-04T23:23:38.143Z",
+      "sessions": 2
+    },
+    "wbtrv32": {
+      "count": 3,
+      "lastSeen": "2026-03-04T23:23:38.143Z",
+      "sessions": 2
+    },
+    "btrieve5": {
+      "count": 15,
+      "lastSeen": "2026-03-04T23:23:38.143Z",
+      "sessions": 8
+    },
+    "gotten": {
+      "count": 3,
+      "lastSeen": "2026-03-04T23:23:38.143Z",
+      "sessions": 2
+    },
+    "rather": {
+      "count": 3,
+      "lastSeen": "2026-03-04T23:23:38.143Z",
+      "sessions": 2
+    },
+    "depth": {
+      "count": 7,
+      "lastSeen": "2026-03-05T04:11:37.300Z",
+      "sessions": 4
+    },
+    "surfacing": {
+      "count": 3,
+      "lastSeen": "2026-03-04T23:23:38.143Z",
+      "sessions": 2
+    },
+    "assistance": {
+      "count": 3,
+      "lastSeen": "2026-03-04T23:23:38.143Z",
+      "sessions": 2
+    },
+    "tackling": {
+      "count": 3,
+      "lastSeen": "2026-03-04T23:23:38.143Z",
+      "sessions": 2
+    },
+    "requester": {
+      "count": 6,
+      "lastSeen": "2026-03-05T04:11:37.300Z",
+      "sessions": 3.5
+    },
+    "previous": {
+      "count": 5,
+      "lastSeen": "2026-03-04T23:23:38.143Z",
+      "sessions": 3
+    },
+    "discussion": {
+      "count": 3,
+      "lastSeen": "2026-03-04T23:23:38.143Z",
+      "sessions": 2
+    },
+    "moltmud": {
+      "count": 6,
+      "lastSeen": "2026-03-04T23:23:38.143Z",
+      "sessions": 3.5
+    },
+    "commits": {
+      "count": 3,
+      "lastSeen": "2026-03-04T23:23:38.143Z",
+      "sessions": 2
+    },
+    "include": {
+      "count": 3,
+      "lastSeen": "2026-03-04T23:23:38.143Z",
+      "sessions": 2
+    },
+    "paste": {
+      "count": 3,
+      "lastSeen": "2026-03-04T23:23:38.143Z",
+      "sessions": 2
+    },
+    "pinned": {
+      "count": 3,
+      "lastSeen": "2026-03-04T23:23:38.143Z",
+      "sessions": 2
+    },
+    "titled": {
+      "count": 3,
+      "lastSeen": "2026-03-04T23:23:38.143Z",
+      "sessions": 2
+    },
+    "differently": {
+      "count": 4,
+      "lastSeen": "2026-03-05T03:00:17.128Z",
+      "sessions": 2.5
+    },
+    "exact": {
+      "count": 3,
+      "lastSeen": "2026-03-04T23:23:38.143Z",
+      "sessions": 2
+    },
+    "title": {
+      "count": 3,
+      "lastSeen": "2026-03-04T23:23:38.143Z",
+      "sessions": 2
+    },
+    "instruction": {
+      "count": 3,
+      "lastSeen": "2026-03-04T23:23:38.143Z",
+      "sessions": 2
+    },
+    "following": {
+      "count": 1,
+      "lastSeen": "2026-03-03T19:43:12.391Z",
+      "sessions": 1
+    },
+    "gateway": {
+      "count": 1,
+      "lastSeen": "2026-03-04T01:36:01.654Z",
+      "sessions": 1
+    },
+    "restarted": {
+      "count": 1,
+      "lastSeen": "2026-03-04T01:36:01.654Z",
+      "sessions": 1
+    },
+    "interrupted": {
+      "count": 1,
+      "lastSeen": "2026-03-04T01:36:01.654Z",
+      "sessions": 1
+    },
+    "three": {
+      "count": 1,
+      "lastSeen": "2026-03-04T01:36:01.654Z",
+      "sessions": 1
+    },
+    "caught": {
+      "count": 1,
+      "lastSeen": "2026-03-04T01:36:01.654Z",
+      "sessions": 1
+    },
+    "anything": {
+      "count": 1,
+      "lastSeen": "2026-03-04T01:37:29.966Z",
+      "sessions": 1
+    },
+    "narrow": {
+      "count": 1,
+      "lastSeen": "2026-03-04T01:37:29.966Z",
+      "sessions": 1
+    },
+    "merit": {
+      "count": 1,
+      "lastSeen": "2026-03-04T01:37:29.966Z",
+      "sessions": 1
+    },
+    "standalone": {
+      "count": 1,
+      "lastSeen": "2026-03-04T01:37:29.966Z",
+      "sessions": 1
+    },
+    "people": {
+      "count": 2,
+      "lastSeen": "2026-03-05T03:00:17.128Z",
+      "sessions": 1.5
+    },
+    "playing": {
+      "count": 1,
+      "lastSeen": "2026-03-04T01:37:29.966Z",
+      "sessions": 1
+    },
+    "various": {
+      "count": 1,
+      "lastSeen": "2026-03-04T01:37:29.966Z",
+      "sessions": 1
+    },
+    "subtle": {
+      "count": 1,
+      "lastSeen": "2026-03-04T01:37:29.966Z",
+      "sessions": 1
+    },
+    "amount": {
+      "count": 1,
+      "lastSeen": "2026-03-04T01:37:29.966Z",
+      "sessions": 1
+    },
+    "imperceptible": {
+      "count": 1,
+      "lastSeen": "2026-03-04T01:37:29.966Z",
+      "sessions": 1
+    },
+    "recorded": {
+      "count": 1,
+      "lastSeen": "2026-03-04T01:37:29.966Z",
+      "sessions": 1
+    },
+    "video": {
+      "count": 1,
+      "lastSeen": "2026-03-04T01:37:29.966Z",
+      "sessions": 1
+    },
+    "dramatically": {
+      "count": 1,
+      "lastSeen": "2026-03-04T01:37:29.966Z",
+      "sessions": 1
+    },
+    "number": {
+      "count": 4,
+      "lastSeen": "2026-03-04T01:51:52.236Z",
+      "sessions": 2.5
+    },
+    "shape": {
+      "count": 5,
+      "lastSeen": "2026-03-05T03:00:17.128Z",
+      "sessions": 3
+    },
+    "behavior": {
+      "count": 18,
+      "lastSeen": "2026-03-04T01:51:52.236Z",
+      "sessions": 9.5
+    },
+    "thinking": {
+      "count": 5,
+      "lastSeen": "2026-03-05T03:58:36.391Z",
+      "sessions": 3
+    },
+    "allows": {
+      "count": 4,
+      "lastSeen": "2026-03-04T01:51:52.236Z",
+      "sessions": 2.5
+    },
+    "degree": {
+      "count": 4,
+      "lastSeen": "2026-03-04T01:51:52.236Z",
+      "sessions": 2.5
+    },
+    "customization": {
+      "count": 4,
+      "lastSeen": "2026-03-04T01:51:52.236Z",
+      "sessions": 2.5
+    },
+    "outside": {
+      "count": 4,
+      "lastSeen": "2026-03-04T01:51:52.236Z",
+      "sessions": 2.5
+    },
+    "alias": {
+      "count": 9,
+      "lastSeen": "2026-03-04T01:51:52.236Z",
+      "sessions": 5
+    },
+    "tunings": {
+      "count": 4,
+      "lastSeen": "2026-03-04T01:51:52.236Z",
+      "sessions": 2.5
+    },
+    "behave": {
+      "count": 4,
+      "lastSeen": "2026-03-04T01:51:52.236Z",
+      "sessions": 2.5
+    },
+    "haiku": {
+      "count": 11,
+      "lastSeen": "2026-03-04T21:02:37.737Z",
+      "sessions": 6
+    },
+    "quality": {
+      "count": 9,
+      "lastSeen": "2026-03-05T03:52:42.770Z",
+      "sessions": 5
+    },
+    "robustness": {
+      "count": 4,
+      "lastSeen": "2026-03-04T01:51:52.236Z",
+      "sessions": 2.5
+    },
+    "ability": {
+      "count": 4,
+      "lastSeen": "2026-03-04T01:51:52.236Z",
+      "sessions": 2.5
+    },
+    "complex": {
+      "count": 4,
+      "lastSeen": "2026-03-04T01:51:52.236Z",
+      "sessions": 2.5
+    },
+    "reasoning": {
+      "count": 5,
+      "lastSeen": "2026-03-04T09:38:41.502Z",
+      "sessions": 3
+    },
+    "often": {
+      "count": 4,
+      "lastSeen": "2026-03-04T01:51:52.236Z",
+      "sessions": 2.5
+    },
+    "paragraph": {
+      "count": 4,
+      "lastSeen": "2026-03-04T01:51:52.236Z",
+      "sessions": 2.5
+    },
+    "pages": {
+      "count": 4,
+      "lastSeen": "2026-03-04T01:51:52.236Z",
+      "sessions": 2.5
+    },
+    "takes": {
+      "count": 4,
+      "lastSeen": "2026-03-04T01:51:52.236Z",
+      "sessions": 2.5
+    },
+    "effort": {
+      "count": 4,
+      "lastSeen": "2026-03-04T01:51:52.236Z",
+      "sessions": 2.5
+    },
+    "regardless": {
+      "count": 5,
+      "lastSeen": "2026-03-04T18:14:40.582Z",
+      "sessions": 3
+    },
+    "applies": {
+      "count": 4,
+      "lastSeen": "2026-03-04T01:51:52.236Z",
+      "sessions": 2.5
+    },
+    "technical": {
+      "count": 4,
+      "lastSeen": "2026-03-04T01:51:52.236Z",
+      "sessions": 2.5
+    },
+    "matters": {
+      "count": 4,
+      "lastSeen": "2026-03-04T01:51:52.236Z",
+      "sessions": 2.5
+    },
+    "tuning": {
+      "count": 13,
+      "lastSeen": "2026-03-04T01:51:52.236Z",
+      "sessions": 7
+    },
+    "models": {
+      "count": 1,
+      "lastSeen": "2026-03-04T01:49:53.461Z",
+      "sessions": 1
+    },
+    "wednesday": {
+      "count": 9,
+      "lastSeen": "2026-03-04T23:23:02.286Z",
+      "sessions": 5
+    },
+    "tracker": {
+      "count": 8,
+      "lastSeen": "2026-03-05T03:11:33.327Z",
+      "sessions": 4.5
+    },
+    "script": {
+      "count": 2,
+      "lastSeen": "2026-03-05T03:11:33.327Z",
+      "sessions": 1.5
+    },
+    "python3": {
+      "count": 2,
+      "lastSeen": "2026-03-05T03:11:33.327Z",
+      "sessions": 1.5
+    },
+    "scripts": {
+      "count": 3,
+      "lastSeen": "2026-03-05T03:11:33.327Z",
+      "sessions": 2
+    },
+    "format": {
+      "count": 8,
+      "lastSeen": "2026-03-05T03:11:33.327Z",
+      "sessions": 4.5
+    },
+    "parse": {
+      "count": 4,
+      "lastSeen": "2026-03-05T03:11:33.327Z",
+      "sessions": 2.5
+    },
+    "under": {
+      "count": 3,
+      "lastSeen": "2026-03-05T03:11:33.327Z",
+      "sessions": 2
+    },
+    "words": {
+      "count": 2,
+      "lastSeen": "2026-03-05T03:11:33.327Z",
+      "sessions": 1.5
+    },
+    "total": {
+      "count": 6,
+      "lastSeen": "2026-03-05T03:11:33.327Z",
+      "sessions": 3.5
+    },
+    "hours": {
+      "count": 4,
+      "lastSeen": "2026-03-05T03:11:33.327Z",
+      "sessions": 2.5
+    },
+    "breakdown": {
+      "count": 2,
+      "lastSeen": "2026-03-05T03:11:33.327Z",
+      "sessions": 1.5
+    },
+    "notable": {
+      "count": 2,
+      "lastSeen": "2026-03-05T03:11:33.327Z",
+      "sessions": 1.5
+    },
+    "observations": {
+      "count": 2,
+      "lastSeen": "2026-03-05T03:11:33.327Z",
+      "sessions": 1.5
+    },
+    "available": {
+      "count": 3,
+      "lastSeen": "2026-03-05T04:11:37.300Z",
+      "sessions": 2
+    },
+    "reset": {
+      "count": 1,
+      "lastSeen": "2026-03-04T09:38:41.502Z",
+      "sessions": 1
+    },
+    "execute": {
+      "count": 2,
+      "lastSeen": "2026-03-04T21:02:37.737Z",
+      "sessions": 1.5
+    },
+    "responding": {
+      "count": 1,
+      "lastSeen": "2026-03-04T09:38:41.502Z",
+      "sessions": 1
+    },
+    "greet": {
+      "count": 1,
+      "lastSeen": "2026-03-04T09:38:41.502Z",
+      "sessions": 1
+    },
+    "persona": {
+      "count": 1,
+      "lastSeen": "2026-03-04T09:38:41.502Z",
+      "sessions": 1
+    },
+    "provided": {
+      "count": 1,
+      "lastSeen": "2026-03-04T09:38:41.502Z",
+      "sessions": 1
+    },
+    "voice": {
+      "count": 1,
+      "lastSeen": "2026-03-04T09:38:41.502Z",
+      "sessions": 1
+    },
+    "mannerisms": {
+      "count": 1,
+      "lastSeen": "2026-03-04T09:38:41.502Z",
+      "sessions": 1
+    },
+    "sentences": {
+      "count": 1,
+      "lastSeen": "2026-03-04T09:38:41.502Z",
+      "sessions": 1
+    },
+    "runtime": {
+      "count": 7,
+      "lastSeen": "2026-03-04T10:12:15.239Z",
+      "sessions": 4
+    },
+    "differs": {
+      "count": 1,
+      "lastSeen": "2026-03-04T09:38:41.502Z",
+      "sessions": 1
+    },
+    "internal": {
+      "count": 7,
+      "lastSeen": "2026-03-04T10:12:15.239Z",
+      "sessions": 4
+    },
+    "tools": {
+      "count": 1,
+      "lastSeen": "2026-03-04T09:38:41.502Z",
+      "sessions": 1
+    },
+    "fixed": {
+      "count": 11,
+      "lastSeen": "2026-03-04T10:12:15.239Z",
+      "sessions": 6
+    },
+    "subagent": {
+      "count": 20,
+      "lastSeen": "2026-03-05T04:11:37.300Z",
+      "sessions": 10.5
+    },
+    "announce": {
+      "count": 3,
+      "lastSeen": "2026-03-05T04:11:37.300Z",
+      "sessions": 2
+    },
+    "threads": {
+      "count": 27,
+      "lastSeen": "2026-03-05T04:11:21.869Z",
+      "sessions": 14
+    },
+    "processing": {
+      "count": 5,
+      "lastSeen": "2026-03-04T10:12:15.239Z",
+      "sessions": 3
+    },
+    "documents": {
+      "count": 2,
+      "lastSeen": "2026-03-04T10:12:15.239Z",
+      "sessions": 1.5
+    },
+    "posts": {
+      "count": 13,
+      "lastSeen": "2026-03-05T03:52:42.770Z",
+      "sessions": 7
+    },
+    "order": {
+      "count": 2,
+      "lastSeen": "2026-03-04T10:12:15.239Z",
+      "sessions": 1.5
+    },
+    "override": {
+      "count": 5,
+      "lastSeen": "2026-03-05T03:00:17.128Z",
+      "sessions": 3
+    },
+    "checkdedupe": {
+      "count": 4,
+      "lastSeen": "2026-03-04T10:12:15.239Z",
+      "sessions": 2.5
+    },
+    "processed": {
+      "count": 2,
+      "lastSeen": "2026-03-04T10:12:15.239Z",
+      "sessions": 1.5
+    },
+    "ingested": {
+      "count": 4,
+      "lastSeen": "2026-03-04T10:12:15.239Z",
+      "sessions": 2.5
+    },
+    "clusters": {
+      "count": 4,
+      "lastSeen": "2026-03-04T10:12:15.239Z",
+      "sessions": 2.5
+    },
+    "metrics": {
+      "count": 4,
+      "lastSeen": "2026-03-04T10:12:15.239Z",
+      "sessions": 2.5
+    },
+    "channels": {
+      "count": 19,
+      "lastSeen": "2026-03-05T04:11:21.869Z",
+      "sessions": 10
+    },
+    "standard": {
+      "count": 2,
+      "lastSeen": "2026-03-04T10:11:48.187Z",
+      "sessions": 1.5
+    },
+    "generated": {
+      "count": 2,
+      "lastSeen": "2026-03-04T10:12:15.239Z",
+      "sessions": 1.5
+    },
+    "authored": {
+      "count": 2,
+      "lastSeen": "2026-03-04T10:12:15.239Z",
+      "sessions": 1.5
+    },
+    "details": {
+      "count": 2,
+      "lastSeen": "2026-03-04T10:12:15.239Z",
+      "sessions": 1.5
+    },
+    "private": {
+      "count": 2,
+      "lastSeen": "2026-03-04T10:12:15.239Z",
+      "sessions": 1.5
+    },
+    "completion": {
+      "count": 2,
+      "lastSeen": "2026-03-04T10:12:15.239Z",
+      "sessions": 1.5
+    },
+    "b8b29ca7fac5": {
+      "count": 1,
+      "lastSeen": "2026-03-04T10:11:48.187Z",
+      "sessions": 1
+    },
+    "treat": {
+      "count": 2,
+      "lastSeen": "2026-03-04T10:12:15.239Z",
+      "sessions": 1.5
+    },
+    "package": {
+      "count": 2,
+      "lastSeen": "2026-03-04T10:25:15.439Z",
+      "sessions": 1.5
+    },
+    "couldn": {
+      "count": 1,
+      "lastSeen": "2026-03-04T10:11:48.187Z",
+      "sessions": 1
+    },
+    "registry": {
+      "count": 1,
+      "lastSeen": "2026-03-04T10:11:48.187Z",
+      "sessions": 1
+    },
+    "indicates": {
+      "count": 1,
+      "lastSeen": "2026-03-04T10:11:48.187Z",
+      "sessions": 1
+    },
+    "tarball": {
+      "count": 1,
+      "lastSeen": "2026-03-04T10:11:48.187Z",
+      "sessions": 1
+    },
+    "repository": {
+      "count": 2,
+      "lastSeen": "2026-03-04T10:11:48.187Z",
+      "sessions": 1.5
+    },
+    "locate": {
+      "count": 1,
+      "lastSeen": "2026-03-04T10:11:48.187Z",
+      "sessions": 1
+    },
+    "locally": {
+      "count": 1,
+      "lastSeen": "2026-03-04T10:11:48.187Z",
+      "sessions": 1
+    },
+    "directly": {
+      "count": 2,
+      "lastSeen": "2026-03-04T10:25:15.439Z",
+      "sessions": 1.5
+    },
+    "cloned": {
+      "count": 1,
+      "lastSeen": "2026-03-04T10:11:48.187Z",
+      "sessions": 1
+    },
+    "stats": {
+      "count": 3,
+      "lastSeen": "2026-03-04T10:12:15.239Z",
+      "sessions": 2
+    },
+    "tokens": {
+      "count": 2,
+      "lastSeen": "2026-03-04T10:12:15.239Z",
+      "sessions": 1.5
+    },
+    "action": {
+      "count": 2,
+      "lastSeen": "2026-03-04T10:12:15.239Z",
+      "sessions": 1.5
+    },
+    "workflow": {
+      "count": 11,
+      "lastSeen": "2026-03-05T04:11:21.869Z",
+      "sessions": 6
+    },
+    "remaining": {
+      "count": 2,
+      "lastSeen": "2026-03-04T10:12:15.239Z",
+      "sessions": 1.5
+    },
+    "unrelated": {
+      "count": 2,
+      "lastSeen": "2026-03-04T10:12:15.239Z",
+      "sessions": 1.5
+    },
+    "respond": {
+      "count": 2,
+      "lastSeen": "2026-03-04T10:12:15.239Z",
+      "sessions": 1.5
+    },
+    "normally": {
+      "count": 2,
+      "lastSeen": "2026-03-04T10:12:15.239Z",
+      "sessions": 1.5
+    },
+    "above": {
+      "count": 3,
+      "lastSeen": "2026-03-05T04:11:37.300Z",
+      "sessions": 2
+    },
+    "544bdd003e9c": {
+      "count": 1,
+      "lastSeen": "2026-03-04T10:12:15.239Z",
+      "sessions": 1
+    },
+    "retrieved": {
+      "count": 1,
+      "lastSeen": "2026-03-04T10:12:15.239Z",
+      "sessions": 1
+    },
+    "targeted": {
+      "count": 1,
+      "lastSeen": "2026-03-04T10:12:15.239Z",
+      "sessions": 1
+    },
+    "however": {
+      "count": 1,
+      "lastSeen": "2026-03-04T10:12:15.239Z",
+      "sessions": 1
+    },
+    "scaled": {
+      "count": 1,
+      "lastSeen": "2026-03-04T10:12:15.239Z",
+      "sessions": 1
+    },
+    "constraints": {
+      "count": 1,
+      "lastSeen": "2026-03-04T10:12:15.239Z",
+      "sessions": 1
+    },
+    "limits": {
+      "count": 2,
+      "lastSeen": "2026-03-05T03:00:17.128Z",
+      "sessions": 1.5
+    },
+    "suggest": {
+      "count": 2,
+      "lastSeen": "2026-03-05T03:00:17.128Z",
+      "sessions": 1.5
+    },
+    "attempts": {
+      "count": 4,
+      "lastSeen": "2026-03-04T23:24:57.567Z",
+      "sessions": 2.5
+    },
+    "succeeded": {
+      "count": 1,
+      "lastSeen": "2026-03-04T10:12:15.239Z",
+      "sessions": 1
+    },
+    "direct": {
+      "count": 9,
+      "lastSeen": "2026-03-05T04:11:21.869Z",
+      "sessions": 5
+    },
+    "proposed": {
+      "count": 10,
+      "lastSeen": "2026-03-05T04:11:21.869Z",
+      "sessions": 5.5
+    },
+    "subagents": {
+      "count": 4,
+      "lastSeen": "2026-03-04T10:25:15.439Z",
+      "sessions": 2.5
+    },
+    "packaging": {
+      "count": 1,
+      "lastSeen": "2026-03-04T10:12:15.239Z",
+      "sessions": 1
+    },
+    "modular": {
+      "count": 9,
+      "lastSeen": "2026-03-05T04:11:21.869Z",
+      "sessions": 5
+    },
+    "calling": {
+      "count": 1,
+      "lastSeen": "2026-03-04T10:12:15.239Z",
+      "sessions": 1
+    },
+    "normalized": {
+      "count": 1,
+      "lastSeen": "2026-03-04T10:12:15.239Z",
+      "sessions": 1
+    },
+    "blocks": {
+      "count": 1,
+      "lastSeen": "2026-03-04T10:12:15.239Z",
+      "sessions": 1
+    },
+    "protects": {
+      "count": 1,
+      "lastSeen": "2026-03-04T10:12:15.239Z",
+      "sessions": 1
+    },
+    "intermediate": {
+      "count": 1,
+      "lastSeen": "2026-03-04T10:12:15.239Z",
+      "sessions": 1
+    },
+    "outputs": {
+      "count": 1,
+      "lastSeen": "2026-03-04T10:12:15.239Z",
+      "sessions": 1
+    },
+    "bundles": {
+      "count": 1,
+      "lastSeen": "2026-03-04T10:12:15.239Z",
+      "sessions": 1
+    },
+    "saved": {
+      "count": 1,
+      "lastSeen": "2026-03-04T10:12:15.239Z",
+      "sessions": 1
+    },
+    "versus": {
+      "count": 1,
+      "lastSeen": "2026-03-04T10:12:15.239Z",
+      "sessions": 1
+    },
+    "loops": {
+      "count": 1,
+      "lastSeen": "2026-03-04T10:12:15.239Z",
+      "sessions": 1
+    },
+    "troubleshoot": {
+      "count": 1,
+      "lastSeen": "2026-03-04T10:12:45.803Z",
+      "sessions": 1
+    },
+    "queued": {
+      "count": 2,
+      "lastSeen": "2026-03-04T10:13:09.654Z",
+      "sessions": 1.5
+    },
+    "while": {
+      "count": 1,
+      "lastSeen": "2026-03-04T10:13:09.654Z",
+      "sessions": 1
+    },
+    "analysis": {
+      "count": 1,
+      "lastSeen": "2026-03-04T10:13:09.654Z",
+      "sessions": 1
+    },
+    "valuable": {
+      "count": 1,
+      "lastSeen": "2026-03-04T10:17:42.926Z",
+      "sessions": 1
+    },
+    "extracted": {
+      "count": 1,
+      "lastSeen": "2026-03-04T10:17:42.926Z",
+      "sessions": 1
+    },
+    "general": {
+      "count": 30,
+      "lastSeen": "2026-03-04T20:54:58.634Z",
+      "sessions": 15.5
+    },
+    "continue": {
+      "count": 1,
+      "lastSeen": "2026-03-04T10:23:18.105Z",
+      "sessions": 1
+    },
+    "attachments": {
+      "count": 3,
+      "lastSeen": "2026-03-05T04:11:37.300Z",
+      "sessions": 2
+    },
+    "module": {
+      "count": 2,
+      "lastSeen": "2026-03-04T10:25:15.439Z",
+      "sessions": 1.5
+    },
+    "exported": {
+      "count": 1,
+      "lastSeen": "2026-03-04T10:25:15.439Z",
+      "sessions": 1
+    },
+    "classes": {
+      "count": 1,
+      "lastSeen": "2026-03-04T10:25:15.439Z",
+      "sessions": 1
+    },
+    "runnable": {
+      "count": 1,
+      "lastSeen": "2026-03-04T10:25:15.439Z",
+      "sessions": 1
+    },
+    "command": {
+      "count": 21,
+      "lastSeen": "2026-03-05T04:11:21.869Z",
+      "sessions": 11
+    },
+    "trying": {
+      "count": 2,
+      "lastSeen": "2026-03-04T20:54:58.634Z",
+      "sessions": 1.5
+    },
+    "fails": {
+      "count": 1,
+      "lastSeen": "2026-03-04T10:25:15.439Z",
+      "sessions": 1
+    },
+    "field": {
+      "count": 1,
+      "lastSeen": "2026-03-04T10:25:15.439Z",
+      "sessions": 1
+    },
+    "options": {
+      "count": 2,
+      "lastSeen": "2026-03-05T03:00:17.128Z",
+      "sessions": 1.5
+    },
+    "wrapper": {
+      "count": 1,
+      "lastSeen": "2026-03-04T10:25:15.439Z",
+      "sessions": 1
+    },
+    "simplest": {
+      "count": 1,
+      "lastSeen": "2026-03-04T10:25:15.439Z",
+      "sessions": 1
+    },
+    "methods": {
+      "count": 1,
+      "lastSeen": "2026-03-04T10:25:15.439Z",
+      "sessions": 1
+    },
+    "programmatic": {
+      "count": 1,
+      "lastSeen": "2026-03-04T10:25:15.439Z",
+      "sessions": 1
+    },
+    "nwhich": {
+      "count": 1,
+      "lastSeen": "2026-03-04T10:25:15.439Z",
+      "sessions": 1
+    },
+    "approach": {
+      "count": 1,
+      "lastSeen": "2026-03-04T10:25:15.439Z",
+      "sessions": 1
+    },
+    "recommend": {
+      "count": 1,
+      "lastSeen": "2026-03-04T10:25:15.439Z",
+      "sessions": 1
+    },
+    "clawtextingest": {
+      "count": 1,
+      "lastSeen": "2026-03-04T10:25:15.439Z",
+      "sessions": 1
+    },
+    "nwant": {
+      "count": 1,
+      "lastSeen": "2026-03-04T10:25:15.439Z",
+      "sessions": 1
+    },
+    "resolution": {
+      "count": 2,
+      "lastSeen": "2026-03-04T18:05:04.984Z",
+      "sessions": 1.5
+    },
+    "modified": {
+      "count": 1,
+      "lastSeen": "2026-03-04T18:05:04.984Z",
+      "sessions": 1
+    },
+    "filter": {
+      "count": 1,
+      "lastSeen": "2026-03-04T18:05:04.984Z",
+      "sessions": 1
+    },
+    "whitelisted": {
+      "count": 1,
+      "lastSeen": "2026-03-04T18:05:04.984Z",
+      "sessions": 1
+    },
+    "leawo7qq": {
+      "count": 1,
+      "lastSeen": "2026-03-04T18:05:04.984Z",
+      "sessions": 1
+    },
+    "opencalw": {
+      "count": 1,
+      "lastSeen": "2026-03-04T18:14:40.582Z",
+      "sessions": 1
+    },
+    "rebuilt": {
+      "count": 1,
+      "lastSeen": "2026-03-04T18:14:40.582Z",
+      "sessions": 1
+    },
+    "secrets": {
+      "count": 1,
+      "lastSeen": "2026-03-04T18:14:40.582Z",
+      "sessions": 1
+    },
+    "concerns": {
+      "count": 1,
+      "lastSeen": "2026-03-04T18:14:40.582Z",
+      "sessions": 1
+    },
+    "decisions": {
+      "count": 1,
+      "lastSeen": "2026-03-04T18:14:40.582Z",
+      "sessions": 1
+    },
+    "rsync": {
+      "count": 4,
+      "lastSeen": "2026-03-04T19:28:06.709Z",
+      "sessions": 2.5
+    },
+    "share": {
+      "count": 4,
+      "lastSeen": "2026-03-04T19:37:33.766Z",
+      "sessions": 2.5
+    },
+    "backups": {
+      "count": 5,
+      "lastSeen": "2026-03-04T19:37:33.766Z",
+      "sessions": 3
+    },
+    "impact": {
+      "count": 1,
+      "lastSeen": "2026-03-04T18:14:40.582Z",
+      "sessions": 1
+    },
+    "triggers": {
+      "count": 1,
+      "lastSeen": "2026-03-04T18:14:40.582Z",
+      "sessions": 1
+    },
+    "realtime": {
+      "count": 1,
+      "lastSeen": "2026-03-04T18:14:40.582Z",
+      "sessions": 1
+    },
+    "pieces": {
+      "count": 1,
+      "lastSeen": "2026-03-04T18:14:40.582Z",
+      "sessions": 1
+    },
+    "temporal": {
+      "count": 1,
+      "lastSeen": "2026-03-04T18:14:40.582Z",
+      "sessions": 1
+    },
+    "tailscale": {
+      "count": 1,
+      "lastSeen": "2026-03-04T18:14:40.582Z",
+      "sessions": 1
+    },
+    "permission": {
+      "count": 2,
+      "lastSeen": "2026-03-04T19:28:06.709Z",
+      "sessions": 1.5
+    },
+    "denied": {
+      "count": 2,
+      "lastSeen": "2026-03-04T19:28:06.709Z",
+      "sessions": 1.5
+    },
+    "haven": {
+      "count": 1,
+      "lastSeen": "2026-03-04T18:21:36.069Z",
+      "sessions": 1
+    },
+    "missed": {
+      "count": 1,
+      "lastSeen": "2026-03-04T18:21:36.069Z",
+      "sessions": 1
+    },
+    "passwordless": {
+      "count": 1,
+      "lastSeen": "2026-03-04T19:28:06.709Z",
+      "sessions": 1
+    },
+    "login": {
+      "count": 5,
+      "lastSeen": "2026-03-04T23:24:57.567Z",
+      "sessions": 3
+    },
+    "connection": {
+      "count": 1,
+      "lastSeen": "2026-03-04T19:28:06.709Z",
+      "sessions": 1
+    },
+    "verify": {
+      "count": 2,
+      "lastSeen": "2026-03-04T19:28:06.709Z",
+      "sessions": 1.5
+    },
+    "backup": {
+      "count": 10,
+      "lastSeen": "2026-03-04T19:46:44.954Z",
+      "sessions": 5.5
+    },
+    "successful": {
+      "count": 1,
+      "lastSeen": "2026-03-04T19:28:06.709Z",
+      "sessions": 1
+    },
+    "longer": {
+      "count": 1,
+      "lastSeen": "2026-03-04T19:28:06.709Z",
+      "sessions": 1
+    },
+    "prompted": {
+      "count": 1,
+      "lastSeen": "2026-03-04T19:28:06.709Z",
+      "sessions": 1
+    },
+    "password": {
+      "count": 1,
+      "lastSeen": "2026-03-04T19:28:06.709Z",
+      "sessions": 1
+    },
+    "ensure": {
+      "count": 1,
+      "lastSeen": "2026-03-04T19:28:06.709Z",
+      "sessions": 1
+    },
+    "correct": {
+      "count": 1,
+      "lastSeen": "2026-03-04T19:28:06.709Z",
+      "sessions": 1
+    },
+    "during": {
+      "count": 1,
+      "lastSeen": "2026-03-04T19:28:06.709Z",
+      "sessions": 1
+    },
+    "transfers": {
+      "count": 1,
+      "lastSeen": "2026-03-04T19:28:06.709Z",
+      "sessions": 1
+    },
+    "nrsync": {
+      "count": 1,
+      "lastSeen": "2026-03-04T19:28:06.709Z",
+      "sessions": 1
+    },
+    "copied": {
+      "count": 1,
+      "lastSeen": "2026-03-04T19:28:06.709Z",
+      "sessions": 1
+    },
+    "pubkey": {
+      "count": 1,
+      "lastSeen": "2026-03-04T19:28:06.709Z",
+      "sessions": 1
+    },
+    "luminous": {
+      "count": 1,
+      "lastSeen": "2026-03-04T19:28:06.709Z",
+      "sessions": 1
+    },
+    "publickey": {
+      "count": 1,
+      "lastSeen": "2026-03-04T19:28:06.709Z",
+      "sessions": 1
+    },
+    "thanks": {
+      "count": 1,
+      "lastSeen": "2026-03-04T19:29:41.990Z",
+      "sessions": 1
+    },
+    "thought": {
+      "count": 1,
+      "lastSeen": "2026-03-04T19:31:52.205Z",
+      "sessions": 1
+    },
+    "subfolder": {
+      "count": 1,
+      "lastSeen": "2026-03-04T19:31:52.205Z",
+      "sessions": 1
+    },
+    "datah": {
+      "count": 1,
+      "lastSeen": "2026-03-04T19:31:52.205Z",
+      "sessions": 1
+    },
+    "sorry": {
+      "count": 1,
+      "lastSeen": "2026-03-04T19:37:33.766Z",
+      "sessions": 1
+    },
+    "messed": {
+      "count": 1,
+      "lastSeen": "2026-03-04T19:37:33.766Z",
+      "sessions": 1
+    },
+    "familiar": {
+      "count": 1,
+      "lastSeen": "2026-03-04T19:39:43.887Z",
+      "sessions": 1
+    },
+    "inotify": {
+      "count": 2,
+      "lastSeen": "2026-03-04T19:39:43.887Z",
+      "sessions": 1.5
+    },
+    "monitor": {
+      "count": 1,
+      "lastSeen": "2026-03-04T19:39:43.887Z",
+      "sessions": 1
+    },
+    "changes": {
+      "count": 1,
+      "lastSeen": "2026-03-04T19:39:43.887Z",
+      "sessions": 1
+    },
+    "permanently": {
+      "count": 1,
+      "lastSeen": "2026-03-04T19:46:44.954Z",
+      "sessions": 1
+    },
+    "handled": {
+      "count": 1,
+      "lastSeen": "2026-03-04T19:46:44.954Z",
+      "sessions": 1
+    },
+    "always": {
+      "count": 1,
+      "lastSeen": "2026-03-04T19:46:44.954Z",
+      "sessions": 1
+    },
+    "without": {
+      "count": 3,
+      "lastSeen": "2026-03-05T03:00:17.128Z",
+      "sessions": 2
+    },
+    "interaction": {
+      "count": 1,
+      "lastSeen": "2026-03-04T19:46:44.954Z",
+      "sessions": 1
+    },
+    "versions": {
+      "count": 1,
+      "lastSeen": "2026-03-04T19:46:44.954Z",
+      "sessions": 1
+    },
+    "otherwise": {
+      "count": 1,
+      "lastSeen": "2026-03-04T19:46:44.954Z",
+      "sessions": 1
+    },
+    "backing": {
+      "count": 1,
+      "lastSeen": "2026-03-04T19:46:44.954Z",
+      "sessions": 1
+    },
+    "deleted": {
+      "count": 1,
+      "lastSeen": "2026-03-04T19:46:44.954Z",
+      "sessions": 1
+    },
+    "protection": {
+      "count": 1,
+      "lastSeen": "2026-03-04T19:46:44.954Z",
+      "sessions": 1
+    },
+    "realizing": {
+      "count": 1,
+      "lastSeen": "2026-03-04T20:54:58.634Z",
+      "sessions": 1
+    },
+    "recreated": {
+      "count": 1,
+      "lastSeen": "2026-03-04T20:54:58.634Z",
+      "sessions": 1
+    },
+    "ubuntu": {
+      "count": 6,
+      "lastSeen": "2026-03-04T21:02:37.737Z",
+      "sessions": 3.5
+    },
+    "determine": {
+      "count": 1,
+      "lastSeen": "2026-03-04T20:54:58.634Z",
+      "sessions": 1
+    },
+    "place": {
+      "count": 1,
+      "lastSeen": "2026-03-04T20:54:58.634Z",
+      "sessions": 1
+    },
+    "upgrade": {
+      "count": 1,
+      "lastSeen": "2026-03-04T20:54:58.634Z",
+      "sessions": 1
+    },
+    "transfer": {
+      "count": 1,
+      "lastSeen": "2026-03-04T20:54:58.634Z",
+      "sessions": 1
+    },
+    "migrate": {
+      "count": 4,
+      "lastSeen": "2026-03-04T21:02:37.737Z",
+      "sessions": 2.5
+    },
+    "covers": {
+      "count": 3,
+      "lastSeen": "2026-03-04T21:02:37.737Z",
+      "sessions": 2
+    },
+    "necessary": {
+      "count": 4,
+      "lastSeen": "2026-03-04T21:02:37.737Z",
+      "sessions": 2.5
+    },
+    "accelerate": {
+      "count": 4,
+      "lastSeen": "2026-03-04T21:02:37.737Z",
+      "sessions": 2.5
+    },
+    "migration": {
+      "count": 10,
+      "lastSeen": "2026-03-04T21:02:37.737Z",
+      "sessions": 5.5
+    },
+    "offering": {
+      "count": 1,
+      "lastSeen": "2026-03-04T21:02:37.737Z",
+      "sessions": 1
+    },
+    "automated": {
+      "count": 1,
+      "lastSeen": "2026-03-04T21:02:37.737Z",
+      "sessions": 1
+    },
+    "possible": {
+      "count": 1,
+      "lastSeen": "2026-03-04T21:02:37.737Z",
+      "sessions": 1
+    },
+    "copilot": {
+      "count": 1,
+      "lastSeen": "2026-03-04T23:19:46.070Z",
+      "sessions": 1
+    },
+    "comment": {
+      "count": 1,
+      "lastSeen": "2026-03-04T23:19:46.070Z",
+      "sessions": 1
+    },
+    "account": {
+      "count": 3,
+      "lastSeen": "2026-03-04T23:24:57.567Z",
+      "sessions": 2
+    },
+    "lockout": {
+      "count": 4,
+      "lastSeen": "2026-03-04T23:24:57.567Z",
+      "sessions": 2.5
+    },
+    "policy": {
+      "count": 4,
+      "lastSeen": "2026-03-04T23:24:57.567Z",
+      "sessions": 2.5
+    },
+    "logged": {
+      "count": 8,
+      "lastSeen": "2026-03-04T23:24:57.567Z",
+      "sessions": 4.5
+    },
+    "incorrectly": {
+      "count": 8,
+      "lastSeen": "2026-03-04T23:24:57.567Z",
+      "sessions": 4.5
+    },
+    "times": {
+      "count": 8,
+      "lastSeen": "2026-03-04T23:24:57.567Z",
+      "sessions": 4.5
+    },
+    "locked": {
+      "count": 10,
+      "lastSeen": "2026-03-04T23:24:57.567Z",
+      "sessions": 5.5
+    },
+    "factual": {
+      "count": 1,
+      "lastSeen": "2026-03-04T23:24:57.567Z",
+      "sessions": 1
+    },
+    "material": {
+      "count": 1,
+      "lastSeen": "2026-03-04T23:24:57.567Z",
+      "sessions": 1
+    },
+    "searching": {
+      "count": 1,
+      "lastSeen": "2026-03-04T23:24:57.567Z",
+      "sessions": 1
+    },
+    "internet": {
+      "count": 1,
+      "lastSeen": "2026-03-04T23:24:57.567Z",
+      "sessions": 1
+    },
+    "assertions": {
+      "count": 1,
+      "lastSeen": "2026-03-04T23:24:57.567Z",
+      "sessions": 1
+    },
+    "troubleshooting": {
+      "count": 1,
+      "lastSeen": "2026-03-04T23:24:57.567Z",
+      "sessions": 1
+    },
+    "assist": {
+      "count": 1,
+      "lastSeen": "2026-03-04T23:24:57.567Z",
+      "sessions": 1
+    },
+    "computer": {
+      "count": 1,
+      "lastSeen": "2026-03-04T23:24:57.567Z",
+      "sessions": 1
+    },
+    "domain": {
+      "count": 1,
+      "lastSeen": "2026-03-04T23:24:57.567Z",
+      "sessions": 1
+    },
+    "logins": {
+      "count": 1,
+      "lastSeen": "2026-03-04T23:24:57.567Z",
+      "sessions": 1
+    },
+    "attemps": {
+      "count": 1,
+      "lastSeen": "2026-03-04T23:24:57.567Z",
+      "sessions": 1
+    },
+    "expected": {
+      "count": 1,
+      "lastSeen": "2026-03-04T23:24:57.567Z",
+      "sessions": 1
+    },
+    "enhancement": {
+      "count": 56,
+      "lastSeen": "2026-03-05T04:11:21.869Z",
+      "sessions": 28.5
+    },
+    "proposal": {
+      "count": 16,
+      "lastSeen": "2026-03-05T04:11:21.869Z",
+      "sessions": 8.5
+    },
+    "production": {
+      "count": 8,
+      "lastSeen": "2026-03-05T04:11:21.869Z",
+      "sessions": 4.5
+    },
+    "supports": {
+      "count": 8,
+      "lastSeen": "2026-03-05T04:11:21.869Z",
+      "sessions": 4.5
+    },
+    "pipelines": {
+      "count": 8,
+      "lastSeen": "2026-03-05T04:11:21.869Z",
+      "sessions": 4.5
+    },
+    "knowledge": {
+      "count": 16,
+      "lastSeen": "2026-03-05T04:11:21.869Z",
+      "sessions": 8.5
+    },
+    "clustering": {
+      "count": 9,
+      "lastSeen": "2026-03-05T04:11:21.869Z",
+      "sessions": 5
+    },
+    "validated": {
+      "count": 8,
+      "lastSeen": "2026-03-05T04:11:21.869Z",
+      "sessions": 4.5
+    },
+    "tested": {
+      "count": 8,
+      "lastSeen": "2026-03-05T04:11:21.869Z",
+      "sessions": 4.5
+    },
+    "clawhhub": {
+      "count": 8,
+      "lastSeen": "2026-03-05T04:11:21.869Z",
+      "sessions": 4.5
+    },
+    "companion": {
+      "count": 8,
+      "lastSeen": "2026-03-05T04:11:21.869Z",
+      "sessions": 4.5
+    },
+    "improve": {
+      "count": 8,
+      "lastSeen": "2026-03-05T04:11:21.869Z",
+      "sessions": 4.5
+    },
+    "propose": {
+      "count": 8,
+      "lastSeen": "2026-03-05T04:11:21.869Z",
+      "sessions": 4.5
+    },
+    "integrating": {
+      "count": 8,
+      "lastSeen": "2026-03-05T04:11:21.869Z",
+      "sessions": 4.5
+    },
+    "addition": {
+      "count": 8,
+      "lastSeen": "2026-03-05T04:11:21.869Z",
+      "sessions": 4.5
+    },
+    "fetch": {
+      "count": 16,
+      "lastSeen": "2026-03-05T04:11:21.869Z",
+      "sessions": 8.5
+    },
+    "extraction": {
+      "count": 8,
+      "lastSeen": "2026-03-05T04:11:21.869Z",
+      "sessions": 4.5
+    },
+    "deduplication": {
+      "count": 12,
+      "lastSeen": "2026-03-05T04:11:37.300Z",
+      "sessions": 6.5
+    },
+    "policies": {
+      "count": 8,
+      "lastSeen": "2026-03-05T04:11:21.869Z",
+      "sessions": 4.5
+    },
+    "optional": {
+      "count": 9,
+      "lastSeen": "2026-03-05T04:11:21.869Z",
+      "sessions": 5
+    },
+    "flags": {
+      "count": 8,
+      "lastSeen": "2026-03-05T04:11:21.869Z",
+      "sessions": 4.5
+    },
+    "outcome": {
+      "count": 8,
+      "lastSeen": "2026-03-05T04:11:21.869Z",
+      "sessions": 4.5
+    },
+    "seamless": {
+      "count": 8,
+      "lastSeen": "2026-03-05T04:11:21.869Z",
+      "sessions": 4.5
+    },
+    "workflows": {
+      "count": 8,
+      "lastSeen": "2026-03-05T04:11:21.869Z",
+      "sessions": 4.5
+    },
+    "complement": {
+      "count": 8,
+      "lastSeen": "2026-03-05T04:11:21.869Z",
+      "sessions": 4.5
+    },
+    "fromjson": {
+      "count": 8,
+      "lastSeen": "2026-03-05T04:11:21.869Z",
+      "sessions": 4.5
+    },
+    "fromfiles": {
+      "count": 8,
+      "lastSeen": "2026-03-05T04:11:21.869Z",
+      "sessions": 4.5
+    },
+    "leverage": {
+      "count": 8,
+      "lastSeen": "2026-03-05T04:11:21.869Z",
+      "sessions": 4.5
+    },
+    "streamline": {
+      "count": 8,
+      "lastSeen": "2026-03-05T04:11:21.869Z",
+      "sessions": 4.5
+    },
+    "community": {
+      "count": 8,
+      "lastSeen": "2026-03-05T04:11:21.869Z",
+      "sessions": 4.5
+    },
+    "timelines": {
+      "count": 8,
+      "lastSeen": "2026-03-05T04:11:21.869Z",
+      "sessions": 4.5
+    },
+    "sound": {
+      "count": 2,
+      "lastSeen": "2026-03-05T03:00:17.128Z",
+      "sessions": 1.5
+    },
+    "efficient": {
+      "count": 1,
+      "lastSeen": "2026-03-05T02:54:28.591Z",
+      "sessions": 1
+    },
+    "comply": {
+      "count": 1,
+      "lastSeen": "2026-03-05T02:54:28.591Z",
+      "sessions": 1
+    },
+    "points": {
+      "count": 1,
+      "lastSeen": "2026-03-05T02:54:28.591Z",
+      "sessions": 1
+    },
+    "syntax": {
+      "count": 1,
+      "lastSeen": "2026-03-05T02:54:28.591Z",
+      "sessions": 1
+    },
+    "embeds": {
+      "count": 3,
+      "lastSeen": "2026-03-05T04:11:37.300Z",
+      "sessions": 2
+    },
+    "capable": {
+      "count": 2,
+      "lastSeen": "2026-03-05T03:58:36.391Z",
+      "sessions": 1.5
+    },
+    "autonomously": {
+      "count": 2,
+      "lastSeen": "2026-03-05T03:45:04.066Z",
+      "sessions": 1.5
+    },
+    "specify": {
+      "count": 1,
+      "lastSeen": "2026-03-05T02:54:28.591Z",
+      "sessions": 1
+    },
+    "regular": {
+      "count": 1,
+      "lastSeen": "2026-03-05T02:54:28.591Z",
+      "sessions": 1
+    },
+    "forums": {
+      "count": 1,
+      "lastSeen": "2026-03-05T02:56:18.431Z",
+      "sessions": 1
+    },
+    "contain": {
+      "count": 2,
+      "lastSeen": "2026-03-05T02:56:18.431Z",
+      "sessions": 1.5
+    },
+    "relationship": {
+      "count": 1,
+      "lastSeen": "2026-03-05T02:56:18.431Z",
+      "sessions": 1
+    },
+    "entire": {
+      "count": 1,
+      "lastSeen": "2026-03-05T02:56:18.431Z",
+      "sessions": 1
+    },
+    "instantiate": {
+      "count": 1,
+      "lastSeen": "2026-03-05T02:56:18.431Z",
+      "sessions": 1
+    },
+    "scalable": {
+      "count": 1,
+      "lastSeen": "2026-03-05T02:56:18.431Z",
+      "sessions": 1
+    },
+    "questions": {
+      "count": 2,
+      "lastSeen": "2026-03-05T03:00:17.128Z",
+      "sessions": 1.5
+    },
+    "replies": {
+      "count": 1,
+      "lastSeen": "2026-03-05T03:00:17.128Z",
+      "sessions": 1
+    },
+    "agree": {
+      "count": 1,
+      "lastSeen": "2026-03-05T03:00:17.128Z",
+      "sessions": 1
+    },
+    "configurable": {
+      "count": 1,
+      "lastSeen": "2026-03-05T03:00:17.128Z",
+      "sessions": 1
+    },
+    "environment": {
+      "count": 2,
+      "lastSeen": "2026-03-05T04:11:37.300Z",
+      "sessions": 1.5
+    },
+    "guide": {
+      "count": 1,
+      "lastSeen": "2026-03-05T03:00:17.128Z",
+      "sessions": 1
+    },
+    "sounds": {
+      "count": 2,
+      "lastSeen": "2026-03-05T03:00:17.128Z",
+      "sessions": 1.5
+    },
+    "permissions": {
+      "count": 1,
+      "lastSeen": "2026-03-05T03:00:17.128Z",
+      "sessions": 1
+    },
+    "tight": {
+      "count": 1,
+      "lastSeen": "2026-03-05T03:00:17.128Z",
+      "sessions": 1
+    },
+    "updating": {
+      "count": 1,
+      "lastSeen": "2026-03-05T03:00:17.128Z",
+      "sessions": 1
+    },
+    "followup": {
+      "count": 1,
+      "lastSeen": "2026-03-05T03:00:17.128Z",
+      "sessions": 1
+    },
+    "switch": {
+      "count": 2,
+      "lastSeen": "2026-03-05T03:00:17.128Z",
+      "sessions": 1.5
+    },
+    "reason": {
+      "count": 1,
+      "lastSeen": "2026-03-05T03:00:17.128Z",
+      "sessions": 1
+    },
+    "tagged": {
+      "count": 1,
+      "lastSeen": "2026-03-05T03:00:17.128Z",
+      "sessions": 1
+    },
+    "fetching": {
+      "count": 1,
+      "lastSeen": "2026-03-05T03:00:17.128Z",
+      "sessions": 1
+    },
+    "others": {
+      "count": 1,
+      "lastSeen": "2026-03-05T03:00:17.128Z",
+      "sessions": 1
+    },
+    "first": {
+      "count": 1,
+      "lastSeen": "2026-03-05T03:00:17.128Z",
+      "sessions": 1
+    },
+    "directives": {
+      "count": 1,
+      "lastSeen": "2026-03-05T03:00:17.128Z",
+      "sessions": 1
+    },
+    "everyone": {
+      "count": 1,
+      "lastSeen": "2026-03-05T03:00:17.128Z",
+      "sessions": 1
+    },
+    "solved": {
+      "count": 1,
+      "lastSeen": "2026-03-05T03:00:17.128Z",
+      "sessions": 1
+    },
+    "marked": {
+      "count": 1,
+      "lastSeen": "2026-03-05T03:00:17.128Z",
+      "sessions": 1
+    },
+    "problems": {
+      "count": 1,
+      "lastSeen": "2026-03-05T03:00:17.128Z",
+      "sessions": 1
+    },
+    "glean": {
+      "count": 1,
+      "lastSeen": "2026-03-05T03:00:17.128Z",
+      "sessions": 1
+    },
+    "worry": {
+      "count": 1,
+      "lastSeen": "2026-03-05T03:00:17.128Z",
+      "sessions": 1
+    },
+    "capturing": {
+      "count": 1,
+      "lastSeen": "2026-03-05T03:00:17.128Z",
+      "sessions": 1
+    },
+    "sense": {
+      "count": 1,
+      "lastSeen": "2026-03-05T03:00:17.128Z",
+      "sessions": 1
+    },
+    "autonomous": {
+      "count": 1,
+      "lastSeen": "2026-03-05T03:00:17.128Z",
+      "sessions": 1
+    },
+    "whole": {
+      "count": 1,
+      "lastSeen": "2026-03-05T03:00:17.128Z",
+      "sessions": 1
+    },
+    "dimension": {
+      "count": 1,
+      "lastSeen": "2026-03-05T03:00:17.128Z",
+      "sessions": 1
+    },
+    "searchable": {
+      "count": 1,
+      "lastSeen": "2026-03-05T03:00:17.128Z",
+      "sessions": 1
+    },
+    "backfill": {
+      "count": 1,
+      "lastSeen": "2026-03-05T03:00:17.128Z",
+      "sessions": 1
+    },
+    "phase": {
+      "count": 2,
+      "lastSeen": "2026-03-05T03:07:43.195Z",
+      "sessions": 1.5
+    },
+    "thursday": {
+      "count": 3,
+      "lastSeen": "2026-03-05T03:58:01.183Z",
+      "sessions": 2
+    },
+    "enhancements": {
+      "count": 1,
+      "lastSeen": "2026-03-05T03:45:04.066Z",
+      "sessions": 1
+    },
+    "documented": {
+      "count": 1,
+      "lastSeen": "2026-03-05T03:45:04.066Z",
+      "sessions": 1
+    },
+    "matching": {
+      "count": 1,
+      "lastSeen": "2026-03-05T03:52:42.770Z",
+      "sessions": 1
+    },
+    "mirroring": {
+      "count": 1,
+      "lastSeen": "2026-03-05T03:52:42.770Z",
+      "sessions": 1
+    },
+    "large": {
+      "count": 2,
+      "lastSeen": "2026-03-05T04:11:37.300Z",
+      "sessions": 1.5
+    },
+    "spawn": {
+      "count": 2,
+      "lastSeen": "2026-03-05T04:11:21.869Z",
+      "sessions": 1.5
+    },
+    "consume": {
+      "count": 1,
+      "lastSeen": "2026-03-05T03:58:36.391Z",
+      "sessions": 1
+    },
+    "deduplicstion": {
+      "count": 1,
+      "lastSeen": "2026-03-05T04:11:21.869Z",
+      "sessions": 1
+    },
+    "attachment": {
+      "count": 1,
+      "lastSeen": "2026-03-05T04:11:21.869Z",
+      "sessions": 1
+    },
+    "consumed": {
+      "count": 1,
+      "lastSeen": "2026-03-05T04:11:21.869Z",
+      "sessions": 1
+    },
+    "persistent": {
+      "count": 1,
+      "lastSeen": "2026-03-05T04:11:37.300Z",
+      "sessions": 1
+    },
+    "remains": {
+      "count": 1,
+      "lastSeen": "2026-03-05T04:11:37.300Z",
+      "sessions": 1
+    },
+    "detect": {
+      "count": 1,
+      "lastSeen": "2026-03-05T04:11:37.300Z",
+      "sessions": 1
+    },
+    "based": {
+      "count": 1,
+      "lastSeen": "2026-03-05T04:11:37.300Z",
+      "sessions": 1
+    },
+    "strict": {
+      "count": 2,
+      "lastSeen": "2026-03-05T04:11:37.300Z",
+      "sessions": 1.5
+    },
+    "preserve": {
+      "count": 1,
+      "lastSeen": "2026-03-05T04:11:37.300Z",
+      "sessions": 1
+    },
+    "hierarchy": {
+      "count": 1,
+      "lastSeen": "2026-03-05T04:11:37.300Z",
+      "sessions": 1
+    },
+    "concurrency": {
+      "count": 2,
+      "lastSeen": "2026-03-05T04:11:37.300Z",
+      "sessions": 1.5
+    },
+    "variable": {
+      "count": 1,
+      "lastSeen": "2026-03-05T04:11:37.300Z",
+      "sessions": 1
+    },
+    "ingester": {
+      "count": 1,
+      "lastSeen": "2026-03-05T04:11:37.300Z",
+      "sessions": 1
+    },
+    "discordingestionrunner": {
+      "count": 1,
+      "lastSeen": "2026-03-05T04:11:37.300Z",
+      "sessions": 1
+    },
+    "initialize": {
+      "count": 1,
+      "lastSeen": "2026-03-05T04:11:37.300Z",
+      "sessions": 1
+    },
+    "adapter": {
+      "count": 1,
+      "lastSeen": "2026-03-05T04:11:37.300Z",
+      "sessions": 1
+    },
+    "ingestforumautonomous": {
+      "count": 1,
+      "lastSeen": "2026-03-05T04:11:37.300Z",
+      "sessions": 1
+    },
+    "stream": {
+      "count": 1,
+      "lastSeen": "2026-03-05T04:11:37.300Z",
+      "sessions": 1
+    },
+    "final": {
+      "count": 1,
+      "lastSeen": "2026-03-05T04:11:37.300Z",
+      "sessions": 1
+    },
+    "totalfetched": {
+      "count": 1,
+      "lastSeen": "2026-03-05T04:11:37.300Z",
+      "sessions": 1
+    },
+    "totalingested": {
+      "count": 1,
+      "lastSeen": "2026-03-05T04:11:37.300Z",
+      "sessions": 1
+    },
+    "totaldeduplicated": {
+      "count": 1,
+      "lastSeen": "2026-03-05T04:11:37.300Z",
+      "sessions": 1
+    },
+    "duration": {
+      "count": 1,
+      "lastSeen": "2026-03-05T04:11:37.300Z",
+      "sessions": 1
+    },
+    "optimize": {
+      "count": 1,
+      "lastSeen": "2026-03-05T04:11:37.300Z",
+      "sessions": 1
+    },
+    "maximum": {
+      "count": 1,
+      "lastSeen": "2026-03-05T04:11:37.300Z",
+      "sessions": 1
+    },
+    "accuracy": {
+      "count": 1,
+      "lastSeen": "2026-03-05T04:11:37.300Z",
+      "sessions": 1
+    },
+    "clear": {
+      "count": 1,
+      "lastSeen": "2026-03-05T04:11:37.300Z",
+      "sessions": 1
+    },
+    "reporting": {
+      "count": 1,
+      "lastSeen": "2026-03-05T04:11:37.300Z",
+      "sessions": 1
+    },
+    "potentially": {
+      "count": 1,
+      "lastSeen": "2026-03-05T04:11:37.300Z",
+      "sessions": 1
+    },
+    "volumes": {
+      "count": 1,
+      "lastSeen": "2026-03-05T04:11:37.300Z",
+      "sessions": 1
+    },
+    "stability": {
+      "count": 1,
+      "lastSeen": "2026-03-05T04:11:37.300Z",
       "sessions": 1
     }
   },
@@ -3007,7 +5372,7 @@
         "fresh"
       ],
       "promoted": true,
-      "totalSignals": 88,
+      "totalSignals": 383,
       "promotedAt": "2026-03-03T15:26:19.203Z"
     },
     "device": {
@@ -3023,7 +5388,7 @@
         "inbound"
       ],
       "promoted": true,
-      "totalSignals": 1391,
+      "totalSignals": 1732,
       "promotedAt": "2026-03-03T16:10:53.928Z"
     },
     "memory": {
@@ -3039,7 +5404,7 @@
         "flush"
       ],
       "promoted": true,
-      "totalSignals": 91,
+      "totalSignals": 143,
       "promotedAt": "2026-03-03T16:22:15.318Z"
     },
     "called": {
@@ -3055,7 +5420,7 @@
         "project"
       ],
       "promoted": true,
-      "totalSignals": 270,
+      "totalSignals": 272,
       "promotedAt": "2026-03-03T17:34:00.827Z"
     },
     "enabled": {
@@ -3071,7 +5436,7 @@
         "summary"
       ],
       "promoted": true,
-      "totalSignals": 723,
+      "totalSignals": 945,
       "promotedAt": "2026-03-03T18:05:01.479Z"
     },
     "handle": {
@@ -3087,7 +5452,7 @@
         "explicitly"
       ],
       "promoted": true,
-      "totalSignals": 31,
+      "totalSignals": 44,
       "promotedAt": "2026-03-03T18:07:26.860Z"
     },
     "tasks": {
@@ -3105,6 +5470,118 @@
       "promoted": true,
       "totalSignals": 8,
       "promotedAt": "2026-03-03T18:07:27.967Z"
+    },
+    "smoothing": {
+      "name": "smoothing",
+      "keywords": [
+        "request",
+        "btrieve5",
+        "sqlite",
+        "project",
+        "multiple",
+        "ragesaq",
+        "related",
+        "projects"
+      ],
+      "promoted": true,
+      "totalSignals": 575,
+      "promotedAt": "2026-03-03T19:43:12.391Z"
+    },
+    "model": {
+      "name": "model",
+      "keywords": [
+        "model",
+        "alias",
+        "model",
+        "behavior",
+        "tuning",
+        "model",
+        "behavior",
+        "haiku"
+      ],
+      "promoted": true,
+      "totalSignals": 56,
+      "promotedAt": "2026-03-04T01:49:10.561Z"
+    },
+    "openclaw": {
+      "name": "openclaw",
+      "keywords": [
+        "tracker",
+        "report",
+        "tracker",
+        "openclaw",
+        "skills",
+        "openclaw",
+        "tracker",
+        "tracker"
+      ],
+      "promoted": true,
+      "totalSignals": 121,
+      "promotedAt": "2026-03-04T03:11:33.740Z"
+    },
+    "startup": {
+      "name": "startup",
+      "keywords": [
+        "session",
+        "started",
+        "session",
+        "startup",
+        "sequence",
+        "required",
+        "before",
+        "configured"
+      ],
+      "promoted": true,
+      "totalSignals": 92,
+      "promotedAt": "2026-03-04T09:38:41.502Z"
+    },
+    "class": {
+      "name": "class",
+      "keywords": [
+        "ragesaq",
+        "mentioned",
+        "ragesaq",
+        "ragesaq",
+        "ragesaq",
+        "ragesaq",
+        "replied",
+        "lumbot"
+      ],
+      "promoted": true,
+      "totalSignals": 940,
+      "promotedAt": "2026-03-04T10:25:15.439Z"
+    },
+    "controller": {
+      "name": "controller",
+      "keywords": [
+        "account",
+        "lockout",
+        "policy",
+        "failed",
+        "login",
+        "attempts",
+        "after",
+        "minutes"
+      ],
+      "promoted": true,
+      "totalSignals": 554,
+      "promotedAt": "2026-03-04T23:24:57.567Z"
+    },
+    "clawtext": {
+      "name": "clawtext",
+      "keywords": [
+        "subagent",
+        "running",
+        "subagent",
+        "depth",
+        "announce",
+        "requester",
+        "subagent",
+        "subagent"
+      ],
+      "promoted": true,
+      "totalSignals": 136,
+      "promotedAt": "2026-03-05T04:11:37.300Z"
     }
   }
 }

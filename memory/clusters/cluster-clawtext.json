@@ -2,253 +2,333 @@
   "projectId": "clawtext",
   "memories": [
     {
-      "content": "---\ndate: 2026-03-03\nproject: clawtext\ntype: decision\narea: operations\nentities: [ClawText, validation, Phase2, standardization]\nkeywords: [rag-quality, validation-tool, metrics, tuning, phase2]\npattern-key: clawtext.phase2_completion\n---",
-      "confidence": 0.9,
+      "content": "## ✅ ClawhHub Publication — READY TO SUBMIT (2026-03-03 17:10 UTC)",
+      "keywords": [
+        "clawhub",
+        "publication",
+        "submission",
+        "ready",
+        "distribution"
+      ],
       "type": "decision",
       "project": "clawtext",
+      "confidence": 0.8,
+      "sourceFile": "memory/2026-03-03-clawhub-final.md",
+      "updatedAt": "2026-03-05T07:09:24.885Z"
+    },
+    {
+      "content": "### How to Submit\n\n**Step 1:** Go to https://clawhub.com  \n**Step 2:** Sign in with GitHub (ragesaq)  \n**Step 3a:** Submit ClawText-Ingest\n- Repo: `https://github.com/ragesaq/clawtext-ingest`\n- Version: `1.2.0`\n- Category: Memory & Knowledge Management\n\n**Step 3b:** Submit ClawText\n- Repo: `https://github.com/ragesaq/clawtext`\n- Version: `1.2.0`\n- Category: Memory & RAG\n\n**Step 4:** Both skills are auto-linked as related/companion tools",
       "keywords": [
-        "date",
-        "2026",
-        "03",
-        "03",
-        "project",
+        "step",
         "clawtext",
-        "type",
-        "decision",
-        "area",
-        "operations"
+        "submit",
+        "https",
+        "com",
+        "github",
+        "ragesaq",
+        "ingest",
+        "repo",
+        "version"
       ],
-      "updatedAt": "2026-03-03T15:25:59.835Z"
+      "type": "fact",
+      "project": "clawtext",
+      "confidence": 0.8,
+      "sourceFile": "memory/2026-03-03-clawhub-final.md",
+      "updatedAt": "2026-03-05T07:09:24.885Z"
+    },
+    {
+      "content": "### Latest Commits\n\n**ClawText-Ingest:**\n- 21cf926: docs: add ClawhHub submission guide (step-by-step)\n- 421d6fd: docs: add ClawhHub publication guide (ready for submission)\n- 00e9ff3: docs: add SKILL.md and clawhub.json\n- v1.2.0 tag: Enhanced deduplication controls\n\n**ClawText:**\n- 21233c4: fix: correct guard condition in findRelevantMemories\n- b1555ee: feat: add RAG validation tool (Phase 2a)\n- 78d28ac: docs: add clawhub.json",
+      "keywords": [
+        "docs",
+        "clawtext",
+        "clawhhub",
+        "submission",
+        "guide",
+        "step",
+        "clawhub",
+        "json",
+        "latest",
+        "commits"
+      ],
+      "type": "error-pattern",
+      "project": "clawtext",
+      "confidence": 0.8,
+      "sourceFile": "memory/2026-03-03-clawhub-final.md",
+      "updatedAt": "2026-03-05T07:09:24.885Z"
+    },
+    {
+      "content": "### What Users Can Do After Publication\n\n```bash\n# Install both skills\nopenclaw install clawtext clawtext-ingest\n\n# Use together for complete memory system\n# 1. Import data via ClawText-Ingest\n# 2. Automatically indexed by ClawText\n# 3. Context injected automatically on next prompt\n```",
+      "keywords": [
+        "clawtext",
+        "install",
+        "ingest",
+        "automatically",
+        "what",
+        "users",
+        "publication",
+        "bash",
+        "skills",
+        "openclaw"
+      ],
+      "type": "code-pattern",
+      "project": "clawtext",
+      "confidence": 0.8,
+      "sourceFile": "memory/2026-03-03-clawhub-final.md",
+      "updatedAt": "2026-03-05T07:09:24.885Z"
+    },
+    {
+      "content": "**Publication Date:** 2026-03-03  \n**Maintainer:** ragesaq  \n**Next Step:** Submit to ClawhHub via https://clawhub.com",
+      "keywords": [
+        "2026",
+        "publication",
+        "date",
+        "maintainer",
+        "ragesaq",
+        "step",
+        "submit",
+        "clawhhub",
+        "via",
+        "https"
+      ],
+      "type": "fact",
+      "project": "clawtext",
+      "confidence": 0.8,
+      "sourceFile": "memory/2026-03-03-clawhub-final.md",
+      "updatedAt": "2026-03-05T07:09:24.885Z"
+    },
+    {
+      "content": "## ClawhHub Publication Ready (2026-03-03 17:05 UTC)",
+      "keywords": [
+        "clawhub",
+        "publication",
+        "skills",
+        "release",
+        "distribution"
+      ],
+      "type": "decision",
+      "project": "clawtext",
+      "confidence": 0.8,
+      "sourceFile": "memory/2026-03-03-clawhub.md",
+      "updatedAt": "2026-03-05T07:09:24.885Z"
+    },
+    {
+      "content": "### Linking Both Skills\n\n**clawhub.json for ClawText-Ingest:**\n```json\n\"relatedSkills\": [\"clawtext\"],\n\"peerDependencies\": { \"clawtext\": \">=1.0.0\" }\n```\n\n**clawhub.json for ClawText:**\n```json\n\"relatedSkills\": [\"clawtext-ingest\"],\n\"companion_tools\": {\n  \"clawtext-ingest\": \"Multi-source data ingestion for populating memory\"\n}\n```\n\nBoth repositories link to each other, enabling users to:\n1. Install ClawText RAG for automatic context injection\n2. Install ClawText-Ingest for multi-source data ingestion\n3. Automatically recommended together on ClawhHub",
+      "keywords": [
+        "clawtext",
+        "json",
+        "ingest",
+        "clawhub",
+        "relatedskills",
+        "multi",
+        "source",
+        "data",
+        "ingestion",
+        "install"
+      ],
+      "type": "code-pattern",
+      "project": "clawtext",
+      "confidence": 0.8,
+      "sourceFile": "memory/2026-03-03-clawhub.md",
+      "updatedAt": "2026-03-05T07:09:24.885Z"
+    },
+    {
+      "content": "### Latest Commits\n\n**ClawText-Ingest:**\n- 421d6fd: docs: add ClawhHub publication guide\n- 00e9ff3: docs: add SKILL.md and clawhub.json\n- v1.2.0 tag: feat: add deduplication + idempotency tests\n\n**ClawText:**\n- 78d28ac: docs: add clawhub.json (rebase)\n- 21233c4: fix: correct guard condition in findRelevantMemories\n- b1555ee: feat: add RAG validation tool (Phase 2a)",
+      "keywords": [
+        "docs",
+        "clawtext",
+        "clawhub",
+        "json",
+        "feat",
+        "latest",
+        "commits",
+        "ingest",
+        "421d6fd",
+        "clawhhub"
+      ],
+      "type": "error-pattern",
+      "project": "clawtext",
+      "confidence": 0.8,
+      "sourceFile": "memory/2026-03-03-clawhub.md",
+      "updatedAt": "2026-03-05T07:09:24.885Z"
     },
     {
       "content": "## Phase 2 Complete: RAG Validation Tool + Enhanced Deduplication (2026-03-03 10:05 UTC)",
-      "confidence": 0.7,
-      "type": "context",
-      "project": "clawtext",
       "keywords": [
+        "rag-quality",
+        "validation-tool",
+        "metrics",
+        "tuning",
+        "phase2"
+      ],
+      "type": "decision",
+      "project": "clawtext",
+      "confidence": 0.8,
+      "sourceFile": "memory/2026-03-03.md",
+      "updatedAt": "2026-03-05T07:09:24.886Z"
+    },
+    {
+      "content": "### 3. One Euro UI Layout & Drag Issue — CONFIRMED & FIXED ✅\n\n**UI Issue:** One Euro control section clipping + button presses eaten by ScrollView drag\n\n**Root Causes:**\n1. Hardcoded `height: 250` but actual content is ~420px\n2. Overflow rendered on top of Recommended/Default buttons\n3. ScrollView consuming button press events as drag events\n\n**Fixes Applied:**\n1. Changed to `implicitHeight: oneEuroColumn.implicitHeight + 24` (dynamic sizing)\n2. Added `MouseArea` blocker inside rectangle to prevent scroll event capture\n\n**Result:** Layout now properly sized, buttons responsive ✅",
+      "keywords": [
+        "drag",
+        "one",
+        "euro",
+        "layout",
+        "issue",
+        "button",
+        "scrollview",
+        "buttons",
+        "events",
+        "implicitheight"
+      ],
+      "type": "error-pattern",
+      "project": "clawtext",
+      "confidence": 0.8,
+      "sourceFile": "memory/2026-03-04-thread-analysis.md",
+      "updatedAt": "2026-03-05T07:09:24.892Z"
+    },
+    {
+      "content": "### Phase 4: Structured Prompt Enforcer\n**File:** `src/structured_prompt_enforcer.py`  \n**Effort:** 2 hours  \n**Impact:** MEDIUM (isolates data)  \n**Status:** ✅ Code in hardening plan\n\n**What it does:**\n- Wraps search results in `USER_DATA_TO_PROCESS` boundaries\n- Adds safety header (DO NOT EXECUTE)\n- Ensures clear data/instruction separation\n\n**Why it matters:**\n- Without boundaries, results can bleed into instructions\n- Boundaries make injection harder",
+      "keywords": [
+        "data",
+        "boundaries",
+        "structured",
+        "prompt",
+        "enforcer",
+        "results",
         "phase",
-        "2",
-        "complete",
-        "rag",
-        "validation",
-        "tool",
-        "enhanced",
-        "deduplication",
+        "file",
+        "src",
+        "effort"
+      ],
+      "type": "fact",
+      "project": "clawtext",
+      "confidence": 0.8,
+      "sourceFile": "memory/clawsec-implementation-index.md",
+      "updatedAt": "2026-03-05T07:09:24.895Z"
+    },
+    {
+      "content": "# Clawsec Web Search Security Analysis\n\n**Date:** 2026-03-03  \n**Thread:** #how-to-securely-give-you-web-search-capabilities  \n**Repo:** https://github.com/ragesaq/clawsec-web-search (Python-based)  \n**Status:** Production system — comprehensive security analysis performed",
+      "keywords": [
+        "web",
+        "search",
+        "clawsec",
+        "security",
+        "analysis",
         "2026",
-        "03"
+        "date",
+        "thread",
+        "securely",
+        "give"
       ],
-      "updatedAt": "2026-03-03T15:25:59.835Z"
-    },
-    {
-      "content": "### Phase 2a: RAG Validation Tool ✅\n**File:** `~/.openclaw/workspace/skills/clawtext/scripts/validate-rag.js`\n**Status:** Live on GitHub (commit b1555ee)",
-      "confidence": 0.8,
-      "type": "code",
-      "project": "clawtext",
-      "keywords": [
-        "phase",
-        "2a",
-        "rag",
-        "validation",
-        "tool",
-        "file",
-        "openclaw",
-        "workspace",
-        "skills",
-        "clawtext"
-      ],
-      "updatedAt": "2026-03-03T15:25:59.835Z"
-    },
-    {
-      "content": "**Usage:**\n```bash\nnode scripts/validate-rag.js              # Concise output\nnode scripts/validate-rag.js --verbose    # Detailed per-query\nnode scripts/validate-rag.js --output json # Machine-readable\n```",
-      "confidence": 0.8,
-      "type": "code",
-      "project": "clawtext",
-      "keywords": [
-        "usage",
-        "bash",
-        "node",
-        "scripts",
-        "validate",
-        "rag",
-        "js",
-        "concise",
-        "output",
-        "node"
-      ],
-      "updatedAt": "2026-03-03T15:25:59.836Z"
-    },
-    {
-      "content": "**Exit codes:**\n- 0: Quality ≥70% (healthy RAG system)\n- 1: Quality <70% (tuning recommended)",
-      "confidence": 0.75,
       "type": "fact",
       "project": "clawtext",
+      "confidence": 0.65,
+      "sourceFile": "memory/clawsec-web-search-analysis.md",
+      "updatedAt": "2026-03-05T07:09:24.899Z"
+    },
+    {
+      "content": "What the System Does\n\nA read-only, defense-in-depth security wrapper for AI agent web searches:\n\n- **Input validation:** Blocks injection patterns, encodes (base64/URL/hex/HTML), command execution attempts\n- **Encoded attack detection:** Recursive decoding (3 levels) with typoglycemia fuzzing\n- **Result sanitization:** Strips malicious HTML, quarantines suspicious content\n- **Third-party validation:** VirusTotal + Google Safe Browsing API integration\n- **Override system:** Risk scoring with human confirmation workflow\n- **Audit logging:** Complete trail for security review and self-improvement\n\n### Tested Coverage\n- 18/19 security tests passing (94.7% success)\n- Handles: plain injection, command execution, social engineering, encoded content\n- Attack detection: 96% | Blocking: 94%",
       "keywords": [
-        "exit",
-        "codes",
-        "0",
-        "quality",
-        "70",
-        "healthy",
-        "rag",
+        "security",
         "system",
-        "1",
-        "quality"
-      ],
-      "updatedAt": "2026-03-03T15:25:59.836Z"
-    },
-    {
-      "content": "**When to Use:**\n- After cluster rebuilds (verify quality)\n- Troubleshooting missing context (diagnose injection)\n- Before/after RAG tuning (baseline comparison)\n- During agent onboarding (system verification)",
-      "confidence": 0.75,
-      "type": "fact",
-      "project": "clawtext",
-      "keywords": [
-        "when",
-        "to",
-        "use",
-        "after",
-        "cluster",
-        "rebuilds",
-        "verify",
-        "quality",
-        "troubleshooting",
-        "missing"
-      ],
-      "updatedAt": "2026-03-03T15:25:59.836Z"
-    },
-    {
-      "content": "### Phase 2b: Enhanced Deduplication Controls ✅\n**File:** `~/.openclaw/workspace/skills/clawtext-ingest/src/index.js`\n**Status:** Live on GitHub (v1.2.0)\n\n**New Feature:**\n- Added `checkDedupe` option to `fromFiles()` and `fromJSON()`\n- Allows agents to disable dedup checks for performance if needed\n- Default: `checkDedupe: true` (preserves safety)\n\n**Usage:**\n```javascript\n// Skip dedup checks (faster, risky if duplicates exist)\nawait ingest.fromFiles(patterns, metadata, { checkDedupe: false });\n\n// Keep dedup checks (default, safe)\nawait ingest.fromFiles(patterns, metadata, { checkDedupe: true });\n```",
-      "confidence": 0.8,
-      "type": "code",
-      "project": "clawtext",
-      "keywords": [
-        "phase",
-        "2b",
-        "enhanced",
-        "deduplication",
-        "controls",
-        "file",
-        "openclaw",
-        "workspace",
-        "skills",
-        "clawtext"
-      ],
-      "updatedAt": "2026-03-03T15:25:59.836Z"
-    },
-    {
-      "content": "### Phase 2 Documentation Updates ✅\n**File:** `HOW_THINGS_WORK.md`\n**Sections Updated:**\n- Section 3: Added validation tool step after cluster rebuild\n- Section 4: New \"Validate RAG Quality\" diagnostic section\n- Data Ingestion section: Explained dedup importance and workflows",
-      "confidence": 0.8,
-      "type": "code",
-      "project": "clawtext",
-      "keywords": [
-        "phase",
-        "2",
-        "documentation",
-        "updates",
-        "file",
-        "how",
-        "things",
-        "work",
-        "md",
-        "sections"
-      ],
-      "updatedAt": "2026-03-03T15:25:59.836Z"
-    },
-    {
-      "content": "### What's Production-Ready ✅\n- RAG validation tool can diagnose quality issues independently\n- Agents can use validation during onboarding setup\n- Operators can use validation to tune RAG parameters empirically\n- Dedup controls give agents flexibility for edge cases\n- Documentation covers all use cases",
-      "confidence": 0.7,
-      "type": "context",
-      "project": "clawtext",
-      "keywords": [
-        "what",
-        "s",
-        "production",
-        "ready",
-        "rag",
         "validation",
-        "tool",
-        "can",
-        "diagnose",
-        "quality"
+        "injection",
+        "html",
+        "command",
+        "execution",
+        "encoded",
+        "attack",
+        "detection"
       ],
-      "updatedAt": "2026-03-03T15:25:59.836Z"
-    },
-    {
-      "content": "### Next Phase Opportunities (Deferred)\n- **Phase 3a:** Cluster rebuild monitoring (auto-trigger if >X days old)\n- **Phase 3b:** Persistent quality metrics (track validation scores over time)\n- **Phase 3c:** Automated tuning (suggest maxMemories/minConfidence changes based on patterns)",
-      "confidence": 0.75,
       "type": "fact",
       "project": "clawtext",
-      "keywords": [
-        "next",
-        "phase",
-        "opportunities",
-        "deferred",
-        "phase",
-        "3a",
-        "cluster",
-        "rebuild",
-        "monitoring",
-        "auto"
-      ],
-      "updatedAt": "2026-03-03T15:25:59.836Z"
+      "confidence": 0.65,
+      "sourceFile": "memory/clawsec-web-search-analysis.md",
+      "updatedAt": "2026-03-05T07:09:24.899Z"
     },
     {
-      "content": "### Commits & Tags\n- ClawText: b1555ee (validation tool)\n- ClawText-Ingest: v1.2.0 tag created\n- Workspace: 8d0772b (HOW_THINGS_WORK.md update)\n\n---",
-      "confidence": 0.7,
-      "type": "context",
+      "content": "Research & References\n\n### OWASP Prompt Injection Cheat Sheet\n- Attack types: direct, indirect, encoding, typoglycemia, BoN jailbreaking, multimodal, RAG poisoning\n- Primary defenses: input validation, structured prompts, output monitoring, HITL, agent controls\n- Key insight: Power-law scaling — persistent attackers eventually succeed; incremental fixes insufficient\n\n### Anthropic's Approach\n- RL training + Constitutional Classifiers + Red teaming → 1% attack success\n- Research findings captured in: Anthropic AI Safety research papers\n\n### Key Testing Patterns\n- 12+ attack variations (encodings, role shifts, indirect instructions, etc.)\n- Typoglycemia detection test cases\n- Circuit breaker / escalation testing",
+      "keywords": [
+        "research",
+        "attack",
+        "indirect",
+        "typoglycemia",
+        "key",
+        "anthropic",
+        "testing",
+        "references",
+        "owasp",
+        "prompt"
+      ],
+      "type": "error-pattern",
       "project": "clawtext",
-      "keywords": [
-        "commits",
-        "tags",
-        "clawtext",
-        "b1555ee",
-        "validation",
-        "tool",
-        "clawtext",
-        "ingest",
-        "v1",
-        "2"
-      ],
-      "updatedAt": "2026-03-03T15:25:59.836Z"
+      "confidence": 0.65,
+      "sourceFile": "memory/clawsec-web-search-analysis.md",
+      "updatedAt": "2026-03-05T07:09:24.899Z"
     },
     {
-      "content": "| Goal | Status | Location |\n|------|--------|----------|\n| Deduplication as standard | ✅ | HOW_THINGS_WORK.md §3, ClawTextIngest source |\n| Cluster rebuild automation | ✅ | HOW_THINGS_WORK.md §3, Agent onboarding guide |\n| RAG validation tool | ✅ | `scripts/validate-rag.js` |\n| Enhanced dedupe controls | ✅ | ClawTextIngest v1.2.0 |\n| Agent onboarding guide | ✅ | `AGENT_ONBOARDING.md` in ClawText repo |\n| Operational documentation | ✅ | HOW_THINGS_WORK.md (12.9KB, complete) |",
+      "content": "## Web Security & Prompt Injection",
+      "keywords": [
+        "web",
+        "security",
+        "prompt",
+        "injection"
+      ],
+      "type": "fact",
+      "project": "clawtext",
       "confidence": 0.8,
-      "type": "code",
-      "project": "clawtext",
-      "keywords": [
-        "goal",
-        "status",
-        "location",
-        "deduplication",
-        "as",
-        "standard",
-        "how",
-        "things",
-        "work",
-        "md"
-      ],
-      "updatedAt": "2026-03-03T15:25:59.836Z"
+      "sourceFile": "MEMORY.md",
+      "updatedAt": "2026-03-05T07:09:24.901Z"
     },
     {
-      "content": "**Status:** All identified improvements from summary are now implemented and production-ready. Two deferred optional enhancements (cluster monitoring, auto-tuning) available for future Phase 3.",
-      "confidence": 0.75,
-      "type": "fact",
-      "project": "clawtext",
+      "content": "## Me (The Agent)\n\n**Operating Model:**\n- Session-based, stateless across restarts\n- Memory persists via MEMORY.md + daily notes (memory/YYYY-MM-DD.md)\n- Can read my own files; can write MEMORY.md + workspace files\n- Security-conscious: won't exfiltrate private data, ask before public actions\n- Personality: helpful, direct, opinionated (when appropriate), resourceful\n\n**Current Integrations:**\n- Web search via `web_search` tool (soon: hardened via ClawSec)\n- File I/O, execution, Discord messaging (restricted by sandbox)\n- Session history, memory files, ClawText RAG system",
       "keywords": [
-        "status",
-        "all",
+        "memory",
+        "via",
+        "files",
+        "session",
+        "web",
+        "search",
+        "agent",
+        "operating",
+        "model",
+        "based"
+      ],
+      "type": "learning",
+      "project": "clawtext",
+      "confidence": 0.8,
+      "sourceFile": "MEMORY.md",
+      "updatedAt": "2026-03-05T07:09:24.901Z"
+    },
+    {
+      "content": "## Decisions Log\n\n- **2026-03-03:** ClawSec audit complete; identified integration gap as P1 blocking automatic security\n- **2026-02-27:** Security system implemented; full workflow demonstration complete\n- **2026-03-03:** Phase 2 (ClawText) complete; RAG validation production-ready",
+      "keywords": [
+        "2026",
+        "complete",
+        "security",
+        "decisions",
+        "log",
+        "clawsec",
+        "audit",
         "identified",
-        "improvements",
-        "from",
-        "summary",
-        "are",
-        "now",
-        "implemented",
-        "and"
+        "integration",
+        "gap"
       ],
-      "updatedAt": "2026-03-03T15:25:59.836Z"
+      "type": "decision",
+      "project": "clawtext",
+      "confidence": 0.8,
+      "sourceFile": "MEMORY.md",
+      "updatedAt": "2026-03-05T07:09:24.901Z"
     }
   ],
-  "builtAt": "2026-03-03T15:25:59.835Z",
-  "sourceFiles": 42
+  "builtAt": "2026-03-05T07:09:24.901Z",
+  "sourceFiles": [
+    "memory/2026-03-03-clawhub-final.md",
+    "memory/2026-03-03-clawhub.md",
+    "memory/2026-03-03.md",
+    "memory/2026-03-04-thread-analysis.md",
+    "memory/clawsec-implementation-index.md",
+    "memory/clawsec-web-search-analysis.md",
+    "MEMORY.md"
+  ]
 }
