@@ -1,0 +1,24 @@
+{
+  "projectId": "workflow",
+  "memories": [
+    {
+      "content": "## ragesaq preference: delete attachments after reading\n\nragesaq wants Discord attachments (log files, etc.) deleted after I've read/processed them, to keep context clean. Action: after fetching and analyzing any attachment, follow up with a delete action on that message attachment.",
+      "keywords": [
+        "attachments",
+        "delete",
+        "context",
+        "clean",
+        "workflow"
+      ],
+      "type": "preference",
+      "project": "workflow",
+      "confidence": 0.8,
+      "sourceFile": "memory/2026-03-06.md",
+      "updatedAt": "2026-03-06T04:26:43.890Z"
+    }
+  ],
+  "builtAt": "2026-03-06T04:26:43.898Z",
+  "sourceFiles": [
+    "memory/2026-03-06.md"
+  ]
+}

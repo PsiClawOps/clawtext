@@ -1,0 +1,25 @@
+{
+  "projectId": "openclaw-config",
+  "memories": [
+    {
+      "content": "## OpenClaw Thinking Mode Strategy — Session-Based Directive Approach\n\n**Decision:** Keep global `agents.defaults.thinkingDefault: \"medium\"` as default. Use per-session `/think:adaptive` directives for Sonnet 4.6 / Opus 4.6 deep reasoning tasks.\n\n**Rationale:**\n- OpenClaw does NOT currently support per-model `thinkingDefault` overrides (GitHub #20612)\n- `adaptive` thinking is the modern, recommended approach for Claude 4.6 models (uses provider-native calibration)\n- Global `medium` is sensible middle ground for mixed workloads (includes Haiku 4.5 which doesn't support thinking anyway)\n- Directives (`/think:adaptive` or `/t adaptive`) are lightweight and per-session, avoiding config churn\n\n**Workflow:**\n- Sessions requiring deep reasoning: start with `/think:adaptive` → sticks for session\n- Quick/factual tasks: use global `medium` or `/think:off` as needed\n- Check current level: `/think` command\n\n**Outstanding:** Per-model thinking config remains open feature request; revisit if/when OpenClaw adds support.",
+      "keywords": [
+        "thinking",
+        "adaptive",
+        "medium",
+        "per-session",
+        "per-model",
+        "config-gap"
+      ],
+      "type": "decision",
+      "project": "openclaw-config",
+      "confidence": 0.8,
+      "sourceFile": "memory/2026-03-06.md",
+      "updatedAt": "2026-03-06T04:26:43.890Z"
+    }
+  ],
+  "builtAt": "2026-03-06T04:26:43.898Z",
+  "sourceFiles": [
+    "memory/2026-03-06.md"
+  ]
+}

@@ -250,6 +250,14 @@ Each with: working code, configuration, real-world example, error handling, trou
 6. **Rot cutoff ratio** — Default `0.4 → 0.25`
 7. **One Euro display not updating** — Fixed via `settingsChanged` signal refresh
 
+**v1.2.364 — Critical smoothing fix (2026-03-05):**
+- Root cause found: DISPLAY_MAX was incorrectly used as a physics clamp in `applyToDevice` and `applyPreset` — this broke ALL smoothing in 1.2.363
+- Fix 1: HMD path in `applyToDevice` now clamps to `HMD_MAX_PHYSICAL (0.02)` not `HMD_DISPLAY_MAX (0.0004)`. Old code sent normalized=0.02 → driver effMinCutoff ~46Hz → no effect
+- Fix 2: Controller path in `applyToDevice` now clamps to `CONTROLLER_MAX_PHYSICAL (0.16)` not `CTRL_DISPLAY_MAX (0.08)`
+- Fix 3: `applyPreset` kMaxHmdStrength changed from `HMD_DISPLAY_MAX (0.0004)` → `0.015f` (75% of physical max)
+- DISPLAY_MAX is UI-only — must never be used as a physics ceiling in backend/driver paths
+- Commit: a740374
+
 **v1.2.363 — Slider re-normalization (2026-03-05):**
 - HMD slider 0–100% now covers physical 0–0.0004 (was 0–0.02). Old 1% = new 50%.
 - Ctrl slider 0–100% now covers physical 0–0.08 (was 0–0.16). Old 25% = new 50%.

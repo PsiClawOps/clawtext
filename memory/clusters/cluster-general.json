@@ -1,0 +1,42 @@
+{
+  "projectId": "general",
+  "memories": [
+    {
+      "content": "## Part 4 Session — 2026-03-07 late night (appended ~23:02 UTC)",
+      "keywords": [
+        "commit",
+        "push",
+        "workflow",
+        "logging",
+        "build",
+        "handoff",
+        "procedure"
+      ],
+      "type": [
+        "preference"
+      ],
+      "project": [
+        "general"
+      ],
+      "confidence": 0.8,
+      "sourceFile": "memory/2026-03-07.md",
+      "updatedAt": "2026-03-08T03:04:07.423Z"
+    },
+    {
+      "content": "## RageFX icon generation prompt and asset path\n\nFact: An image generation prompt for a retro graphics-card style \"RAGEFX\" icon was prepared for together.ai. The intended save path is `overlay/assets/ragefx_icon.png`. Actionable: attempt generation using the provided prompt and save the result at the stated path; if generation fails, capture the service error for debugging.",
+      "keywords": [
+        "together.ai,image,prompt,ragefx,icon,overlay,assets"
+      ],
+      "type": "fact",
+      "project": "general",
+      "confidence": 0.8,
+      "sourceFile": "memory/2026-03-08.md",
+      "updatedAt": "2026-03-08T03:04:07.423Z"
+    }
+  ],
+  "builtAt": "2026-03-08T03:04:07.431Z",
+  "sourceFiles": [
+    "memory/2026-03-07.md",
+    "memory/2026-03-08.md"
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "projectId": "hardware",
+  "memories": [
+    {
+      "content": "## User evaluating Mac Mini (32GB M4/M5) for hosting Qwen 3.5 (27B)\n\nThe user is considering using a Mac Mini with 32GB (M4 or M5) to host Qwen 3.5 27B locally and asked for token-throughput comparisons. Record this as an ongoing hardware evaluation task: measure or look up expected token throughput and performance tradeoffs for Qwen 3.5 27B on 32GB Mac Minis.",
+      "keywords": [
+        "mac-mini",
+        "M4",
+        "M5",
+        "qwen-3.5",
+        "token-throughput",
+        "32gb",
+        "local-hosting"
+      ],
+      "type": "fact",
+      "project": "hardware",
+      "confidence": 0.8,
+      "sourceFile": "memory/2026-03-06.md",
+      "updatedAt": "2026-03-08T03:04:07.413Z"
+    }
+  ],
+  "builtAt": "2026-03-08T03:04:07.431Z",
+  "sourceFiles": [
+    "memory/2026-03-06.md"
+  ]
+}

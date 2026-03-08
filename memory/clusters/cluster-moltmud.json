@@ -2,6 +2,23 @@
   "projectId": "moltmud",
   "memories": [
     {
+      "content": "## IMTV vs SWAT vest protection configuration (summary)\n\nThe IMTV vest entries show AntiPenetration=5.0 and BluntDamageScalar=0.4 for spine pieces (protection angles 80–90°). The SWAT vest is stronger: AntiPenetration=6.0 and BluntDamageScalar=0.2 for spine pieces and includes a pelvis entry with AntiPenetration=6.0, BluntDamageScalar=0.2, ProtectionAngle=60°. Record these values as the recorded armor/protection defaults for those items.",
+      "keywords": [
+        "IMTV",
+        "SWAT",
+        "AntiPenetration",
+        "BluntDamageScalar",
+        "ProtectionAngle",
+        "spine_03",
+        "pelvis"
+      ],
+      "type": "fact",
+      "project": "moltmud",
+      "confidence": 0.8,
+      "sourceFile": "memory/2026-03-06.md",
+      "updatedAt": "2026-03-08T03:04:07.413Z"
+    },
+    {
       "content": "## 🔍 File Structure Analysis\n\n```\nsrc/web_search_wrapper.py            563 LOC  ← Main logic (well-structured)\nsrc/encoded_attack_detector.py       312 LOC  ← Encoding detection (complete)\nsrc/security_override_system.py      567 LOC  ← Override + third-party (solid)\nsrc/web_search_openclaw.py           103 LOC  ← Integration bridge (minimal)\ntests/test_web_search.py             351 LOC  ← Test suite (good coverage)\n```\n\n**Assessment:** Code is clean, modular, and well-tested. Integration layer is the weak point.",
       "keywords": [
         "loc",
@@ -19,11 +36,12 @@
       "project": "moltmud",
       "confidence": 0.8,
       "sourceFile": "memory/clawsec-security-audit-report.md",
-      "updatedAt": "2026-03-05T07:09:24.897Z"
+      "updatedAt": "2026-03-08T03:04:07.426Z"
     }
   ],
-  "builtAt": "2026-03-05T07:09:24.901Z",
+  "builtAt": "2026-03-08T03:04:07.431Z",
   "sourceFiles": [
+    "memory/2026-03-06.md",
     "memory/clawsec-security-audit-report.md"
   ]
 }

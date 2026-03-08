@@ -1,0 +1,25 @@
+{
+  "projectId": "contractors-showdown-data-platform",
+  "memories": [
+    {
+      "content": "## Contractors Showdown Data Platform — PRD v0.1 drafted (2026-03-06 17:53 UTC)\n\nCompleted a full PRD for a community data platform for the VR game \"Contractors Showdown\" (UE5.5). PRD was drafted using Sonnet subagent and posted to Discord #ai-projects forum channel (ID: 1475021817168134144).\n\n**PRD covers:**\n- Problem statement: no public wiki, no combat simulator, players rely on vibes\n- ProtectiveData system mechanics: cone projection from spine bones, angle-based coverage\n- Confirmed armor data (IOTV GEN3, SWAT, IMTV, ApexBK, JPC, SDprotecter)\n- JSON schema for versioned data store (vests, ammo, weapons)\n- Python extraction pipeline from UE5 pak files using repak/CUE4Parse\n- 4-phase feature roadmap: Data Foundation → Combat Simulator → Web Frontend → Community+Automation\n- Tech stack: Python + SvelteKit + Three.js + FastAPI + Vercel\n\n**Open questions captured in PRD:**\n- ForwardVector/UpVector consistency across vests (needed for accurate 3D visualizer)\n- Armor HP interaction with AP checks (binary break vs. degradation)\n- Blunt damage formula details\n- Helmet bone names + whether they use same ProtectiveData system\n\n**Confirmed armor coverage ranking (from ProtectiveData struct analysis):**\n1. SWAT / IOTV GEN3 (tie) — spine_03 90°, spine_02 80°, spine_01 90°, pelvis 60°\n   - IOTV GEN3 additionally has UpperArm_L/R at 90° (AP 3.0, blunt 0.7)\n2. SDprotecter — has pelvis, spine angles TBD\n3. ApexBK — spine 90/80/80, no pelvis, AP 5.0, 110 HP, 5.5kg\n4. IMTV — spine 90/80/80, no pelvis, AP 5.0, 150 HP, 8.8kg\n5. JPC — all 80°, no pelvis, AP 3.5, 95 HP, 2.8kg",
+      "keywords": [
+        "PRD",
+        "contractors-showdown",
+        "armor",
+        "ballistics",
+        "data-platform",
+        "website"
+      ],
+      "type": "milestone",
+      "project": "contractors-showdown-data-platform",
+      "confidence": 0.8,
+      "sourceFile": "memory/2026-03-06.md",
+      "updatedAt": "2026-03-08T03:04:07.413Z"
+    }
+  ],
+  "builtAt": "2026-03-08T03:04:07.431Z",
+  "sourceFiles": [
+    "memory/2026-03-06.md"
+  ]
+}

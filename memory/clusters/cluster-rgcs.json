@@ -15,7 +15,7 @@
       "project": "rgcs",
       "confidence": 0.8,
       "sourceFile": "memory/2026-03-03.md",
-      "updatedAt": "2026-03-05T07:09:24.886Z"
+      "updatedAt": "2026-03-08T03:04:07.404Z"
     },
     {
       "content": "## RGCS Smoothing Refactor — Default Profile Removed (2026-03-03 ~16:49 UTC)",
@@ -33,7 +33,7 @@
       "project": "rgcs",
       "confidence": 0.8,
       "sourceFile": "memory/2026-03-03.md",
-      "updatedAt": "2026-03-05T07:09:24.886Z"
+      "updatedAt": "2026-03-08T03:04:07.404Z"
     },
     {
       "content": "## RGCS v1.2.342 Build Dispatched (~19:38 UTC)\n\n**Commit dispatched:** `ad167c8` — updated AGENT_INBOX.md with build request for `e65d44d`\n**Target:** v1.2.342",
@@ -53,7 +53,7 @@
       "project": "rgcs",
       "confidence": 0.8,
       "sourceFile": "memory/2026-03-03.md",
-      "updatedAt": "2026-03-05T07:09:24.886Z"
+      "updatedAt": "2026-03-08T03:04:07.404Z"
     },
     {
       "content": "## RGCS Smoothing — Late Session Progress (2026-03-03 ~20:00 UTC)",
@@ -70,7 +70,7 @@
       "project": "rgcs",
       "confidence": 0.8,
       "sourceFile": "memory/2026-03-03.md",
-      "updatedAt": "2026-03-05T07:09:24.886Z"
+      "updatedAt": "2026-03-08T03:04:07.404Z"
     },
     {
       "content": "Re calibration drift — `947ffe1`'s fix (rotate by `qOrig` not `qFinal`) is already in current main. The drift ragesaq is seeing now may be a separate interaction with the rotation smoothing filter introducing small per-frame rotation that compounds over time in the offset path. Worth logging `[EffectiveConfig]` during the drifting session to see if smoothing is enabled and what strength — can you share the driver log from the session where you noticed it?\nuser: ## Loaded Context (Clawtext)",
@@ -90,7 +90,7 @@
       "project": "rgcs",
       "confidence": 0.8,
       "sourceFile": "memory/2026-03-04-hmd-cutoff.md",
-      "updatedAt": "2026-03-05T07:09:24.892Z"
+      "updatedAt": "2026-03-08T03:04:07.410Z"
     },
     {
       "content": "### What is RGCS?\nRoom-scale Gravity Compensation System — VR controller smoothing to eliminate high-frequency jitter via low-pass filtering + OneEuro algorithm.\n\n**Devices:**\n- Device 0 = HMD\n- Device 5 = Left Controller\n- Device 6 = Right Controller",
@@ -110,7 +110,7 @@
       "project": "rgcs",
       "confidence": 0.8,
       "sourceFile": "memory/2026-03-04-hmd-cutoff.md",
-      "updatedAt": "2026-03-05T07:09:24.892Z"
+      "updatedAt": "2026-03-08T03:04:07.410Z"
     },
     {
       "content": "### What is RGCS?\nRoom-scale Gravity Compensation System — VR controller smoothing to eliminate high-frequency jitter via low-pass filtering + OneEuro algorithm.\n\n**Devices:**\n- Device 0 = HMD\n- Device 5 = Left Controller\n- Device 6 = Right Controller",
@@ -130,7 +130,7 @@
       "project": "rgcs",
       "confidence": 0.8,
       "sourceFile": "memory/2026-03-04-hmd-cutoff.md",
-      "updatedAt": "2026-03-05T07:09:24.892Z"
+      "updatedAt": "2026-03-08T03:04:07.410Z"
     },
     {
       "content": "### What is RGCS?\nRoom-scale Gravity Compensation System — VR controller smoothing to eliminate high-frequency jitter via low-pass filtering + OneEuro algorithm.\n\n**Devices:**\n- Device 0 = HMD\n- Device 5 = Left Controller\n- Device 6 = Right Controller",
@@ -150,7 +150,7 @@
       "project": "rgcs",
       "confidence": 0.8,
       "sourceFile": "memory/2026-03-04-hmd-cutoff.md",
-      "updatedAt": "2026-03-05T07:09:24.892Z"
+      "updatedAt": "2026-03-08T03:04:07.410Z"
     },
     {
       "content": "### What is RGCS?\nRoom-scale Gravity Compensation System — VR controller smoothing to eliminate high-frequency jitter via low-pass filtering + OneEuro algorithm.\n\n**Devices:**\n- Device 0 = HMD\n- Device 5 = Left Controller\n- Device 6 = Right Controller",
@@ -170,7 +170,7 @@
       "project": "rgcs",
       "confidence": 0.8,
       "sourceFile": "memory/2026-03-04-hmd-cutoff.md",
-      "updatedAt": "2026-03-05T07:09:24.892Z"
+      "updatedAt": "2026-03-08T03:04:07.410Z"
     },
     {
       "content": "### What is RGCS?\nRoom-scale Gravity Compensation System — VR controller smoothing to eliminate high-frequency jitter via low-pass filtering + OneEuro algorithm.\n\n**Devices:**\n- Device 0 = HMD\n- Device 5 = Left Controller\n- Device 6 = Right Controller",
@@ -190,7 +190,7 @@
       "project": "rgcs",
       "confidence": 0.8,
       "sourceFile": "memory/2026-03-04-hmd-cutoff.md",
-      "updatedAt": "2026-03-05T07:09:24.892Z"
+      "updatedAt": "2026-03-08T03:04:07.410Z"
     },
     {
       "content": "**Key insight:** There were TWO separate places strength is used in the pipeline:\n1. **Overlay** — `strength → cutoff` curve (fixed in `1024d36`)\n2. **Driver** — `strength → adaptive beta/boost` (fixed in `20baac2`)\nBoth needed normalization to 0–1. The overlay now normalizes once and sends 0–1 everywhere.\n\n**Root cause:** `effectiveMinCutoff = configuredMinCutoff * 0.01^strength` curve was designed\nfor strength in 0–1. After rescaling physical max to 0.16 (ctrl) / 0.02 (HMD), DiagMax only\nput 0.16 into the exponent → `1.5 * 0.01^0.16 = 0.747Hz` (barely any smoothing).\nAt 50% (0.08 ctrl) it computed `~0.87Hz` — effectively nothing.\n\nWith raw physical `strength=0.16` (DiagMax controllers):\n- `lowStrengthBoost = 1 + (0.84 × 6) = 6.04×` ← multiplied effective cutoff by 6x\n- `effectiveDCutoff = 2.0 + (0.84×1.5) = 3.26` ← allowed fast motion through\n- Result: filter neutralized on any non-stationary motion despite correct `minCutoff=0.05Hz`\n\n| Commit | Version | Description |\n|--------|---------|-------------|\n| `15c1669` | v1.2.325 | Percentage UI + new physical ranges (HMD 0–0.02, Ctrl 0–0.16) |\n| `4221d62` | v1.2.325 | Preset fix (Recommended/High/DiagMax correct physical values) |\n| `7888c9e` | ~v1.2.333 | INI load clamping + zero-value guard |\n| `a8c410d` | v1.2.332 | Docs: clean build record |\n| `70dbce5` | v1.2.333 | Merge commit (version bump) |\n| `1024d36` | v1.2.335 | Normalize physical→cutoff in overlay + smoothing.ini folder fix |\n| `20baac2` | v1.2.336 | Send normalized strength (0–1) to driver (fixes adaptive beta/boost) |",
@@ -206,7 +206,7 @@
       "project": "rgcs",
       "confidence": 0.8,
       "sourceFile": "memory/2026-03-04-hmd-cutoff.md",
-      "updatedAt": "2026-03-05T07:09:24.892Z"
+      "updatedAt": "2026-03-08T03:04:07.410Z"
     },
     {
       "content": "This is why DiagMax felt like nothing — the adaptive boost assumed strength was nearly zero.\n\n\n\nPre-compaction memory flush. Store durable memories now (use memory/2026-03-04.md; create memory/ if needed). IMPORTANT: If the file already exists, APPEND new content only and do not overwrite existing entries. If nothing to store, reply with NO_REPLY.\nCurrent time: Wednesday, March 4th, 2026 — 9:38 AM (UTC)\nuser: ## Loaded Context (Clawtext)",
@@ -222,7 +222,7 @@
       "project": "rgcs",
       "confidence": 0.8,
       "sourceFile": "memory/2026-03-04-hmd-cutoff.md",
-      "updatedAt": "2026-03-05T07:09:24.892Z"
+      "updatedAt": "2026-03-08T03:04:07.410Z"
     },
     {
       "content": "### What is RGCS?\nRoom-scale Gravity Compensation System — VR controller smoothing to eliminate high-frequency jitter via low-pass filtering + OneEuro algorithm.\n\n**Devices:**\n- Device 0 = HMD\n- Device 5 = Left Controller\n- Device 6 = Right Controller",
@@ -242,7 +242,7 @@
       "project": "rgcs",
       "confidence": 0.8,
       "sourceFile": "memory/2026-03-04-hmd-cutoff.md",
-      "updatedAt": "2026-03-05T07:09:24.892Z"
+      "updatedAt": "2026-03-08T03:04:07.410Z"
     },
     {
       "content": "## Context from Parallel ClawText Thread (Mixed in File)\n\n**Unrelated to RGCS but in same file:**",
@@ -260,7 +260,7 @@
       "project": "rgcs",
       "confidence": 0.8,
       "sourceFile": "memory/2026-03-04-thread-analysis.md",
-      "updatedAt": "2026-03-05T07:09:24.892Z"
+      "updatedAt": "2026-03-08T03:04:07.411Z"
     },
     {
       "content": "## Recommendations for MEMORY.md Update\n\n**Priority 1 (Critical):**\n1. Add RGCS project overview section\n2. Document the three fixes + math/rationale\n3. Add version history (v1.2.354 with commit hashes)\n4. Add calibration drift investigation note\n\n**Priority 2 (Important):**\n1. Architecture diagram (Overlay ↔ Driver via IPC)\n2. Device ID reference table\n3. OneEuro filter parameter tuning guide\n4. Migration strategy for old config values\n\n**Priority 3 (Optional):**\n1. Log interpretation guide (`[EffectiveConfig]`, `[STARTUP]`, etc.)\n2. Quaternion rotation matrix math\n3. Vestibular system sensitivity thresholds\n4. Per-device config flow documentation",
@@ -280,7 +280,7 @@
       "project": "rgcs",
       "confidence": 0.8,
       "sourceFile": "memory/2026-03-04-thread-analysis.md",
-      "updatedAt": "2026-03-05T07:09:24.892Z"
+      "updatedAt": "2026-03-08T03:04:07.411Z"
     },
     {
       "content": "RGCS Project Updates — March 3, 2026\n\n### Fixes Summary:\n1. **HMD Sensitivity Math Adjustment:**\n   - Problem: Previous settings caused a 42ms lag.\n   - Solution: Updated `kHmdBaseMinCutoff` from 4.0 Hz to 20.0 Hz, reducing lag to ~8ms.\n\n2. **Quaternion Filter Notchiness Fix:**\n   - Problem: Quaternion `w` component encountered issues at high roll angles (e.g., 180°).\n   - Solution: Rewrote the filter reconstruction logic to include `w` properly.\n\n3. **UI Layout Clipping Issue:**\n   - Problem: Hardcoded height in the One Euro section caused clipping.\n   - Solution: Adjusted layout logic and resolved ScrollView bugs.\n\n### Calibration Drift Investigation:\n- Current Status: Ongoing. Small per-frame rotational offsets are compounding.\n- Next Steps: Analyze `[EffectiveConfig]` logs during drift episodes.\n\n### Device ID Mapping:\n- **Device 0:** HMD\n- **Device 5:** Right controller\n- **Device 6:** Left controller\n\n### Key Parameters:\n- **HMD:** Base minCutoff: 20.0 Hz\n- **Controllers:** Base minCutoff: 5.0 Hz\n- **OneEuro:** Smoothing factor \"beta\" confirmed to be stable.\n\n### IPC Communication Status:\n- Current architecture under review.\n\n---",
@@ -300,7 +300,344 @@
       "project": "rgcs",
       "confidence": 0.65,
       "sourceFile": "memory/2026-03-04.md",
-      "updatedAt": "2026-03-05T07:09:24.893Z"
+      "updatedAt": "2026-03-08T03:04:07.411Z"
+    },
+    {
+      "content": "## RGCS smoothing confirmed functional in v1.2.372\n\nUser testing on v1.2.372 confirmed the smoothing feature is functional; the \"recommended\" button produces noticeable smoothing. Controller smoothing shows clear improvement and the adaptive component behaves well during low-to-high speed transitions. This run is a confirmed working state for smoothing in 1.2.372.",
+      "keywords": [
+        "smoothing",
+        "RGCS",
+        "1.2.372",
+        "recommended",
+        "controller",
+        "HMD",
+        "adaptive"
+      ],
+      "type": [
+        "fact"
+      ],
+      "project": [
+        "rgcs"
+      ],
+      "confidence": 0.8,
+      "sourceFile": "memory/2026-03-05.md",
+      "updatedAt": "2026-03-08T03:04:07.412Z"
+    },
+    {
+      "content": "## HMD smoothing (strength=1) is too strong; normalize lower\n\nThe user reports that HMD smoothing at strength=1 is still too powerful and slightly disorienting; recommendation is to normalize default HMD strength lower so headset smoothing is effectively transparent. The user prefers behavior similar to OVR Smooth Tracking but notes source/algorithm is unknown and likely not directly analyzable.",
+      "keywords": [
+        "HMD",
+        "smoothing",
+        "strength",
+        "normalization",
+        "user-preference",
+        "OVR"
+      ],
+      "type": [
+        "decision"
+      ],
+      "project": [
+        "rgcs"
+      ],
+      "confidence": 0.8,
+      "sourceFile": "memory/2026-03-05.md",
+      "updatedAt": "2026-03-08T03:04:07.412Z"
+    },
+    {
+      "content": "## Controller micro-aim deceleration feels abrupt (\"tapping the brakes\")\n\nController smoothing's adaptive behavior is overall good, but during micro-aiming the stopping/deceleration feels too abrupt—described as \"tapping the brakes.\" Action item: smooth the transition to stop (reduce abrupt deceleration) to remove the slight brake-like feel during fine aiming.",
+      "keywords": [
+        "controller",
+        "smoothing",
+        "micro-aim",
+        "deceleration",
+        "adaptive",
+        "ratchety",
+        "stop-behavior"
+      ],
+      "type": [
+        "error-pattern"
+      ],
+      "project": [
+        "rgcs"
+      ],
+      "confidence": 0.8,
+      "sourceFile": "memory/2026-03-05.md",
+      "updatedAt": "2026-03-08T03:04:07.412Z"
+    },
+    {
+      "content": "## App detection reports a game at boot (Contractors Showdown) — detection should be empty\n\nOn SteamVR boot (before any game launch), RGCS reports the detected application as \"Contractors Showdown\" instead of empty. Likely cause is scanning SteamVR logs too far back or incorrect detection logic; detection should be blank until an app actually starts. This is a bug to fix in the detection logic.",
+      "keywords": [
+        "detection",
+        "steamvr",
+        "app-detection",
+        "Contractors Showdown",
+        "boot",
+        "log-scanning"
+      ],
+      "type": [
+        "error-pattern"
+      ],
+      "project": [
+        "rgcs"
+      ],
+      "confidence": 0.8,
+      "sourceFile": "memory/2026-03-05.md",
+      "updatedAt": "2026-03-08T03:04:07.412Z"
+    },
+    {
+      "content": "## Functional test procedure for validating smoothing (including MaxDiag requirement)\n\nValidated test steps the user uses: 1) press <mode> button; 2) turn head quickly; 3) raise hand and check controller laser is enabled; 4) press disable to compare. Iterate this for recommended/strong/maxdiag. The user requires that MaxDiag apply excessive strength (making smoothing unusable) as a validation; note that MaxDiag has sometimes failed to show the expected extreme effect.",
+      "keywords": [
+        "testing",
+        "procedure",
+        "MaxDiag",
+        "recommended",
+        "strong",
+        "enable-disable",
+        "laser-test"
+      ],
+      "type": [
+        "code-pattern"
+      ],
+      "project": [
+        "rgcs"
+      ],
+      "confidence": 0.8,
+      "sourceFile": "memory/2026-03-05.md",
+      "updatedAt": "2026-03-08T03:04:07.412Z"
+    },
+    {
+      "content": "**SECTION G — Vision & Stretch Goals**\n\nG1. Long term: should Lumbot respond to Twitch chat as well as your voice?\n\nG2. Should Lumbot have a persistent persona/character for stream interactions?\n\nG3. Other tools on Cerberus to integrate? (Discord, music bot, MIDI, etc.)\n\nG4. Stream overlay/widget showing Lumbot status (idle / listening / processing / speaking)?\n\nG5. Anything else about your streaming setup that would affect the design?",
+      "keywords": [
+        "lumbot",
+        "your",
+        "stream",
+        "section",
+        "vision",
+        "stretch",
+        "goals",
+        "term",
+        "respond",
+        "twitch"
+      ],
+      "type": "fact",
+      "project": "rgcs",
+      "confidence": 0.8,
+      "sourceFile": "memory/2026-03-06-captions-bridge.md",
+      "updatedAt": "2026-03-08T03:04:07.413Z"
+    },
+    {
+      "content": "**Engineering Phases**\n1. Foundation (2–4 wks): companion app, wakeword, ASR, Luminous receiver, end-to-end test\n2. Streamerbot integration (1–2 wks): WS client, top commands, TTS, confirmation state machine\n3. Local LLM intent (1–2 wks): Qwen llama.cpp, domain glossary\n4. Polish & safety (1–2 wks): full confirmation tiers, VRAM/CPU throttle, logging, overlay",
+      "keywords": [
+        "wks",
+        "end",
+        "confirmation",
+        "engineering",
+        "phases",
+        "foundation",
+        "companion",
+        "app",
+        "wakeword",
+        "asr"
+      ],
+      "type": "fact",
+      "project": "rgcs",
+      "confidence": 0.8,
+      "sourceFile": "memory/2026-03-06-captions-bridge.md",
+      "updatedAt": "2026-03-08T03:04:07.413Z"
+    },
+    {
+      "content": "## Build 1.2.388 mislabel and lag at 1% smoothing\n\nThe build labeled 1.2.388 (previously marked as 1.2.387) was reported in diagnostics as feeling laggy even at 1% smoothing. Capture that this particular build/version exhibited increased input-lag at low smoothing settings; the diagnostic was provided alongside the report. Treat this as an error-pattern to investigate (build/version mislabelling + smoothing performance regression).",
+      "keywords": [
+        "smoothing",
+        "HMD",
+        "lag",
+        "build",
+        "1.2.388"
+      ],
+      "type": "error-pattern",
+      "project": "rgcs",
+      "confidence": 0.8,
+      "sourceFile": "memory/2026-03-06.md",
+      "updatedAt": "2026-03-08T03:04:07.413Z"
+    },
+    {
+      "content": "## Use forum-post skill to summarize RGCS smoothing thread (user preference)\n\nThe user requested the thread-bridge/forum-post skill be used to create a summarizing forum post titled \"RGCS Smoothing Development Part 4 - 1.2.388+ discussion\" in channel 1476018965284261908, pulling the last 50 posts by the user and the project's commits. Record this as a procedural preference for how forum posts should be created for this project.",
+      "keywords": [
+        "forum",
+        "summarization",
+        "skill",
+        "thread",
+        "commits"
+      ],
+      "type": "decision",
+      "project": "rgcs",
+      "confidence": 0.8,
+      "sourceFile": "memory/2026-03-06.md",
+      "updatedAt": "2026-03-08T03:04:07.413Z"
+    },
+    {
+      "content": "## Smoothing method tradeoff: less glitching but more lag at low strength\n\nTesting shows the new smoothing method removed glitchy/warpy jumps but remains \"too strong\" (laggy) at 1% smoothing for the HMD — better stability but higher perceived latency. This is a behavioral tradeoff: the new method reduces spikes/jitter but increases smoothing-induced lag at low settings; consider tuning the filter or restoring previous method with modified parameters.",
+      "keywords": [
+        "smoothing",
+        "HMD",
+        "lag",
+        "glitch",
+        "filter"
+      ],
+      "type": "learning",
+      "project": "rgcs",
+      "confidence": 0.8,
+      "sourceFile": "memory/2026-03-06.md",
+      "updatedAt": "2026-03-08T03:04:07.413Z"
+    },
+    {
+      "content": "## v1.2.389 logs: smoothing connected to lean driver; Resolver falls back to Global\n\nLogs from v1.2.389 show \"OVR Input Emulator Plus\" starting and report: \"[SMOOTHING] Connected to lean driver via RGCSClient\" and \"Resolver: falling back to Global (baseline)\". Record this as confirmation of runtime behavior for smoothing/resolver in v1.2.389.",
+      "keywords": [
+        "v1.2.389",
+        "smoothing",
+        "lean driver",
+        "Resolver",
+        "Global"
+      ],
+      "type": "fact",
+      "project": "rgcs",
+      "confidence": 0.8,
+      "sourceFile": "memory/2026-03-06.md",
+      "updatedAt": "2026-03-08T03:04:07.413Z"
+    },
+    {
+      "content": "## Revert RGCS smoothing method to previous commit and apply new filter\n\nUser requested rolling back to the smoothing method used in commit 30cf996b12e63cb21dd573c51dfc7085423f3c32 because the current method is producing jittery/warpy HMD behavior. The action requested: revert to that commit's smoothing approach, then change the filter to the newer filter suggested in the discussion (investigate `ovr smooth tracking` DLL for clues). Follow-up actions: reproduce issue on current version, perform rollback test, and apply filter change while validating for both glitch reduction and latency.",
+      "keywords": [
+        "rollback",
+        "filter",
+        "HMD",
+        "smoothing",
+        "ovr"
+      ],
+      "type": "decision",
+      "project": "rgcs",
+      "confidence": 0.8,
+      "sourceFile": "memory/2026-03-06.md",
+      "updatedAt": "2026-03-08T03:04:07.413Z"
+    },
+    {
+      "content": "## RGCS v1.2.390: Zero smoothing on both HMD and controllers — root cause investigation\n\n**User assertion (authoritative):** There was ZERO smoothing happening on HMD OR controllers in v1.2.390. MaxDiag should delay controller movement by several seconds; it did not. Sub-millimeter log deltas are not due to stationary testing — the user knows how to generate movement. The issue is real.\n\n**Confirmed code flow:**\n- `applySmoothingUnsafe()` is gated by `m_ipcConfigReceived` (deferred init guard)\n- If `m_ipcConfigReceived` is false, the function returns immediately — **no smoothing at all**\n- `markIpcConfigReceived()` is called in `RGCSDriver.cpp:918` inside the SHM poll block — only fires when `shmSmoothing` data is read\n- `m_kimiFiltersInitialized` is only set once `m_ipcConfigReceived` is true AND filters are constructed\n\n**Candidate root cause:** SHM poll block may not be executing / `shmSmoothing.enabled` evaluating to false before `markIpcConfigReceived()` is reached. If IPC config never arrives (or arrives with `strength <= 0.0f`), smoothing stays permanently disabled.\n\n**Critical logic bug found:** In `RGCSDriver.cpp` near line 901:\n```cpp\nif (shmSmoothing.enabled && shmSmoothing.strength <= 0.0f) {\n    shmSmoothing.enabled = false;\n}\n```\nThis condition silently disables smoothing if strength is exactly 0. But `markIpcConfigReceived()` is called AFTER this — so if the overlay sends `enabled=true` but `strength=0.0` (initialization race), smoothing is disabled AND IPC config is still marked received. Subsequent strength updates may not re-enable.\n\n**Also confirmed:** `setFilterType()` calls `resetFilters()` unconditionally — if the filter type is ever re-set during operation, all filters are destroyed and must reinitialize from scratch.\n\n**What was changed/committed in this session (v1.2.393):**\n1. Added IPC wait warning log (every 1000 frames) in `applySmoothingUnsafe` when `!m_ipcConfigReceived`\n2. Added 3000-frame IPC fallback: if IPC config never arrives, force `m_ipcConfigReceived = true` and initialize with defaults\n3. Added more verbose `SMOOTHING STATE CHANGED` log entry (includes current strength)\n4. NOTE: The edit to `RGCSDriver.cpp` stateChanged block had a syntax error (accidental corruption) — needs review before build\n\n**Build status:** Cannot build on Linux (requires Windows + MSVC/PowerShell). Changes committed as `0de947b` (v1.2.393) but NOT yet built/tested. The inserted IPC fallback patch may also have doubled the `if (!m_ipcConfigReceived)` check due to two sequential edits — needs audit before pushing to build.\n\n**Next actions needed:**\n1. Audit `DeviceHandle.cpp` around the `m_ipcConfigReceived` guard — confirm no duplicate/broken blocks from the two edits\n2. Fix the `RGCSDriver.cpp` stateChanged log line (syntax error introduced by bad edit)\n3. Build on Windows and test with MaxDiag — confirm smoothing now activates\n4. Longer term: audit whether the `shmSmoothing.enabled + strength <= 0` early-out is silently blocking smoothing in real sessions\n5. Consider whether `setFilterType()` → `resetFilters()` is being called spuriously (every SHM poll frame if type keeps being re-set)",
+      "keywords": [
+        "smoothing-broken",
+        "no-smoothing",
+        "v1.2.390",
+        "applySmoothingUnsafe",
+        "m_ipcConfigReceived",
+        "m_kimiFiltersInitialized",
+        "MaxDiag"
+      ],
+      "type": "investigation",
+      "project": "rgcs",
+      "confidence": 0.8,
+      "sourceFile": "memory/2026-03-06.md",
+      "updatedAt": "2026-03-08T03:04:07.413Z"
+    },
+    {
+      "content": "### Current Issue: Master Toggle Not Syncing\n**Problem:** Input smoothing page has a master enable/disable button intended to toggle all 3 devices at once. When clicked, the button state changes but the individual device toggles below don't reflect the new state.\n\n**Evidence from v1.2.316 logs:**\n- All 3 devices disable/enable simultaneously (coordinated call)\n- Multiple cycles during single session\n- Asymmetry: HMD stays disabled, controllers re-enable\n- Root: `setCalibrationActive(FALSE)` correlates with disable events\n\n**v1.2.324 improvement:** Added call-site logging to `applySettings()` so we can see exactly which code path is calling the disable.",
+      "keywords": [
+        "disable",
+        "enable",
+        "master",
+        "toggle",
+        "button",
+        "devices",
+        "state",
+        "316",
+        "324",
+        "current"
+      ],
+      "type": "fact",
+      "project": "rgcs",
+      "confidence": 0.8,
+      "sourceFile": "memory/2026-03-07-master-toggle.md",
+      "updatedAt": "2026-03-08T03:04:07.419Z"
+    },
+    {
+      "content": "### Next Immediate Steps\n1. **Code review:** Find input smoothing page component (React? Form? Path?)\n2. **Implement:** Batch update handler on master toggle\n3. **Test:** Verify state syncs to all 3 devices after button click\n4. **Log analysis:** Check v1.2.324 driver.log for applySettings() call-site annotations\n\n**Question:** Where is the input smoothing page code located? (repo path / component file)\nuser: [Thread starter - for context]\nContinued from Part 3. Starting fresh here for v1.2.388+ work.\n\nConversation info (untrusted metadata):\n```json\n{\n  \"message_id\": \"1479709098474995773\",\n  \"sender_id\": \"142843545215041536\",\n  \"conversation_label\": \"Guild #RGCS Smoothing Development Part 4 - 1.2.388+ discussion channel id:1479522683883356170\",\n  \"sender\": \"ragesaq\",\n  \"timestamp\": \"Sat 2026-03-07 05:15 UTC\",\n  \"group_subject\": \"#rgcs-smoothing-development-part-4-1-2-388-discussion\",\n  \"group_channel\": \"#rgcs-smoothing-development-part-4-1-2-388-discussion\",\n  \"group_space\": \"1474997926919929927\",\n  \"thread_label\": \"Discord thread #rgcs-projects › RGCS Smoothing Development Part 4 - 1.2.388+ discussion\",\n  \"topic_id\": \"1479522683883356170\",\n  \"is_group_chat\": true\n}\n```\n\nSender (untrusted metadata):\n```json\n{\n  \"label\": \"ragesaq (142843545215041536)\",\n  \"id\": \"142843545215041536\",\n  \"name\": \"ragesaq\",\n  \"username\": \"ragesaq\",\n  \"tag\": \"ragesaq\"\n}\n```\n\ni tested 1.2.398 and i have the following feedback\n\nthe recommended values of 25 HMD produce some pretty severe smoothing that is choppy on the HMD, still in the method that is like playing a video game at low framerate\n\nthe smoothing effect is extremely strong all the way down to 1%, and this strange low-framerate-like-stutter persists throughout. its almost like we are holding back the framerate of the headset, or tying the motion speed ot it\nassistant: Got it. Let’s break this feedback down and inspect likely causes and solutions:",
+      "keywords": [
+        "smoothing",
+        "388",
+        "part",
+        "rgcs",
+        "ragesaq",
+        "development",
+        "discussion",
+        "group",
+        "thread",
+        "sender"
+      ],
+      "type": "code-pattern",
+      "project": "rgcs",
+      "confidence": 0.8,
+      "sourceFile": "memory/2026-03-07-master-toggle.md",
+      "updatedAt": "2026-03-08T03:04:07.419Z"
+    },
+    {
+      "content": "### Likely Root Causes:\n**1. Overly aggressive smoothing settings:**\n   - A *low-pass filter cutoff* set too low could cause delayed response times, making fast movements appear choppy.\n   - The higher the smoothing (lower the cutoff frequency), the more gradual the adaptation, leading to the \"low-framerate\" perception.\n\n**2. Update Rate Mismatch:**\n   - If the smoothing algorithm or driver's effective cutoff frequency ends up **modulating at a lower update rate**, it could pulse inconsistently, creating the perception of stutter.\n   - This could happen if `deltaTime` (input smoothing refresh interval) is miscalculated or drifted from real headset polling frequency.\n\n**3. Cutoff-Frequency Clamp Mapping:**\n   - The HMD slider's 25% may map to a value still too low compared to what’s adequate for smooth HMD motion.\n   - Possibly, calibration figures prioritized eliminating fine jitter but now ignore responsivity.\n\n**4. Uniform Smoothing Across All Motion Ranges:**\n   - If the filter applies the same smoothing across all motion intensities (low-speed pans vs. rapid head turns), the lower-speed movement frames might become disproportionately delayed, creating the \"low-framerate\" visual disconnect.\n   - This could affect the One Euro config (e.g., too-high Beta causing unnecessary \"memory\" in motion smoothing).",
+      "keywords": [
+        "smoothing",
+        "low",
+        "cutoff",
+        "frequency",
+        "motion",
+        "lower",
+        "filter",
+        "delayed",
+        "framerate",
+        "perception"
+      ],
+      "type": "fact",
+      "project": "rgcs",
+      "confidence": 0.8,
+      "sourceFile": "memory/2026-03-07-master-toggle.md",
+      "updatedAt": "2026-03-08T03:04:07.419Z"
+    },
+    {
+      "content": "### Recommendations for Fix:\n**1. Focus on HMD Responsiveness:**\n   - Soften the cutoff mapping for the HMD at lower values for 15-25%. This allows quicker adaptation to movement while still filtering jitter.\n   - Temporary Test: Set `minCutoff` at **50 Hz** for HMD at these slider positions.\n\n**2. Dynamically Adjust Smoothing Based on Movement Magnitude:**\n   - Tune `Beta` for the HMD to scale smoother acceleration differently for rapid vs. slow head movement. This better maintains framerate-fluidity:\n     - **Beta** Example: 3.0 → 1.5 (fast) / .6.\n     - Add tighter transition ranges for rapid motion bursts.\n\n**3. Test Alternate OneEuro Defaults:**\n   - Adjust HMD smoothing defaults:\n     - `kHmdMinCutoff: 25Hz → 35Hz`.\n     - `kHmdBeta: 1.5 (static) → 3.5`.\n     - Ensure adjustments still allow realistic smoothing feel and jitter suppression.\n\n**4. Correlate Driver Update Source:**\n   - Use test-pattern video to validate visual disconnection between driver timing mismatches.",
+      "keywords": [
+        "hmd",
+        "movement",
+        "test",
+        "smoothing",
+        "still",
+        "jitter",
+        "adjust",
+        "beta",
+        "rapid",
+        "defaults"
+      ],
+      "type": "error-pattern",
+      "project": "rgcs",
+      "confidence": 0.8,
+      "sourceFile": "memory/2026-03-07-master-toggle.md",
+      "updatedAt": "2026-03-08T03:04:07.419Z"
+    },
+    {
+      "content": "## RageFX: prioritize LUT support and FSR/sharpening pipeline (phase plan)\n\nDecision: RageFX will prioritize adding LUT capability (user uses DaVinci 65 LUTs) and adopt a FidelityFX/FSR-based sharpening/resolution pipeline for phase 1. Phase 2 will explore faking a wider FOV by shimming the compositor before the compositor sees the headset (a distortion/FOV shim). Actionable: implement LUT import support, wire RCAS/FSR sharpening first, then prototype compositor-level FOV shim in a later phase.",
+      "keywords": [
+        "LUT,DaVinci,FidelityFX,FSR,sharpening,phase1,phase2,FOV"
+      ],
+      "type": "decision",
+      "project": "rgcs",
+      "confidence": 0.8,
+      "sourceFile": "memory/2026-03-08.md",
+      "updatedAt": "2026-03-08T03:04:07.423Z"
+    },
+    {
+      "content": "## Compositor-fx scaffold ready and next steps for repo/overlay\n\nFact: The compositor-fx package is scaffolded at `~/.openclaw/workspace/compositor-fx/` and the user requested it be packaged into a new private git repo and connected to VSCode. They also flagged that an overlay/SteamVR dashboard app (like RGCS) is missing and critical; the overlay must register in SteamVR and produce logs on startup. Actionable: create repo, push scaffold, add `to_vscode.md`, and ensure overlay manifest + registration mirror RGCS.",
+      "keywords": [
+        "repo-scaffold,compositor-fx,overlay,steamvr,logs,git,VSCode"
+      ],
+      "type": "fact",
+      "project": "rgcs",
+      "confidence": 0.8,
+      "sourceFile": "memory/2026-03-08.md",
+      "updatedAt": "2026-03-08T03:04:07.423Z"
     },
     {
       "content": "Project Overview\n\nRoom-scale Gravity Compensation System — VR controller smoothing via OneEuro/KimiOneEuro low-pass filtering.\n- Device 0 = HMD, Device 5 = Left Controller, Device 6 = Right Controller\n- Repo: ragesaq's RGCS project (GitHub, build agent pushes/tags)\n- Current version in testing: v1.2.348",
@@ -320,7 +657,7 @@
       "project": "rgcs",
       "confidence": 0.65,
       "sourceFile": "memory/rgcs-smoothing-context.md",
-      "updatedAt": "2026-03-05T07:09:24.901Z"
+      "updatedAt": "2026-03-08T03:04:07.429Z"
     },
     {
       "content": "Architecture\n\n- **Driver** (C++ DLL): `driver_00rgcs.dll` — lives in SteamVR drivers dir\n  - `DeviceHandle.cpp` / `DeviceSmoothing` class — core smoothing logic\n  - KimiOneEuro filter: exponential cutoff curve `effectiveMinCutoff = minCutoff * pow(kCutoffRatio, strength)`\n  - Rotation cutoff = position cutoff * 0.4 (kRotCutoffRatio)\n  - Telemetry: `SmoothingTelemetry deviceId= strength= ... avgPosDeltaMm= maxPosDeltaMm= avgRotDeltaDeg= maxRotDeltaDeg= samples=`\n  - Init log: `[SMOOTHING] KimiOneEuro filters initialized: minCutoff=X beta=X dCutoff=X strength=X`\n  - Param change log: `>>> OneEuro params changed for device N` + `minCutoff= beta= dCutoff=`\n- **Overlay** (Qt/QML C++ app): sends config to driver via shared memory IPC\n  - `InputSmoothingController.cpp` — `applySettings()`, `applyToAllDevices()`\n  - QML smoothing page — sliders for HMD/controller strength, beta, minCutoff\n  - IPC arrives ~300ms after driver start\n- **Preset system**: DiagMax, Recommended, High, Low presets\n- **Normalization**: `CONTROLLER_MAX_PHYSICAL = 0.16f` — physical strength / 0.16 = normalized value sent to driver",
@@ -340,7 +677,7 @@
       "project": "rgcs",
       "confidence": 0.65,
       "sourceFile": "memory/rgcs-smoothing-context.md",
-      "updatedAt": "2026-03-05T07:09:24.901Z"
+      "updatedAt": "2026-03-08T03:04:07.429Z"
     },
     {
       "content": "Bug History\n\n### Bug 1: QML `onValueChanged` init race (FIXED in v1.2.331)\n- QML slider `value: 0.15` / `value: 0.02` defaults fired `onValueChanged` during construction\n- This happened BEFORE `Component.onCompleted` → before `updatingFromBackend` guard was set\n- Result: every page load wrote 15% controller / 2% HMD to driver, overriding saved settings\n- **Fix**: Set `updatingFromBackend: true` as default property, only cleared after `refreshDisplay()` loads backend values\n- Added `[SMOOTHING_APPLY]` structured logging in C++ and QML `console.log` breadcrumbs\n- **Status**: Fixed, pushed, confirmed working\n\n### Bug 2: Double-bake / kCutoffRatio history\n- Old DLL versions had `kCutoffRatio = 0.2` (weak curve), then `kCutoffRatio = 0.01` (correct)\n- Earlier builds logged `minCutoff=` in SmoothingTelemetry; current HEAD logs same fields\n- Previous \"stale DLL\" issues where build agent pulled wrong commit\n- **v1.2.348 DLL confirmed**: built from HEAD, `kCutoffRatio` string absent from binary (constant inlined by compiler), version string present\n\n### Bug 3: IPC timing race — filters init before IPC config arrives (CURRENT WORK)\n- Driver KimiOneEuro filters construct at first pose using `m_oneEuroMinCutoff` from INI (~1.5Hz default)\n- IPC config (with real 5.0Hz minCutoff) arrives ~300ms later\n- `updateFilterParameters()` updates live filters — but they were seeded wrong\n- **Proposed fix**: Deferred init — `m_filtersReady` flag, pass-through raw pose until IPC config arrives, then init filters with correct params on first call\n\n### Bug 4: Controller enumeration race (SEPARATE BUG)\n- When RGCS overlay opens after SteamVR is already running, it misses `DeviceActivated` events for already-connected controllers\n- Controllers only visible after disconnect/reconnect\n- **Proposed fix**: `scanExistingDevices()` on overlay init — walk all `k_unMaxTrackedDeviceCount` slots, call `GetTrackedDeviceClass()`, call `onDeviceActivated()` for any controller/tracker found",
@@ -360,7 +697,7 @@
       "project": "rgcs",
       "confidence": 0.65,
       "sourceFile": "memory/rgcs-smoothing-context.md",
-      "updatedAt": "2026-03-05T07:09:24.901Z"
+      "updatedAt": "2026-03-08T03:04:07.429Z"
     },
     {
       "content": "Current Task\n\nWrite patches for BOTH fixes:\n1. **Deferred filter init** in driver (`DeviceHandle.cpp` / `DeviceSmoothing`)\n2. **Startup device scan** in overlay (wherever `VREvent_TrackedDeviceActivated` is handled)\n\n**Blocked on**: need source files. User is fetching them.",
@@ -380,7 +717,7 @@
       "project": "rgcs",
       "confidence": 0.65,
       "sourceFile": "memory/rgcs-smoothing-context.md",
-      "updatedAt": "2026-03-05T07:09:24.901Z"
+      "updatedAt": "2026-03-08T03:04:07.429Z"
     },
     {
       "content": "Key Parameters\n\n- `minCutoff = 5.0Hz` (configured), actual effective depends on strength via exponential curve\n- `kCutoffRatio = 0.01` (current, inlined — strong curve)\n- `kRotCutoffRatio = 0.4` (rotation cutoff = 40% of position cutoff)\n- `CONTROLLER_MAX_PHYSICAL = 0.16` (normalization cap — constrains DiagMax to effectively mild smoothing)\n- DiagMax sends physical 0.16 → normalizes to 1.0 → driver applies `5.0 * 0.01^1.0 = 0.05Hz`\n- beta=0.07, dCutoff=2.0 are recommended target values",
@@ -400,7 +737,7 @@
       "project": "rgcs",
       "confidence": 0.65,
       "sourceFile": "memory/rgcs-smoothing-context.md",
-      "updatedAt": "2026-03-05T07:09:24.901Z"
+      "updatedAt": "2026-03-08T03:04:07.429Z"
     },
     {
       "content": "What Was Confirmed Working\n\n- v1.2.329 (commit 8d2c97d): smoothing was \"overwhelming\" — too strong but proved concept\n- v1.2.331+: QML init bug fixed, structured logging added\n- v1.2.348 DLL: correct build, kCutoffRatio inlined correctly",
@@ -420,7 +757,7 @@
       "project": "rgcs",
       "confidence": 0.65,
       "sourceFile": "memory/rgcs-smoothing-context.md",
-      "updatedAt": "2026-03-05T07:09:24.901Z"
+      "updatedAt": "2026-03-08T03:04:07.429Z"
     },
     {
       "content": "Standalone Product Idea\n\nSubtle HMD smoothing for streamers/content creators — \"StreamSmooth\" mode. Imperceptible to wearer (~3-5% strength, 2-3Hz cutoff) but makes recorded/live VR video dramatically smoother. Real gap in the market.",
@@ -440,15 +777,20 @@
       "project": "rgcs",
       "confidence": 0.65,
       "sourceFile": "memory/rgcs-smoothing-context.md",
-      "updatedAt": "2026-03-05T07:09:24.901Z"
+      "updatedAt": "2026-03-08T03:04:07.429Z"
     }
   ],
-  "builtAt": "2026-03-05T07:09:24.901Z",
+  "builtAt": "2026-03-08T03:04:07.431Z",
   "sourceFiles": [
     "memory/2026-03-03.md",
     "memory/2026-03-04-hmd-cutoff.md",
     "memory/2026-03-04-thread-analysis.md",
     "memory/2026-03-04.md",
+    "memory/2026-03-05.md",
+    "memory/2026-03-06-captions-bridge.md",
+    "memory/2026-03-06.md",
+    "memory/2026-03-07-master-toggle.md",
+    "memory/2026-03-08.md",
     "memory/rgcs-smoothing-context.md"
   ]
 }

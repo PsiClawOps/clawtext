@@ -18,6 +18,10 @@ export class ClawTextRAG {
       minConfidence: 0.6,
       injectMode: 'smart',
       tokenBudget: 4000,
+      // Hybrid RRF merge params
+      bm25Weight: 1.0,
+      mem0Weight: 1.0,
+      rrfK: 60
     };
 
     this.loadClusters();
@@ -103,8 +107,30 @@ export class ClawTextRAG {
    * Find relevant memories for a query with project-aware scoring
    */
   findRelevantMemories(query, projectKeywords = []) {
-    if (this.config.enabled || !query) return [];
+    // If disabled or empty query
+    if (this.config.injectMode === 'off' || !query) return [];
 
+    // 1) BM25 / cluster results
+    const bm25Results = this._findBM25(query, projectKeywords);
+
+    // 2) Recent captures (Mem0 / log-archive) — lightweight scan
+    const captureResults = this._findRecentCaptures(query);
+
+    // 3) Merge with RRF (reciprocal rank fusion)
+    const merged = this._rrfMerge(bm25Results, captureResults, {
+      bm25Weight: this.config.bm25Weight || 1.0,
+      mem0Weight: this.config.mem0Weight || 1.0,
+      rrfK: this.config.rrfK || 60,
+      maxResults: this.config.maxMemories || 5
+    });
+
+    return merged;
+  }
+
+  /**
+   * Format memories for injection into prompt
+   */
+  _findBM25(query, projectKeywords = []) {
     let targetProjects = projectKeywords.length > 0
       ? Array.from(this.clusters.keys()).filter(p =>
           projectKeywords.some(kw => p.includes(kw) || kw.includes(p))
@@ -123,28 +149,100 @@ export class ClawTextRAG {
 
       cluster.memories.forEach(memory => {
         if (memory.confidence >= this.config.minConfidence) {
-          // Pass targetProjects to scoring function for project weighting
           const score = this.bm25Score(query, memory, targetProjects);
           if (score > 0) {
-            allMemories.push({ 
-              ...memory, 
-              score,
-              project: project // Preserve project context for scoring
-            });
+            allMemories.push({ ...memory, score, project });
           }
         }
       });
     });
 
-    return allMemories
-      .sort((a, b) => b.score - a.score)
-      .slice(0, this.config.maxMemories)
-      .map(({ score, ...memory }) => memory);
+    return allMemories.sort((a,b)=>b.score-a.score).slice(0, this.config.maxMemories).map(m=>({source:'bm25',score:m.score, memory:m}));
   }
 
-  /**
-   * Format memories for injection into prompt
-   */
+  _findRecentCaptures(query){
+    // Use mem0.js query if available (faster than scanning files)
+    try{
+      const mem0 = require('./mem0.js').default || require('./mem0.js');
+      // ensure mem0 index exists
+      mem0.initMem0();
+      // index archive if mem0 empty (bootstrap)
+      const stats = require('fs').statSync(path.join(__dirname, '..', 'memory', 'mem0.jsonl'));
+      // if file exists and non-empty, skip; otherwise index
+      if (stats.size === 0){ mem0.indexArchiveToMem0(); }
+      const results = mem0.queryMem0(query, this.config.maxMemories, this.config.phraseRules || []);
+      return results;
+    }catch(e){
+      // fallback to file scan if mem0 unavailable
+      const archiveDir = path.join(__dirname, '..', 'memory', 'log-archive');
+      if (!fs.existsSync(archiveDir)) return [];
+      const files = fs.readdirSync(archiveDir).filter(f=>f.endsWith('.md'));
+      const results = [];
+      const q = query.toLowerCase();
+
+      files.forEach(f => {
+        try{
+          const p = path.join(archiveDir,f);
+          const text = fs.readFileSync(p,'utf8');
+          const excerpt = text.slice(0,1200);
+          const lc = excerpt.toLowerCase();
+          let hitScore = 0;
+          // simple term matches
+          q.split(/\s+/).forEach(term=>{ if(term.length>2 && lc.includes(term)) hitScore += 1; });
+          // match phrase rules if present
+          if (this.config.phraseRules){
+            for(const pr of this.config.phraseRules){
+              try{ const re = new RegExp(pr.pattern,'i'); if(re.test(excerpt)) hitScore += (pr.weight||0.5); }catch(e){}
+            }
+          }
+          // look for count metadata
+          const m = text.match(/count:\s*(\d+)/i);
+          const count = m ? parseInt(m[1],10) : 1;
+          if (hitScore>0){
+            // score factoring frequency
+            const score = hitScore * Math.log10(Math.max(1,count))+ (count>1?0.5:0);
+            results.push({source:'mem0', score, memory:{content: excerpt, key: f.replace('.md',''), count}});
+          }
+        }catch(e){ }
+      });
+
+      return results.sort((a,b)=>b.score-a.score).slice(0, this.config.maxMemories).map(m=>({source:m.source, score:m.score, memory:m.memory}));
+    }
+  }
+
+  _rrfMerge(bm25List, mem0List, opts={bm25Weight:1.0, mem0Weight:1.0, rrfK:60, maxResults:5}){
+    const mergedScores = new Map();
+
+    function addRank(list, weight, label){
+      for(let i=0;i<list.length;i++){
+        const item = list[i];
+        const rank = i+1;
+        const key = item.memory.key || (item.memory.id || ('mem_'+i+'_'+label));
+        const rrf = weight * (1.0 / (opts.rrfK + rank));
+        const prev = mergedScores.get(key) || {score:0, items:[]};
+        prev.score += rrf;
+        prev.items.push(item);
+        mergedScores.set(key, prev);
+      }
+    }
+
+    addRank(bm25List, opts.bm25Weight, 'bm25');
+    addRank(mem0List, opts.mem0Weight, 'mem0');
+
+    const arr = Array.from(mergedScores.entries()).map(([k,v])=>({key:k,score:v.score,items:v.items}));
+    arr.sort((a,b)=>b.score-a.score);
+    const top = arr.slice(0, opts.maxResults);
+    // normalize output to memory objects
+    return top.map(t=>{
+      // prefer bm25 source memory if present
+      const memItem = t.items.find(x=>x.source==='bm25') || t.items[0];
+      const out = Object.assign({}, memItem.memory);
+      out._source = memItem.source || (memItem.source==='bm25' ? 'bm25' : 'mem0');
+      out._mergedScore = t.score;
+      return out;
+    });
+  }
+
   formatMemories(memories) {
     if (memories.length === 0) return '';
 
@@ -221,11 +319,30 @@ export class ClawTextRAG {
       injectedPrompt = systemPrompt + '\n## Context Snippets\n' + snippets + '\n';
     }
 
-    return {
+    const result = {
       prompt: injectedPrompt,
       injected: memories.length,
       tokens: injectedTokens,
+      memories: memories
     };
+
+    // Append metrics log for evaluation
+    try{
+      const statsDir = path.join(__dirname, '..', 'memory');
+      if (!fs.existsSync(statsDir)) fs.mkdirSync(statsDir, { recursive: true });
+      const logPath = path.join(statsDir, 'mem0-eval.jsonl');
+      const entry = {
+        ts: new Date().toISOString(),
+        query,
+        projectKeywords,
+        injected: result.injected,
+        tokens: result.tokens,
+        memories: memories.map(m=>({ key: m.key || null, _source: m._source || null, _mergedScore: m._mergedScore || null }))
+      };
+      fs.appendFileSync(logPath, JSON.stringify(entry) + '\n', 'utf8');
+    }catch(e){ console.error('[ClawText RAG] failed to write mem0 eval log', e.message); }
+
+    return result;
   }
 
   /**

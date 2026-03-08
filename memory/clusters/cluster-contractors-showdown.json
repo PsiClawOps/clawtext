@@ -1,0 +1,26 @@
+{
+  "projectId": "contractors-showdown",
+  "memories": [
+    {
+      "content": "date: 2026-03-06\nproject: rgcs\ntype: decision\nentities: [RGCS, HMD, smoothing, commit]\nkeywords: [rollback, filter, HMD, smoothing, ovr]",
+      "keywords": [
+        "armor",
+        "protection",
+        "cone-angle",
+        "spine_03",
+        "pelvis",
+        "gap",
+        "belly-button"
+      ],
+      "type": "analysis",
+      "project": "contractors-showdown",
+      "confidence": 0.8,
+      "sourceFile": "memory/2026-03-06.md",
+      "updatedAt": "2026-03-06T19:06:21.471Z"
+    }
+  ],
+  "builtAt": "2026-03-06T19:06:21.479Z",
+  "sourceFiles": [
+    "memory/2026-03-06.md"
+  ]
+}

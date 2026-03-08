@@ -2,6 +2,44 @@
   "projectId": "infrastructure",
   "memories": [
     {
+      "content": "## Operate out of the current-architecture forum (channel 1475373158260277298)\n\nUser chose option A and requested creating a concise forum post in channel 1475373158260277298 to indicate that the team/project will operate out of that location. Record this as a decision to use the current-architecture forum channel for operational posts and coordination.",
+      "keywords": [
+        "current-architecture",
+        "forum",
+        "channel",
+        "operate",
+        "post",
+        "decision"
+      ],
+      "type": "decision",
+      "project": "infrastructure",
+      "confidence": 0.8,
+      "sourceFile": "memory/2026-03-06.md",
+      "updatedAt": "2026-03-08T03:04:07.413Z"
+    },
+    {
+      "content": "## Packaging and build policy for RageFX: VSCode + private git + WiX MSI + deterministic versioning\n\nDecision: Package the compositor (compositor-fx / RageFX) as a private git repo for VSCode development, produce an MSI via WiX for distribution, and enforce strict versioning: start at 1.0.0 and increment automatically on atomic events (e.g., commits). Ensure a hygienic install (clear QML cache), full clean builds, validation checks in the pipeline, and compatibility with the existing RGCS build MCP server. Actionable: add to_vscode.md with build and install instructions, copy WiX installer metadata from RGCS, and include version info in startup/log headers.",
+      "keywords": [
+        "packaging,VSCode,WiX,MSI,versioning,qml-cache,build-pipeline,validation"
+      ],
+      "type": "decision",
+      "project": "infrastructure",
+      "confidence": 0.8,
+      "sourceFile": "memory/2026-03-08.md",
+      "updatedAt": "2026-03-08T03:04:07.423Z"
+    },
+    {
+      "content": "## Embedding model configured: qwen/qwen3-embedding-8b\n\nFact: The embedding configuration reported in-session is `\"model\": \"qwen/qwen3-embedding-8b\"`. Actionable: verify embeddings pipeline (indexing -> search) uses this model and confirm the gateway/restart steps if necessary.",
+      "keywords": [
+        "embeddings,qwen/qwen3-embedding-8b,config,model,vector-store,search"
+      ],
+      "type": "fact",
+      "project": "infrastructure",
+      "confidence": 0.8,
+      "sourceFile": "memory/2026-03-08.md",
+      "updatedAt": "2026-03-08T03:04:07.423Z"
+    },
+    {
       "content": "## Implementation Timeline\n\n```\nDay 1 (6-8 hours):\n├─ Morning (2-3h):\n│  ├─ P1: Automatic Integration (middleware)\n│  └─ P2: Typoglycemia Detector (50%)\n├─ Afternoon (3-4h):\n│  ├─ P2: Typoglycemia (50%)\n│  └─ P3: Output Guard (50%)\n└─ Evening (1-2h):\n   └─ Integration testing, code review\n\nDay 2 (6-8 hours):\n├─ Morning (2-3h):\n│  ├─ P3: Output Guard (50%)\n│  └─ P4: Structured Prompt Enforcer\n├─ Afternoon (3-4h):\n│  ├─ P4: Structured Prompt (50%)\n│  └─ P5: Best-of-N Defense\n└─ Evening (1-2h):\n   └─ Code review, unit tests\n\nDay 3 (3-4 hours):\n├─ Morning (3-4h):\n│  ├─ P6: Adversarial Test Suite (50%)\n│  ├─ P6: Canary Tests (50%)\n│  └─ Integration testing\n└─ Afternoon:\n   └─ Documentation, deployment prep\n```",
       "keywords": [
         "hours",
@@ -19,7 +57,7 @@
       "project": "infrastructure",
       "confidence": 0.8,
       "sourceFile": "memory/clawsec-hardening-plan.md",
-      "updatedAt": "2026-03-05T07:09:24.894Z"
+      "updatedAt": "2026-03-08T03:04:07.424Z"
     },
     {
       "content": "## Deployment Checklist\n\n- [ ] All code compiles without errors\n- [ ] Unit tests pass (100%)\n- [ ] Integration tests pass (100%)\n- [ ] Adversarial tests pass (>99%)\n- [ ] Canary tests pass (attack success <1%)\n- [ ] Documentation complete\n- [ ] Code review approved\n- [ ] Performance benchmarks acceptable\n- [ ] Security audit passed\n- [ ] Ready for production deployment",
@@ -39,7 +77,7 @@
       "project": "infrastructure",
       "confidence": 0.8,
       "sourceFile": "memory/clawsec-hardening-plan.md",
-      "updatedAt": "2026-03-05T07:09:24.894Z"
+      "updatedAt": "2026-03-08T03:04:07.424Z"
     },
     {
       "content": "## Troubleshooting\n\n**Issue:** \"Middleware not installed\" error  \n**Fix:** Call `install_clawsec()` before any searches\n\n**Issue:** Legitimate queries being blocked  \n**Fix:** Check `web_search_config.json` for overly strict patterns\n\n**Issue:** Performance degradation  \n**Fix:** Profile with cProfile: `python -m cProfile -s cumulative src/web_search_wrapper.py`",
@@ -59,7 +97,7 @@
       "project": "infrastructure",
       "confidence": 0.8,
       "sourceFile": "memory/clawsec-quickstart.md",
-      "updatedAt": "2026-03-05T07:09:24.896Z"
+      "updatedAt": "2026-03-08T03:04:07.426Z"
     },
     {
       "content": "### 2. **Config File Path Assumptions**\n**Issue:** Wrapper assumes `web_search_config.json` location; path might not exist.  \n**Status:** Has fallback defaults, but logs warning (good).",
@@ -79,7 +117,7 @@
       "project": "infrastructure",
       "confidence": 0.8,
       "sourceFile": "memory/clawsec-security-audit-report.md",
-      "updatedAt": "2026-03-05T07:09:24.897Z"
+      "updatedAt": "2026-03-08T03:04:07.426Z"
     },
     {
       "content": "## Deployment Readiness\n\n```\nPhase 1 (Middleware)        ✅ READY (v1.3.0)\n├─ Code complete\n├─ Tests written\n├─ Docs done\n└─ Deploy: npm update\n\nPhase 2-5 (Enhancements)    ✅ READY (v1.4.0)\n├─ Code complete\n├─ Tests written\n├─ Docs done\n└─ Deploy: npm update\n\nPhase 6 (Testing)           ✅ READY\n├─ Adversarial suite written\n├─ Canary tests written\n└─ Deploy: integration test before release\n\nFull Hardening Release      🎯 v2.0.0\n└─ Target: 2026-03-05 (after testing)\n```",
@@ -99,14 +137,37 @@
       "project": "infrastructure",
       "confidence": 0.8,
       "sourceFile": "memory/clawsec-visual-summary.md",
-      "updatedAt": "2026-03-05T07:09:24.898Z"
+      "updatedAt": "2026-03-08T03:04:07.427Z"
+    },
+    {
+      "content": "### ClawSaver: Session Debouncer ✅ PUBLISHED & POLISHED\n**Status:** 🟢 Live on ClawHub v1.4.2, human-readable documentation  \n**Version:** 1.4.2 (just updated with docs revision)\n**Installation:** `clawhub install clawsaver` or `npm install clawsaver`\n\n**Core:**\n- SessionDebouncer.js (4.2 KB, zero dependencies)\n- 10/10 unit tests passing ✅\n- Production-ready, fully observable\n\n**Documentation (v1.4.2 Update):**\n- **START_HERE.md** — Navigation guide (which doc to read based on your role/need)\n- **README.md** — Complete human-readable guide with real examples\n- **QUICKSTART.md** — 5-minute path to running\n- **SUMMARY.md** — Executive overview (costs, ROI, risk)\n- **SKILL.md** — Formal definition for registries\n- **INTEGRATION.md** — Detailed patterns and edge cases\n- Plus decision record, examples, checklist, manifest\n\n**Key Revision:**\n- Completely rewritten for human readability\n- Conversational tone, real scenarios, no jargon\n- Agent-extractable data still accessible (structured sections, tables, code examples)\n- Each doc stands alone; START_HERE.md maps the whole system\n\n**What It Does:**\n- Batches user messages automatically\n- Reduces model API calls 20–40%\n- Zero configuration needed\n- 20 minutes setup, zero maintenance\n\n**Status:** ✅ Published on ClawHub, discoverable, polished",
+      "keywords": [
+        "clawsaver",
+        "clawhub",
+        "human",
+        "zero",
+        "examples",
+        "published",
+        "polished",
+        "status",
+        "readable",
+        "documentation"
+      ],
+      "type": "decision",
+      "project": "infrastructure",
+      "confidence": 0.8,
+      "sourceFile": "MEMORY.md",
+      "updatedAt": "2026-03-08T03:04:07.431Z"
     }
   ],
-  "builtAt": "2026-03-05T07:09:24.901Z",
+  "builtAt": "2026-03-08T03:04:07.431Z",
   "sourceFiles": [
+    "memory/2026-03-06.md",
+    "memory/2026-03-08.md",
     "memory/clawsec-hardening-plan.md",
     "memory/clawsec-quickstart.md",
     "memory/clawsec-security-audit-report.md",
-    "memory/clawsec-visual-summary.md"
+    "memory/clawsec-visual-summary.md",
+    "MEMORY.md"
   ]
 }
