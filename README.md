@@ -2,10 +2,6 @@
 
 **Version:** 1.3.0 | **Status:** Production
 
----
-
-## Elevator Pitch
-
 Your AI agents forget everything after each session. **ClawText fixes that** — giving agents persistent, instantly-accessible memory that's automatically curated to stay relevant and fast. Conversational insights injected into every prompt. Bulk knowledge loaded on-demand. Built for agents that actually learn.
 
 ---
