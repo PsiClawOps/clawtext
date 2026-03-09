@@ -23,24 +23,46 @@ This works fine for one-off questions. But for agents that tackle real work—co
 
 Modern AI agents solve this by **injecting relevant memories into the prompt before processing it**. This works like giving an agent background information before asking a question.
 
-### Without Memory
+### The Technical Flow
+
+Every LLM interaction follows this pattern:
+
+```
+[Relevant memories from storage] + [User prompt] → LLM → [Better response]
+```
+
+Here's what happens at each step:
+
+1. **User sends a request** — "Fix the authentication bug"
+2. **Memory system retrieves context** — Searches storage for relevant memories (project decisions, past issues, patterns)
+3. **Context injected into prompt** — The memories are prepended to the user's message, creating the full prompt:
+   ```
+   Context from memory:
+   - Decision: Authentication uses JWT with 24h expiry
+   - Bug: Redis cache not invalidating on logout
+   - Pattern: We prefer async/await over callbacks
+   
+   User request: Fix the authentication bug
+   ```
+4. **LLM processes the full prompt** — The model now has both context and the current request
+5. **Better response** — Because the model has background, it makes informed decisions instead of guessing
+
+### Without Memory vs. With Memory
+
+**Without Memory:**
 ```
 User: "Fix the authentication bug"
-Agent: *searches for context* "I don't have any context. What project is this?"
+Agent: "I don't have any context. What project is this?"
 ```
 
-### With Memory
+**With Memory:**
 ```
-Previous memories injected:
-- Decision: Authentication uses JWT with 24h expiry
-- Bug: Redis cache not invalidating on logout
-- Pattern: We prefer async/await over callbacks
-
+[Context injected from memory]
 User: "Fix the authentication bug"
-Agent: *already knows the architecture and past issues* "I see the Redis invalidation problem. Here's the fix..."
+Agent: "I see the Redis invalidation problem. Here's the fix..."
 ```
 
-The agent's capabilities don't change. What changes is the **quality of decisions** because it has context.
+The agent's capabilities don't change. What changes is the **quality of decisions** because it has context injected before processing.
 
 ---
 
