@@ -294,3 +294,71 @@ If you scale to multiple OpenClaw Gateways on different machines:
 **Timeline:** This is not v1.3.0 scope. v1.3.0 is production-ready for single-node. Multi-node support would be a v2.0 feature with dedicated architecture decisions.
 
 ---
+
+## Operational Tuning
+
+ClawText is production-ready out of the box, but agents and operators should know about these tuning knobs for optimizing performance:
+
+### Hot Cache Admission Thresholds
+
+The hot cache decides which memories to keep in-memory for sub-millisecond retrieval. Two configurable thresholds control admission:
+
+**In `plugin.js` or `src/hot-cache.js`:**
+
+```javascript
+admissionConfidence: 0.60,  // Minimum confidence (0.0-1.0) to admit a memory
+admissionScore: 0.8,        // Minimum BM25 score to admit a memory
+```
+
+**What they do:**
+- **admissionConfidence (default 0.60):** Only memories with 60%+ confidence enter the cache. Higher = stricter (only high-confidence), lower = more inclusive (admits marginal memories)
+- **admissionScore (default 0.8):** Only memories scoring 0.8+ on BM25 search enter cache. Higher = only strong matches, lower = admit more results
+
+**When to adjust:**
+- **Increase confidence/score if:** Cache filling with low-quality memories, hitting memory limits
+- **Decrease confidence/score if:** Cache hit rate dropping, many queries missing relevant context
+
+### Monitoring Cache Health
+
+Run this to see current performance:
+
+```bash
+npm run health
+# Output includes:
+# - Cache hit rate (target: >95%)
+# - Items in hot cache
+# - Memory footprint
+# - Recommendations for tuning
+```
+
+**Key metrics to watch:**
+- **Hit rate** — % of queries finding results in hot cache (target: >95%)
+- **Admission rate** — New memories entering hot cache (target: 5-20/hour)
+- **Eviction rate** — Memories leaving cache when full (target: <2/hour)
+- **Mean item age** — Average memory freshness (target: 3-7 days)
+
+### Tuning Strategy
+
+1. **Start with defaults** — Current thresholds (confidence 0.60, score 0.8) work well for most deployments
+2. **Monitor for 24-48h** — Let the system settle into production patterns
+3. **Check metrics** — Run `npm run health` regularly
+4. **Adjust if needed:**
+   - If hit rate < 95%: lower thresholds (more permissive)
+   - If cache bloating: raise thresholds (more restrictive)
+5. **Iterate** — Tuning is reversible; adjust and monitor again
+
+### Other Configurable Settings
+
+In `src/hot-cache.js` constructor:
+
+```javascript
+maxItems: 300,              // Max memories in hot cache
+maxPerProject: 50,          // Max memories per project
+defaultTtlDays: 14,         // Days before memory expires
+stickyTtlDays: 60,          // Days before high-confidence memory expires
+maxSnippetChars: 600,       // Snippet size for cache storage
+```
+
+Most users won't need to touch these. They're here if you hit edge cases.
+
+---
