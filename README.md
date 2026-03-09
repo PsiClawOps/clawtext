@@ -2,7 +2,7 @@
 
 **Version:** 1.3.0 | **Status:** Production
 
-AI agents are powerful, but they restart from zero every session. **ClawText fixes that** — giving agents persistent, instantly-accessible memory that's automatically curated to stay relevant and fast. Conversational insights injected into every prompt. Bulk knowledge loaded on-demand. Built for agents that actually learn.
+OpenClaw agents have basic memory with MEMORY.md, but it doesn't scale—it requires manual maintenance and can't grow beyond a few hundred entries. **ClawText transforms that into a robust, tiered system** — automatically captured from conversations, intelligently curated for speed, continuously tuned. Memory that grows with your project.
 
 ---
 
