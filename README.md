@@ -99,101 +99,46 @@ ClawText is a **tiered memory system** that solves these problems:
 | **L1: Hot Cache** | Active project context, recent decisions, current blockers | <1ms |
 | **L2: Curated** | Validated, deduplicated, ranked memories | ~10ms |
 | **L3: Archive** | Historical context for deep searches | ~100ms |
-| **L4: Staging** | Raw captures awaiting review | Write-only |
+| **L4: Staging** | Raw captures awaiting review; also entry point for bulk ingest | Write-only |
 
 Your agent gets fast, relevant context. Memory stays maintainable. Your system prompts stay focused on who you are; ClawText handles what you've learned.
 
 ---
 
-## Ingestion: Bulk Memory Loading
+## Ingestion: Bulk Knowledge Loading
 
-ClawText includes an **ingest system** that works differently from normal agent memory. While agent memory captures decisions during conversations, ingest allows you to load large information stores in bulk.
+L4 (Staging) serves a dual purpose: it captures conversational memories *and* receives bulk ingests. ClawText's ingest system loads large information stores in bulk—repos, documentation, Discord exports, wikis—and routes them to **knowledge repositories** instead of agent memory.
 
-### When to Use Ingest
+**Why separate paths?**
+- **Agent memory** (conversational) → Small, focused, always injected, fast
+- **Knowledge repos** (ingested) → Large, queryable on-demand, versioned
 
-**Agent memory** (the system above) is for:
-- Decisions made during projects
-- Lessons learned
-- Current project state
+This keeps agent prompts lean while giving agents access to deep knowledge when needed.
 
-**Ingest** is for:
-- Entire codebases or documentation
-- Exported knowledge bases
-- Research papers or specifications
-- Discord thread archives
-- Project repos or wikis
-
-### How Ingest Works Differently
-
-**Normal agent memory flow:**
-```
-Conversation → Decision/lesson captured → Stored in L4 (staging)
-→ Reviewed for quality → Promoted to L2 (curated) or L1 (hot cache)
-→ Injected into future prompts
-```
-
-Result: Small, high-signal memories (a few KB per item)
-
-**Ingest flow:**
-```
-Large information source (repo, docs, export, etc.)
-→ Batch-ingested into L4 (staging)
-→ Deduplicated and validated
-→ Organized into knowledge clusters
-→ Stored in knowledge repository (not agent memory)
-→ Queryable separately from agent memories
-```
-
-Result: Large, structured knowledge stores (hundreds of KB to MB)
-
-### Why Separate Knowledge Repositories?
-
-Agent memory stays focused and fast by being small. If you injected a 500KB codebase into every prompt, you'd waste tokens and confuse the LLM.
-
-Instead, ingested knowledge lives in **knowledge repositories** that are:
-- **Queried separately** — Agent searches ingest repo only when relevant
-- **Versioned** — You can maintain multiple versions (codebase v1.0, v2.0, etc.)
-- **Project-scoped** — Each project gets its own knowledge repo
-- **Updateable** — Re-ingest when docs or code change
-
-### Ingest Example
+### Quick Examples
 
 ```bash
-# Ingest a GitHub repo into the knowledge base
+# Ingest a GitHub repo
 npm run ingest -- https://github.com/myteam/myproject.git \
-  --project myapp \
-  --type repo \
-  --dedupe sha1
+  --project myapp --type repo
 
-# Ingest Discord thread archive
-npm run ingest -- export-threads-2026-03.json \
-  --project myapp \
-  --type discord \
-  --cluster "team-decisions"
+# Ingest Discord thread export
+npm run ingest -- threads-export-2026-03.json \
+  --project myapp --cluster "decisions"
 
-# Agent workflow
-User: "How does authentication work in this project?"
-Agent: *searches agent memory for quick context*
-       *queries knowledge repo for code examples*
-       "Our auth system uses JWT. Here's the implementation..."
+# Agent workflow: uses both automatically
+User: "How does auth work?"
+Agent: [Checks agent memory for decisions]
+       [Queries knowledge repo for code examples]
+       "We use JWT. Here's the flow..."
 ```
 
-### Knowledge vs. Memories
-
-| Aspect | Agent Memory | Knowledge Repo |
-|--------|--------------|----------------|
-| **Source** | Conversations, live sessions | Bulk imports, exports, repos, docs |
-| **Size** | Small (~100 bytes–10 KB per item) | Large (~100 KB–MB per item) |
-| **Query speed** | <1ms (hot cache) | ~50-200ms (indexed search) |
-| **Injection** | Always included | On-demand based on relevance |
-| **Maintenance** | Auto-dedupe, auto-promote | Manual versioning, re-ingest on updates |
-| **Use case** | "What did we decide?" | "How does this code work?" |
-
-Your agent uses both automatically:
-- **Quick decisions?** Check agent memory (fast)
-- **Need code examples?** Query knowledge repo (thorough)
-
-The system handles the routing; you get the benefit of both without token waste.
+| | Agent Memory | Knowledge Repo |
+|---|---|---|
+| **Source** | Conversations | Bulk imports (repos, docs, exports) |
+| **Size** | ~100 bytes–10 KB | ~100 KB–MB |
+| **Query** | <1ms (always included) | ~50-200ms (on-demand) |
+| **Maintenance** | Auto | Manual versioning |
 
 ---
 
