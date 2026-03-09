@@ -16,7 +16,8 @@
     "install-deps": "node install.js",
     "memory": "node cli.mjs",
     "ingest:dedupe": "node scripts/ingest-dedupe.mjs",
-    "ingest:dedupe:watch": "node scripts/ingest-dedupe.mjs --watch"
+    "ingest:dedupe:watch": "node scripts/ingest-dedupe.mjs --watch",
+    "knowledge:status": "node scripts/knowledge-repos.mjs status"
   },
   "keywords": ["memory", "rag", "context-injection"],
   "dependencies": {

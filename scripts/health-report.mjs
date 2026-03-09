@@ -80,6 +80,40 @@ if (clusterFiles === 0) {
   recommendations.push({ action: 'ingest', reason: 'May need more source ingestion', command: 'Ingest more sources or threads' });
 }
 
+// Knowledge repo staleness check
+try {
+  const { getRepoStats, THRESHOLDS } = await import('./knowledge-repos.mjs');
+  const repos = getRepoStats();
+  
+  const stale = repos.filter(r => r.status === 'stale');
+  const aging = repos.filter(r => r.status === 'aging');
+  
+  if (stale.length > 0) {
+    issues.push(`${stale.length} knowledge repos are stale (>${THRESHOLDS.STALE} days)`);
+    for (const r of stale.slice(0, 3)) {
+      recommendations.push({ 
+        action: 'reingest', 
+        reason: `Knowledge repo '${r.projectId}' is ${r.ageDays} days stale`, 
+        command: `npm run ingest -- <source> --project ${r.projectId} --force` 
+      });
+    }
+  }
+  
+  if (aging.length > 0) {
+    recommendations.push({ 
+      action: 'review', 
+      reason: `${aging.length} knowledge repos are aging (>${THRESHOLDS.WARN} days)`, 
+      command: 'npm run knowledge:status' 
+    });
+  }
+  
+  report.metrics.knowledgeRepos = repos.length;
+  report.metrics.staleRepos = stale.length;
+  report.metrics.agingRepos = aging.length;
+} catch (e) {
+  // Knowledge repo check is optional
+}
+
 // Staging pileup
 const stagingCount = countFiles(stagingDir, ['.md', '.json']);
 if (stagingCount > 10) {
