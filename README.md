@@ -266,3 +266,31 @@ npm test    # Should show: 15 clusters, 191 memories, hot cache ready
 ## GitHub
 
 https://github.com/ragesaq/clawtext
+
+---
+
+## Deployment & Scalability
+
+### Single-Node, Multi-Agent (Current)
+ClawText is optimized for a single OpenClaw Gateway with multiple agents:
+- **Architecture:** All agents share the same `~/.openclaw/workspace/memory/` directory
+- **Memory sharing:** File-based (JSON clusters, hot cache), automatically synchronized
+- **Zero coordination:** Agents read/write independently; no locking or sync logic needed
+- **Transparency:** All memories visible in plaintext files (audit, debug, edit directly)
+
+**This covers 99% of real deployments.** One machine, many agents, shared memory.
+
+### Multi-Node Deployment (Future)
+If you scale to multiple OpenClaw Gateways on different machines:
+- Each Gateway has its own workspace, isolated memories
+- Agents on Gateway A can't see memories from Gateway B
+
+**At that point, you'd add a sync layer:**
+- Shared filesystem (NFS mount)
+- Central database (PostgreSQL + API)
+- Git-based sync (push/pull orchestration)
+- Or distributed file service (S3-compatible)
+
+**Timeline:** This is not v1.3.0 scope. v1.3.0 is production-ready for single-node. Multi-node support would be a v2.0 feature with dedicated architecture decisions.
+
+---
