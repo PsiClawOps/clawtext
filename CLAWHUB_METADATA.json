@@ -6,7 +6,7 @@
   "status": "production",
   
   "branding": {
-    "title": "ClawText — Memory Skill for OpenClaw Agents",
+    "title": "ClawText - Comprehensive Memory Skill for OpenClaw Agents",
     "tagline": "Production-grade memory system. Agents that learn, remember, and scale.",
     "description": "ClawText transforms basic agent memory into a robust, tiered system. Capture conversations automatically. Retrieve relevant context in sub-millisecond. Share memory across agents. Maintain everything automatically.",
     "icon": "🧠",

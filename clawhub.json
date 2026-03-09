@@ -1,7 +1,7 @@
 {
   "name": "clawtext",
   "version": "1.3.0",
-  "title": "ClawText — Holistic Memory System for OpenClaw",
+  "title": "ClawText - Comprehensive Memory Skill for OpenClaw Agents",
   "description": "Complete memory platform for OpenClaw: capture, ingest, retrieve, curate, and maintain memory with hot cache, multi-agent support, and session continuity.",
   "author": "ragesaq",
   "license": "MIT",

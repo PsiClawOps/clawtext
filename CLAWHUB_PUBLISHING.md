@@ -170,7 +170,7 @@ After publication:
 ## Quick Copy-Paste Chunks
 
 ### Title
-"ClawText — Memory Skill for OpenClaw Agents"
+"ClawText - Comprehensive Memory Skill for OpenClaw Agents"
 
 ### Tagline
 "Production-grade memory system. Agents that learn, remember, and scale."

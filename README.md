@@ -1,4 +1,4 @@
-# ClawText — Memory Skill for OpenClaw Agents
+# ClawText - Comprehensive Memory Skill for OpenClaw Agents
 
 **Type:** Skill | **Version:** 1.3.0 | **Status:** Production
 

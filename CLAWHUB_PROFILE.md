@@ -1,4 +1,4 @@
-# ClawText — Holistic Memory System for OpenClaw
+# ClawText - Comprehensive Memory Skill for OpenClaw Agents
 
 ## The Problem
 
