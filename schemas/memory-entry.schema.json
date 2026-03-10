@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/ragesaq/clawtext/schemas/memory-entry.schema.json",
+  "title": "ClawText Memory Entry",
+  "type": "object",
+  "additionalProperties": true,
+  "properties": {
+    "id": { "type": "string" },
+    "sourceType": { "type": "string" },
+    "sourceId": { "type": ["string", "null"] },
+    "sourceRef": { "type": ["string", "null"] },
+    "project": { "type": "string" },
+    "type": { "type": "string" },
+    "lane": { "type": "string", "enum": ["hot", "curated", "archive", "staging"] },
+    "status": { "type": "string", "enum": ["staged", "review", "promoted", "archived", "dismissed", "actioned"] },
+    "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+    "importance": { "type": "number", "minimum": 0, "maximum": 1 },
+    "createdAt": { "type": "string" },
+    "observedAt": { "type": "string" },
+    "updatedAt": { "type": "string" },
+    "entities": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "keywords": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "dedupeHash": { "type": ["string", "null"] },
+    "summary": { "type": ["string", "null"] },
+    "body": { "type": ["string", "null"] },
+    "relations": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "supersedes": { "type": "array", "items": { "type": "string" } },
+        "related": { "type": "array", "items": { "type": "string" } },
+        "derivedFrom": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "metadata": { "type": "object", "additionalProperties": true }
+  },
+  "required": ["project", "type", "confidence", "updatedAt"]
+}

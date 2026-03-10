@@ -1,0 +1,29 @@
+# Compiled output (will be rebuilt on install)
+dist/
+*.js
+*.js.map
+
+# Memory / state files (local to workspace, not part of package)
+memory/
+extract-buffer.jsonl
+extract-state.json
+.knowledge-repos.json
+
+# Package manager
+node_modules/
+package-lock.json
+
+# Build artifacts
+.vite/
+build/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Runtime
+.tmp
