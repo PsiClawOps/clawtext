@@ -1,153 +1,115 @@
 # ClawText — Skill Definition
 
 **Name:** clawtext  
-**Type:** RAG Context Injection Plugin  
-**Version:** 1.2.0  
+**Type:** OpenClaw memory system / plugin  
 **Status:** Production  
-**Category:** Memory & Knowledge Management  
+**Primary use case:** durable memory, retrieval, ingest, and operational learning for OpenClaw
 
 ## Summary
 
-Automatic retrieval-augmented generation (RAG) layer that injects relevant memories into every prompt via the `before_prompt_build` hook. Enables agents to access memory context without manual search calls.
+ClawText is a three-lane memory system for OpenClaw:
 
-## What It Does
+1. **Working memory** — prompt-time retrieval and context injection
+2. **Ingest** — import and deduplicate external knowledge sources
+3. **Operational learning** — capture failures, recurring fixes, and agent self-improvement patterns
 
-Searches pre-built memory clusters using BM25 keyword matching, filters by confidence (85%+ quality), and injects relevant memories into prompts before agent execution.
+It is designed to keep `MEMORY.md` small and high-signal while allowing larger project knowledge to stay searchable and maintainable.
 
-**Input:** User message + system prompt  
-**Output:** Enriched prompt with context memories injected  
-**Latency:** <100ms per injection  
-**Token Budget:** 12% of available context (safe margin)
+## What it does
+
+- builds searchable memory clusters from file-based memory
+- injects relevant memories via `before_prompt_build`
+- supports multi-source ingest with deduplication
+- isolates operational learning from normal conversational memory
+- adds anti-pattern walls to prevent false associations
+- provides hygiene controls for sensitive data handling
 
 ## Installation
 
-### Quick Install (Automated)
+Canonical location:
+
+```bash
+~/.openclaw/workspace/skills/clawtext
+```
+
+Install:
+
 ```bash
 git clone https://github.com/ragesaq/clawtext.git ~/.openclaw/workspace/skills/clawtext
 cd ~/.openclaw/workspace/skills/clawtext
 npm install
-node install.js --auto-config
-openclaw gateway restart
+npm run build
 ```
 
-### For Agents
-```javascript
-// Ask agent to install
-"Review and install ClawText from https://github.com/ragesaq/clawtext"
-```
+Enable in `~/.openclaw/openclaw.json`:
 
-## Configuration
-
-Enable in `openclaw.json`:
 ```json
 {
   "plugins": {
+    "load": {
+      "paths": [
+        "~/.openclaw/workspace/skills/clawtext"
+      ]
+    },
     "allow": ["clawtext"],
     "entries": {
       "clawtext": { "enabled": true }
-    }
-  },
-  "skills": {
-    "entries": {
-      "clawtext-rag": { "enabled": true }
     }
   }
 }
 ```
 
-Then restart gateway:
+Restart the gateway after enabling.
+
+## Validation
+
 ```bash
-openclaw gateway restart
+node scripts/build-clusters.js --force
+node scripts/validate-rag.js
+node scripts/operational-cli.mjs status
 ```
 
-## How It Works
+## Inputs
 
-1. **Hook:** Registers on `before_prompt_build` event
-2. **Search:** Analyzes prompt for keywords, runs BM25 scoring against 12 memory clusters
-3. **Filter:** Keeps only memories with 85%+ confidence score
-4. **Inject:** Prepends memories to system prompt as formatted context block
-5. **Budget:** Ensures injection doesn't exceed 12% of token budget
+- workspace memory files
+- imported markdown / docs / repos / Discord / JSON
+- operational review data
+- user prompts at `before_prompt_build`
 
-## Performance
+## Outputs
 
-| Metric | Value |
-|--------|-------|
-| Search latency | 5-7ms |
-| Total injection overhead | <100ms |
-| Memory footprint | <8MB |
-| Quality (avg confidence) | 85%+ |
-| False positive rate | <5% |
-| Token budget impact | 12% |
+- `memory/clusters/*.json`
+- prompt-time injected context
+- operational candidates / confirmed learnings
+- review and maintenance artifacts
 
-## Dependencies
+## Major components
 
-- **memory-core:** Native OpenClaw memory storage (provided by OpenClaw)
-- **embeddinggemma-300M:** Local embeddings (optional, for semantic search)
+- `plugin.js` — plugin entrypoint
+- `src/rag.*` — retrieval and injection logic
+- `scripts/build-clusters.js` — cluster builder
+- `scripts/ingest-all.mjs` — ingest orchestration
+- `scripts/operational-cli.mjs` — operational learning CLI
+- `docs/OPERATIONAL_LEARNING.md` — lane design and workflow
 
-Zero NPM dependencies; runs in Node.js 18+
+## Guardrails
 
-## Integration Points
-
-### before_prompt_build Hook
-Fired by OpenClaw gateway before each prompt is built. ClawText registers listener to inject memories.
-
-### Memory Storage
-Reads from `~/.openclaw/workspace/memory/` and `memory/clusters/` (pre-built JSON clusters).
-
-### Token Budget
-Respects OpenClaw's compaction configuration:
-- Never exceeds `agents.defaults.compaction.reserveTokens`
-- Safe margin: leaves 88% of available tokens for model
-
-## Companion Skills
-
-**clawtext-ingest:** Multi-source memory ingestion  
-Populates ClawText clusters from files, URLs, Discord channels, etc.
-
-Install together:
-```bash
-npm install @openclaw/clawtext @openclaw/clawtext-ingest
-```
-
-## Tuning
-
-Adjust in `plugin.js`:
-```javascript
-this.rag.config.maxMemories = 7;        // Memories per query
-this.rag.config.minConfidence = 0.70;   // Quality threshold (0-1)
-this.rag.config.tokenBudget = 4000;     // Injection limit in tokens
-this.rag.config.injectMode = 'smart';   // 'smart', 'full', 'snippets'
-```
-
-### Quick Recipes
-
-**High accuracy (reduce hallucinations):**
-```json
-{"minConfidence": 0.80, "maxMemories": 5}
-```
-
-**Rich context (broader background):**
-```json
-{"minConfidence": 0.60, "maxMemories": 10}
-```
-
-**Token constrained:**
-```json
-{"tokenBudget": 2000, "injectMode": "snippets"}
-```
+- token-budgeted injection
+- confidence filtering
+- anti-pattern walls
+- hygiene controls for secrets
+- raw log / noise filtering during cluster build
+- user approval for risky promotions and external actions
 
 ## Documentation
 
-- **README.md** — Complete user guide with examples
-- **INTEGRATION.md** — Advanced patterns and troubleshooting
-- **DECISION_RECORD.md** — Architecture decisions
+- [README.md](./README.md)
+- [SECURITY.md](./SECURITY.md)
+- [RISK.md](./RISK.md)
+- [docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md)
+- [docs/INGEST.md](./docs/INGEST.md)
+- [docs/OPERATIONAL_LEARNING.md](./docs/OPERATIONAL_LEARNING.md)
 
-## Support
+## Notes
 
-- **Source:** https://github.com/ragesaq/clawtext
-- **Issues:** File issues on GitHub
-- **Docs:** See README.md
-
-## License
-
-MIT (default OpenClaw skill license)
+ClawText is file-based by design. Auditability and operator control are preferred over hidden state and heavyweight infrastructure.
