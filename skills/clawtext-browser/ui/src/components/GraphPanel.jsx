@@ -56,6 +56,34 @@ export default function GraphPanel({ api, onSelectCluster, selectedCluster, onNa
   const dragMovedRef = useRef(false);
   const shouldAutoFitRef = useRef(true);
 
+  function fitToViewport(padding = 70) {
+    const vals = Object.values(nodeMapRef.current || {}).filter(n => Number.isFinite(n.x) && Number.isFinite(n.y));
+    if (!vals.length || !dims.width || !dims.height) return;
+
+    let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
+    for (const n of vals) {
+      const r = nodeRadius(n.memoryCount);
+      minX = Math.min(minX, n.x - r);
+      maxX = Math.max(maxX, n.x + r);
+      minY = Math.min(minY, n.y - r);
+      maxY = Math.max(maxY, n.y + r);
+    }
+
+    const graphW = Math.max(1, maxX - minX);
+    const graphH = Math.max(1, maxY - minY);
+    const availW = Math.max(1, dims.width - padding * 2);
+    const availH = Math.max(1, dims.height - padding * 2);
+
+    const k = Math.max(0.35, Math.min(2.8, Math.min(availW / graphW, availH / graphH)));
+    const cx = (minX + maxX) / 2;
+    const cy = (minY + maxY) / 2;
+    const x = dims.width / 2 - cx * k;
+    const y = dims.height / 2 - cy * k;
+
+    vtRef.current = { x, y, k };
+    setViewTransform({ x, y, k });
+  }
+
   // Resize observer
   useEffect(() => {
     const obs = new ResizeObserver(entries => {
@@ -267,33 +295,13 @@ export default function GraphPanel({ api, onSelectCluster, selectedCluster, onNa
     } catch {}
   }, [api, onSelectCluster]);
 
-  const fitToViewport = useCallback((padding = 70) => {
+  // Re-fit when layout changes consume/release graph space
+  useEffect(() => {
     const vals = Object.values(nodeMapRef.current || {}).filter(n => Number.isFinite(n.x) && Number.isFinite(n.y));
-    if (!vals.length || !dims.width || !dims.height) return;
-
-    let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
-    for (const n of vals) {
-      const r = nodeRadius(n.memoryCount);
-      minX = Math.min(minX, n.x - r);
-      maxX = Math.max(maxX, n.x + r);
-      minY = Math.min(minY, n.y - r);
-      maxY = Math.max(maxY, n.y + r);
-    }
-
-    const graphW = Math.max(1, maxX - minX);
-    const graphH = Math.max(1, maxY - minY);
-    const availW = Math.max(1, dims.width - padding * 2);
-    const availH = Math.max(1, dims.height - padding * 2);
-
-    const k = Math.max(0.35, Math.min(2.8, Math.min(availW / graphW, availH / graphH)));
-    const cx = (minX + maxX) / 2;
-    const cy = (minY + maxY) / 2;
-    const x = dims.width / 2 - cx * k;
-    const y = dims.height / 2 - cy * k;
-
-    vtRef.current = { x, y, k };
-    setViewTransform({ x, y, k });
-  }, [dims]);
+    if (!vals.length || loading) return;
+    const t = setTimeout(() => fitToViewport(clusterDetail ? 56 : 72), 120);
+    return () => clearTimeout(t);
+  }, [clusterDetail, dims.width, dims.height, loading]);
 
   const handleRelayout = useCallback(() => {
     // Scatter nodes and reheat
