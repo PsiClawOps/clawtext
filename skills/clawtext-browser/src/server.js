@@ -59,8 +59,24 @@ export function createServer(options = {}) {
 
   // Serve built React UI (if built)
   if (existsSync(uiDist)) {
-    app.use(express.static(uiDist));
+    // Important: never cache index.html aggressively, or browsers keep booting
+    // stale JS bundles after deploys. Hashed assets can be cached safely.
+    app.use(express.static(uiDist, {
+      setHeaders: (res, filePath) => {
+        if (filePath.endsWith('.html')) {
+          res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate');
+          res.setHeader('Pragma', 'no-cache');
+          res.setHeader('Expires', '0');
+        } else if (/\.[a-zA-Z0-9_-]+\.(js|css)$/.test(filePath)) {
+          res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+        }
+      },
+    }));
+
     app.get('*', (req, res) => {
+      res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate');
+      res.setHeader('Pragma', 'no-cache');
+      res.setHeader('Expires', '0');
       res.sendFile(join(uiDist, 'index.html'));
     });
   } else {
