@@ -543,6 +543,7 @@ Target hit rate: **>95%**
 
 | Version | What Changed |
 |---------|-------------|
+| **1.5.0** | Lightweight relationship tracking via `relationships.yaml`. Explicit shortcuts for grouping related concepts, edges for dependencies + causation with confidence scoring. Agent-led weekly maintenance workflow. Optional, no setup required. |
 | **1.4.0** | Bundled ingest engine (was separate package). Added operational learning lane: capture, review, promotion, maintenance. Automatic memory pipeline (extraction, clustering, injection). Three-lane knowledge lifecycle complete. |
 | 1.3.0 | Hot cache optimization, BM25 scoring, plugin activation + allowlist story, SKILL.md / AGENT_INSTALL.md |
 | 1.2.0 | Tiered memory (L1–L4), cluster rebuild, validate-rag tooling |
