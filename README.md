@@ -1,6 +1,6 @@
 # ClawText — Comprehensive Memory Platform for OpenClaw
 
-**Version:** 1.4.0 | **Status:** Production | **Type:** OpenClaw Skill/Plugin
+**Version:** 1.4.1 | **Status:** Production | **Type:** OpenClaw Skill/Plugin
 
 > A complete knowledge lifecycle system — capturing, ingesting, retrieving, curating, and actively learning from patterns to make your agents more capable and resilient over time.
 
