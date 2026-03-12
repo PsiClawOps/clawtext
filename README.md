@@ -265,9 +265,9 @@ That's it. OpenClaw handles dependency installation, registration, and plugin ac
 - ✅ Registers in `plugins.installs` config
 - ✅ Enables the plugin automatically
 
-### Configuration (Optional)
+### Configuration
 
-After installation, customize memory behavior in `~/.openclaw/openclaw.json`:
+After installation, customize memory behavior in `~/.openclaw/openclaw.json`. The defaults (5 memories, 0.70 confidence, 2000 tokens) work for most workflows:
 
 ```json
 {
@@ -290,6 +290,8 @@ After installation, customize memory behavior in `~/.openclaw/openclaw.json`:
 }
 ```
 
+**Tuning:** Need tighter token budget? Use `maxMemories: 3, minConfidence: 0.80` (conservative). Want maximum context? Use `maxMemories: 10, minConfidence: 0.50` (aggressive). See [AGENT_SETUP.md](./AGENT_SETUP.md) for full tuning guide.
+
 Then restart:
 
 ```bash
@@ -299,38 +301,32 @@ openclaw gateway restart
 ### Verify Installation
 
 ```bash
-# Check plugin loaded
-openclaw plugins list
-# Expected: clawtext | enabled | loaded
-
-# Check gateway status
-openclaw gateway status
-# Expected: running
-
-# Validate memory quality
-openclaw plugins run clawtext validate
+openclaw plugins list          # Should show: clawtext | enabled
+openclaw gateway status        # Should show: running
 ```
 
 ### Updates
 
-Keep ClawText up to date:
-
 ```bash
-openclaw plugins update clawtext
+openclaw plugins update clawtext      # Single plugin
+openclaw plugins update --all         # All plugins
 ```
 
-Or update all plugins:
+### Existing Installation?
 
-```bash
-openclaw plugins update --all
+**If you have ClawText installed via git clone**, ask an agent to migrate:
+
 ```
+Migrate my ClawText installation to the new plugin system so I can use `openclaw plugins update`.
+```
+
+Agents can automate the full migration end-to-end (preserves all memory). Or follow the manual steps in [AGENT_SETUP.md](./AGENT_SETUP.md) → Migration.
 
 ### Development / Local Setup
 
 For development or modification:
 
 ```bash
-# Link local copy for development
 openclaw plugins install -l ./path/to/clawtext
 ```
 
@@ -346,210 +342,14 @@ openclaw plugins install -l .
 
 ### Agent-Assisted Setup
 
-If you prefer guided setup, ask an agent:
+If you prefer guided setup (configuration tuning, initial knowledge ingest, etc.), ask an agent:
 
 ```
-Please help me set up ClawText for this workspace.
-I want to:
-1. Install via `openclaw plugins install @openclaw/clawtext`
-2. Configure memory search (maxMemories, thresholds)
-3. Run a quick health check
-4. Then we can ingest [my project docs / a Discord forum / a code repo]
-
-Assume I'm comfortable with shell commands if needed, but prefer you to handle the details.
+Help me set up ClawText: install, configure memory search, 
+run a health check, and ingest [my docs/Discord/repo].
 ```
 
-See [AGENT_SETUP.md](./AGENT_SETUP.md) for full agent-assisted workflow.
-
----
-
-## Migration from Manual Installation (≤v1.3.x)
-
-If you have ClawText installed via git clone in `~/.openclaw/workspace/skills/clawtext`:
-
-### Agent-Led Migration
-
-Ask an agent to handle it:
-
-```
-I have an older ClawText installation (git clone in ~/.openclaw/workspace/skills/clawtext).
-I want to migrate to the new plugin-based installation so I can use `openclaw plugins update`.
-
-Can you:
-1. Install via `openclaw plugins install @openclaw/clawtext`
-2. Verify both versions aren't running
-3. Update my config to remove old manual paths
-4. Clean up the old directory
-5. Test everything works
-```
-
-Most agents can follow `AGENT_SETUP.md` → Migration section and handle it end-to-end.
-
-### Manual Migration
-
-If you prefer to do it yourself:
-
-```bash
-# 1. Install via plugin system
-openclaw plugins install @openclaw/clawtext
-
-# 2. Update ~/.openclaw/openclaw.json
-#    Remove these lines:
-#      "plugins.load.paths"
-#      "plugins.allow": ["clawtext"]
-#
-#    Keep only:
-#      "plugins.entries.clawtext" with your config
-
-# 3. Restart gateway
-openclaw gateway restart
-
-# 4. Verify
-openclaw plugins list | grep clawtext
-
-# 5. Clean up old directory (optional)
-rm -rf ~/.openclaw/workspace/skills/clawtext
-```
-
----
-
-## Optimal Configuration
-
-The defaults work for most workflows. But here's the tuning guide if you want to optimize:
-
-### Conservative (Low Token Budget)
-
-Use this if you're token-conscious or working with smaller context windows:
-
-```json
-{
-  "plugins": {
-    "entries": {
-      "clawtext": {
-        "enabled": true,
-        "memorySearch": {
-          "sync": { "onSessionStart": false },
-          "maxMemories": 3,
-          "minConfidence": 0.80,
-          "tokenBudget": 1000
-        },
-        "clusters": {
-          "rebuildInterval": "0 3 * * 0",
-          "validationThreshold": 0.80
-        }
-      }
-    }
-  }
-}
-```
-
-**Effect:**
-- Only 3 memories injected per query (vs 5)
-- Stricter relevance threshold (0.80 vs 0.70) — fewer false positives
-- Smaller token budget (1000 vs 2000) — less prompt bloat
-- Weekly cluster rebuild (Sundays 3am UTC) instead of nightly
-- Memory injection **disabled on session start** (inject only on-demand)
-
-**When to use:** Smaller models, tight token budgets, or if injection feels noisy
-
----
-
-### Balanced (Default)
-
-```json
-{
-  "plugins": {
-    "entries": {
-      "clawtext": {
-        "enabled": true,
-        "memorySearch": {
-          "sync": { "onSessionStart": true },
-          "maxMemories": 5,
-          "minConfidence": 0.70
-        },
-        "clusters": {
-          "rebuildInterval": "0 2 * * *",
-          "validationThreshold": 0.70
-        }
-      }
-    }
-  }
-}
-```
-
-**Effect:**
-- 5 memories per query (sweet spot for most workflows)
-- Moderate relevance threshold (0.70) — catches useful context, filters obvious noise
-- Standard token budget (2000) — useful without bloat
-- Nightly rebuild (2am UTC)
-- Memory injection **on session start** (automatic context loading)
-
-**When to use:** Most projects, balanced efficiency and context richness
-
----
-
-### Aggressive (High Context)
-
-Use this if you have room in your token budget and want maximum context:
-
-```json
-{
-  "plugins": {
-    "entries": {
-      "clawtext": {
-        "enabled": true,
-        "memorySearch": {
-          "sync": { "onSessionStart": true },
-          "maxMemories": 10,
-          "minConfidence": 0.50,
-          "tokenBudget": 4000
-        },
-        "clusters": {
-          "rebuildInterval": "0 1 * * *",
-          "validationThreshold": 0.65
-        }
-      }
-    }
-  }
-}
-```
-
-**Effect:**
-- 10 memories per query (maximum context)
-- Permissive relevance threshold (0.50) — includes speculative/tangential info
-- Large token budget (4000) — generous space for memory injection
-- Frequent rebuild (nightly 1am UTC, can handle higher ingestion volume)
-- Memory injection **on session start** (loads everything available)
-
-**When to use:** Long projects, lots of context, working with larger models (GPT-5, Sonnet)
-
----
-
-### Finding Your Optimal Setting
-
-If you're unsure, start with **Balanced** (default) and tune based on observation:
-
-**If memory feels empty or incomplete:**
-- Increase `maxMemories` (3 → 5 → 10)
-- Lower `minConfidence` (0.80 → 0.70 → 0.50)
-
-**If memory feels noisy or off-topic:**
-- Decrease `maxMemories` (10 → 5 → 3)
-- Increase `minConfidence` (0.50 → 0.70 → 0.80)
-- Disable `sync.onSessionStart` (inject on-demand only)
-
-**If injection is slow or context balloons:**
-- Lower `tokenBudget` (4000 → 2000 → 1000)
-- Increase `minConfidence` (filter stricter)
-- Disable `sync.onSessionStart`
-
-After changing config:
-```bash
-# 1. Edit ~/.openclaw/openclaw.json
-# 2. Restart gateway
-openclaw gateway restart
-# 3. Test with a query in your project
-```
+Agents follow [AGENT_SETUP.md](./AGENT_SETUP.md) and handle everything end-to-end.
 
 ---
 
