@@ -1,8 +1,8 @@
 # ClawText Operational Learning Lane
 
-**Status:** Implemented through review, promotion, and scheduled maintenance  
-**Version:** 1.3.0  
-**Last Updated:** 2026-03-09
+**Status:** Implemented and production-active  
+**Version:** 1.4.1  
+**Last Updated:** 2026-03-12
 
 ---
 
@@ -39,6 +39,12 @@ The operational learning lane is no longer just a design draft. Current implemen
 This lane depends on ClawText being loaded as a plugin from the canonical path:
 `~/.openclaw/workspace/skills/clawtext`
 
+Pipeline automation (v1.4.1+):
+- **Extraction cron** (every 20 min) — `scripts/extract-buffer.mjs`
+- **Cluster rebuild** (nightly 2am UTC) — `scripts/build-clusters.js`
+- **RAG injection** (every prompt) — `hooks/before_prompt_build` plugin hook
+- **Operational maintenance** (scheduled) — `scripts/operational-cli.mjs`
+
 Verification:
 ```bash
 openclaw plugins list
@@ -48,6 +54,11 @@ openclaw gateway status
 Expected:
 - `ClawText | clawtext | loaded`
 - gateway running + RPC probe ok
+
+**State root paths (v1.4.1+):**
+- Working memory: `~/.openclaw/workspace/state/clawtext/prod/working/`
+- Operational lane: `~/.openclaw/workspace/state/clawtext/prod/operational/`
+- Hot cache: `~/.openclaw/workspace/state/clawtext/prod/cache/`
 
 ## Why Separate?
 
