@@ -9,6 +9,7 @@
  */
 
 import { OperationalMemoryManager, OperationalMemory } from './operational.js';
+import { classifyDurability, DurabilityAssessment } from './durability-classifier.js';
 import * as fs from 'fs';
 import * as path from 'path';
 
@@ -71,6 +72,10 @@ export class OperationalPromotionManager {
     this.memoryManager = new OperationalMemoryManager(this.workspacePath);
   }
 
+  private isDurabilityClassifierEnabled(): boolean {
+    return process.env.CLAWTEXT_DURABILITY_CLASSIFIER_ENABLED === 'true';
+  }
+
   getProposal(patternKey: string): PromotionProposal | null {
     this.refreshState();
     const entry = this.memoryManager.get(patternKey);
@@ -79,8 +84,9 @@ export class OperationalPromotionManager {
 
     const target = this.selectTarget(entry);
     const destinationPath = this.resolveDestinationPath(target);
-    const rationale = this.buildRationale(entry, target);
-    const confidence = this.computeProposalConfidence(entry, target);
+    const durability = this.isDurabilityClassifierEnabled() ? classifyDurability(entry) : null;
+    const rationale = this.buildRationale(entry, target, durability);
+    const confidence = this.computeProposalConfidence(entry, target, durability);
     const snippet = this.buildSnippet(entry, target);
 
     return {
@@ -173,7 +179,11 @@ export class OperationalPromotionManager {
     return 'SOUL.md';
   }
 
-  private buildRationale(entry: OperationalMemory, target: PromotionTarget): string[] {
+  private buildRationale(
+    entry: OperationalMemory,
+    target: PromotionTarget,
+    durability?: DurabilityAssessment | null
+  ): string[] {
     const reasons: string[] = [];
     reasons.push(`Scope ${entry.scope} maps naturally to ${target}.`);
     reasons.push(`Pattern is ${entry.status}, so it is stable enough for promotion review.`);
@@ -185,16 +195,26 @@ export class OperationalPromotionManager {
     if (target === 'skills/clawtext/docs/OPERATIONAL_LEARNING.md') reasons.push('This belongs in ClawText operational learning documentation.');
     if (target === 'project-docs') reasons.push('This is project-specific and should land in the relevant project docs.');
 
+    if (durability) {
+      reasons.push(`Durability classifier: ${durability.label} (${(durability.score * 100).toFixed(0)}%).`);
+      durability.reasons.slice(0, 2).forEach((r) => reasons.push(`Durability note: ${r}`));
+    }
+
     return reasons;
   }
 
-  private computeProposalConfidence(entry: OperationalMemory, target: PromotionTarget): number {
+  private computeProposalConfidence(
+    entry: OperationalMemory,
+    target: PromotionTarget,
+    durability?: DurabilityAssessment | null
+  ): number {
     let score = entry.confidence;
     if (entry.recurrenceCount >= 3) score += 0.1;
     if (entry.rootCause !== 'TBD') score += 0.05;
     if (entry.fix !== 'TBD') score += 0.05;
     if (target !== 'project-docs') score += 0.05;
-    return Math.min(1, score);
+    if (durability) score += durability.adjustment;
+    return Math.max(0, Math.min(1, score));
   }
 
   private resolveDestinationPath(target: PromotionTarget): string | undefined {

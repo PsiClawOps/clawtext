@@ -115,6 +115,7 @@ node scripts/operational-cli.mjs status
 - [docs/OPERATIONAL_LEARNING.md](./docs/OPERATIONAL_LEARNING.md)
 - [docs/ADOPTION_PLAN_MEMORY_EVOLUTION.md](./docs/ADOPTION_PLAN_MEMORY_EVOLUTION.md)
 - [docs/ADOPTION_LOG_MEMORY_EVOLUTION.md](./docs/ADOPTION_LOG_MEMORY_EVOLUTION.md)
+- [docs/ME-001_DURABILITY_CLASSIFIER.md](./docs/ME-001_DURABILITY_CLASSIFIER.md)
 - [skills/clawbridge/START_HERE.md](./skills/clawbridge/START_HERE.md)
 
 ## Notes

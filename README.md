@@ -161,6 +161,7 @@ You should see cluster files in `memory/clusters/` and a successful validation r
 - [docs/TESTING.md](./docs/TESTING.md)
 - [docs/ADOPTION_PLAN_MEMORY_EVOLUTION.md](./docs/ADOPTION_PLAN_MEMORY_EVOLUTION.md)
 - [docs/ADOPTION_LOG_MEMORY_EVOLUTION.md](./docs/ADOPTION_LOG_MEMORY_EVOLUTION.md)
+- [docs/ME-001_DURABILITY_CLASSIFIER.md](./docs/ME-001_DURABILITY_CLASSIFIER.md)
 
 ### Agent/operator docs
 
