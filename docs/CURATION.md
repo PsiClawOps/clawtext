@@ -60,6 +60,18 @@ Typical curation outputs:
 
 Curation primarily governs movement between L4 -> L2/L3 and selective admission into L1.
 
+## Relationship Tracking
+
+When promoting memories, consider updating `memory/clusters/relationships.yaml` to capture explicit cross-references:
+
+- **Shortcuts:** Group related items for discovery ("show me all RGCS quaternion issues")
+- **Edges:** Document relationships (causation, dependency, documentation, etc.)
+- **Cross-project impacts:** Track when decisions in one project affect another
+
+See **RELATIONSHIPS.md** for lightweight relationship tracking (optional, YAML-based, no database required).
+
+**Maintenance:** Updated during weekly relationship reviews and agent-led operational learning promotion.
+
 ## Decision Outcomes
 
 ### Promote
