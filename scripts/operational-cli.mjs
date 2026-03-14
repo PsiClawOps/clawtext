@@ -764,7 +764,7 @@ function showRetrievalHealth() {
 📊 Operational Retrieval Health
 ================================
 
-Total reviewed patterns: ${summary.totalReviewed}
+Total retrievable patterns (reviewed + promoted): ${summary.totalRetrievable}
 High recurrence (≥3): ${summary.highRecurrence}
 
 By Type:

@@ -237,7 +237,7 @@ export class OperationalMaintenanceManager {
       `Generated: ${new Date().toISOString()}`,
       '',
       '## Retrieval Health',
-      `Reviewed patterns: ${retrievalHealth.totalReviewed}`,
+      `Retrievable patterns (reviewed + promoted): ${retrievalHealth.totalRetrievable}`,
       `High recurrence reviewed patterns: ${retrievalHealth.highRecurrence}`,
       '',
       '## Operational Memory Stats',

@@ -8,7 +8,7 @@
  * - Injection rules (never in normal chat)
  */
 
-import { OperationalMemoryManager, OperationalMemory, Scope } from './operational.js';
+import { OperationalMemoryManager, OperationalMemory, Scope, Status } from './operational.js';
 import { OperationalAggregationManager } from './operational-aggregation.js';
 
 /**
@@ -59,6 +59,11 @@ export interface OperationalRetrievalResult {
   allowedScopes?: Scope[];
 }
 
+interface RankedOperationalPattern {
+  pattern: OperationalMemory;
+  score: number;
+}
+
 /**
  * Operational retrieval manager
  */
@@ -75,8 +80,8 @@ export class OperationalRetrievalManager {
     'command-execution': ['exec', 'command', 'run', 'shell', 'bash', 'terminal', 'cli', 'execute command', 'npm', 'yarn', 'install'],
     'config-change': ['config', 'configuration', 'setting', 'change config', 'update config', 'modify', 'tune', 'adjust'],
     'deployment': ['deploy', 'release', 'publish', 'push', 'ship', 'production', 'live', 'deploying', 'releasing'],
-    'gateway-work': ['gateway', 'openclaw', 'plugin', 'skill', 'extension', 'gateway config', 'openclaw config'],
-    'plugin-work': ['plugin', 'extension', 'skill', 'install', 'enable', 'disable plugin', 'add plugin'],
+    'gateway-work': ['gateway', 'openclaw', 'plugin', 'skill', 'extension', 'gateway config', 'openclaw config', 'clawbridge', 'bridge', 'discord', 'thread', 'forum', 'transfer'],
+    'plugin-work': ['plugin', 'extension', 'skill', 'install', 'enable', 'disable plugin', 'add plugin', 'clawbridge', 'bridge'],
     'unknown': [],
   };
 
@@ -99,6 +104,100 @@ export class OperationalRetrievalManager {
 
   private isScopeIsolationEnabled(): boolean {
     return process.env.CLAWTEXT_SCOPE_ISOLATION_ENABLED === 'true';
+  }
+
+  private getRetrievalStatuses(): Status[] {
+    return ['reviewed', 'promoted'];
+  }
+
+  private isSyntheticPattern(pattern: OperationalMemory): boolean {
+    const haystack = [
+      pattern.patternKey,
+      pattern.summary,
+      pattern.symptom,
+      pattern.trigger,
+      ...(pattern.evidence || []),
+    ].join(' ').toLowerCase();
+
+    return (
+      haystack.includes('synthetic') ||
+      haystack.includes('phase-7') ||
+      haystack.includes('wrapper test') ||
+      haystack.includes('verification test')
+    );
+  }
+
+  private getQueryTokens(query: string): string[] {
+    const stopwords = new Set([
+      'and', 'the', 'that', 'with', 'from', 'into', 'this', 'have', 'need', 'should', 'would', 'could', 'what', 'how', 'are', 'not', 'for'
+    ]);
+
+    return Array.from(new Set(
+      query
+        .toLowerCase()
+        .split(/[^a-z0-9]+/)
+        .filter((token) => token.length >= 3 && !stopwords.has(token))
+    ));
+  }
+
+  private countQueryMatches(pattern: OperationalMemory, query: string): number {
+    const haystack = [
+      pattern.patternKey,
+      pattern.summary,
+      pattern.symptom,
+      pattern.trigger,
+      pattern.rootCause,
+      pattern.fix,
+      ...(pattern.tags || []),
+      ...(pattern.evidence || []),
+    ].join(' ').toLowerCase();
+
+    const tokens = this.getQueryTokens(query);
+    return tokens.reduce((sum, token) => {
+      const normalized = token.length > 4 ? token.slice(0, 4) : token;
+      return sum + ((haystack.includes(token) || haystack.includes(normalized)) ? 1 : 0);
+    }, 0);
+  }
+
+  private recencyScore(lastSeenAt: string): number {
+    const ts = new Date(lastSeenAt).getTime();
+    if (!Number.isFinite(ts)) return 0;
+
+    const ageDays = (Date.now() - ts) / (1000 * 60 * 60 * 24);
+    if (ageDays <= 1) return 10;
+    if (ageDays <= 7) return 7;
+    if (ageDays <= 30) return 4;
+    return 1;
+  }
+
+  private scorePattern(pattern: OperationalMemory, query: string): number {
+    let score = 0;
+
+    const queryMatches = this.countQueryMatches(pattern, query);
+    score += queryMatches * 18;
+    if (query.trim() && queryMatches === 0) score -= 10;
+
+    score += Math.min(pattern.recurrenceCount, 6) * 4;
+    score += Math.round(pattern.confidence * 20);
+    score += this.recencyScore(pattern.lastSeenAt);
+    score += pattern.status === 'promoted' ? 8 : 4;
+
+    if (pattern.rootCause !== 'TBD') score += 4;
+    else score -= 6;
+
+    if (pattern.fix !== 'TBD') score += 4;
+    else score -= 6;
+
+    if (this.isSyntheticPattern(pattern)) score -= 60;
+
+    return score;
+  }
+
+  private rankPatterns(patterns: OperationalMemory[], query: string): OperationalMemory[] {
+    return patterns
+      .map((pattern) => ({ pattern, score: this.scorePattern(pattern, query) }))
+      .sort((a, b) => b.score - a.score)
+      .map((entry) => entry.pattern);
   }
 
   /**
@@ -232,30 +331,27 @@ export class OperationalRetrievalManager {
     let patterns: OperationalMemory[] = [];
 
     if (classification.shouldQueryOperational) {
-      patterns = this.memoryManager.search(searchQuery, {
-        status: 'reviewed',
-        limit: 10,
-      });
-
-      // Also check for high-recurrence patterns even if query doesn't match
-      let highRecurrence = this.memoryManager.getAllByStatus('reviewed')
-        .filter(p => p.recurrenceCount >= 3)
-        .slice(0, 5);
+      const retrievalStatuses = this.getRetrievalStatuses();
+      let retrievable = retrievalStatuses.flatMap((status) =>
+        this.memoryManager.getAllByStatus(status)
+      );
 
       if (scopeIsolationEnabled) {
-        patterns = this.applyScopeIsolation(patterns, allowedScopes);
-        highRecurrence = this.applyScopeIsolation(highRecurrence, allowedScopes);
+        retrievable = this.applyScopeIsolation(retrievable, allowedScopes);
       }
 
-      // Merge and dedupe by patternKey
-      const allPatterns = [...patterns, ...highRecurrence];
-      const uniqueMap = new Map<string, OperationalMemory>();
-      allPatterns.forEach(p => {
-        if (!uniqueMap.has(p.patternKey)) {
-          uniqueMap.set(p.patternKey, p);
-        }
-      });
-      patterns = Array.from(uniqueMap.values());
+      const ranked = this.rankPatterns(retrievable, searchQuery);
+      const hasQuery = this.getQueryTokens(searchQuery).length > 0;
+      const hasPositiveMatch = ranked.some((pattern) => this.countQueryMatches(pattern, searchQuery) > 0);
+
+      patterns = ranked
+        .filter((pattern) => {
+          if (!hasQuery) return true;
+          const matches = this.countQueryMatches(pattern, searchQuery);
+          if (hasPositiveMatch) return matches >= 2 || (pattern.recurrenceCount >= 5 && !this.isSyntheticPattern(pattern));
+          return pattern.recurrenceCount >= 3;
+        })
+        .slice(0, 8);
     }
 
     return {
@@ -333,24 +429,27 @@ export class OperationalRetrievalManager {
    * Get operational memory summary for health reports
    */
   getHealthSummary(): {
-    totalReviewed: number;
+    totalRetrievable: number;
     highRecurrence: number;
     byType: Record<string, number>;
     byScope: Record<string, number>;
   } {
-    const reviewed = this.memoryManager.getAllByStatus('reviewed');
-    
+    const retrievable = this.rankPatterns(
+      this.getRetrievalStatuses().flatMap((status) => this.memoryManager.getAllByStatus(status)),
+      ''
+    );
+
     const byType: Record<string, number> = {};
     const byScope: Record<string, number> = {};
 
-    reviewed.forEach(p => {
+    retrievable.forEach(p => {
       byType[p.type] = (byType[p.type] || 0) + 1;
       byScope[p.scope] = (byScope[p.scope] || 0) + 1;
     });
 
     return {
-      totalReviewed: reviewed.length,
-      highRecurrence: reviewed.filter(p => p.recurrenceCount >= 3).length,
+      totalRetrievable: retrievable.length,
+      highRecurrence: retrievable.filter(p => p.recurrenceCount >= 3).length,
       byType,
       byScope,
     };
