@@ -351,16 +351,41 @@ function extractMessageId(payload, context) {
   return String(candidate);
 }
 
+function normalizeDiscordTarget(target) {
+  const t = String(target || '').trim();
+  if (!t) return t;
+
+  const targets = [t];
+  if (!t.startsWith('channel:') && !t.startsWith('thread:')) {
+    targets.push(`thread:${t}`);
+    targets.push(`channel:${t}`);
+  }
+
+  return targets;
+}
+
 function sendChunkToThread(threadId, c, idx) {
-  const resp = runOpenclaw([
-    'message', 'send',
-    '--channel', 'discord',
-    '--target', threadId,
-    '-m', c,
-    '--json',
-  ]);
-  assertCommandSuccess(resp, `send chunk ${idx}`);
-  return extractMessageId(resp, `send chunk ${idx}`);
+  const targets = normalizeDiscordTarget(threadId);
+  let lastError = null;
+
+  for (const target of targets) {
+    try {
+      const resp = runOpenclaw([
+        'message', 'send',
+        '--channel', 'discord',
+        '--target', target,
+        '-m', c,
+        '--json',
+      ]);
+      assertCommandSuccess(resp, `send chunk ${idx} to ${target}`);
+      return extractMessageId(resp, `send chunk ${idx} to ${target}`);
+    } catch (err) {
+      lastError = err instanceof Error ? err : new Error(String(err));
+      continue;
+    }
+  }
+
+  throw new Error(`Failed chunk ${idx}/${targets.length} after ${targets.length} attempts: ${lastError ? lastError.message : 'unknown error'}`);
 }
 
 function sendToThread(threadId, text) {
