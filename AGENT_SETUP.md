@@ -1,101 +1,137 @@
 # ClawText Agent-Assisted Setup
 
-This guide is for **agents installing and configuring ClawText** in an OpenClaw workspace. The agent talks you through it, handles the mechanics, and explains what you might want to know.
+This guide is for **agents installing and configuring ClawText** in an OpenClaw workspace.
 
 ---
 
-## Migration Path: From Git Clone to Plugin System
+## Canonical install flows
 
-**If the user already has ClawText installed via git clone:**
+ClawText has two canonical installation stories.
 
-Agent detects this by checking `~/.openclaw/openclaw.json` for `plugins.load.paths` containing clawtext.
+### 1) Published / user install
 
-### Agent's Migration Flow
+Use this for normal users and production workspaces:
+
+```bash
+openclaw plugins install @openclaw/clawtext
+```
+
+### 2) Local development install
+
+Use this when working from a local checkout and you want OpenClaw to load the repo through the plugin manager:
+
+```bash
+openclaw plugins install --link /path/to/clawtext
+```
+
+Example:
+
+```bash
+git clone https://github.com/ragesaq/clawtext.git
+cd clawtext
+npm install
+npm run build
+openclaw plugins install --link .
+```
+
+### Non-canonical / recovery-only flows
+
+- ⚠️ `~/.openclaw/workspace/skills/clawtext` may exist as a workspace alias or linked convenience path, but it is **not** the canonical install contract.
+- 🚑 Manual `plugins.load.paths` editing in `~/.openclaw/openclaw.json` is **recovery/debug only**, not the primary install method.
+
+The preferred live-good state is:
+- ClawText managed by the OpenClaw plugin installer
+- install provenance present in `plugins.installs`
+- plugin enabled in `plugins.entries.clawtext`
+- local repos linked via `openclaw plugins install --link ...` when doing development
+
+---
+
+## Migration Path: From Older Manual/Clone Install to Plugin System
+
+If the user already has ClawText installed via an older git-clone or manual `plugins.load.paths` setup, migrate them to the installer-managed model.
+
+### Agent migration flow
 
 Agent tells user:
 
-> "I detected an older ClawText installation using git clone. I can migrate you to the plugin system (newer, with update support). This takes 2-3 minutes and keeps all your memory intact.
->
-> Should I go ahead?"
+> "I detected an older ClawText install path. I can migrate you to the plugin system so updates and provenance are handled cleanly. Your memory stays intact."
 
-**If user agrees:**
+If the user agrees:
 
 ```bash
-# Step 1: Install new version via plugin system
+# Step 1: Install via plugin system
 openclaw plugins install @openclaw/clawtext
 
-# Step 2: Back up old config
+# Step 2: Back up config
 cp ~/.openclaw/openclaw.json ~/.openclaw/openclaw.json.backup.$(date +%s)
 
-# Step 3: Remove old paths from config
-# - Delete: plugins.load.paths entry containing old clawtext path
-# - Delete: plugins.allow entry (if it mentions clawtext)
-# - Keep: plugins.entries.clawtext with existing memory config
+# Step 3: Remove stale manual load-path entries
+# - delete old plugins.load.paths entries pointing at clawtext
+# - keep plugins.entries.clawtext config
+# - keep any existing memory tuning values
 
 # Step 4: Restart gateway
 openclaw gateway restart
 
-# Step 5: Verify both aren't loaded
-openclaw plugins list | grep clawtext
-# Should show: clawtext | enabled | loaded (ONE entry, not two)
+# Step 5: Verify only one active install story remains
+openclaw plugins info clawtext
+openclaw plugins list
 
-# Step 6: Verify memory is intact
-openclaw plugins run clawtext validate-rag
-
-# Step 7: Clean up old directory (ask user)
-rm -rf ~/.openclaw/workspace/skills/clawtext
+# Step 6: Validate runtime
+openclaw status
 ```
 
-Agent reports:
-
-> "✅ Migration complete. Your memory is intact, and you now have update support. You can run `openclaw plugins update clawtext` anytime."
+If the old repo directory is still present after successful migration, treat it as optional cleanup and ask before deleting it.
 
 ---
 
 ## Phase 1: Install (Automatic)
 
-Agent runs:
+For standard setup, agent runs:
 
 ```bash
-# Install via OpenClaw plugin system
 openclaw plugins install @openclaw/clawtext
-
-# Verify installation
 openclaw plugins list | grep clawtext
 ```
 
-**Agent reports to user:**
-> "ClawText is now installed and registered as an OpenClaw plugin. You can check the installation with `openclaw plugins list`. Ready to configure."
+For local development setup, agent runs:
 
-**What happened automatically:**
-- ✅ Downloaded from npm
-- ✅ Extracted to `~/.openclaw/extensions/clawtext/`
-- ✅ Dependencies installed
-- ✅ Registered in plugin config
-- ✅ Ready to enable
+```bash
+openclaw plugins install --link /path/to/clawtext
+openclaw plugins list | grep clawtext
+```
+
+Agent reports to user:
+
+> "ClawText is now installed and registered as an OpenClaw plugin. Ready to configure."
+
+What happens automatically:
+- ✅ plugin installed or linked through OpenClaw
+- ✅ install record updated in plugin metadata
+- ✅ dependency/install lifecycle handled by plugin manager
+- ✅ plugin available for enablement and runtime loading
 
 ---
 
 ## Phase 2: Configure Plugin (Agent-Assisted)
 
-Agent edits `~/.openclaw/openclaw.json` and asks key questions:
+Agent edits `~/.openclaw/openclaw.json` only for **plugin configuration**, not as the primary install mechanism.
 
-### Step 2a: Configure Memory Behavior
+### Step 2a: Configure memory behavior
 
-The plugin is already registered. Agent asks about tuning:
+Agent asks the user about tuning:
 
-**Agent asks user:**
-
-> "ClawText automatically injects the most relevant memories into your prompts. I can configure three things:
+> "ClawText automatically injects relevant memories into prompts. I can tune:
 >
-> 1. **How many memories per query?** (default: 5, range: 1-10)
-> 2. **How strict on relevance?** (default: 0.70, range: 0.50-0.85, higher = stricter)
-> 3. **Max injection tokens?** (default: 2000, range: 1000-8000)
+> 1. How many memories per query? (default: 5)
+> 2. How strict on relevance? (default: 0.70)
+> 3. Token budget? (default: 2000)
 >
-> These defaults work for most workflows. Do you want to keep them, or customize?"
+> The defaults work well for most workflows. Do you want to keep them or customize?"
 
-**If keep defaults:**
-- Agent adds minimal config:
+If keeping defaults, agent adds or confirms:
+
 ```json
 "plugins": {
   "entries": {
@@ -115,21 +151,13 @@ The plugin is already registered. Agent asks about tuning:
 }
 ```
 
-- Agent reports: "✅ Using defaults. RAG will inject 5 memories with 0.70 confidence threshold."
-
-**If customize:**
-- Agent asks each question individually and fills in values
-- Agent reports back what was set and why it matters
-
-### Step 2b: Gateway Restart
-
 ---
 
-## Phase 3: Gateway Restart (Agent-Assisted)
+## Phase 3: Gateway Restart
 
 Agent tells user:
 
-> "Now I need to restart the OpenClaw gateway to load ClawText. This will take ~5-10 seconds."
+> "I need to restart the OpenClaw gateway to load the updated ClawText configuration."
 
 Agent runs:
 
@@ -137,390 +165,147 @@ Agent runs:
 openclaw gateway restart
 ```
 
-Waits for success, then reports:
+Then reports:
 
 > "✅ Gateway restarted. ClawText is now active."
 
 ---
 
-## Phase 4: Validate Installation (Agent-Assisted)
+## Phase 4: Validate Installation
 
-Agent validates the installation:
+Agent validates runtime state:
 
 ```bash
-# Check plugin loaded
-openclaw plugins list | grep clawtext
-
-# Check gateway status
-openclaw gateway status
-
-# Validate memory system health
-openclaw plugins run clawtext validate-rag
+openclaw plugins info clawtext
+openclaw plugins list
+openclaw status
 ```
 
-**Agent reports findings to user:**
+If validating from the repo as part of dev/local work:
 
-If all pass:
-> "✅ All systems green. ClawText is installed and working:
-> - Plugin loaded and enabled
-> - RAG injection ready
-> - Memory extraction active
-> - Operational learning pipeline ready"
-
-If any fail:
-> "⚠️ One or more checks failed. Here's what I found: [details]. Let me fix this..."
-> [Agent troubleshoots or asks user for help]
-
----
-
-## Phase 5: Onboarding Conversation (Agent-Assisted)
-
-Agent talks through next steps with user:
-
-### Question 1: Cluster Rebuild Strategy
-
-> "ClawText clusters update automatically every night at 2am UTC. When you add a lot of new knowledge (docs, repos, Discord history), we can rebuild sooner.
->
-> Would you like me to:
-> - **Option A:** Let the nightly rebuild handle it (most common)
-> - **Option B:** Set up a weekly rebuild on [day] at [time] for heavy ingestion workloads
-> - **Option C:** Set up manual on-demand rebuild (you tell me when)"
-
-**Agent documents user's choice** in a local setup notes file.
-
-### Question 2: What Knowledge Should We Ingest?
-
-> "ClawText can pull knowledge from:
-> - GitHub repos (your projects, dependencies)
-> - Discord channels (chat history, decisions)
-> - Markdown docs (READMEs, guides, specifications)
-> - JSON exports (structured data)
->
-> Do you have any of these you'd like me to ingest to bootstrap the system? If so, I can handle it now or you can point me to them anytime."
-
-**If user provides sources:**
-- Agent runs ingest and validates deduplication
-- Agent reports: "✅ Imported [N] memories from [source]. No duplicates detected."
-
-**If user defers:**
-- Agent notes this for later: "Ingestion is available on request. Just point me to your sources."
-
-### Question 3: What Should We Remember?
-
-> "ClawText will automatically capture your decisions, errors, and system patterns. But you can also tell me what's important:
->
-> - Key decisions for this project
-> - Known gotchas or gotchas you've hit before
-> - Patterns you want the system to remember
->
-> Should I set any of these up now, or start fresh?"
-
-**If user provides:**
-- Agent adds them to `memory/YYYY-MM-DD.md` and validates
-- Agent reports: "✅ Added [N] items to memory. These will be available in future queries."
-
-**If user defers:**
-- Agent notes: "Captured. We can add these anytime."
-
----
-
-## Phase 6: Document Setup (Agent-Assisted)
-
-Agent creates a local setup summary file `memory/clawtext-setup.md`:
-
-```markdown
-# ClawText Setup Summary
-
-**Installed:** [date/time]  
-**Version:** v1.4.0  
-**Configuration:** [defaults/custom]
-
-## RAG Settings
-- Max memories: [N]
-- Confidence threshold: [0.XX]
-- Token budget: [YYYY]
-
-## Cluster Rebuild Strategy
-- Schedule: [nightly/weekly/manual]
-- Next rebuild: [date]
-
-## Ingested Sources
-- [source 1]: [N] memories
-- [source 2]: [N] memories
-
-## Initial Knowledge Added
-- [item 1]
-- [item 2]
-
-## Notes
-- [any custom configuration or gotchas]
-
----
-
-**Setup by:** Agent  
-**User confirmed:** Yes
+```bash
+node scripts/build-clusters.js --force
+node scripts/validate-rag.js
+node scripts/operational-cli.mjs maintenance:run
 ```
 
-Agent reports:
-> "✅ Setup complete and documented in `memory/clawtext-setup.md`. You can reference this anytime."
+If all pass, agent reports:
+
+> "✅ All systems green. ClawText is installed, loaded, and operational."
+
+If anything fails, agent should troubleshoot before continuing.
 
 ---
 
-## Phase 7: Next Steps (Agent-Assisted)
+## Phase 5: Onboarding Conversation
 
-Agent explains what happens next:
+After install, the agent should talk through:
 
-> **What's happening automatically now:**
-> - Messages are captured to memory (~1ms overhead)
-> - Memories are extracted and clustered (every 20 minutes + nightly validation)
-> - Relevant memories are injected into your prompts automatically (~1ms latency)
-> - System failures are captured and available for review
->
-> **What you might want to do:**
-> - Ingest knowledge sources (docs, Discord, repos) — just ask me
-> - Review operational learning patterns — I'll surface them when they show up
-> - Tune RAG settings if injection feels too broad or too narrow
-> - Archive old memories when they're no longer useful
->
-> **How to ask for help:**
-> - "Inject [topic]" — I'll pull in knowledge about that topic
-> - "Show me what you remember about [thing]" — memory search
-> - "Rebuild clusters" — force a fresh cluster build
-> - "Archive old memories" — move stale stuff to offline storage
->
-> Questions?"
+### Question 1: Cluster rebuild strategy
+
+> "ClawText can rebuild automatically or on-demand. Nightly rebuilds are the default. If you expect heavy ingest activity, I can help set a more active maintenance cadence."
+
+### Question 2: What knowledge should we ingest?
+
+> "ClawText can ingest repos, docs, Discord history, and structured exports. Do you want me to ingest anything now to bootstrap memory?"
+
+### Question 3: What should we remember?
+
+> "ClawText will capture decisions and patterns automatically, but I can also record any important project facts or gotchas you want preserved immediately."
+
+---
+
+## Phase 6: Document Setup
+
+Agent may create a local setup summary such as `memory/clawtext-setup.md` including:
+- install method used (`published` or `--link`)
+- current version
+- RAG tuning values
+- rebuild strategy
+- ingested sources
+- any local notes or gotchas
+
+---
+
+## Phase 7: Next Steps
+
+Agent explains what happens automatically now:
+- messages can be captured to memory
+- extraction/clustering/validation can run on schedule
+- relevant memories can be injected into prompts automatically
+- operational learning can surface recurring failures and recoveries
+
+Agent also explains likely next actions:
+- ingest docs/repos/Discord sources
+- review memory quality
+- tune thresholds if retrieval is too broad or too narrow
+- archive stale material if needed
 
 ---
 
 ## Setup Completion Checklist
 
-Agent confirms with user:
-
-- [ ] ClawText installed via `openclaw plugins install @openclaw/clawtext`
-- [ ] Plugin registered in `openclaw.json`
-- [ ] RAG injection tuning configured (memory count, confidence, tokens)
-- [ ] Gateway restarted
-- [ ] All validation tests passed
-- [ ] Cluster rebuild strategy discussed
-- [ ] Initial knowledge ingested (if any)
-- [ ] Setup documented in `memory/clawtext-setup.md`
+- [ ] ClawText installed via `openclaw plugins install @openclaw/clawtext` **or** `openclaw plugins install --link /path/to/clawtext`
+- [ ] Plugin appears in `openclaw plugins info clawtext`
+- [ ] `plugins.entries.clawtext.enabled` is true
+- [ ] Gateway restarted if needed
+- [ ] Validation checks passed
+- [ ] Cluster/maintenance strategy discussed
+- [ ] Initial ingest discussed or completed
+- [ ] Setup documented if appropriate
 - [ ] User understands next steps
 
 ---
 
 ## Troubleshooting During Setup
 
-**If plugin fails to install:**
-- Agent verifies `@openclaw/clawtext` is available on npm: `npm view @openclaw/clawtext`
-- Agent checks network connectivity
-- Agent tries again with `openclaw plugins install @openclaw/clawtext --force`
+### If plugin fails to install
 
-**If plugin fails to load:**
-- Agent checks `openclaw plugins list` output
-- Agent checks `~/.openclaw/openclaw.json` for syntax errors
-- Agent restarts gateway: `openclaw gateway restart`
-
-**If RAG injection test fails:**
-- Agent checks plugin enabled in config
-- Agent checks configuration syntax
-- Agent restarts gateway
-- Agent runs validation again
-
-**If user wants to change settings later:**
-- Agent explains how to edit `openclaw.json` entries.clawtext config
-- Agent runs validation after changes
-- Agent restarts gateway
-- No need to reinstall
-
----
-
-## Agent Responsibilities After Setup
-
-Once setup is complete, the agent should:
-
-1. **Respond naturally to memory requests** — "Show me what you remember about X"
-2. **Offer ingestion proactively** — If user mentions docs/repos, offer to ingest
-3. **Surface operational learning** — When patterns emerge, point them out
-4. **Maintain configuration** — Tune RAG settings if injection feels off
-5. **Handle archival** — Move old memories when user indicates they're stale
-
----
-
-**Last Updated:** 2026-03-12  
-**Status:** Agent-assisted setup flow with migration support  
-**Scope:** From git clone or new install to operational system in one flow
-
-Agent talks through next steps with user:
-
-### Question 1: Cluster Rebuild Strategy
-
-> "ClawText clusters update automatically every night at 2am UTC. When you add a lot of new knowledge (docs, repos, Discord history), we can rebuild sooner.
->
-> Would you like me to:
-> - **Option A:** Let the nightly rebuild handle it (most common)
-> - **Option B:** Set up a weekly rebuild on [day] at [time] for heavy ingestion workloads
-> - **Option C:** Set up manual on-demand rebuild (you tell me when)"
-
-**Agent documents user's choice** in a local setup notes file.
-
-### Question 2: What Knowledge Should We Ingest?
-
-> "ClawText can pull knowledge from:
-> - GitHub repos (your projects, dependencies)
-> - Discord channels (chat history, decisions)
-> - Markdown docs (READMEs, guides, specifications)
-> - JSON exports (structured data)
->
-> Do you have any of these you'd like me to ingest to bootstrap the system? If so, I can handle it now or you can point me to them anytime."
-
-**If user provides sources:**
-- Agent runs ingest and validates deduplication
-- Agent reports: "✅ Imported [N] memories from [source]. No duplicates detected."
-
-**If user defers:**
-- Agent notes this for later: "Ingestion is available on request. Just point me to your sources."
-
-### Question 3: What Should We Remember?
-
-> "ClawText will automatically capture your decisions, errors, and system patterns. But you can also tell me what's important:
->
-> - Key decisions for this project
-> - Known gotchas or gotchas you've hit before
-> - Patterns you want the system to remember
->
-> Should I set any of these up now, or start fresh?"
-
-**If user provides:**
-- Agent adds them to `memory/YYYY-MM-DD.md` and validates
-- Agent reports: "✅ Added [N] items to memory. These will be available in future queries."
-
-**If user defers:**
-- Agent notes: "Captured. We can add these anytime."
-
----
-
-## Phase 6: Document Setup (Agent-Assisted)
-
-Agent creates a local setup summary file `memory/clawtext-setup.md`:
-
-```markdown
-# ClawText Setup Summary
-
-**Installed:** [date/time]  
-**Version:** v1.4.0  
-**Configuration:** [defaults/custom]
-
-## RAG Settings
-- Max memories: [N]
-- Confidence threshold: [0.XX]
-- Token budget: [YYYY]
-
-## Cluster Rebuild Strategy
-- Schedule: [nightly/weekly/manual]
-- Next rebuild: [date]
-
-## Ingested Sources
-- [source 1]: [N] memories
-- [source 2]: [N] memories
-
-## Initial Knowledge Added
-- [item 1]
-- [item 2]
-
-## Notes
-- [any custom configuration or gotchas]
-
----
-
-**Setup by:** Agent  
-**User confirmed:** Yes
+```bash
+npm view @openclaw/clawtext
+openclaw plugins install @openclaw/clawtext --force
 ```
 
-Agent reports:
-> "✅ Setup complete and documented in `memory/clawtext-setup.md`. You can reference this anytime."
+### If linked local dev install fails
+
+- verify the repo path exists
+- run `npm install` and `npm run build` in the repo if required
+- re-run:
+
+```bash
+openclaw plugins install --link /path/to/clawtext
+```
+
+### If plugin fails to load
+
+```bash
+openclaw plugins info clawtext
+openclaw plugins list
+openclaw status
+```
+
+Check for:
+- stale manual `plugins.load.paths` entries from older installs
+- broken link target in local dev mode
+- missing build artifacts in local repo workflows
+- config syntax errors
+
+### Recovery-only fallback
+
+If installer metadata is damaged and service must be restored quickly, use manual `plugins.load.paths` as a temporary repair step only, then migrate back to installer-managed or installer-linked state.
 
 ---
 
-## Phase 7: Next Steps (Agent-Assisted)
+## Agent responsibilities after setup
 
-Agent explains what happens next:
-
-> **What's happening automatically now:**
-> - Messages are captured to memory (~1ms overhead)
-> - Memories are extracted and clustered (every 20 minutes + nightly validation)
-> - Relevant memories are injected into your prompts automatically (~1ms latency)
-> - System failures are captured and available for review
->
-> **What you might want to do:**
-> - Ingest knowledge sources (docs, Discord, repos) — just ask me
-> - Review operational learning patterns — I'll surface them when they show up
-> - Tune RAG settings if injection feels too broad or too narrow
-> - Archive old memories when they're no longer useful
->
-> **How to ask for help:**
-> - "Inject [topic]" — I'll pull in knowledge about that topic
-> - "Show me what you remember about [thing]" — memory search
-> - "Rebuild clusters" — force a fresh cluster build
-> - "Archive old memories" — move stale stuff to offline storage
->
-> Questions?"
+1. Respond naturally to memory requests
+2. Offer ingestion when the user mentions docs/repos/channels
+3. Surface operational learning patterns when they recur
+4. Tune ClawText configuration if retrieval quality feels off
+5. Keep the install story canonical when giving future instructions
 
 ---
 
-## Setup Completion Checklist
-
-Agent confirms with user:
-
-- [ ] ClawText installed via `openclaw plugins install @openclaw/clawtext`
-- [ ] Plugin registered in `openclaw.json`
-- [ ] RAG injection tuning configured (memory count, confidence, tokens)
-- [ ] Gateway restarted
-- [ ] All validation tests passed
-- [ ] Cluster rebuild strategy discussed
-- [ ] Initial knowledge ingested (if any)
-- [ ] Setup documented in `memory/clawtext-setup.md`
-- [ ] User understands next steps
-
----
-
-## Troubleshooting During Setup
-
-**If plugin fails to install:**
-- Agent verifies `@openclaw/clawtext` is available on npm: `npm view @openclaw/clawtext`
-- Agent checks network connectivity
-- Agent tries again with `openclaw plugins install @openclaw/clawtext --force`
-
-**If plugin fails to load:**
-- Agent checks `openclaw plugins list` output
-- Agent checks `~/.openclaw/openclaw.json` for syntax errors
-- Agent restarts gateway: `openclaw gateway restart`
-
-**If RAG injection test fails:**
-- Agent checks plugin enabled in config
-- Agent checks configuration syntax
-- Agent restarts gateway
-- Agent runs validation again
-
-**If user wants to change settings later:**
-- Agent explains how to edit `openclaw.json` entries.clawtext config
-- Agent runs validation after changes
-- Agent restarts gateway
-- No need to reinstall
-
----
-
-## Agent Responsibilities After Setup
-
-Once setup is complete, the agent should:
-
-1. **Respond naturally to memory requests** — "Show me what you remember about X"
-2. **Offer ingestion proactively** — If user mentions docs/repos, offer to ingest
-3. **Surface operational learning** — When patterns emerge, point them out
-4. **Maintain configuration** — Tune RAG settings if injection feels off
-5. **Handle archival** — Move old memories when user indicates they're stale
-
----
-
-**Last Updated:** 2026-03-12  
-**Status:** Agent-assisted setup flow  
-**Scope:** From git clone to operational system in one flow
+**Last Updated:** 2026-03-14  
+**Status:** Agent-assisted setup flow aligned to installer-managed and installer-linked installs  
+**Scope:** From new install or old manual install to operational ClawText

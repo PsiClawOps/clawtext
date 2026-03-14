@@ -60,7 +60,7 @@ ClawText is a knowledge lifecycle system with three integrated lanes:
 
 ClawText now runs a three-stage pipeline automatically:
 
-1. **Extraction (every 20 min)** — Messages captured to `memory/extract-buffer.jsonl`, then extracted facts/decisions/learnings written to `memory/YYYY-MM-DD.md` using LLM
+1. **Extraction (every 20 min)** — Messages captured to `state/clawtext/prod/ingest/extract-buffer.jsonl`, then extracted facts/decisions/learnings written to `memory/YYYY-MM-DD.md` using LLM
 2. **Clustering (nightly)** — Daily 2am UTC cron rebuilds semantic clusters from daily memories, validates RAG quality, notifies if confidence < 70%
 3. **Injection (every prompt)** — `before_prompt_build` hook injects top 5 relevant memories (by BM25 + semantic similarity) automatically — zero latency (~1ms), token-budgeted, confidence-filtered
 
@@ -160,7 +160,7 @@ Every message event (in/out)
        ↓
 [clawtext-extract hook] — appends to buffer (zero-LLM-cost)
        ↓ (asynchronous)
-Memory/extract-buffer.jsonl (rolling 24h buffer)
+state/clawtext/prod/ingest/extract-buffer.jsonl (rolling 24h buffer)
        ↓ every 20 minutes
 [Extraction cron] — LLM extracts facts, decisions, learnings
        ↓
@@ -290,21 +290,42 @@ See [SECURITY.md](./SECURITY.md) and [RISK.md](./RISK.md) for detailed threat mo
 
 ## Installation
 
-### Quick Start (Recommended)
+### Canonical Install Flows
+
+ClawText has two canonical installation stories:
+
+#### 1) Published / user install
 
 ```bash
 openclaw plugins install @openclaw/clawtext
 ```
 
-That's it. OpenClaw handles dependency installation, registration, and plugin activation automatically.
+Use this for normal users and production workspaces.
+
+#### 2) Local development install
+
+```bash
+openclaw plugins install --link /path/to/clawtext
+```
+
+Use this when developing ClawText locally and you want OpenClaw to load the repo directly through the plugin installer.
+
+### What is canonical vs non-canonical?
+
+- ✅ **Canonical:** `openclaw plugins install @openclaw/clawtext`
+- ✅ **Canonical:** `openclaw plugins install --link /path/to/clawtext`
+- ⚠️ **Non-canonical alias:** `~/.openclaw/workspace/skills/clawtext` if present as a linked/alias path
+- 🚑 **Recovery-only:** manual `plugins.load.paths` editing in `~/.openclaw/openclaw.json`
+
+If `workspace/skills/clawtext` exists in your workspace, treat it as an implementation detail or alias created around the installer-managed flow — **not** the primary install story.
 
 ### What `openclaw plugins install` Does
 
-- ✅ Downloads ClawText from npm
-- ✅ Extracts to `~/.openclaw/extensions/clawtext/`
-- ✅ Runs `npm install --ignore-scripts`
-- ✅ Registers in `plugins.installs` config
+- ✅ Installs or links ClawText through OpenClaw's plugin manager
+- ✅ Creates/updates the install record in `plugins.installs`
+- ✅ Handles dependency installation and plugin registration
 - ✅ Enables the plugin automatically
+- ✅ Keeps the install provenance visible to OpenClaw
 
 ### Configuration
 
@@ -374,7 +395,7 @@ openclaw cron run <clawtext-operational-maintenance-id> --expect-final
 
 **Expected health checks after each run**:
 - New `memory/YYYY-MM-DD.md` entries appear when extraction finds new records
-- `extract-state.json` updates in `state/clawtext/prod/ingest/`
+- `extract-buffer.jsonl` and `extract-state.json` update in `state/clawtext/prod/ingest/`
 - `memory/clusters/` (and/or state-backed cluster artifacts) refresh
 - No missing-thread/source-loss in `openclaw status` and no repeated plugin load errors
 
@@ -384,13 +405,22 @@ ClawBridge now supports backup + chunked message verification. Use this checklis
 
 ```bash
 # Create a destination thread once (or pass an existing thread id)
-node repo/clawtext/skills/clawbridge/bin/clawbridge.js extract-discord-thread \
+clawbridge-safe \
   --source-thread <source-channel-or-thread-id> \
   --target-forum <forum-or-channel-id> \
   --title "ClawBridge smoke test" \
   --mode continuity \
   --limit 10 \
   --attach-thread <existing-thread-id>
+
+# Legacy direct invocation:
+# node repo/clawtext/skills/clawbridge/bin/clawbridge.js extract-discord-thread \
+#   --source-thread <source-channel-or-thread-id> \
+#   --target-forum <forum-or-channel-id> \
+#   --title "ClawBridge smoke test" \
+#   --mode continuity \
+#   --limit 10 \
+#   --attach-thread <existing-thread-id>
 
 # Verify outputs:
 # 1) destination thread has init + short/full/bootstrap posts with unique message IDs
@@ -413,21 +443,32 @@ See [AGENT_SETUP.md → Migration](./AGENT_SETUP.md#migration-path-from-git-clon
 
 ### Development / Local Setup
 
-For development or modification:
+For development or modification, use the plugin manager's link flow:
 
 ```bash
-openclaw plugins install -l ./path/to/clawtext
+openclaw plugins install --link /path/to/clawtext
 ```
 
-Or clone and install manually:
+Example:
 
 ```bash
 git clone https://github.com/ragesaq/clawtext.git
 cd clawtext
 npm install
 npm run build
-openclaw plugins install -l .
+openclaw plugins install --link .
 ```
+
+### Manual `plugins.load.paths` Editing
+
+Manual `plugins.load.paths` editing is **not** the primary install path anymore.
+
+Only use it as a recovery/debug fallback if:
+- the installer metadata is broken,
+- you are repairing a damaged local workspace,
+- or you are diagnosing OpenClaw plugin resolution issues.
+
+If you do use manual load paths for recovery, return to an installer-managed or installer-linked setup afterward.
 
 ### Agent-Assisted Setup
 
@@ -445,7 +486,7 @@ Agents follow [AGENT_SETUP.md](./AGENT_SETUP.md) and handle everything end-to-en
 ## Architecture
 
 ```
-~/.openclaw/workspace/skills/clawtext/   ← ONE install path
+Installer-managed extension or linked repo   ← canonical runtime ownership
 │
 ├── openclaw.plugin.json   ← plugin manifest
 ├── SKILL.md               ← skill definition
@@ -489,6 +530,8 @@ Agents follow [AGENT_SETUP.md](./AGENT_SETUP.md) and handle everything end-to-en
     ├── OPERATIONAL_LEARNING.md
     └── ...
 ```
+
+**Runtime note:** if you see `~/.openclaw/workspace/skills/clawtext`, treat it as a linked alias or workspace convenience path, not the canonical install contract. The canonical contract is installer-managed (`plugins.installs`) or installer-linked (`openclaw plugins install --link ...`).
 
 ---
 
@@ -656,3 +699,4 @@ Daily Notes: 11 (11 recent, 0 stale) | Clusters: 8 | MEMORY.md Entries: 34
 MIT
 
 **Made for OpenClaw.** Designed to be the memory backbone for workspace-wide agent coordination, research, and operational learning.
+ning.
