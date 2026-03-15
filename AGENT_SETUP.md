@@ -27,7 +27,7 @@ openclaw plugins install --link /path/to/clawtext
 Example:
 
 ```bash
-git clone https://github.com/ragesaq/clawtext.git
+git clone https://github.com/PsiClawOps/clawtext.git
 cd clawtext
 npm install
 npm run build

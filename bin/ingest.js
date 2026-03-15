@@ -88,7 +88,7 @@ EXAMPLES:
   # Show current ingestion status
   clawtext-ingest status
 
-For full documentation: https://github.com/ragesaq/clawtext-ingest
+For full documentation: https://github.com/PsiClawOps/clawtext
 `);
 }
 

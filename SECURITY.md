@@ -163,4 +163,4 @@ If you find a security issue in ClawText:
 - include reproduction steps, affected files/paths, and impact
 - prefer minimal proof-of-concept data; do not include real secrets
 
-Repository: <https://github.com/ragesaq/clawtext>
+Repository: <https://github.com/PsiClawOps/clawtext>

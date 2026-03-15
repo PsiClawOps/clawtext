@@ -2,17 +2,19 @@
 
 ## Overview
 
-ClawText Ingest (`clawtext-ingest`) is the **turbocharger** for the ClawText Holistic Memory System. It populates memory clusters from external sources.
+**ClawText v1.4.0+:** Ingest is now **bundled directly into ClawText**. No separate package to install.
 
-## How They Work Together
+The ingest system is the **turbocharger** for the ClawText Holistic Memory System. It populates memory clusters from external sources.
+
+## How It Works
 
 ```
-External Sources          Ingest                  ClawText Memory
-────────────────        ────────────              ─────────────────
-Discord channels  ──►  clawtext-ingest  ──►  Memory API / clusters
-Forum threads     ──►  (transforms)     ──►  Hot cache
-Files/URLs        ──►                  ──►  Curation pipeline
-JSON exports      ──►                  ──►  Retrieval
+External Sources          ClawText Ingest         ClawText Memory
+────────────────        ──────────────────        ─────────────────
+Discord channels  ──►  (built-in, bundled)  ──►  Memory API / clusters
+Forum threads     ──►  (transforms)         ──►  Hot cache
+Files/URLs        ──►                       ──►  Curation pipeline
+JSON exports      ──►                       ──►  Retrieval
 ```
 
 ## Ingest Sources
@@ -23,33 +25,30 @@ JSON exports      ──►                  ──►  Retrieval
 - **Repositories** — GitHub/GitLab repos
 - **JSON/Chat exports** — Chat logs, conversation dumps
 
-## Installation Together
+## Installation
 
 ```bash
-# Install ClawText through the plugin manager
+# Install ClawText through the plugin manager (includes ingest)
 openclaw plugins install @openclaw/clawtext
+
 # or for local development
 openclaw plugins install --link /path/to/clawtext
-
-# Install clawtext-ingest wherever you keep local tools/repos
-git clone https://github.com/ragesaq/clawtext-ingest.git /path/to/clawtext-ingest
-cd /path/to/clawtext-ingest && npm install
 ```
 
-If `~/.openclaw/workspace/skills/clawtext` exists, treat it as a linked alias or older workspace convenience path, not the primary installation contract.
+ClawText v1.4.0+ includes ingest functionality built-in. No separate installation steps required.
 
 ## Typical Workflow
 
 ### 1. Ingest Sources
 ```bash
 # Ingest a Discord channel
-clawtext-ingest discord --channel <channel-id> --project myproject
-
-# Ingest a forum thread
-clawtext-ingest discord --thread <thread-id> --project myproject
+node scripts/ingest-all.mjs --source discord --channel <channel-id> --project myproject
 
 # Ingest files
-clawtext-ingest files --path ./docs --project myproject
+node scripts/ingest-all.mjs --source files --path ./docs --project myproject
+
+# Ingest URLs
+node scripts/ingest-all.mjs --source urls --input https://example.com --project myproject
 ```
 
 ### 2. Memory Gets Processed
