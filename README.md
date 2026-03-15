@@ -66,6 +66,22 @@ With ClawText, agents can:
 
 This is the core memory story: not just storing more context, but making previously earned context usable again.
 
+### A quick example
+
+On Monday, an agent spends an hour debugging a workflow, discovers two dead ends, finds the real fix, and writes a useful handoff.
+
+On Tuesday, the work resumes in a different session or thread.
+
+Without ClawText, that second session often starts by rediscovering the same dead ends.
+
+With ClawText:
+- the prior decision path is retrievable
+- the failed approaches can surface as operational guidance
+- the handoff artifact preserves continuity if the work moved surfaces
+- the new session starts from the best known state instead of the blank state
+
+That is the difference ClawText is trying to create.
+
 ---
 
 ## The Layers at a Glance
@@ -368,26 +384,15 @@ No special configuration. It just integrates.
 
 ## What's Actually New in 2.0
 
-- ✅ **Stable runtime behavior** — Plugin loads cleanly, no register errors
-- ✅ **Canonical state root** — Everything lives under `state/clawtext/prod/`
-- ✅ **Working memory cycle** — Fully functioning (capture → extract → cluster → retrieve)
-- ✅ **Operational learning** — Capturing, aggregating, reviewing, promoting, retrieving
-- ✅ **Bounded continuity** — Safe context transfer with backups, estimates, manifests
-- ✅ **Documented contracts** — Memory policy, trigger contracts, integration boundaries clear
+ClawText 2.0 is the point where the system stops feeling like a loose collection of memory features and starts behaving like one coherent memory and continuity layer.
 
-**What 2.0 is NOT:**
-- A full identity platform (you manage identity in OpenClaw)
-- A complete graph database (relationships are lightweight but useful)
-- A daemon (runs as an OpenClaw plugin)
-- A multi-surface SDK (focus on OpenClaw for now)
-- A full Discord/forum execution engine
-
-**What 2.0 is:**
-- A layered memory and continuity system
-- A reliable, automatic, learnable context layer for long-running agent work
-- Practically useful for agents that need continuity, handoffs, and operational recall
-- Operationally transparent through file-based artifacts, review flows, and auditable state
-- Extensible for future surfaces (like Clawback-native apps) without claiming their execution semantics
+In 2.0, ClawText gives you:
+- ✅ **Stable runtime behavior** — Plugin loads cleanly and works as a reliable part of OpenClaw runtime
+- ✅ **Canonical state-rooted storage** — Runtime-owned mutable state lives under `state/clawtext/prod/`
+- ✅ **A complete working-memory cycle** — Capture, extraction, daily memory write, clustering, and prompt-time retrieval all operate as one loop
+- ✅ **Operational learning that compounds** — Repeated failures and successful workflows can become reusable guidance
+- ✅ **Continuity artifacts that travel well** — Handoffs, bootstrap packets, manifests, and backups preserve useful work across sessions and surfaces
+- ✅ **A clearer product identity** — ClawText now reads and behaves like a layered memory and continuity system, not just a memory helper
 
 ---
 
