@@ -90,7 +90,11 @@ node scripts/operational-cli.mjs status
 
 ## Documentation
 
-- [README.md](./README.md)
+**Getting Started:**
+- [README.md](./README.md) — Full product guide (problem, solution, three lanes, architecture, configuration, quick start)
+- [docs/START_HERE.md](./docs/START_HERE.md) — Role-based navigation (find your starting point: just running it → complete picture)
+
+**Technical Details:**
 - [SECURITY.md](./SECURITY.md)
 - [RISK.md](./RISK.md)
 - [docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md)
