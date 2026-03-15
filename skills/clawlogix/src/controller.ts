@@ -117,7 +117,7 @@ export async function runRestart(requestId: string, adapter: OpenClawAdapter) {
   await setRequestStatus(requestId, "restarting");
   const t0 = Date.now();
   await announcePreRestart(adapter, req.reason, requestId);
-  await executeRestart(adapter, req.reason, requestId);
+  await executeRestart(adapter, req.reason, requestId, req.forceUsed);
   await announceBackOnline(adapter, requestId, Date.now() - t0);
 
   await setRequestStatus(requestId, "completed");
