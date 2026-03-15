@@ -1,247 +1,222 @@
-# ClawText — Memory, Recall, and Continuity for OpenClaw
+# ClawText 2.0 — Practical Memory & Continuity for OpenClaw
 
-**Product:** ClawText | **Status:** Production-capable runtime with 2.0 claim-boundary documentation | **Repository:** https://github.com/ragesaq/clawtext
+**Version:** release-boundary v2.0 | **Status:** production-capable runtime with documented constraints | **Repo:** https://github.com/ragesaq/clawtext
 
-ClawText gives OpenClaw agents durable, file-first memory behavior with explicit operational boundaries.
-It captures context, retrieves what matters for the next prompt, and preserves continuity across threads, while avoiding the common problem of “context drift” between sessions.
+## The problem we’re solving
 
----
+OpenClaw agents can continue a conversation, but they still lose context every time a session changes scope, thread, or timeframe.
+That creates repetitive re-explanation:
+- repeated setup work
+- forgotten decisions
+- lost lessons from prior failures
+- inconsistent handoffs between workflows
 
-## The problem we solve
+ClawText solves this with **durable memory + retrieval + continuity packaging** so an agent can recover context quickly and safely without relying on one huge prompt or hidden internal state.
 
-LLM agents in real workflows do not operate in one long conversation.
-They switch tasks, threads, and sessions, then re-decide from low-fidelity context.
-The result is repeated mistakes, lost continuity, and manual re-explanation.
+## How LLM memory typically works
 
-ClawText prevents this with an explicit memory lifecycle:
+Most agents combine:
 
-- conversation is captured automatically,
-- knowledge is ingested and indexed for retrieval,
-- operational signals are reviewed and promoted,
-- continuity handoff artifacts are generated for safe transitions.
+1. **Short-context prompting** (what’s in the current message window)
+2. **Recent memory snippets** (lightweight prompt-side context)
+3. **External storage** (vectors, files, or manuals)
 
-So when context is needed, it is delivered as a curated, bounded, auditable packet rather than an unbounded blob.
+The gap is usually one of reliability: how to move from short snippets to **usable long-term memory + repeatable continuity**, with visibility and control.
 
----
+## What OpenClaw and similar systems usually provide
 
-## What is in the ClawText 2.0 scope (claim-safe)
+A lot of systems provide some version of:
 
-The repository now defines a **2.0 claim boundary** and we recommend writing public positioning strictly within it.
+- plugin hooks for prompt assembly,
+- basic note storage,
+- basic retrieval from saved logs or notes.
 
-### ✅ We can safely claim
+That is useful, but often leaves teams doing manual context reconstruction and separate engineering for:
+- structured memory recall,
+- repeatable handoff artifacts,
+- failure-learning feedback,
+- operational safety around heavy continuity runs.
+
+ClawText 2.0 adds the missing layer: **a coherent memory system, not just a memory feature.**
+
+## How ClawText extends the baseline
+
+ClawText 2.0 focuses on three things:
+
+1. **Make memory durable and usable** (`capture → extract → recall → inject`)
+2. **Make continuity portable** (handoff/full/bootstrap packets with backup + manifest)
+3. **Make improvement automatic** (capture failures → recurrence → review → promote → reuse)
+
+## Product philosophy
+
+ClawText is intentionally opinionated:
+
+- **Simple first** — keep the mental model small: files, lanes, and clear contracts.
+- **Automatic where possible** — reduce agent friction for capture/rebuild/review flows.
+- **Agent-assisted where needed** — human review for risk-sensitive promotion/decisions.
+- **CLI/control-first** — if behavior matters, it should be inspectable and configurable.
+
+## What ClawText 2.0 can safely claim
+
+The repository defines a clear claim boundary for public positioning.
+
+### ✅ We can claim
 - plugin loads and works in OpenClaw
-- automatic capture-to-memory pipeline is operating (capture → extract → daily memory/writeback)
+- capture-to-memory pipeline is operating (capture → extract → daily memory/writeback)
 - retrieval/recall pipeline is active (ranking, merge, prompt injection)
 - continuity artifact generation is reliable (`handoff`, `full continuity`, `bootstrap`, backups, manifests)
-- operational learning loop works (`capture → recurrence → review → promote → retrieve`)
+- operational learning loop works (capture → recurrence → review → promote → retrieve)
 - bounded continuity safety is enforced:
-  - preflight/estimate before runs,
-  - chunk budget checks,
-  - explicit oversized-run behavior unless override is used,
+  - preflight/estimate before runs
+  - chunk budget checks
+  - explicit oversized-run behavior unless override is used
   - backup + source snapshot persisted with each continuity transfer
 
-### ⚠️ Important limits (don’t overclaim)
+### ⚠️ Important limits (intentional)
 - Existing-thread appends work when destination thread is valid and resolvable; stale/invalid IDs may fail.
-- ClawText owns context creation and continuity packaging; it does **not** claim full ownership of all Discord transport semantics.
-- Relationship support is useful but lightweight; it is not a full graph-native retrieval engine.
-- Retrieval quality is continuously improving; it is operationally useful, not mathematically perfect.
+- ClawText owns context creation and continuity packaging, not all Discord transport semantics.
+- Relationship support is real but lightweight (not full graph-native retrieval).
+- Retrieval is operationally useful and improving; it is not mathematically perfect.
 
-For the formal boundary, see: [`docs/CLAWTEXT_2_0_SUPPORTED_BEHAVIOR_AND_LIMITATIONS.md`](./docs/CLAWTEXT_2_0_SUPPORTED_BEHAVIOR_AND_LIMITATIONS.md)
+For exact language: [`docs/CLAWTEXT_2_0_SUPPORTED_BEHAVIOR_AND_LIMITATIONS.md`](./docs/CLAWTEXT_2_0_SUPPORTED_BEHAVIOR_AND_LIMITATIONS.md)
 
----
+## High-level architecture
 
-## Product architecture (2.0 view)
+ClawText is organized as three operational lanes:
 
-ClawText is implemented as three operational lanes:
-
-| Lane | Responsibility | Why it matters |
+| Lane | What it does | Why it matters |
 |---|---|---|
-| **Working Memory** | Capture, rank, and inject relevant context into prompts | Improves continuity and response quality in active sessions |
-| **Knowledge Ingest** | Import docs/repos/Discord data and keep it searchable | Expands recall without flooding every prompt |
-| **Operational Learning** | Learn from failures, patterns, and reviewed recoveries | Improves agent reliability over time |
+| **Working memory** | Retrieve and inject relevant context at prompt time | continuity without bloating prompts |
+| **Knowledge ingest** | Import and normalize docs/repos/threads/JSON sources | broader recall with controlled quality |
+| **Operational learning** | Capture recurrent failures and promote stable guidance | fewer repeated mistakes over time |
 
 ```text
-Message stream
-  ├─> Staging / buffer
-  ├─> extraction + de-dup
-  ├─> daily memory + cluster rebuild
-  ├─> hot recall / ranked recall
-  └─> prompt injection (token budget controlled)
+Conversation / source events
+  -> capture staging
+  -> extraction + dedupe
+  -> clusters + validation
+  -> ranked recall merge
+  -> token-budgeted prompt injection
 
-Discord continuity flow
-  ├─> estimate/guardrail
-  ├─> handoff/full/bootstrap packet
-  ├─> backup + manifest
-  └─> bounded execution + visible failure behavior
+Continuity transfer
+  -> preflight estimate
+  -> handoff/full/bootstrap packet
+  -> backup + manifest
+  -> explicit bounded execution behavior
 ```
 
-The key design choice is **file-first + explicit boundaries**:
-- state is root-owned for runtime artifacts,
-- outputs are plain files for auditability,
-- critical behavior is controlled by explicit thresholds rather than hidden defaults.
+### Core technology choices
 
----
+- **File-first state and artifacts** for auditability and transportability
+- **Hybrid retrieval** (multi-source ranking and merge) with policy controls
+- **Scheduled maintenance** for rebuild/health/review workflows
+- **Operational lane feedback** for repeatable improvement
 
-## What’s changed recently
+ClawText is designed to avoid a fragile single-store model. Files and deterministic artifacts keep it easier to inspect, debug, and version.
 
-### v1.5.0 (current runtime baseline)
-- added lightweight relationship support via `memory/clusters/relationships.yaml`
-- stabilized operational review/maintenance cadence and curation workflow
-- integrated continuity safety checks for bounded handoff behavior
-- standardized release-boundary docs for what to claim vs what to defer
+## Product positioning against memory approaches
 
-### Operationally useful 2.0 workstreams
-- canonical plugin install stories (published + linked dev install)
-- explicit runtime state-root conventions
-- reliability-focused continuity pipeline (estimate first, backups, manifests)
-- documented release boundaries to keep positioning technically honest
+> Short-form benchmark: this is directional, not a universal benchmark.
 
-### In progress / post-2.0 direction
-- deeper graph-native retrieval,
-- further retrieval quality hardening,
-- ongoing public-facing docs refinement and examples.
+| Approach | Strength | Trade-off | Why ClawText differs |
+|---|---|---|---|
+| **OpenClaw default / basic note-based memory** | Simple integration and fast initial setup | weak continuity packaging and limited continuity tooling | Adds structured lanes + bounded continuity transfer + operational loop |
+| **Pure vector store RAG** | strong semantic similarity | can over-inject noise without guardrails and weak prompt governance | Adds ranking merge + prompt-safe gating + operational review controls |
+| **Agent-memory tools (single-surface)** | lightweight and portable | often isolated by surface and weak cross-workflow continuity | Focuses on OpenClaw workflows + artifact-based continuity handoff |
+| **Graph/neo4j-style memory systems** | rich entity relations | complexity, schema burden, and operational overhead | Uses lightweight relationships today with explicit roadmap for deeper graph-native behavior |
+| **Manual context workflows** | full control, human-safe | high operator overhead | balances automation with explicit review points |
 
----
+## Installation
 
-## Quickstart
+### Canonical install
 
-### 1) Install (canonical)
 ```bash
-# recommended
 openclaw plugins install @openclaw/clawtext
+```
 
-# local dev
+### Local development install
+
+```bash
 openclaw plugins install --link /path/to/clawtext
 ```
 
-`~/.openclaw/workspace/skills/clawtext` can exist as an alias/convenience path if present, but the canonical install contract is plugin-manager install/linked install.
+You may still see `~/.openclaw/workspace/skills/clawtext` as an alias/convenience path, but this is not the canonical contract.
 
-### 2) Verify runtime
+### Verify runtime
+
 ```bash
 openclaw plugins list
 openclaw hooks list
 openclaw cron list
 ```
 
-Expect `clawtext` plugin enabled and its hooks/crons visible.
+### Sanity check script set
 
-### 3) Confirm memory pipeline
 ```bash
-# manual extraction/rebuild path is implementation-specific; validate per your environment
-# (safe, idempotent commands are listed in AGENT_SETUP.md)
-
 node scripts/build-clusters.js --force
 node scripts/validate-rag.js
 node scripts/operational-cli.mjs status
 ```
 
-### 4) Configure
-Tune memory recall and gating in `~/.openclaw/openclaw.json`:
+If these commands are not available in your environment, use the companion setup playbooks below.
 
-```json
-{
-  "plugins": {
-    "entries": {
-      "clawtext": {
-        "enabled": true,
-        "memorySearch": {
-          "sync": { "onSessionStart": true },
-          "maxMemories": 5,
-          "minConfidence": 0.70
-        },
-        "clusters": {
-          "rebuildInterval": "0 2 * * *",
-          "validationThreshold": 0.70
-        }
-      }
-    }
-  }
-}
-```
+## Agent-assisted setup (recommended)
 
-Common adjustments:
-- safer defaults: lower `maxMemories` and raise `minConfidence`
-- wider recall: increase `maxMemories`, lower `minConfidence`
+For complex environments, have an agent do the setup pass with your constraints:
 
-Restart OpenClaw after config changes (`openclaw gateway restart`).
+1. install + plugin verification
+2. confirm hook/crons
+3. validate memory policy controls and retrieval behavior
+4. test continuity packet run on safe input
+5. tune defaults for your token/cost profile
 
----
+See: [`AGENT_INSTALL.md`](./AGENT_INSTALL.md), [`AGENT_SETUP.md`](./AGENT_SETUP.md)
 
-## Operational workflow (what you actually use)
+## Configuration and tuning (starting point)
 
-### Daily memory capture
-- every message event is captured to a staging buffer,
-- periodic extraction writes structured memory files,
-- cluster rebuild and quality validation run on schedule.
+Core tuning points live in your normal OpenClaw config plus ClawText runtime options.
 
-### Knowledge import
-- ingest docs/repos/Discord exports into structured source packs,
-- keep source history in versioned artifact paths.
+A common pattern:
 
-### Learning feedback loop
-- repeated operation signals are surfaced,
-- candidates are reviewed before promotion,
-- approved guidance is preserved as durable instructions.
+- `maxMemories`: reduce for concise prompts / token-critical workflows
+- `minConfidence`: raise when you want stricter recall quality
+- `clusters.rebuildInterval`: shift maintenance cadence to balance freshness vs compute
+- `retrieval` thresholds: tune for signal/noise depending on project complexity
 
-### Continuity transfers
-- ClawText ships bounded handoff/bootstrap packet generation,
-- outputs are visible artifacts (`docs/handoffs/*`, `docs/bootstrap/*`, `memory/bridge/backups/*`),
-- execution failures are explicit so agents can recover without silent loss.
+Detailed fields and safe ranges are in:
+- [`docs/MEMORY_POLICY_TRIGGER_CONTRACT.md`](./docs/MEMORY_POLICY_TRIGGER_CONTRACT.md)
+- [`docs/CLAWTEXT_2_0_SUPPORTED_BEHAVIOR_AND_LIMITATIONS.md`](./docs/CLAWTEXT_2_0_SUPPORTED_BEHAVIOR_AND_LIMITATIONS.md)
+- [`docs/INTERACTION_OPS_MEMORY_CONTRACT.md`](./docs/INTERACTION_OPS_MEMORY_CONTRACT.md)
 
----
+## Links for deeper reading
 
-## Documentation map
+- [`docs/ARCHITECTURE.md`](./docs/ARCHITECTURE.md)
+- [`docs/INGEST.md`](./docs/INGEST.md)
+- [`docs/OPERATIONAL_LEARNING.md`](./docs/OPERATIONAL_LEARNING.md)
+- [`docs/HOT_CACHE.md`](./docs/HOT_CACHE.md)
+- [`docs/PROJECT_DOCS_SCHEMA.md`](./docs/PROJECT_DOCS_SCHEMA.md)
 
-**Start here (what most people need):**
-- [`docs/CLAWTEXT_2_0_RELEASE_DEFINITION.md`](./docs/CLAWTEXT_2_0_RELEASE_DEFINITION.md) — scope/in-scope vs out-of-scope
-- [`docs/CLAWTEXT_2_0_SUPPORTED_BEHAVIOR_AND_LIMITATIONS.md`](./docs/CLAWTEXT_2_0_SUPPORTED_BEHAVIOR_AND_LIMITATIONS.md) — claim-safe release boundary
-- [`docs/ARCHITECTURE.md`](./docs/ARCHITECTURE.md) — pipeline and lane model
-- [`docs/INGEST.md`](./docs/INGEST.md) — source ingest design and behavior
-- [`docs/OPERATIONAL_LEARNING.md`](./docs/OPERATIONAL_LEARNING.md) — capture → review → promotion
-- [`docs/PROJECT_DOCS_SCHEMA.md`](./docs/PROJECT_DOCS_SCHEMA.md) — repository-first docs and release schema
+## Version history (summary)
 
-**Operational playbooks:**
-- [`AGENT_INSTALL.md`](./AGENT_INSTALL.md)
-- [`AGENT_SETUP.md`](./AGENT_SETUP.md)
-- [`SECURITY.md`](./SECURITY.md)
-- [`RISK.md`](./RISK.md)
-
----
-
-## What ClawText is and isn’t
-
-### ✅ ClawText is
-- a practical file-based memory system for multi-agent coordination
-- automatically capturing and retrieving memory at prompt time
-- auditable, explicit, and file-visible by design
-- operationally safe by default (token and confidence gates, failure visibility)
-
-### ❌ ClawText is not
-- a full hidden long-context replacement
-- a vector-db-first architecture
-- a full execution-layer authority for Discord transport quirks
-- fully autonomous code-rewrite or self-authoring infrastructure
-
----
-
-## Version history
-
-| Version | What Changed |
+| Version | What changed |
 |---|---|
-| **2.0 (release boundary)** | Added explicit claim-safe supported behavior/limitations and public 2.0 publication contract |
-| **1.5.0** | Added lightweight relationship tracking (`relationships.yaml`) and curated review cadence |
-| **1.4.0** | Integrated bundled ingest and operational learning lane |
-| **1.3.0** | Hot cache + plugin activation + policy controls |
-| 1.2.0 | Tiered memory model and cluster rebuild / validation tooling |
-| 1.1.0 | Multi-source ingest + dedup pipeline |
-| 1.0.0 | Initial memory injection + recall loop |
+| **2.0 (claim boundary)** | Release-safe 2.0 claim boundary, continuity safety claims, and public positioning alignment |
+| **1.5.0** | operational learning cadence, relationship support, continuity safety hardening |
+| 1.4.0 | integrated knowledge ingest + memory lane consolidation |
+| 1.3.0 | working-memory improvements + plugin + policy controls |
+| 1.2.0 | tiered memory model and cluster rebuild/validation |
+| 1.1.0 | multi-source ingest and dedup pipeline |
 
-> Note: `2.0` here is a published product boundary and behavior claim package; runtime package version remains `1.5.0` until release/versioning aligns.
+> Note: `2.0` here is a product boundary marker. Runtime package version is currently `1.5.0`.
 
----
+## Security and operating assumptions
+
+- file-based artifacts are preferred over hidden-only state,
+- continuity safety behavior is explicit (not silent fallback),
+- recovery should always be auditable from produced artifacts.
+
+See [`SECURITY.md`](./SECURITY.md) and [`RISK.md`](./RISK.md).
 
 ## License
 
 MIT
-
-**Made for OpenClaw.** Designed for reliable agent continuity, practical retrieval, and operational learning.

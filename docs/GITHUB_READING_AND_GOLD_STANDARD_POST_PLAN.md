@@ -113,3 +113,35 @@ Primary signals taken from these posts:
 - Use this pass output as the authoritative Gold Standard Post draft.
 - After the next functional 2.0 milestone, generate the public Discord/GitHub announcement directly from this structure.
 - Keep README as the canonical source and treat the Gold Standard Post draft as a surface-specific derivative, not the source.
+
+
+## 6) Upcoming v2.0 GitHub positioning iteration (new pass)
+
+### Objectives
+- Keep the README strictly product-page oriented (no deep implementation details).
+- Lead with problem + context model + ClawText extension.
+- Preserve 2.0 claim safety without turning the page into an engineering changelog.
+
+### Pass checklist
+1. **Narrative fit**
+   - Problem statement is under 6 sentences.
+   - LLM-memory explanation is understandable to a technical manager.
+   - OpenClaw baseline is explained in one paragraph.
+2. **Philosophy fit**
+   - Simple / automatic / agent-assisted / CLI controls appears once in a single concise block.
+3. **Feature architecture fit**
+   - Three-lane architecture is clear and non-duplicative.
+   - Technology summary highlights tradeoffs and boundaries.
+4. **Positioning fit**
+   - Comparative table is present and neutral.
+5. **Actionability fit**
+   - Installation is copy/paste and includes a separate agent-assisted path.
+   - Tuning section is concise + links to detailed knobs.
+6. **Evidence fit**
+   - All claims map to `CLAWTEXT_2_0_SUPPORTED_BEHAVIOR_AND_LIMITATIONS.md` and `CLAWTEXT_2_0_RELEASE_DEFINITION.md`.
+
+### Exit criteria
+- No reader should need command snippets before deciding whether ClawText solves their continuity problem.
+- Claims remain consistent with v2.0 boundary docs.
+- Supplementary docs links are all valid and intentional.
+- Readme is suitable for both GitHub and downstream Gold Standard Post adaptation.
