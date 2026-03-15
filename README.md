@@ -1,32 +1,47 @@
-# ClawText — Agent Memory That Actually Works
+# ClawText — Layered Memory and Continuity for OpenClaw Agents
 
 **Version:** 2.0.0 | **Status:** Stable | **Type:** OpenClaw Plugin
 
-> Durable memory, intelligent retrieval, and operational learning for long-running agents. Automatically capture context, inject it when needed, and learn from repeated patterns. No manual prompting. No dead sessions.
+> Durable memory, continuity, and operational learning for long-running agents. ClawText captures durable context, retrieves relevant knowledge at the right time, preserves structured handoffs, and helps agents improve through repeated workflow outcomes.
 
 ---
 
-## The Problem That Started Everything
+## The Problem: Context Fragmentation
 
-You're running an agent through a complex task. It makes decisions, hits edge cases, discovers patterns. Days later, the session changes context—different thread, fresh channel, new conversation. 
+Long-running agent work does not usually fail because the model is incapable. It fails because the context gets fragmented.
 
-The agent forgets **everything**.
+Decisions end up scattered across:
+- prior sessions and threads
+- docs and READMEs
+- repos and working notes
+- operational failures and workarounds
+- handoff artifacts and recovery documents
 
-It doesn't just forget facts. It forgets:
-- Decisions you already made (asks again)
-- Lessons from failures (makes the same mistakes)
-- Patterns from successful workflows (can't repeat them)
-- Continuity (has to re-explain everything from scratch)
+When that happens, agents do not just forget facts. They also lose:
+- decisions that were already made
+- lessons from repeated failures
+- successful workflow patterns
+- continuity when work moves between sessions, threads, or recovery surfaces
 
-Every context switch feels like the first day again.
+Every context switch starts to feel like day one again.
 
-**ClawText solves this.** It preserves working context, learns from experience, and injects both automatically—so agents pick up where they left off, not from the beginning.
+**ClawText solves this by turning fragmented context into something durable, retrievable, and usable.** The goal is not just memory search. The goal is letting agents continue with relevant context already in place.
 
 ---
 
 ## What Is ClawText?
 
-ClawText is a **layered memory system** for OpenClaw agents. Think of it as three parallel tracks, each solving a different memory problem:
+ClawText is a **layered memory and continuity system** for OpenClaw agents.
+
+It combines three practical layers of context:
+
+| Layer | What It Holds | Why It Matters |
+|------|----------------|----------------|
+| **L1 — Hot Context** | Prompt-time working memory for the current task | Keeps active prompts focused and helps agents continue instead of restarting from zero |
+| **L2 — Durable Memory** | Clustered/searchable memory, ingested knowledge, and operational patterns | Makes prior decisions, docs, failures, and successful workflows retrievable later |
+| **L3 — Continuity Artifacts** | Handoffs, bootstrap packets, manifests, backups, and document/file outputs | Preserves structured continuity across sessions, threads, and recovery workflows |
+
+Those layers are implemented through three core product lanes:
 
 | Lane | What It Does | Result |
 |------|-------------|--------|
@@ -34,7 +49,7 @@ ClawText is a **layered memory system** for OpenClaw agents. Think of it as thre
 | **Knowledge Ingest** | Normalize, deduplicate, and index docs/repos/threads/JSON sources | Broader context recall without bloat |
 | **Operational Learning** | Capture failures and promote stable guidance | Fewer repeated mistakes; growing agent wisdom |
 
-All three run **automatically**. No configuration needed to get started. ClawText learns your agent's patterns and adapts.
+The result is a system that is bigger than simple memory lookup but still practical, reviewable, and bounded.
 
 ---
 
@@ -325,12 +340,14 @@ No special configuration. It just integrates.
 - A complete graph database (relationships are lightweight but useful)
 - A daemon (runs as an OpenClaw plugin)
 - A multi-surface SDK (focus on OpenClaw for now)
+- A full Discord/forum execution engine
 
 **What 2.0 is:**
-- A reliable, automatic, learnable memory system
-- Practically useful for agents that need continuity
-- Operationally transparent (reviewable and auditable)
-- Extensible for future surfaces (like Clawback-native apps)
+- A layered memory and continuity system
+- A reliable, automatic, learnable context layer for long-running agent work
+- Practically useful for agents that need continuity, handoffs, and operational recall
+- Operationally transparent through file-based artifacts, review flows, and auditable state
+- Extensible for future surfaces (like Clawback-native apps) without claiming their execution semantics
 
 ---
 
@@ -363,21 +380,29 @@ If any of these aren't happening, something's misconfigured. See `TROUBLESHOOTIN
 
 ## Why This Exists
 
-Most agents treat each session independently. They're like someone with amnesia—capable but repeatedly re-discovering the same things. 
+Most agents do not fail because they lack capability. They fail because the work around them becomes fragmented.
 
-ClawText changes that. It gives agents continuity across sessions, lets them learn from failures, and surfaces organizational knowledge automatically. The result is agents that get progressively better at their job instead of resetting every context switch.
+Prior decisions live in one thread, docs live in another folder, operational lessons disappear into logs, and continuity breaks the moment work moves to a new session or recovery surface.
 
-It's the difference between "my agent keeps asking the same questions" and "my agent learns from experience."
+ClawText exists to make that context durable enough to keep using. It helps agents retrieve relevant prior work, preserve structured handoffs, and learn from repeated workflow outcomes instead of rediscovering the same lessons over and over.
+
+It's the difference between "my agent keeps asking the same questions" and "my agent can continue with context already in place."
 
 ---
 
 ## Summary
 
-ClawText is a **layered memory system** (working memory → knowledge ingest → operational learning) that runs **automatically** in OpenClaw.
+ClawText is a **layered memory and continuity system** that runs automatically inside OpenClaw.
 
-Install it once. It injects context, captures patterns, learns from failures, and surfaces relevant knowledge—all without configuration.
+It combines:
+- prompt-time working memory
+- durable searchable memory and ingested knowledge
+- operational learning from repeated failures and successful workflows
+- continuity artifacts for handoffs, bootstrap packets, manifests, and recovery
 
-**For agents that need to remember. For teams that want continuity.**
+Install it once. It captures context, retrieves relevant knowledge, preserves continuity, and helps agents improve over time.
+
+**For agents that need to remember. For teams that need continuity.**
 
 **Install:** `openclaw plugins install @openclaw/clawtext`  
 **Start:** `AGENT_INSTALL.md`  
