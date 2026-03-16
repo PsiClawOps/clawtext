@@ -2,7 +2,7 @@
 
 ## Goal
 
-Give ClawText, Ingest, Recall, and Curation a common contract for memory-like records.
+Give ClawText, Ingest, Recall, and Curation a common spec for memory-like records.
 
 This schema is intentionally small enough to be practical and broad enough to support:
 - capture

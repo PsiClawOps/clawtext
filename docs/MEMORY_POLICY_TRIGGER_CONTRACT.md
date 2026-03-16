@@ -1,6 +1,6 @@
 # ClawText Memory Policy & Trigger Contract
 
-**Status:** Active design contract  
+**Status:** Active behavior policy  
 **Intent:** Keep ClawText strongly automatic without turning it into uncontrolled memory spam.
 
 ---
@@ -15,7 +15,7 @@ ClawText should behave with this default posture:
 - **Promote selectively**
 - **Ask only when judgment or boundary-setting is needed**
 
-This is the operating contract for ClawText as a memory system.
+This is the operating policy for ClawText as a memory system.
 
 The point is not to make the user micromanage memory. The point is to make memory reliable, low-friction, and increasingly useful over time.
 
@@ -53,7 +53,7 @@ If neither yields enough context, fall back to daily extracted material.
 
 ---
 
-## Automatic capture contract
+## Automatic capture policy
 
 ClawText should automatically capture durable memory candidates when the user states any of the following:
 
@@ -86,7 +86,7 @@ Promotion is selective and reviewed.
 
 ---
 
-## Automatic retrieval contract
+## Automatic retrieval policy
 
 ClawText should automatically retrieve memory when the task indicates memory would materially help.
 
@@ -121,7 +121,7 @@ ClawText should automatically retrieve memory when the task indicates memory wou
 
 ---
 
-## Review and promotion contract
+## Review and promotion policy
 
 The system should remain automatic, but not reckless.
 
@@ -217,20 +217,20 @@ To preserve trust and signal quality, automatic behavior must respect these rule
 
 For interaction-surface execution events (Discord ops, future Clawback-native app ops, etc.), see [`INTERACTION_OPS_MEMORY_CONTRACT.md`](./INTERACTION_OPS_MEMORY_CONTRACT.md). That document defines how ClawText should observe and route external operation manifests without owning execution itself.
 
-This contract maps cleanly to the current architecture:
+This policy maps cleanly to the current architecture:
 
 - **Working lane** handles broad automatic capture and extraction source material
 - **Knowledge / cluster lane** handles durable context retrieval
 - **Operational lane** handles self-improvement, failure memory, and workflow patterns
 - **Curation / promotion** turns noisy capture into reviewed durable guidance
 
-The contract does not replace the architecture. It explains how the architecture should behave.
+The policy does not replace the architecture. It explains how the architecture should behave.
 
 ---
 
 ## Non-goals
 
-This contract does **not** mean:
+This policy does **not** mean:
 - every message becomes durable memory
 - every retrieval lane is queried every time
 - the system promotes without review
@@ -244,7 +244,7 @@ The goal is **automatic, bounded, high-signal memory behavior**.
 
 ## Practical summary
 
-If ClawText follows this contract, the expected user experience is:
+If ClawText follows this policy, the expected user experience is:
 
 - I do **not** have to keep telling it the same things
 - it remembers my durable preferences and decisions automatically

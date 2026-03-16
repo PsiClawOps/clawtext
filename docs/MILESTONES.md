@@ -116,7 +116,7 @@ ClawText now integrates cleanly into OpenClaw as a plugin with explicit contract
 
 ### Proof & Evidence
 
-- **Plugin contract** → `openclaw.plugin.json` (plugin manifest), `plugin.js` (hook registration)
+- **Plugin spec** → `openclaw.plugin.json` (plugin manifest), `plugin.js` (hook registration)
 - **Manifest contracts** → `docs/INTERACTION_OPS_MEMORY_CONTRACT.md` defines how ops layers produce/consume
 - **State-root clarity** → `docs/STATE_ROOTS.md` defines canonical storage paths
 - **Clean separation** → ClawText doesn't execute; it provides context. Execution stays external.
@@ -124,7 +124,7 @@ ClawText now integrates cleanly into OpenClaw as a plugin with explicit contract
 
 ### Artifacts
 
-- `openclaw.plugin.json` — plugin metadata and install contract
+- `openclaw.plugin.json` — plugin metadata and install spec
 - `plugin.js` — prompt hook and memory injection
 - `docs/INTERACTION_OPS_MEMORY_CONTRACT.md` — integration spec for ops layers
 - `docs/STATE_ROOTS.md` — canonical state path documentation

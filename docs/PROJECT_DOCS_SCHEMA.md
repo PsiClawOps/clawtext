@@ -203,7 +203,7 @@ Each doc should be classifiable into one of these classes.
 - `setup`
 - `architecture`
 - `operations`
-- `contract`
+- `spec`
 - `release`
 - `gap-analysis`
 - `archive`
@@ -219,8 +219,8 @@ If a project wants structured metadata in docs, use lightweight frontmatter like
 ```yaml
 ---
 project: clawtext
-doc_class: contract
-title: Interaction Ops Memory Contract
+doc_class: spec
+title: Interaction Ops Memory Spec
 status: active
 canonical_source: repo
 source_repo: PsiClawOps/clawtext
@@ -373,7 +373,7 @@ This schema is working when:
 
 1. a GitHub-backed project can stand alone using only its repo docs
 2. the same project can be mirrored into ClawDash without rewriting its whole docs strategy
-3. agents can predict where to find overview / ops / release / contract docs across projects
+3. agents can predict where to find overview / ops / release / spec docs across projects
 4. projects are treated consistently in the centralized docs surface
 5. modularity is preserved — ClawDash is compatible, not required
 

@@ -60,7 +60,7 @@ ClawText is considered finish-ready when all of the following are true:
 **Goal:** prove continuity artifacts are not only generated, but usable end-to-end.
 
 **Work includes:**
-- define the artifact consumption contract clearly
+- define the artifact consumption spec clearly
 - run one end-to-end continuity handoff/consumption test
 - document failure behavior for invalid or stale targets
 

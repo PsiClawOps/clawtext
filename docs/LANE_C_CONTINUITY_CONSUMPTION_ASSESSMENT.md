@@ -77,7 +77,7 @@ There is clearer support for:
 - failing visibly on bad targets
 - bounded continuity transport behavior
 
-than for a fully standardized downstream artifact-consumption contract across every surface.
+than for a fully standardized downstream artifact-consumption spec across every surface.
 
 ## Assessment
 ### What appears safe to say now
@@ -96,7 +96,7 @@ Treat Lane C as **partially advanced**.
 ### Completed in this pass
 - confirmed that continuity is more than just a conceptual promise; generation and bounded transport are strong
 - confirmed an actual ingest-based consumption path exists
-- narrowed the remaining gap to explicit end-to-end continuation proof and clearer downstream-consumption contract language
+- narrowed the remaining gap to explicit end-to-end continuation proof and clearer downstream-consumption spec language
 
 ### Needed to close Lane C
 One or more of the following:

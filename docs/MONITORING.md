@@ -147,7 +147,7 @@ node scripts/operational-cli.mjs status
 node scripts/operational-cli.mjs report
 ```
 
-If your local setup exposes `~/.openclaw/workspace/skills/clawtext`, treat that as a linked alias/convenience path, not the canonical install contract.
+If your local setup exposes `~/.openclaw/workspace/skills/clawtext`, treat that as a linked alias/convenience path, not the canonical install path.
 
 ## Tuning Guide
 

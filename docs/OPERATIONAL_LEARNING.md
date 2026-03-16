@@ -36,7 +36,7 @@ The operational learning lane is no longer just a design draft. Current implemen
 - **backend/admin only**: raw CLI plumbing
 
 See also:
-- [`MEMORY_POLICY_TRIGGER_CONTRACT.md`](./MEMORY_POLICY_TRIGGER_CONTRACT.md) for the higher-level automatic memory contract that governs when ClawText should capture, retrieve, review, promote, or ask.
+- [`MEMORY_POLICY_TRIGGER_CONTRACT.md`](./MEMORY_POLICY_TRIGGER_CONTRACT.md) for the higher-level automatic memory policy that governs when ClawText should capture, retrieve, review, promote, or ask.
 - [`INTERACTION_OPS_MEMORY_CONTRACT.md`](./INTERACTION_OPS_MEMORY_CONTRACT.md) for how external interaction-surface operations should feed ClawText's operational and continuity lanes.
 
 ### Activation / verification
@@ -44,7 +44,7 @@ This lane depends on ClawText being loaded through the canonical install flows:
 - published install: `openclaw plugins install @openclaw/clawtext`
 - local dev install: `openclaw plugins install --link /path/to/clawtext`
 
-If `~/.openclaw/workspace/skills/clawtext` exists, treat it as a linked alias or workspace convenience path, not the canonical install contract.
+If `~/.openclaw/workspace/skills/clawtext` exists, treat it as a linked alias or workspace convenience path, not the canonical install path.
 
 Pipeline automation (v1.4.1+):
 - **Extraction cron** (every 20 min) — `scripts/extract-buffer.mjs`

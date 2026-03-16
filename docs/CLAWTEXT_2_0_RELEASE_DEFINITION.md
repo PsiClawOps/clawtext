@@ -43,13 +43,13 @@ The goal is to ship a practical, automatic, reviewable system for:
 - performs memory injection without runtime registration errors
 - has a coherent install story for published install and local linked development
 
-### 2. Canonical installation contract
+### 2. Canonical installation spec
 
 2.0 includes a clear installation story:
 - published/user install: `openclaw plugins install @openclaw/clawtext`
 - local dev install: `openclaw plugins install --link /path/to/clawtext`
 
-`~/.openclaw/workspace/skills/clawtext` may exist as a linked alias or convenience path, but it is not the canonical install contract.
+`~/.openclaw/workspace/skills/clawtext` may exist as a linked alias or convenience path, but it is not the canonical install path.
 
 ### 3. Canonical state-rooted storage
 
@@ -85,16 +85,16 @@ The memory cycle does not need to be perfect, but it must be working, testable, 
 
 This includes visibility for both reviewed and promoted operational patterns.
 
-### 6. Memory policy / trigger contract
+### 6. Memory policy / trigger spec
 
-2.0 includes a documented behavioral contract for:
+2.0 includes a documented behavior policy for:
 - what gets captured automatically
 - what gets retrieved automatically
 - what is reviewed
 - what gets promoted
 - when the system asks for user judgment
 
-This is represented by the memory policy and trigger contract.
+This is represented by the memory policy and trigger spec.
 
 ### 7. Extensible interaction-ops memory integration
 
@@ -149,7 +149,7 @@ Lightweight/manual relationship support is acceptable in 2.0, provided we do not
 2.0 does not require ClawText to solve all Discord execution quirks.
 
 Interaction execution should be handled by the dedicated ops layer.
-ClawText only needs a clean memory-side integration contract and safe bounded behavior where continuity tooling is involved.
+ClawText only needs a clean memory-side integration spec and safe bounded behavior where continuity tooling is involved.
 
 ### 5. Marketing-perfect GitHub/docs copy
 
@@ -227,8 +227,8 @@ Before calling ClawText 2.0 ready, these should be true.
 
 ### Gate E — Documentation integrity
 - install story is consistent
-- memory policy/trigger contract exists
-- interaction-ops memory contract exists
+- memory policy/trigger spec exists
+- interaction-ops memory spec exists
 - state-root story is coherent enough for operators
 
 ---

@@ -1,6 +1,6 @@
 # ClawText Interaction Ops Memory Contract
 
-**Status:** Active integration contract  
+**Status:** Active integration spec  
 **Purpose:** Define how ClawText should observe, classify, and ingest operation events from interaction surfaces without owning execution semantics.
 
 ---
@@ -34,13 +34,13 @@ ClawText's role is to:
 
 This contract is intentionally **surface-agnostic**.
 
-Discord is the first major implementation surface, but the contract must also work for:
+Discord is the first major implementation surface, but the spec must also work for:
 - Clawback-native app surfaces
 - future web UI operations
 - CLI-driven interaction movement
 - other forum/thread/task-like environments later
 
-The contract should therefore be expressed in **normalized interaction-op manifests**, not Discord-only terms.
+The spec should therefore be expressed in **normalized interaction-op manifests**, not Discord-only terms.
 
 ---
 
@@ -205,7 +205,7 @@ A manifest may include a namespaced surface-specific section.
 }
 ```
 
-ClawText should preserve these details for audit/debugging, but the normalized fields remain the primary routing contract.
+ClawText should preserve these details for audit/debugging, but the normalized fields remain the primary routing spec.
 
 ---
 
@@ -387,7 +387,7 @@ if manifest.artifacts.backup exists:
 
 ## Extensibility requirements
 
-This contract must remain extensible for the planned Clawback-native app surface.
+This spec must remain extensible for the planned Clawback-native app surface.
 
 ### Therefore:
 - no Discord-specific top-level required fields
@@ -396,13 +396,13 @@ This contract must remain extensible for the planned Clawback-native app surface
 - no assumption that linkback always means a Discord reply
 - no assumption that backup is always JSON
 
-The normalized contract should survive new surfaces without redesign.
+The normalized spec should survive new surfaces without redesign.
 
 ---
 
 ## Acceptance criteria
 
-This contract is successful when ClawText can do all of the following regardless of the execution surface:
+This spec is successful when ClawText can do all of the following regardless of the execution surface:
 
 1. learn from repeated success/failure patterns
 2. ingest continuity outputs into searchable memory

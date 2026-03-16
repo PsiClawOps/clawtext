@@ -100,7 +100,7 @@ Every context switch feels like day one.
 **What this locks:**
 - ClawText consumes normalized manifests from external ops layers
 - ClawText does not become the execution engine
-- Future surfaces (Clawback apps, webhooks, etc.) can integrate via the memory contract, not by rewriting ClawText
+- Future surfaces (Clawback apps, webhooks, etc.) can integrate via the memory interface, not by rewriting ClawText
 
 **Boundary:** Do not absorb interaction-execution responsibility.
 
@@ -359,7 +359,7 @@ That is the Northstar.
 
 **Mitigation:**
 - Decision rule: "Does this require ClawText to execute?" → if yes, it's post-2.0
-- Integration contract boundary is sacred; do not absorb execution
+- Integration boundary is sacred; do not absorb execution
 - Reject PRs that attempt to solve adjacent problems
 
 **Owner:** Project lead (approve/reject scope decisions)

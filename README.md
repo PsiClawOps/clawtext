@@ -86,7 +86,7 @@ The `MEMORY.md` workflow still works. ClawText builds on top of it — without r
 
 Agent memory systems tend to fail in one of two ways: they either require constant manual effort to stay useful, or they operate as black boxes that silently change state in ways the operator can't see or control. ClawText is designed to avoid both. High-frequency, low-risk operations — capture, indexing, retrieval — run automatically so the system improves without friction. Anything that changes permanent state — promotions, curation decisions, what gets ingested — involves the agent and requires human approval. Everything is visible and reversible via CLI. This balance is what makes the system trustworthy enough to leave running.
 
-Every ClawText behavior falls into one of three operating modes. This isn't convention — it's the design contract that governs every feature decision:
+Every ClawText behavior falls into one of three operating modes. This isn't convention — it's the design protocol that governs every feature decision:
 
 | Behavior | Mode | What runs | What it means in practice |
 |---|---|---|---|

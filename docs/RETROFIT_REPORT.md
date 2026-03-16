@@ -254,7 +254,7 @@ The existing codebase, release definition, and README align strongly with a stra
 
 ### Ambiguity 2: "Continuity Artifact Consumption"
 
-**Question:** How exactly does an agent consume and use a continuity artifact? What is the contract?
+**Question:** How exactly does an agent consume and use a continuity artifact? What is the spec?
 
 **Current State:** Bridge generates artifacts; integration spec says ops layers consume them; but exact format/parsing is not documented
 

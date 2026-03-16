@@ -31,7 +31,7 @@ Heartbeat timing may be adjusted at the project, lane, or run level.
 - changes to ClawText strategic identity or product boundaries
 - retrieval semantics that materially affect correctness or trust
 - multi-agent isolation uncertainty
-- continuity artifact contract changes
+- continuity artifact spec changes
 - architecture forks or major release-definition shifts
 - blocked dependency or failing validation that prevents milestone progress
 
