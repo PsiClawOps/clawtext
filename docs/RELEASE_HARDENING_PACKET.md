@@ -36,6 +36,10 @@ ClawText is considered finish-ready when all of the following are true:
 - validation run or test proving promoted patterns surface in retrieval
 - milestone note confirming actual supported behavior
 
+**Current assessment:**
+- source path appears to support both reviewed and promoted retrieval
+- a real fixture/live proof artifact is still required to close the lane
+
 ### Lane B — Multi-agent isolation and boundary trust
 **Goal:** prove private/shared memory behavior does not leak across agents incorrectly.
 

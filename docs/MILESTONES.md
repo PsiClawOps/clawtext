@@ -451,3 +451,10 @@ See detailed finish plan: `docs/RELEASE_HARDENING_PACKET.md`
 ### Lane D progress note
 - version semantics now documented explicitly across README, POST_BRIEF, and release-definition docs
 - remaining decision: whether to keep dual-version framing temporarily or bump package version to match product release before external push
+
+
+### Lane A progress note
+- source-level inspection indicates reviewed and promoted operational patterns are both part of the intended retrieval path
+- promoted patterns appear to receive stronger ranking than reviewed patterns
+- remaining blocker: no fixture/live promoted patterns were present during this pass, so end-to-end proof remains outstanding
+- evidence note: `docs/LANE_A_RETRIEVAL_CORRECTNESS_ASSESSMENT.md`

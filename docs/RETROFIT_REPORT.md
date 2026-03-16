@@ -495,3 +495,15 @@ The repo now treats version framing explicitly:
 - `@openclaw/clawtext` **1.5.0** remains the current package version
 
 This is acceptable for now only if README, POST_BRIEF, and release docs all preserve that distinction honestly.
+
+## Lane A — Retrieval correctness update
+
+Source inspection now suggests that reviewed **and** promoted operational patterns are intended to be retrievable:
+- retrieval path includes both statuses
+- promoted patterns receive a stronger ranking bonus than reviewed patterns
+- health reporting treats reviewed + promoted as the retrievable set
+
+Current blocker:
+- no reviewed/promoted operational fixtures or live entries were present in repo state during this pass, so end-to-end retrieval proof is still missing
+
+See: `docs/LANE_A_RETRIEVAL_CORRECTNESS_ASSESSMENT.md`
