@@ -487,3 +487,11 @@ These gaps matter because ClawText is no longer just being described for release
 - route remaining v2.0 hardening through milestones + Flight Control
 - use PRD as the executable definition for release hardening and finish work
 - add enforcement so future release claims stay aligned with supported behavior and evidence
+
+## Lane D — Release truth alignment update
+
+The repo now treats version framing explicitly:
+- ClawText **2.0** refers to the product/release boundary
+- `@openclaw/clawtext` **1.5.0** remains the current package version
+
+This is acceptable for now only if README, POST_BRIEF, and release docs all preserve that distinction honestly.

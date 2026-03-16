@@ -446,3 +446,8 @@ These deliver value but are not required for 2.0:
 - align package/release/public-story versioning clearly
 
 See detailed finish plan: `docs/RELEASE_HARDENING_PACKET.md`
+
+
+### Lane D progress note
+- version semantics now documented explicitly across README, POST_BRIEF, and release-definition docs
+- remaining decision: whether to keep dual-version framing temporarily or bump package version to match product release before external push

@@ -1,8 +1,19 @@
 # ClawText — Layered Memory and Continuity for OpenClaw Agents
 
-**Version:** 2.0.0 | **Status:** Stable | **Type:** OpenClaw Plugin
+**Product Release:** 2.0 | **Package Version:** 1.5.0 | **Status:** Stable | **Type:** OpenClaw Plugin
 
 > Durable memory, continuity, and operational learning for long-running agents. ClawText captures durable context, retrieves relevant knowledge at the right time, preserves structured handoffs, and helps agents improve through repeated workflow outcomes.
+
+---
+
+## Version Semantics
+
+ClawText currently uses two version frames intentionally:
+- **Product release:** ClawText **2.0** — the lifecycle/release boundary for the coherent layered memory system
+- **Package version:** `@openclaw/clawtext` **1.5.0** — the npm/package version currently published in `package.json`
+
+Until the package version is bumped, public and internal docs should avoid implying that the npm package itself is already tagged `2.0.0`.
+The honest framing is: **ClawText 2.0 product release, currently packaged as version 1.5.0.**
 
 ---
 
@@ -258,6 +269,9 @@ Canonical lifecycle docs:
 
 Supporting control docs:
 - `docs/ENFORCEMENT.md`
+- `docs/CHANGE_ROUTING.md`
+- `docs/RETROFIT_REPORT.md`
+- `docs/RELEASE_HARDENING_PACKET.md`
 - `docs/CHANGE_ROUTING.md`
 - `docs/RETROFIT_REPORT.md`
 

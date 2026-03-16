@@ -1,10 +1,18 @@
 # ClawText 2.0 — Publication Brief
 
 **Audience:** GitHub, Discord ai-projects channel, public positioning  
-**Source of Truth:** `docs/NORTHSTAR.md` and `docs/MILESTONES.md`  
+**Source of Truth:** `docs/NORTHSTAR.md`, `docs/PRD.md`, and `docs/MILESTONES.md`  
 **Date:** 2026-03-16 | **Status:** Ready for publication
 
 ---
+
+## Version and release framing
+
+Use this wording consistently in outward-facing material unless package version changes:
+- **Product release framing:** ClawText 2.0
+- **Package/install version framing:** `@openclaw/clawtext` 1.5.0
+
+Do not imply that the published package is already tagged `2.0.0` unless `package.json` is updated to match.
 
 ## Opening Hook (One-Liner)
 
@@ -250,6 +258,10 @@ Your team runs agents for weeks. Repeated failures surface ("never use approach 
 - **Deep dives:** `INGEST.md`, `OPERATIONAL_LEARNING.md`, `HOT_CACHE.md`
 
 ---
+
+## Release truth note
+
+Current package metadata still reports `1.5.0`. Public copy should present this honestly as a **2.0 product/release boundary** carried by the current package version until the package version is updated.
 
 ## Launch Messaging
 

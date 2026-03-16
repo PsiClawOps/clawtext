@@ -5,6 +5,15 @@
 
 ---
 
+## Version semantics
+
+For release-truth purposes, distinguish between:
+- **Product/release boundary:** ClawText 2.0
+- **Current package version:** `@openclaw/clawtext` 1.5.0
+
+This is acceptable temporarily if docs are explicit and do not misrepresent the package tag.
+If the team wants a single-version story, bump the package version to match before external publication.
+
 ## Release intent
 
 ClawText 2.0 is the point where ClawText becomes a coherent, trustworthy memory system rather than a collection of promising memory features.
