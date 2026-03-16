@@ -175,7 +175,7 @@ Paste this into your agent:
 
 ```
 Install and configure the ClawText plugin for OpenClaw.
-Run: openclaw plugins install @psiclawops/clawtext
+Run: openclaw plugins install github:PsiClawOps/clawtext
 Then verify: openclaw plugins list, openclaw hooks list, openclaw cron list
 Confirm the extraction cron and before_prompt_build hook are both active.
 If anything is missing, fix it before reporting done.
@@ -185,7 +185,7 @@ If anything is missing, fix it before reporting done.
 
 ```bash
 # Install
-openclaw plugins install @psiclawops/clawtext
+openclaw plugins install github:PsiClawOps/clawtext
 
 # Verify
 openclaw plugins list
@@ -194,7 +194,7 @@ openclaw cron list
 ```
 
 Expected output:
-- `@psiclawops/clawtext` in plugins list
+- `clawtext` in plugins list
 - `before_prompt_build` hook registered
 - extraction cron active (every 20 minutes)
 - cluster rebuild cron active (nightly 2am UTC)
