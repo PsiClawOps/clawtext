@@ -264,10 +264,11 @@ All features should reinforce this moment:
 
 These are valuable but not required for 2.0:
 
-- **Phase 3: Deeper relationship retrieval** — Graph-native traversal, entity linking in prompts
-- **Phase 4: Identity platform extensions** — Agent personas, preference learning, identity continuity
-- **Phase 5: Multi-surface scaling** — Clawback-native app surfaces, webhook adapters, broader platform integration
-- **Phase 6: Advanced learning** — ML-based pattern detection, automatic safety classification, risk-aware promotion
+- **Phase 3: Documentation/Library Lane** — Structured project knowledge storage (repo state, architecture decisions, team docs). Cross-agent knowledge sharing without re-explanation.
+- **Phase 4: Deeper relationship retrieval** — Graph-native traversal, entity linking in prompts
+- **Phase 5: Identity platform extensions** — Agent personas, preference learning, identity continuity
+- **Phase 6: Multi-surface scaling** — Clawback-native app surfaces, webhook adapters, broader platform integration
+- **Phase 7: Advanced learning** — ML-based pattern detection, automatic safety classification, risk-aware promotion
 
 ---
 

@@ -386,7 +386,15 @@ These deliver value but are not required for 2.0:
 - Permission controls
 - Audit logging for compliance
 
-### P6 (Low): ML-Based Learning
+### P6 (High): Documentation/Library Lane
+- Structured, long-lived project knowledge storage
+- GitHub repo state, architecture decisions, team docs snapshots
+- Queryable project knowledge (separate from operational learning)
+- Cross-agent knowledge sharing
+- Ingest-backed canonical library with explicit curation
+- Use case: agents reference current project status without re-explanation
+
+### P7 (Low): ML-Based Learning
 - Automatic pattern classification
 - Risk-aware promotion
 - Anomaly detection
