@@ -9,7 +9,7 @@
 
 For release-truth purposes, distinguish between:
 - **Product/release boundary:** ClawText 2.0
-- **Current package version:** `@openclaw/clawtext` 1.5.0
+- **Current package version:** `github:PsiClawOps/clawtext` 1.5.0
 
 This is acceptable temporarily if docs are explicit and do not misrepresent the package tag.
 If the team wants a single-version story, bump the package version to match before external publication.
@@ -46,7 +46,7 @@ The goal is to ship a practical, automatic, reviewable system for:
 ### 2. Canonical installation spec
 
 2.0 includes a clear installation story:
-- published/user install: `openclaw plugins install @openclaw/clawtext`
+- published/user install: `openclaw plugins install github:PsiClawOps/clawtext`
 - local dev install: `openclaw plugins install --link /path/to/clawtext`
 
 `~/.openclaw/workspace/skills/clawtext` may exist as a linked alias or convenience path, but it is not the canonical install path.

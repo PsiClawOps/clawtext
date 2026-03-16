@@ -2,7 +2,7 @@
 
 - **Date:** 2026-03-16
 - **Decision:** Document dual-version semantics explicitly during ClawText release hardening
-- **Context:** ClawText public/product framing uses a 2.0 release boundary, while `package.json` still reports `@openclaw/clawtext` version `1.5.0`. Without explicit wording, README and publication material can drift into overstating the published package state.
+- **Context:** ClawText public/product framing uses a 2.0 release boundary, while `package.json` still reports `github:PsiClawOps/clawtext` version `1.5.0`. Without explicit wording, README and publication material can drift into overstating the published package state.
 - **Why this choice:**
   - release truth should be cleaned up before deeper validation and final publication work
   - honest version semantics are better than silent inconsistency

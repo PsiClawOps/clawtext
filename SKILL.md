@@ -35,7 +35,7 @@ Canonical install flows:
 ### Published / user install
 
 ```bash
-openclaw plugins install @openclaw/clawtext
+openclaw plugins install github:PsiClawOps/clawtext
 ```
 
 ### Local development install

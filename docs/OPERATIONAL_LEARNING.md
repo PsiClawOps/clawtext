@@ -41,7 +41,7 @@ See also:
 
 ### Activation / verification
 This lane depends on ClawText being loaded through the canonical install flows:
-- published install: `openclaw plugins install @openclaw/clawtext`
+- published install: `openclaw plugins install github:PsiClawOps/clawtext`
 - local dev install: `openclaw plugins install --link /path/to/clawtext`
 
 If `~/.openclaw/workspace/skills/clawtext` exists, treat it as a linked alias or workspace convenience path, not the canonical install path.

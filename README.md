@@ -4,10 +4,10 @@
 
 ---
 
-[![npm](https://img.shields.io/npm/v/@openclaw/clawtext?label=%40openclaw%2Fclawtext&color=blue)](https://www.npmjs.com/package/@openclaw/clawtext)
-[![version](https://img.shields.io/badge/version-1.5.0-informational)](#install)
+[![npm](https://img.shields.io/badge/version-0.2.0-informational)](#install)
+[![version](https://img.shields.io/badge/version-0.2.0-informational)](#install)
 [![OpenClaw Plugin](https://img.shields.io/badge/openclaw-plugin-blueviolet)](#install)
-[![Lanes](https://img.shields.io/badge/lanes-4-green)](#architecture--capabilities)
+[![Lanes](https://img.shields.io/badge/lanes-3-green)](#architecture--capabilities)
 [![Status](https://img.shields.io/badge/status-production-brightgreen)](#)
 
 🧠 **Working memory** &nbsp;·&nbsp; 📦 **Durable artifacts** &nbsp;·&nbsp; 🔁 **Continuity across sessions** &nbsp;·&nbsp; ⚙️ **Operational learning** &nbsp;·&nbsp; 🌉 **ClawBridge transfer** &nbsp;·&nbsp; 🔍 **Hybrid retrieval**

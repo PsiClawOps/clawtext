@@ -492,7 +492,7 @@ These gaps matter because ClawText is no longer just being described for release
 
 The repo now treats version framing explicitly:
 - ClawText **2.0** refers to the product/release boundary
-- `@openclaw/clawtext` **1.5.0** remains the current package version
+- `github:PsiClawOps/clawtext` **1.5.0** remains the current package version
 
 This is acceptable for now only if README, POST_BRIEF, and release docs all preserve that distinction honestly.
 

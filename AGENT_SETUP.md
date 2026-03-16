@@ -13,7 +13,7 @@ ClawText has two canonical installation stories.
 Use this for normal users and production workspaces:
 
 ```bash
-openclaw plugins install @openclaw/clawtext
+openclaw plugins install github:PsiClawOps/clawtext
 ```
 
 ### 2) Local development install
@@ -61,7 +61,7 @@ If the user agrees:
 
 ```bash
 # Step 1: Install via plugin system
-openclaw plugins install @openclaw/clawtext
+openclaw plugins install github:PsiClawOps/clawtext
 
 # Step 2: Back up config
 cp ~/.openclaw/openclaw.json ~/.openclaw/openclaw.json.backup.$(date +%s)
@@ -91,7 +91,7 @@ If the old repo directory is still present after successful migration, treat it 
 For standard setup, agent runs:
 
 ```bash
-openclaw plugins install @openclaw/clawtext
+openclaw plugins install github:PsiClawOps/clawtext
 openclaw plugins list | grep clawtext
 ```
 
@@ -245,7 +245,7 @@ Agent also explains likely next actions:
 
 ## Setup Completion Checklist
 
-- [ ] ClawText installed via `openclaw plugins install @openclaw/clawtext` **or** `openclaw plugins install --link /path/to/clawtext`
+- [ ] ClawText installed via `openclaw plugins install github:PsiClawOps/clawtext` **or** `openclaw plugins install --link /path/to/clawtext`
 - [ ] Plugin appears in `openclaw plugins info clawtext`
 - [ ] `plugins.entries.clawtext.enabled` is true
 - [ ] Gateway restarted if needed
@@ -262,8 +262,8 @@ Agent also explains likely next actions:
 ### If plugin fails to install
 
 ```bash
-npm view @openclaw/clawtext
-openclaw plugins install @openclaw/clawtext --force
+npm view github:PsiClawOps/clawtext
+openclaw plugins install github:PsiClawOps/clawtext --force
 ```
 
 ### If linked local dev install fails

@@ -1,6 +1,6 @@
 {
   "name": "@psiclawops/clawtext",
-  "version": "1.5.0",
+  "version": "0.2.0",
   "description": "Comprehensive memory platform for OpenClaw agents. Three-lane architecture: working memory (automatic capture + fast injection), knowledge ingest (Discord, repos, docs, JSON), and operational learning (failures → durable guidance).",
   "repository": {
     "type": "git",

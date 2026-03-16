@@ -11,7 +11,7 @@ ClawText has **two** canonical install paths.
 Use this for normal users, production workspaces, and standard deployment:
 
 ```bash
-openclaw plugins install @openclaw/clawtext
+openclaw plugins install github:PsiClawOps/clawtext
 ```
 
 ### 2) Local development install
@@ -34,7 +34,7 @@ openclaw plugins install --link .
 
 ## What is canonical vs non-canonical?
 
-- ✅ **Canonical:** `openclaw plugins install @openclaw/clawtext`
+- ✅ **Canonical:** `openclaw plugins install github:PsiClawOps/clawtext`
 - ✅ **Canonical:** `openclaw plugins install --link /path/to/clawtext`
 - ⚠️ **Non-canonical alias:** `~/.openclaw/workspace/skills/clawtext` if it exists as a linked workspace path
 - 🚑 **Recovery-only:** manual `plugins.load.paths` editing in `~/.openclaw/openclaw.json`
@@ -114,7 +114,7 @@ Example recovery-only shape:
 After recovery, prefer one of these again:
 
 ```bash
-openclaw plugins install @openclaw/clawtext
+openclaw plugins install github:PsiClawOps/clawtext
 # or
 openclaw plugins install --link /path/to/clawtext
 ```

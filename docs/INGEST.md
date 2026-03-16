@@ -29,7 +29,7 @@ JSON exports      ──►                       ──►  Retrieval
 
 ```bash
 # Install ClawText through the plugin manager (includes ingest)
-openclaw plugins install @openclaw/clawtext
+openclaw plugins install github:PsiClawOps/clawtext
 
 # or for local development
 openclaw plugins install --link /path/to/clawtext

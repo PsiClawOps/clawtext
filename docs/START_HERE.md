@@ -9,7 +9,7 @@
 → Read: `AGENT_INSTALL.md` (copy-paste commands)
 
 Then:
-1. `openclaw plugins install @openclaw/clawtext`
+1. `openclaw plugins install github:PsiClawOps/clawtext`
 2. Run your agent
 3. ClawText works automatically
 

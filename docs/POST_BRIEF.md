@@ -10,7 +10,7 @@
 
 Use this wording consistently in outward-facing material unless package version changes:
 - **Product release framing:** ClawText 2.0
-- **Package/install version framing:** `@openclaw/clawtext` 1.5.0
+- **Package/install version framing:** `github:PsiClawOps/clawtext` 1.5.0
 
 Do not imply that the published package is already tagged `2.0.0` unless `package.json` is updated to match.
 
@@ -177,7 +177,7 @@ ClawText is intentionally opinionated:
 
 ### Install
 ```bash
-openclaw plugins install @openclaw/clawtext
+openclaw plugins install github:PsiClawOps/clawtext
 ```
 
 ### Verify
@@ -246,7 +246,7 @@ Your team runs agents for weeks. Repeated failures surface ("never use approach 
 
 ## Getting Started (Next Steps)
 
-1. **Install** — `openclaw plugins install @openclaw/clawtext`
+1. **Install** — `openclaw plugins install github:PsiClawOps/clawtext`
 2. **Run your first agent** — ClawText starts capturing automatically
 3. **Check health** — `openclaw plugins status` confirms hooks are active
 4. **Ingest your docs** (optional) — `clawtext ingest --source=...` to make team knowledge queryable
@@ -289,7 +289,7 @@ Current package metadata still reports `1.5.0`. Public copy should present this 
 ### For Discord ai-projects Channel
 
 **Quick post:**
-"ClawText 2.0 is a stable layered memory and continuity system for OpenClaw agents. Automatic context retrieval, operational learning, and structured continuity artifacts. Install: `openclaw plugins install @openclaw/clawtext`. Full docs: [README link]."
+"ClawText 2.0 is a stable layered memory and continuity system for OpenClaw agents. Automatic context retrieval, operational learning, and structured continuity artifacts. Install: `openclaw plugins install github:PsiClawOps/clawtext`. Full docs: [README link]."
 
 ---
 
