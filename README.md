@@ -32,14 +32,14 @@ Every LLM conversation is assembled at runtime. The model doesn't "remember" any
 | **Conversation history** | Current session messages only | ❌ resets on every new session |
 | **Prior context** | Past decisions, resolved problems, prior work | ❌ not populated by default |
 
-That empty third slot is where agent continuity breaks. Two questions show exactly how this plays out:
+This architecture means the quality of any answer depends entirely on what was put into the prompt — not on what the agent has experienced before. Two questions make this concrete:
 
 | Question | What the LLM has | What happens |
 |---|---|---|
 | *"What was Caesar's greatest military victory?"* | Training data — general world knowledge | ✅ Answered correctly — no session context needed |
 | *"What did we decide about the retry logic last week?"* | Nothing — prior session is gone | ❌ No answer — the decision existed only in that session |
 
-The difference isn't intelligence. It's what's in that third slot. Filling it — automatically, reliably, without manual work — is the problem ClawText solves.
+The difference isn't intelligence. It's what was available in the prompt when the question was asked. General knowledge lives in training data and is always present. Specific decisions, earned context, and prior work don't — unless something deliberately puts them there.
 
 ---
 
@@ -58,35 +58,33 @@ OpenClaw injects a structured set of guidance files into every session:
 
 OpenClaw's guidance files are powerful for identity and preferences — they're always current because they're always maintained. But the retry logic decision? It lives in the prior session. If nobody manually captured it into `MEMORY.md`, that session boundary erased it.
 
-The system is only as strong as its last manual update.
+The system is only as strong as its last manual update. That's a meaningful foundation — and it's also the starting point for taking things further.
 
 ---
 
 ## What ClawText adds
 
-ClawText answers the retry logic question without `MEMORY.md` ever being touched. The decision was captured automatically when it was made, scored, indexed, and stored. At prompt time, ClawText queries across everything and injects the most relevant results.
+ClawText works alongside OpenClaw's existing context system — extending it rather than replacing it. The guidance files and `MEMORY.md` stay in place and keep doing what they do well. What ClawText adds is the layer that makes the system automatic, self-improving, and capable of moving with the work.
 
-| Prompt slot | OpenClaw default | With ClawText |
-|---|---|---|
-| **System prompt** | Guidance files (manual) | Same, plus auto-enriched operational guidance |
-| **Conversation history** | Current session only | Current session only |
-| **Prior context** | `MEMORY.md` if manually updated | ✅ Auto-retrieved from all prior sessions, ingested docs, and promoted patterns |
+Automatic capture means the retry logic decision doesn't need to be manually filed — it's pulled from the session, scored, indexed, and made retrievable without any intervention. Hybrid retrieval means that at the next prompt, the most relevant prior decisions surface on their own — the agent already knows what was decided. Operational learning means the system accumulates wisdom from repeated failures and successful patterns over time, with human review before anything becomes permanent.
 
-And it goes further. What happens when a session has been running for days and the thread is getting long? That working state — the live decisions, the active answers, the in-progress context — needs to move. ClawBridge packages the full working state and transfers it intact to a new thread, session, or surface. Not a summary. Not a copy of messages. The actual working context — knowledge, decisions, and answers as a unit — moves with the work.
+ClawBridge extends this further: when a session has been running for days and the thread needs to move, ClawBridge packages the full working state and transfers it intact to a new thread, session, or surface. Not a summary. Not a copy of messages. The actual working context — knowledge, decisions, and live answers as a cohesive unit — travels with the work.
 
-| Question | OpenClaw default | With ClawText + ClawBridge |
+| Question | OpenClaw default | With ClawText |
 |---|---|---|
 | *"What was Caesar's greatest military victory?"* | ✅ Answered from training | ✅ Same — plus historically consistent with prior agent context |
 | *"What did we decide about the retry logic last week?"* | ❌ Session boundary erased it | ✅ Auto-retrieved from prior session capture |
 | *"We're starting a new thread — what did we establish?"* | ❌ Context lost at thread boundary | ✅ ClawBridge transferred the working state intact |
 
-The `MEMORY.md` workflow still works. ClawText and ClawBridge build on top of it — without replacing it.
+The `MEMORY.md` workflow still works. ClawText builds on top of it — without replacing it.
 
 ---
 
 ## Design philosophy
 
 > Automatic where it makes sense. Agent-led with user review where it doesn't. CLI available throughout.
+
+Agent memory systems tend to fail in one of two ways: they either require constant manual effort to stay useful, or they operate as black boxes that silently change state in ways the operator can't see or control. ClawText is designed to avoid both. High-frequency, low-risk operations — capture, indexing, retrieval — run automatically so the system improves without friction. Anything that changes permanent state — promotions, curation decisions, what gets ingested — involves the agent and requires human approval. Everything is visible and reversible via CLI. This balance is what makes the system trustworthy enough to leave running.
 
 Every ClawText behavior falls into one of three operating modes. This isn't convention — it's the design contract that governs every feature decision:
 
@@ -96,10 +94,10 @@ Every ClawText behavior falls into one of three operating modes. This isn't conv
 | Semantic index rebuild | 🤖 **Automatic** | Nightly at 2am UTC | The full BM25 + semantic index rebuilds on a schedule. Retrieval quality improves as memory grows, without touching a config. |
 | Prior context injection | 🤖 **Automatic** | Every prompt, token-budgeted | The most relevant prior context surfaces at prompt time. If you've done the work before, the agent knows. No commands, no prompting. |
 | Failure + pattern capture | 🤖 **Automatic** | On every tool error | Tool failures, retries, and recovery paths are queued to the operational learning lane automatically. The system learns from mistakes without you logging them. |
-| External source ingest | 👤 **Agent-led** | On demand via CLI | You or an agent decides what external sources to bring in — repos, docs, threads, URLs. The agent runs the ingest; the result enters the same retrieval pipeline as everything else. |
+| External source ingest | 👤 **Agent-led** | Request agent to ingest source material | You or an agent identifies repos, docs, threads, or URLs worth ingesting. The agent handles the operation; the result enters the same retrieval pipeline as everything else. |
+| ClawBridge transfer | 👤 **Agent-led** | Request agent to bridge information somewhere else | When work needs to move to a new thread, session, or surface, ask the agent to bridge it. The agent packages and transfers the full working state — knowledge, decisions, and context intact. |
 | Memory promotion | 👤 **Agent-led, you approve** | Review queue → approval | The agent identifies high-value candidates and proposes promotions. Nothing reaches permanent memory without your sign-off. The queue accumulates; you decide when to review. |
 | `MEMORY.md` curation | 👤 **Agent-led, you approve** | Agent surfaces candidates | The agent proposes additions to `MEMORY.md` based on what it's seen. You approve. The curated fast-path stays curated, not bloated. |
-| ClawBridge transfer | 👤 **Agent-led** | On demand via CLI | When work needs to move — new thread, new session, new agent — the agent runs ClawBridge to package and transfer the full working state. |
 | Retrieval health | 🖥️ **CLI** | `npm run operational:retrieval:health` | Inspect pipeline status, index freshness, and retrieval quality at any time. |
 | Operational queue | 🖥️ **CLI** | `openclaw run clawtext --operational` | Review, score, and act on the operational learning queue manually when needed. |
 | Ingest control | 🖥️ **CLI** | `openclaw run clawtext --ingest` | Direct ingest of specific sources outside of agent-led flows. |
