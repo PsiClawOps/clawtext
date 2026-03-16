@@ -507,3 +507,17 @@ Current blocker:
 - no reviewed/promoted operational fixtures or live entries were present in repo state during this pass, so end-to-end retrieval proof is still missing
 
 See: `docs/LANE_A_RETRIEVAL_CORRECTNESS_ASSESSMENT.md`
+
+## Lane B — Multi-agent isolation update
+
+Source inspection suggests the base memory lane has explicit agent-context filtering for:
+- shared memory
+- private memory
+- cross-agent memory
+
+Operational retrieval also includes scope-isolation support, but it appears to be flag-gated rather than clearly always-on by default.
+
+Current blocker:
+- no dedicated release-grade isolation validation artifact was found during this pass
+
+See: `docs/LANE_B_MULTI_AGENT_ISOLATION_ASSESSMENT.md`

@@ -52,6 +52,10 @@ ClawText is considered finish-ready when all of the following are true:
 - test or verification artifact showing isolation behavior
 - docs updated if current behavior is narrower than implied
 
+**Current assessment:**
+- base memory lane appears to enforce agent-context filtering in source
+- operational scope isolation exists, but launch/default configuration clarity and proof artifact are still needed
+
 ### Lane C — Continuity artifact consumption
 **Goal:** prove continuity artifacts are not only generated, but usable end-to-end.
 

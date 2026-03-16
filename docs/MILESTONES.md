@@ -458,3 +458,10 @@ See detailed finish plan: `docs/RELEASE_HARDENING_PACKET.md`
 - promoted patterns appear to receive stronger ranking than reviewed patterns
 - remaining blocker: no fixture/live promoted patterns were present during this pass, so end-to-end proof remains outstanding
 - evidence note: `docs/LANE_A_RETRIEVAL_CORRECTNESS_ASSESSMENT.md`
+
+
+### Lane B progress note
+- base memory lane contains explicit filtering for shared/private/cross-agent visibility
+- operational scope isolation exists as a hardening path, but appears feature-flagged
+- remaining blocker: no release-grade validation artifact proving isolation boundaries end-to-end
+- evidence note: `docs/LANE_B_MULTI_AGENT_ISOLATION_ASSESSMENT.md`
