@@ -17,6 +17,7 @@ export * from './library-index';
 export * from './library-ingest';
 export * from './runtime-paths';
 export * from './session-topic-map';
+export * from './topic-anchor';
 export * from './injected-context';
 export * from './clawptimization';
 export * from './slot-provider';

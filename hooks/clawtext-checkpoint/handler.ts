@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import os from 'os';
 import { bindSessionToTopic, sanitizeTopicName } from '../../src/session-topic-map.ts';
+import { syncTopicAnchor } from '../../src/topic-anchor.ts';
 
 const WORKSPACE = path.join(os.homedir(), '.openclaw/workspace');
 const JOURNAL_DIR = path.join(WORKSPACE, 'journal');
@@ -132,12 +133,26 @@ const handler = async (event: { type: string; action: string; sessionKey: string
     // ── RESET / NEW: immediate checkpoint ──
     if (event.type === 'agent' && (event.action === 'reset' || event.action === 'new')) {
       const state = readState();
+      const topic = inferTopicName({ channelName, channel, sessionKey, recentContent: state.recentContent });
       bindSessionToTopic(
         WORKSPACE,
         sessionKey,
-        inferTopicName({ channelName, channel, sessionKey, recentContent: state.recentContent }),
+        topic,
         { channelId: channel },
       );
+
+      if (state.messageCount > 0 || state.recentContent.length > 0) {
+        syncTopicAnchor(WORKSPACE, {
+          topic,
+          sessionKey,
+          channelId: channel,
+          channelName,
+          trigger: 'reset',
+          messagesSince: state.messageCount,
+          recentContent: state.recentContent,
+          lastSender: state.lastSender,
+        });
+      }
 
       if (state.messageCount > 0) {
         writeCheckpoint({
@@ -176,15 +191,40 @@ const handler = async (event: { type: string; action: string; sessionKey: string
         if (state.recentContent.length > 10) state.recentContent.shift();
       }
 
+      const topic = inferTopicName({ channelName, channel, sessionKey, recentContent: state.recentContent });
       bindSessionToTopic(
         WORKSPACE,
         sessionKey,
-        inferTopicName({ channelName, channel, sessionKey, recentContent: state.recentContent }),
+        topic,
         { channelId: channel },
       );
 
+      // Materialize/update anchor periodically so the topic-anchor provider has real data to inject.
+      if (state.messageCount === 1 || state.messageCount % 5 === 0) {
+        syncTopicAnchor(WORKSPACE, {
+          topic,
+          sessionKey,
+          channelId: channel,
+          channelName,
+          trigger: 'rolling',
+          messagesSince: state.messageCount,
+          recentContent: state.recentContent,
+          lastSender: state.lastSender,
+        });
+      }
+
       // Interval checkpoint
       if (state.messageCount >= CHECKPOINT_INTERVAL) {
+        syncTopicAnchor(WORKSPACE, {
+          topic,
+          sessionKey,
+          channelId: channel,
+          channelName,
+          trigger: 'interval',
+          messagesSince: state.messageCount,
+          recentContent: state.recentContent,
+          lastSender: state.lastSender,
+        });
         writeCheckpoint({
           sessionKey,
           channel,
