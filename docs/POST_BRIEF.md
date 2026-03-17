@@ -10,7 +10,7 @@
 
 Use this wording consistently in outward-facing material unless package version changes:
 - **Product release framing:** ClawText 2.0
-- **Package/install version framing:** `github:PsiClawOps/clawtext` 1.5.0
+- **Package/install version framing:** `github:PsiClawOps/clawtext` 0.2.0
 
 Do not imply that the published package is already tagged `2.0.0` unless `package.json` is updated to match.
 
@@ -288,8 +288,23 @@ Current package metadata still reports `1.5.0`. Public copy should present this 
 
 ### For Discord ai-projects Channel
 
-**Quick post:**
-"ClawText 2.0 is a stable layered memory and continuity system for OpenClaw agents. Automatic context retrieval, operational learning, and structured continuity artifacts. Install: `openclaw plugins install github:PsiClawOps/clawtext`. Full docs: [README link]."
+**Canonical quick post:**
+
+```text
+**ClawText v0.2.0** is out — a big update for durable memory and continuity in OpenClaw.
+
+ClawText combines automatic memory capture, hybrid retrieval, prompt-time injection, multi-source ingest, operational learning, and continuity artifacts so agents can keep context instead of restarting from zero each time.
+
+Now shipping in four lanes:
+🧠 working memory for fast contextual recall
+📦 knowledge ingest for docs, repos, threads, and exports
+⚙️ operational learning for repeated failures, fixes, review, and promoted guidance
+🌉 ClawBridge for handoffs, recovery, bootstrap artifacts, and cross-session transfer
+
+File-first, auditable, and built for long-running agent workflows.
+
+More to come.
+```
 
 ---
 
