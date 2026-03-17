@@ -40,6 +40,17 @@ type ParsedSection = {
 
 const WORKSPACE = path.join(os.homedir(), '.openclaw', 'workspace');
 const CONFIG_PATH = path.join(WORKSPACE, 'state', 'clawtext', 'prod', 'optimize-config.json');
+const OPT_LOG_PATH = path.join(WORKSPACE, 'state', 'clawtext', 'prod', 'optimization-log.jsonl');
+
+function logDiagnostic(entry: Record<string, unknown>): void {
+  try {
+    const dir = path.dirname(OPT_LOG_PATH);
+    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+    fs.appendFile(OPT_LOG_PATH, JSON.stringify({ ts: Date.now(), iso: new Date().toISOString(), ...entry }) + '\n', () => {});
+  } catch {
+    // fire-and-forget, never crash the hook
+  }
+}
 
 function loadConfig(): ClawptimizationConfig {
   try {
@@ -206,19 +217,23 @@ const handler = async (
   event: PluginHookBeforePromptBuildEvent,
   ctx: PluginHookAgentContext,
 ): Promise<PluginHookBeforePromptBuildResult | void> => {
-  const config = loadConfig();
+  try {
+    const config = loadConfig();
 
   if (!config.enabled || config.strategy === 'passthrough') {
+    logDiagnostic({ type: 'skip', reason: !config.enabled ? 'disabled' : 'passthrough', channel: ctx.messageChannel });
     return;
   }
 
   const prompt = typeof event.prompt === 'string' ? event.prompt : '';
   if (!prompt.trim()) {
+    logDiagnostic({ type: 'skip', reason: 'empty-prompt', channel: ctx.messageChannel });
     return;
   }
 
   const parsed = parsePromptSections(prompt);
   if (parsed.length === 0) {
+    logDiagnostic({ type: 'skip', reason: 'no-sections', channel: ctx.messageChannel, promptLength: prompt.length });
     return;
   }
 
@@ -259,6 +274,15 @@ const handler = async (
 
   const prependContext = composeOptimizedContext(result.slots);
   if (!prependContext) {
+    logDiagnostic({
+      type: 'empty-result',
+      reason: 'compositor-returned-no-included-slots',
+      channel: ctx.messageChannel,
+      sectionCount: parsed.length,
+      slotCount: result.slots.length,
+      droppedCount: result.droppedCount,
+      totalBytes: result.totalBytes,
+    });
     return;
   }
 
@@ -267,7 +291,26 @@ const handler = async (
     optimizer.logDecision(result, sessionKey);
   }
 
+  logDiagnostic({
+    type: 'composed',
+    channel: ctx.messageChannel,
+    strategy: result.strategy,
+    includedCount: result.includedCount,
+    droppedCount: result.droppedCount,
+    totalBytes: result.totalBytes,
+    budgetBytes: result.budgetBytes,
+    prependBytes: Buffer.byteLength(prependContext, 'utf8'),
+  });
+
   return { prependContext };
+  } catch (err) {
+    logDiagnostic({
+      type: 'error',
+      reason: err instanceof Error ? err.message : String(err),
+      channel: ctx?.messageChannel,
+    });
+    return; // never crash the prompt build
+  }
 };
 
 export default handler;
