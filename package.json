@@ -25,6 +25,8 @@
     "library:ingest": "node scripts/library-ingest.mjs",
     "library:index": "node scripts/library-index.mjs",
     "library:smoke": "node scripts/library-retrieval-smoke.mjs",
+    "library:refresh": "node scripts/library-refresh.mjs",
+    "library:refresh:dry": "node scripts/library-refresh.mjs --dry-run",
     "journal:restore": "node scripts/restore-context.mjs",
     "journal:restore:inject": "node scripts/restore-context.mjs --format inject",
     "journal:maintenance": "node scripts/journal-maintenance.mjs",
@@ -33,7 +35,9 @@
     "restore:config:deep": "node scripts/configure-restore.mjs --preset deep",
     "restore:config:full": "node scripts/configure-restore.mjs --preset full",
     "restore:config:off": "node scripts/configure-restore.mjs --preset off",
-    "restore:config:reset": "node scripts/configure-restore.mjs --reset"
+    "restore:config:reset": "node scripts/configure-restore.mjs --reset",
+    "optimize:report": "node scripts/optimization-report.mjs",
+    "optimize:report:last": "node scripts/optimization-report.mjs --last 10"
   },
   "keywords": [
     "memory",

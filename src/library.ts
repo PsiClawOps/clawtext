@@ -16,6 +16,14 @@ export type LibraryCollectionStatus = 'planned' | 'active' | 'stale' | 'archived
 export type LibraryEntryStatus = 'active' | 'stale' | 'superseded' | 'archived';
 export type LibraryOverlayStatus = 'draft' | 'active' | 'stale' | 'archived';
 export type LibraryVisibility = 'shared' | 'private' | 'cross-agent';
+export type LibraryRefreshPolicy = 'manual' | 'weekly' | 'monthly' | 'on-version-change';
+
+export interface LibraryVersionProbe {
+  type: 'github-release' | 'npm-version' | 'url-hash';
+  repo?: string;
+  package?: string;
+  url?: string;
+}
 
 export interface LibraryRuntimePaths {
   root: string;
@@ -44,7 +52,8 @@ export interface LibraryCollectionManifest {
   version?: string;
   last_ingested?: string;
   last_reviewed?: string;
-  refresh_policy?: string;
+  refresh_policy?: LibraryRefreshPolicy;
+  version_probe?: LibraryVersionProbe;
   retrieval_priority?: string;
   sources: LibraryCollectionSource[];
   topics?: string[];
@@ -99,6 +108,40 @@ function asStringArray(value: unknown): string[] {
   return value.filter((item): item is string => typeof item === 'string');
 }
 
+function parseVersionProbe(value: unknown, errors: string[]): LibraryVersionProbe | undefined {
+  if (value === undefined || value === null) return undefined;
+  const record = asRecord(value);
+  if (!record) {
+    errors.push('version_probe must be an object');
+    return undefined;
+  }
+
+  const type = record.type;
+  if (type !== 'github-release' && type !== 'npm-version' && type !== 'url-hash') {
+    errors.push('version_probe.type must be github-release, npm-version, or url-hash');
+    return undefined;
+  }
+
+  if (type === 'github-release' && (typeof record.repo !== 'string' || !record.repo.trim())) {
+    errors.push('version_probe.repo is required for github-release');
+  }
+
+  if (type === 'npm-version' && (typeof record.package !== 'string' || !record.package.trim())) {
+    errors.push('version_probe.package is required for npm-version');
+  }
+
+  if (type === 'url-hash' && (typeof record.url !== 'string' || !record.url.trim())) {
+    errors.push('version_probe.url is required for url-hash');
+  }
+
+  return {
+    type,
+    repo: typeof record.repo === 'string' ? record.repo : undefined,
+    package: typeof record.package === 'string' ? record.package : undefined,
+    url: typeof record.url === 'string' ? record.url : undefined,
+  };
+}
+
 function parseMarkdownFrontmatter(content: string): Record<string, unknown> {
   const match = content.match(/^---\n([\s\S]*?)\n---\n/);
   if (!match) {
@@ -145,6 +188,15 @@ export function validateLibraryCollectionManifest(value: unknown): LibraryValida
   if (typeof record.trust_level !== 'string' || !record.trust_level.trim()) errors.push('trust_level is required');
   if (typeof record.status !== 'string' || !record.status.trim()) errors.push('status is required');
 
+  if (record.refresh_policy !== undefined) {
+    const allowedPolicies = new Set(['manual', 'weekly', 'monthly', 'on-version-change']);
+    if (typeof record.refresh_policy !== 'string' || !allowedPolicies.has(record.refresh_policy)) {
+      errors.push('refresh_policy must be manual, weekly, monthly, or on-version-change');
+    }
+  }
+
+  const versionProbe = parseVersionProbe(record.version_probe, errors);
+
   const sources = Array.isArray(record.sources) ? record.sources : [];
   if (sources.length === 0) {
     errors.push('at least one source is required');
@@ -174,7 +226,8 @@ export function validateLibraryCollectionManifest(value: unknown): LibraryValida
       version: typeof record.version === 'string' ? record.version : undefined,
       last_ingested: typeof record.last_ingested === 'string' ? record.last_ingested : undefined,
       last_reviewed: typeof record.last_reviewed === 'string' ? record.last_reviewed : undefined,
-      refresh_policy: typeof record.refresh_policy === 'string' ? record.refresh_policy : undefined,
+      refresh_policy: typeof record.refresh_policy === 'string' ? (record.refresh_policy as LibraryRefreshPolicy) : undefined,
+      version_probe: versionProbe,
       retrieval_priority: typeof record.retrieval_priority === 'string' ? record.retrieval_priority : undefined,
       sources: sources.map((source) => ({
         url: String((source as Record<string, unknown>).url),

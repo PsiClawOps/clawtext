@@ -22,9 +22,26 @@ const DEFAULTS = {
   maxContentBytes: 8000,
   // Per-message content preview cap (bytes)
   previewCap: 300,
+  // Minimum scorer threshold for injection
+  minScore: 0.25,
   // Whether auto-restore is enabled at all
   enabled: true,
 };
+
+type ScorerModule = {
+  scoreMessages: (records: Array<Record<string, unknown>>, budget: { maxMessages: number; maxBytes: number; minScore: number; }) => Array<{ record: Record<string, unknown>; score: number }>;
+  selectForInjection: (scored: Array<{ record: Record<string, unknown>; score: number }>, budget: { maxMessages: number; maxBytes: number; minScore: number; }) => Array<Record<string, unknown>>;
+};
+
+let scorerModulePromise: Promise<ScorerModule> | null = null;
+
+function loadScorerModule(): Promise<ScorerModule> {
+  if (!scorerModulePromise) {
+    scorerModulePromise = import('../dist/journal-context-scorer.js')
+      .catch(() => import('../../dist/journal-context-scorer.js')) as Promise<ScorerModule>;
+  }
+  return scorerModulePromise;
+}
 
 function loadConfig(): typeof DEFAULTS {
   try {
@@ -73,43 +90,35 @@ function formatContextBlock(
   records: Array<Record<string, unknown>>,
   channelId: string,
   cfg: typeof DEFAULTS,
+  scorer: ScorerModule,
 ): string {
   const messages = records.filter(r => r.type !== 'checkpoint');
   const checkpoints = records.filter(r => r.type === 'checkpoint');
   const lastCheckpoint = checkpoints[checkpoints.length - 1];
 
-  // Start from the tail, accumulate until we hit the byte budget
-  const candidates = messages.slice(-cfg.injectLimit);
-  if (candidates.length < cfg.minMessages) return '';
+  const budget = {
+    maxMessages: cfg.injectLimit,
+    maxBytes: cfg.maxContentBytes,
+    minScore: cfg.minScore ?? 0.25,
+  };
 
-  const threadName = (candidates.find(r => r.threadName) as Record<string, unknown> | undefined)
+  const scored = scorer.scoreMessages(messages, budget);
+  const selected = scorer.selectForInjection(scored, budget);
+
+  if (selected.length < cfg.minMessages) return '';
+
+  const threadName = (selected.find(r => r.threadName) as Record<string, unknown> | undefined)
     ?.threadName as string || channelId;
   const lastTopics = lastCheckpoint
     ? (lastCheckpoint.recentTopics as string[] || []).join(', ')
     : '';
-
-  // Budget-aware message selection: walk from newest backwards,
-  // stop when we'd exceed maxContentBytes
-  const selected: typeof candidates = [];
-  let bytesUsed = 0;
-  for (let i = candidates.length - 1; i >= 0; i--) {
-    const content = (candidates[i].content as string || '').trim();
-    const preview = content.length > cfg.previewCap
-      ? content.slice(0, cfg.previewCap) + '…'
-      : content;
-    bytesUsed += preview.length;
-    if (bytesUsed > cfg.maxContentBytes) break;
-    selected.unshift(candidates[i]);
-  }
-
-  if (selected.length < cfg.minMessages) return '';
 
   const first = new Date(Number(selected[0].ts)).toISOString().replace('T', ' ').slice(0, 16);
   const last = new Date(Number(selected[selected.length - 1].ts)).toISOString().replace('T', ' ').slice(0, 16);
 
   const header = [
     `<!-- CLAWTEXT CONTEXT RESTORE: journal replay for ${threadName} -->`,
-    `<!-- ${selected.length} messages | ${first} → ${last} | channel: ${channelId} | budget: ${cfg.maxContentBytes}b -->`,
+    `<!-- ${selected.length} messages | ${first} → ${last} | channel: ${channelId} | budget: ${cfg.maxContentBytes}b | minScore: ${budget.minScore} -->`,
     lastTopics ? `<!-- Recent topics: ${lastTopics} -->` : null,
     '',
     '**[Restored context from journal — recent conversation]**',
@@ -165,14 +174,15 @@ const handler = async (event: {
     const ageMs = Date.now() - Number(lastMsg.ts);
     if (ageMs > cfg.maxContextAgeHours * 60 * 60 * 1000) return;
 
-    const contextBlock = formatContextBlock(records, channelId, cfg);
+    const scorer = await loadScorerModule();
+    const contextBlock = formatContextBlock(records, channelId, cfg, scorer);
     if (!contextBlock) return;
 
     event.messages.push(contextBlock);
 
     if (process.env.DEBUG_CLAWTEXT) {
       const totalBytes = contextBlock.length;
-      console.log(`[clawtext-restore] injected ${records.length} records, ${totalBytes} bytes for channel ${channelId}`);
+      console.log(`[clawtext-restore] injected context block (${totalBytes} bytes) for channel ${channelId}`);
     }
   } catch (err) {
     if (process.env.DEBUG_CLAWTEXT) {

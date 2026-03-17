@@ -6,6 +6,7 @@ export * from './library';
 export * from './library-index';
 export * from './library-ingest';
 export * from './runtime-paths';
+export * from './clawptimization';
 
 function extractUserText(messages: unknown[] = []): string {
   if (!Array.isArray(messages) || messages.length === 0) {

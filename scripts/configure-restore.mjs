@@ -25,6 +25,7 @@
  *   minMessages         Min messages required before injecting (default: 3)
  *   lookbackDays        How many journal days to scan (default: 2)
  *   previewCap          Per-message preview cap in bytes (default: 300)
+ *   minScore            Minimum scorer threshold 0.0-1.0 (default: 0.25)
  *   enabled             true/false — master switch (default: true)
  */
 
@@ -43,13 +44,14 @@ const DEFAULTS = {
   lookbackDays: 2,
   maxContentBytes: 8000,
   previewCap: 300,
+  minScore: 0.25,
 };
 
 const PRESETS = {
-  minimal: { injectLimit: 10, maxContentBytes: 4000, previewCap: 200, enabled: true },
+  minimal: { injectLimit: 10, maxContentBytes: 4000, previewCap: 200, minScore: 0.35, enabled: true },
   default: { ...DEFAULTS },
-  deep:    { injectLimit: 50, maxContentBytes: 32000, previewCap: 600, lookbackDays: 3, enabled: true },
-  full:    { injectLimit: 200, maxContentBytes: 131072, previewCap: 2000, lookbackDays: 7, enabled: true },
+  deep:    { injectLimit: 50, maxContentBytes: 32000, previewCap: 600, minScore: 0.2, lookbackDays: 3, enabled: true },
+  full:    { injectLimit: 200, maxContentBytes: 131072, previewCap: 2000, minScore: 0.1, lookbackDays: 7, enabled: true },
   off:     { enabled: false },
 };
 
@@ -79,8 +81,27 @@ function saveConfig(cfg) {
 function coerce(key, val) {
   if (key === 'enabled') return val === 'true' || val === '1';
   const n = Number(val);
-  if (!isNaN(n)) return n;
+  if (!Number.isNaN(n)) return n;
   return val;
+}
+
+function validateSetting(key, value) {
+  if (key === 'enabled') {
+    if (typeof value !== 'boolean') throw new Error('enabled must be true or false');
+    return;
+  }
+
+  if (typeof value !== 'number' || !Number.isFinite(value)) {
+    throw new Error(`${key} must be a numeric value`);
+  }
+
+  if (['injectLimit', 'maxContentBytes', 'maxContextAgeHours', 'minMessages', 'lookbackDays', 'previewCap'].includes(key) && value < 0) {
+    throw new Error(`${key} must be >= 0`);
+  }
+
+  if (key === 'minScore' && (value < 0 || value > 1)) {
+    throw new Error('minScore must be between 0 and 1');
+  }
 }
 
 function printConfig(cfg) {
@@ -94,6 +115,7 @@ function printConfig(cfg) {
   console.log(`  maxContextAgeHours  ${cfg.maxContextAgeHours} hours`);
   console.log(`  minMessages         ${cfg.minMessages} minimum`);
   console.log(`  lookbackDays        ${cfg.lookbackDays} days`);
+  console.log(`  minScore            ${cfg.minScore}`);
   console.log('─'.repeat(50));
   console.log(`  Config file: ${CONFIG_FILE}\n`);
 }
@@ -137,7 +159,14 @@ if (setIdx !== -1) {
     process.exit(1);
   }
   const current = loadConfig();
-  current[key] = coerce(key, val);
+  const coerced = coerce(key, val);
+  try {
+    validateSetting(key, coerced);
+  } catch (error) {
+    console.error(error instanceof Error ? error.message : String(error));
+    process.exit(1);
+  }
+  current[key] = coerced;
   saveConfig(current);
   console.log(`Set ${key} = ${current[key]}`);
   printConfig(current);
