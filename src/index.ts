@@ -9,6 +9,7 @@ import { PromptCompositor } from './prompt-compositor';
 import type { SlotProvider, ContextSlot } from './slot-provider';
 
 export { ClawTextInjectionPlugin, ClawTextRAG };
+export { cleanQueryForSearch } from './rag';
 export * from './library';
 export * from './library-index';
 export * from './library-ingest';
@@ -126,7 +127,10 @@ function runClawptimization(
     return undefined;
   }
 
-  const parsed = parsePromptSections(prompt);
+  // Strip prior recall injection tags before scoring
+  const promptForComposition = prompt.replace(/<relevant-memories>[\s\S]*?<\/relevant-memories>/g, '').trim();
+
+  const parsed = parsePromptSections(promptForComposition);
   if (parsed.length === 0) {
     logPluginDiagnostic({ type: 'skip', reason: 'no-sections', channel: channelId, promptLength: prompt.length });
     return undefined;
