@@ -153,22 +153,38 @@ Keep it file-first.
 ### Proposed path
 ```text
 state/clawtext/prod/library/
+  collections/
   entries/
   indexes/
   snapshots/
   manifests/
+  overlays/
 ```
 
 ### Proposed subdirectories
 
+#### `collections/`
+Named documentation corpora ingested from trusted sources.
+
+Examples:
+- `proxmox-official-docs/`
+- `nemoclaw-docs/`
+- `tailscale-admin-docs/`
+- `openclaw-core-docs/`
+
+Each collection is the durable imported reference body for a topic or platform.
+
 #### `entries/`
-Canonical library records.
+Canonical curated library records.
 
 Examples:
 - `project-status-clawtext.md`
 - `architecture-overview.md`
 - `repo-map.md`
 - `decision-summary-memory-lanes.md`
+- `proxmox-quickstart-summary.md`
+
+Entries are summary/start-here artifacts, not the full underlying corpus.
 
 #### `indexes/`
 Generated indexes to speed lookup.
@@ -177,6 +193,7 @@ Examples:
 - `library-index.json`
 - `topics.json`
 - `projects.json`
+- `collections.json`
 
 #### `snapshots/`
 Point-in-time material used to build or refresh entries.
@@ -185,14 +202,24 @@ Examples:
 - repo tree snapshots
 - docs snapshots
 - generated source manifests
+- ingest refresh deltas
 
 #### `manifests/`
 Metadata about refresh jobs and lineage.
 
 Examples:
 - which docs fed a library entry
-- when it was last rebuilt
-- what superseded it
+- when a collection was last refreshed
+- trust/source metadata for a collection
+- what entry superseded another
+
+#### `overlays/`
+Local/operator-authored notes layered on top of imported collections.
+
+Examples:
+- `proxmox-our-environment.md`
+- `tailscale-local-policy.md`
+- `nemoclaw-adoption-notes.md`
 
 ---
 
@@ -247,46 +274,82 @@ Library results should get a boost when a query looks like:
 - what did we decide
 - where should I read first
 - summarize the current state
+- how does this platform work
+- what do the docs say
+- what is the official guidance
+
+### Retrieval precedence model
+For reference-style questions, retrieval should prefer:
+1. **reviewed library entries** — concise, curated summaries / start-here records
+2. **trusted library collections** — official/vendor/internal curated doc corpora
+3. **library overlays** — local environment notes and operator guidance
+4. **general ingest/archive material** — broader raw source material
+5. **operational memory** — only when the query is really about failures, fixes, or learned behavior
 
 ### Ranking behavior
-Library entries should rank higher when:
+Library results should rank higher when:
 - the query is reference-seeking
 - the entry is reviewed and fresh
 - the entry is canonical for the project/topic
 - the underlying source docs are authoritative
+- the result comes from a trusted collection
+- an overlay clearly matches the current environment or operator question
 
-Library entries should rank lower when:
+Library results should rank lower when:
 - they are stale
 - they are superseded
 - the query is clearly operational/debugging focused
 - the query is about very recent conversational context
+- the source is low-trust or community-only while official docs exist
 
 ### Injection behavior
-Library entries should be:
-- concise
+Library results should be:
+- concise when possible
 - favored for reference questions
 - token-budgeted like everything else
 - clearly labeled in retrieval provenance
+- source-attributed (`official`, `internal`, `community`, `overlay`)
 
 ---
 
-## 9. Curation workflow
+## 9. Collections, overlays, and curation workflow
 
 This lane should be curated, not fully automatic.
 
-### Initial capture path
-1. Ingest sources exist already
-2. Operator or agent creates a candidate library summary
+### Core model
+Library Lane uses **both**:
+- **collections** — the actual imported documentation corpus
+- **entries** — curated summaries / start-here records
+
+Optional third layer:
+- **overlays** — local notes that adapt a trusted collection to the operator's real environment
+
+### Collection ingest path
+1. Operator chooses one or more trusted sources
+2. ClawText ingest pulls the source corpus into a named library collection
+3. Source metadata is written to a collection manifest
+4. Content is indexed as library material, not generic raw ingest
+5. Retrieval can use the collection directly even before summaries exist
+
+### Initial summary path
+1. A collection exists
+2. Operator or agent creates a candidate library entry
 3. Candidate is reviewed
 4. Approved version becomes a canonical library entry
 5. Index refresh updates retrieval
 
+### Overlay path
+1. A trusted collection exists (for example, official Proxmox docs)
+2. Operator adds local environment notes
+3. Overlay is linked to the collection and topic
+4. Retrieval can return both official guidance and local operating reality together
+
 ### Refresh path
 1. Source docs change materially
-2. Existing entry is marked stale or refresh-needed
-3. Agent proposes updated summary
-4. Operator reviews if needed
-5. New entry supersedes old one
+2. Collection manifest is marked refresh-needed or stale
+3. Collection refresh runs
+4. Existing summaries/overlays are checked against the refreshed source base
+5. New summaries supersede old ones when needed
 
 ### Archive path
 When a project is obsolete or a summary is replaced:
@@ -344,7 +407,9 @@ As projects evolve, the library becomes:
 
 ### Slice 1 — Shape the lane
 - add `state/clawtext/prod/library/` paths
+- define collection manifests
 - define entry metadata
+- define overlay metadata
 - define index metadata
 - create 2-3 manual example entries
 
@@ -352,16 +417,20 @@ As projects evolve, the library becomes:
 - add library index loading
 - add query-intent boost for reference-style prompts
 - include provenance label: `library`
+- distinguish `entry`, `collection`, and `overlay` in provenance
 - add retrieval debug visibility
 
 ### Slice 3 — Refresh workflow
 - add stale / superseded states
+- add collection refresh metadata
 - add source lineage manifests
 - add refresh command / script
 
 ### Slice 4 — Agent workflow
 - add library summary generation helper
 - add review flow for candidate entries
+- add collection creation flow for trusted docs
+- add overlay authoring flow for local operator notes
 - add docs on when to use library vs ingest vs operational memory
 
 ---
@@ -407,7 +476,51 @@ The fastest path to value is:
 3. wire retrieval intent to use them
 4. then automate refresh later
 
-## 16. Dogfood seed entries
+## 16. Collection manifest shape (draft)
+
+A collection should have a manifest that records where the documentation came from and why it is trusted.
+
+### Example
+```yaml
+kind: library-collection
+slug: proxmox-official-docs
+title: Proxmox VE Official Documentation
+project: external-reference
+source_type: official-docs
+trust_level: official
+status: active
+last_ingested: 2026-03-17
+refresh_policy: manual
+sources:
+  - https://pve.proxmox.com/pve-docs/
+topics:
+  - proxmox
+  - virtualization
+  - zfs
+  - clustering
+```
+
+This is what lets the agent know that a Proxmox answer came from a stable, known corpus rather than random web recall.
+
+## 17. Overlay shape (draft)
+
+An overlay should capture how *we* use or interpret a trusted collection in our environment.
+
+### Example
+```yaml
+kind: library-overlay
+slug: proxmox-our-environment
+collection: proxmox-official-docs
+project: infrastructure
+scope: local-ops
+status: active
+last_reviewed: 2026-03-17
+visibility: shared
+```
+
+Overlay body contents would include local decisions, constraints, and warnings.
+
+## 18. Dogfood seed entries
 
 The first seed entries now live in:
 - `docs/library/entries/project-status-clawtext.md`

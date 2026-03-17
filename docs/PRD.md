@@ -119,9 +119,11 @@ Teams need agents to reference current repo state, architecture decisions, proje
 
 ### Initial implementation shape
 - file-first storage under `state/clawtext/prod/library/`
+- named library collections for trusted imported doc corpora
 - curated Markdown entries with machine-usable metadata
+- optional overlays for local/operator environment notes
 - separate retrieval weighting for reference-seeking questions
-- refresh / stale / superseded workflow for library entries
+- refresh / stale / superseded workflow for collections and entries
 
 ### Non-goals for this phase
 - no graph-native knowledge engine

@@ -273,6 +273,11 @@ These are valuable but not required for 2.0:
 **Phase 3 intent lock:**
 The Documentation/Library Lane is the first planned post-2.0 expansion because ClawText needs a dedicated home for curated project knowledge that is neither raw ingest, nor conversational recall, nor operational failure learning. Its job is to make project status, architecture summaries, repo maps, and canonical documentation retrievable as reference-quality memory.
 
+Phase 3 should support both:
+- **trusted library collections** — imported documentation corpora such as official vendor docs
+- **curated library entries** — reviewed summaries/start-here records built on top of those corpora
+- **optional overlays** — local environment notes that adapt official guidance to operator reality
+
 ---
 
 ## VIII. Success Metrics & Northstar Vision
