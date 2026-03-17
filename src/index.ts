@@ -12,6 +12,8 @@ export * from './budget-manager';
 export * from './context-pressure';
 export * from './active-pruning';
 export * from './prompt-compositor';
+export * from './decision-tree';
+export * from './providers/decision-tree-provider';
 export * from './content-type-classifier';
 export * from './contradiction-detector';
 export * from './providers';

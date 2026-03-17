@@ -38,6 +38,8 @@
     "restore:config:reset": "node scripts/configure-restore.mjs --reset",
     "optimize:report": "node scripts/optimization-report.mjs",
     "optimize:report:last": "node scripts/optimization-report.mjs --last 10",
+    "dtree:list": "node scripts/decision-tree.mjs list",
+    "dtree:extract": "node scripts/decision-tree.mjs extract",
     "cross-session:status": "node scripts/cross-session-status.mjs",
     "discord:backfill": "node scripts/discord-backfill.mjs",
     "discord:backfill:dry": "node scripts/discord-backfill.mjs --dry-run --verbose",
