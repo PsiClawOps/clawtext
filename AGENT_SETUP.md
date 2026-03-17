@@ -153,7 +153,126 @@ If keeping defaults, agent adds or confirms:
 
 ---
 
-## Phase 3: Gateway Restart
+## Phase 3: Enable Journaling (Critical)
+
+**Journaling is the foundation of ClawText's durability stack.** Without it, context is lost on compaction, session corruption, or restart. With it, everything is recoverable.
+
+Agent tells user:
+
+> "ClawText uses an append-only journal to capture every message in and out. This is what lets us restore context after crashes, avoid losing decisions during compaction, and provide cross-session awareness. I need to set this up now — it's a core feature, not optional."
+
+### Step 3a: Create journal directory
+
+```bash
+mkdir -p ~/.openclaw/workspace/journal
+```
+
+### Step 3b: Verify journal hooks are registered
+
+The ClawText plugin hooks handle journaling automatically. Verify they're loaded:
+
+```bash
+openclaw plugins info clawtext
+# Should show hooks: clawtext-optimize, clawtext-prune, clawtext-prefetch
+```
+
+### Step 3c: Create state directories
+
+```bash
+mkdir -p ~/.openclaw/workspace/state/clawtext/prod/checkpoint
+mkdir -p ~/.openclaw/workspace/state/clawtext/prod/ingest
+```
+
+### Step 3d: Configure restore preset
+
+Agent asks the user:
+
+> "How much context do you want restored on cold start? Options:
+> - **minimal** — 10 messages, 4KB (fast boot, minimal context)
+> - **default** — 20 messages, 8KB (balanced)
+> - **deep** — 50 messages, 32KB (recommended — rich context recovery)
+> - **full** — 200 messages, 128KB (large context windows only)
+>
+> I recommend **deep** for most setups. It gives you excellent recovery without bloating the prompt."
+
+Agent writes the config:
+
+```bash
+cat > ~/.openclaw/workspace/state/clawtext/prod/restore-config.json << 'EOF'
+{
+  "enabled": true,
+  "injectLimit": 50,
+  "maxContextAgeHours": 12,
+  "minMessages": 3,
+  "lookbackDays": 3,
+  "maxContentBytes": 32000,
+  "previewCap": 500
+}
+EOF
+```
+
+### Step 3e: Configure Clawptimization
+
+Agent explains:
+
+> "ClawText includes a prompt compositor called Clawptimization. It scores every piece of context, allocates it into named slots, and drops low-value content so your context window stays clean. I'll enable it now with safe defaults."
+
+```bash
+cat > ~/.openclaw/workspace/state/clawtext/prod/optimize-config.json << 'EOF'
+{
+  "enabled": true,
+  "strategy": "scored-select",
+  "minScore": 0.25,
+  "preserveReasons": true,
+  "logDecisions": true,
+  "budget": {
+    "budgetRatio": 0.15,
+    "contextWindowTokens": 160000,
+    "overflowMode": "redistribute",
+    "slots": {
+      "system": { "ratio": 0.05, "policy": "always-include", "enabled": true },
+      "memory": { "ratio": 0.2, "policy": "scored-select", "enabled": true },
+      "library": { "ratio": 0.15, "policy": "on-demand", "enabled": true },
+      "clawbridge": { "ratio": 0.08, "policy": "if-present", "enabled": true },
+      "recent-history": { "ratio": 0.12, "policy": "always-include", "enabled": true },
+      "mid-history": { "ratio": 0.15, "policy": "scored-select", "enabled": true },
+      "deep-history": { "ratio": 0.08, "policy": "decision-only", "enabled": true },
+      "decision-tree": { "ratio": 0.08, "policy": "pattern-match", "enabled": true },
+      "journal": { "ratio": 0.09, "policy": "cold-start-only", "enabled": true },
+      "cross-session": { "ratio": 0.05, "policy": "if-present", "enabled": true },
+      "situational-awareness": { "ratio": 0, "policy": "disabled", "enabled": false },
+      "custom": { "ratio": 0, "policy": "disabled", "enabled": false }
+    }
+  }
+}
+EOF
+```
+
+Agent notes:
+
+> "The `contextWindowTokens` should match your model. Common values: 160,000 (Claude Sonnet/Haiku), 192,000 (Opus 4.6), 400,000 (GPT-5.4). I can adjust this when you switch models."
+
+### Step 3f: Run initial Discord prefetch (optional, if using Discord)
+
+> "If you're using Discord, I can pull recent message history into the journal right now so you have context from day one."
+
+```bash
+cd /path/to/clawtext
+node scripts/discord-prefetch.mjs --force
+```
+
+### Step 3g: Set up journal maintenance cron
+
+> "I'll set up nightly maintenance to keep the journal and memory clusters healthy."
+
+The nightly cron should run:
+- `build-clusters.js --force` — rebuild memory clusters
+- `validate-rag.js` — verify retrieval quality
+- `journal-maintenance.mjs --verbose` — compress old journal files, report health
+
+Agent reports:
+
+> "✅ Journaling is live. Every message will be captured to the journal. On restart, ClawText will restore your last session context automatically. On compaction, a rich checkpoint is saved first so nothing is lost."
 
 Agent tells user:
 
@@ -171,7 +290,7 @@ Then reports:
 
 ---
 
-## Phase 4: Validate Installation
+## Phase 5: Validate Installation
 
 Agent validates runtime state:
 
@@ -197,7 +316,7 @@ If anything fails, agent should troubleshoot before continuing.
 
 ---
 
-## Phase 5: Onboarding Conversation
+## Phase 6: Onboarding Conversation
 
 After install, the agent should talk through:
 
@@ -215,7 +334,7 @@ After install, the agent should talk through:
 
 ---
 
-## Phase 6: Document Setup
+## Phase 7: Document Setup
 
 Agent may create a local setup summary such as `memory/clawtext-setup.md` including:
 - install method used (`published` or `--link`)
@@ -227,7 +346,7 @@ Agent may create a local setup summary such as `memory/clawtext-setup.md` includ
 
 ---
 
-## Phase 7: Next Steps
+## Phase 8: Next Steps
 
 Agent explains what happens automatically now:
 - messages can be captured to memory
@@ -248,7 +367,13 @@ Agent also explains likely next actions:
 - [ ] ClawText installed via `openclaw plugins install github:PsiClawOps/clawtext` **or** `openclaw plugins install --link /path/to/clawtext`
 - [ ] Plugin appears in `openclaw plugins info clawtext`
 - [ ] `plugins.entries.clawtext.enabled` is true
-- [ ] Gateway restarted if needed
+- [ ] Journal directory created (`~/.openclaw/workspace/journal/`)
+- [ ] State directories created (`~/.openclaw/workspace/state/clawtext/prod/`)
+- [ ] Restore config written (`restore-config.json`)
+- [ ] Optimize config written (`optimize-config.json`) with correct `contextWindowTokens` for model
+- [ ] Discord prefetch run (if using Discord)
+- [ ] Nightly maintenance cron configured
+- [ ] Gateway restarted
 - [ ] Validation checks passed
 - [ ] Cluster/maintenance strategy discussed
 - [ ] Initial ingest discussed or completed
@@ -306,6 +431,6 @@ If installer metadata is damaged and service must be restored quickly, use manua
 
 ---
 
-**Last Updated:** 2026-03-14  
-**Status:** Agent-assisted setup flow aligned to installer-managed and installer-linked installs  
-**Scope:** From new install or old manual install to operational ClawText
+**Last Updated:** 2026-03-17
+**Status:** Agent-assisted setup flow with journaling, Clawptimization, and Discord prefetch
+**Scope:** From new install or old manual install to operational ClawText v0.3.0+

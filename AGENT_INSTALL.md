@@ -147,7 +147,7 @@ Then verify:
 ## Read next
 
 - [README.md](./README.md)
-- [AGENT_SETUP.md](./AGENT_SETUP.md)
+- [AGENT_SETUP.md](./AGENT_SETUP.md) — **Start here for full setup including journaling and Clawptimization**
 - [SKILL.md](./SKILL.md)
 - [SECURITY.md](./SECURITY.md)
 - [RISK.md](./RISK.md)
