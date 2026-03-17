@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import os from 'os';
+import { bindSessionToTopic, sanitizeTopicName } from '../../src/session-topic-map.ts';
 
 const WORKSPACE = path.join(os.homedir(), '.openclaw/workspace');
 const JOURNAL_DIR = path.join(WORKSPACE, 'journal');
@@ -33,6 +34,29 @@ function extractTopicSignals(content: string): string {
   // Skip raw logs / JSON blobs
   if (trimmed.startsWith('{') || trimmed.startsWith('[')) return '';
   return trimmed.slice(0, 120);
+}
+
+function inferTopicName(params: {
+  channelName?: string;
+  channel: string;
+  sessionKey: string;
+  recentContent: string[];
+}): string {
+  const fromChannelName = String(params.channelName ?? '').trim();
+  if (fromChannelName && fromChannelName.toLowerCase() !== 'unknown') {
+    return sanitizeTopicName(fromChannelName);
+  }
+
+  const fromBreadcrumb = params.recentContent.find((entry) => entry.length >= 16);
+  if (fromBreadcrumb) {
+    return sanitizeTopicName(fromBreadcrumb.slice(0, 80));
+  }
+
+  if (params.channel && params.channel !== 'unknown') {
+    return sanitizeTopicName(params.channel);
+  }
+
+  return sanitizeTopicName(params.sessionKey || 'general');
 }
 
 // ── Write checkpoint record to journal ───────────────────────────────────────
@@ -84,6 +108,13 @@ const handler = async (event: { type: string; action: string; sessionKey: string
     // ── RESET / NEW: immediate checkpoint ──
     if (event.type === 'agent' && (event.action === 'reset' || event.action === 'new')) {
       const state = readState();
+      bindSessionToTopic(
+        WORKSPACE,
+        sessionKey,
+        inferTopicName({ channelName, channel, sessionKey, recentContent: state.recentContent }),
+        { channelId: channel },
+      );
+
       if (state.messageCount > 0) {
         writeCheckpoint({
           sessionKey,
@@ -119,6 +150,13 @@ const handler = async (event: { type: string; action: string; sessionKey: string
         // Keep rolling window of last 10 snippets
         if (state.recentContent.length > 10) state.recentContent.shift();
       }
+
+      bindSessionToTopic(
+        WORKSPACE,
+        sessionKey,
+        inferTopicName({ channelName, channel, sessionKey, recentContent: state.recentContent }),
+        { channelId: channel },
+      );
 
       // Interval checkpoint
       if (state.messageCount >= CHECKPOINT_INTERVAL) {

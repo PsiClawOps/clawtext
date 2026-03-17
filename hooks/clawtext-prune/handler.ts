@@ -4,6 +4,7 @@ import path from 'path';
 import { ActivePruner, type PruningConfig } from '../../src/active-pruning.ts';
 import { ContextPressureMonitor } from '../../src/context-pressure.ts';
 import type { ContextSlot, ContextSlotSource } from '../../src/slot-provider.ts';
+import { stripInjectedContext } from '../../src/injected-context.ts';
 
 const WORKSPACE = path.join(os.homedir(), '.openclaw', 'workspace');
 const STATE_DIR = path.join(WORKSPACE, 'state', 'clawtext', 'prod');
@@ -53,6 +54,7 @@ function inferSource(label: string): ContextSlotSource {
   if (text.includes('memory')) return 'memory';
   if (text.includes('library')) return 'library';
   if (text.includes('clawbridge') || text.includes('handoff')) return 'clawbridge';
+  if (text.includes('topic anchor') || text.includes('topic_anchor')) return 'topic-anchor';
   if (text.includes('journal')) return 'journal';
   if (text.includes('decision')) return 'decision-tree';
   if (text.includes('deep')) return 'deep-history';
@@ -62,17 +64,21 @@ function inferSource(label: string): ContextSlotSource {
 }
 
 function contentFromUnknown(value: unknown): string {
-  if (typeof value === 'string') return value;
+  if (typeof value === 'string') {
+    return stripInjectedContext(value);
+  }
+
   if (value && typeof value === 'object') {
     const record = value as Record<string, unknown>;
-    return (
+    const raw =
       (typeof record.content === 'string' ? record.content : '') ||
       (typeof record.text === 'string' ? record.text : '') ||
       (typeof record.body === 'string' ? record.body : '') ||
       (typeof record.message === 'string' ? record.message : '') ||
-      ''
-    );
+      '';
+    return stripInjectedContext(raw);
   }
+
   return '';
 }
 
@@ -125,7 +131,7 @@ function toSlots(event: { prompt?: unknown; messages?: unknown[]; context?: Reco
       .filter((slot): slot is ContextSlot => Boolean(slot));
   }
 
-  const prompt = typeof event.prompt === 'string' ? event.prompt : '';
+  const prompt = typeof event.prompt === 'string' ? stripInjectedContext(event.prompt) : '';
   if (!prompt.trim()) return [];
 
   const sections = prompt.split(/\n##\s+/).map((part) => part.trim()).filter(Boolean);

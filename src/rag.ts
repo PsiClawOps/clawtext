@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { getClawTextLibraryIndexesDir } from './runtime-paths';
+import { stripInjectedContext } from './injected-context';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -55,6 +56,7 @@ interface LibraryIndexRecord {
  * Gateway prompts carry noise that degrades search quality:
  *   - `<relevant-memories>` blocks from prior recall injections
  *   - `<!-- CLAWPTIMIZATION: ... -->` compositor markers
+ *   - `<!-- TOPIC_ANCHOR: ... -->` injected topic anchor blocks
  *   - `System: ...` event lines (exec failures, lifecycle events)
  *   - `Sender (untrusted metadata):` + JSON blocks
  *   - `OpenClaw runtime context (internal):` blocks
@@ -65,14 +67,7 @@ interface LibraryIndexRecord {
  * Inspired by openclaw-memory-core-plus's `extractUserQuery()`.
  */
 export function cleanQueryForSearch(rawQuery: string): string {
-  let cleaned = rawQuery;
-
-  // Strip <relevant-memories>...</relevant-memories> blocks
-  cleaned = cleaned.replace(/<relevant-memories>[\s\S]*?<\/relevant-memories>/g, '');
-
-  // Strip <!-- CLAWPTIMIZATION: ... --> blocks and END markers
-  cleaned = cleaned.replace(/<!--\s*CLAWPTIMIZATION[\s\S]*?-->/g, '');
-  cleaned = cleaned.replace(/<!--\s*END\s+CLAWPTIMIZATION\s*-->/g, '');
+  let cleaned = stripInjectedContext(rawQuery);
 
   // Strip "System: ..." single-line event entries
   cleaned = cleaned.replace(/^System:.*$/gm, '');

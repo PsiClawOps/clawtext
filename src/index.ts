@@ -7,6 +7,8 @@ import { Clawptimizer, DEFAULT_CLAWPTIMIZATION_CONFIG } from './clawptimization'
 import type { ClawptimizationConfig, ContextSlotSource } from './clawptimization';
 import { PromptCompositor } from './prompt-compositor';
 import type { SlotProvider, ContextSlot } from './slot-provider';
+import { TopicAnchorProvider } from './providers/topic-anchor-provider';
+import { stripInjectedContext } from './injected-context';
 
 export { ClawTextInjectionPlugin, ClawTextRAG };
 export { cleanQueryForSearch } from './rag';
@@ -14,6 +16,8 @@ export * from './library';
 export * from './library-index';
 export * from './library-ingest';
 export * from './runtime-paths';
+export * from './session-topic-map';
+export * from './injected-context';
 export * from './clawptimization';
 export * from './slot-provider';
 export * from './budget-manager';
@@ -28,6 +32,7 @@ export * from './providers/index';
 export * from './providers/cross-session-provider';
 export * from './providers/situational-awareness-provider';
 export * from './providers/clawbridge-provider';
+export * from './providers/topic-anchor-provider';
 
 const WORKSPACE = path.join(os.homedir(), '.openclaw', 'workspace');
 const OPT_CONFIG_PATH = path.join(WORKSPACE, 'state', 'clawtext', 'prod', 'optimize-config.json');
@@ -62,6 +67,7 @@ function inferSource(title: string, content: string): ContextSlotSource {
   if (haystack.includes('journal') || haystack.includes('restored context')) return 'journal';
   if (haystack.includes('memory') || haystack.includes('memories')) return 'memory';
   if (haystack.includes('clawbridge') || haystack.includes('handoff')) return 'clawbridge';
+  if (haystack.includes('topic anchor') || haystack.includes('topic_anchor')) return 'topic-anchor';
   if (haystack.includes('library') || haystack.includes('reference')) return 'library';
   if (haystack.includes('decision')) return 'decision-tree';
   if (haystack.includes('deep history')) return 'deep-history';
@@ -101,7 +107,7 @@ function parsePromptSections(prompt: string): Array<{ title: string; content: st
 
 function priorityForSource(source: ContextSlotSource): number {
   const ordering: Record<string, number> = {
-    system: 10, memory: 20, library: 30, clawbridge: 40,
+    system: 10, memory: 20, 'topic-anchor': 25, library: 30, clawbridge: 40,
     'recent-history': 50, 'mid-history': 60, 'deep-history': 70,
     'decision-tree': 80, journal: 90, 'cross-session': 100,
     'situational-awareness': 110, custom: 120,
@@ -127,8 +133,8 @@ function runClawptimization(
     return undefined;
   }
 
-  // Strip prior recall injection tags before scoring
-  const promptForComposition = prompt.replace(/<relevant-memories>[\s\S]*?<\/relevant-memories>/g, '').trim();
+  // Strip prior injected context before scoring to avoid recursive re-ingestion.
+  const promptForComposition = stripInjectedContext(prompt);
 
   const parsed = parsePromptSections(promptForComposition);
   if (parsed.length === 0) {
@@ -151,6 +157,8 @@ function runClawptimization(
       overflowMode: config.budget?.overflowMode,
     },
   });
+
+  compositor.register(new TopicAnchorProvider({ workspacePath: WORKSPACE }));
 
   const bySource = new Map<ContextSlotSource, Array<{ title: string; content: string; source: ContextSlotSource }>>();
   for (const section of parsed) {

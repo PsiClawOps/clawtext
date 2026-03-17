@@ -35,6 +35,7 @@ export const DEFAULT_SLOT_CONFIGS: Record<ContextSlotSource, SlotConfig> = {
   memory: { ratio: 0.2, policy: 'scored-select', enabled: true },
   library: { ratio: 0.15, policy: 'on-demand', enabled: true },
   clawbridge: { ratio: 0.08, policy: 'if-present', enabled: true },
+  'topic-anchor': { ratio: 0.1, policy: 'if-bound', enabled: true },
   'recent-history': { ratio: 0.12, policy: 'always-include', enabled: true },
   'mid-history': { ratio: 0.15, policy: 'scored-select', enabled: true },
   'deep-history': { ratio: 0.08, policy: 'decision-only', enabled: true },
