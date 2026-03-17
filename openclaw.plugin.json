@@ -2,7 +2,7 @@
   "id": "clawtext",
   "name": "ClawText",
   "description": "Automatic working-memory retrieval, prompt injection, and operational learning hooks for OpenClaw.",
-  "version": "1.5.0",
+  "version": "0.3.0",
   "hooks": [
     "./hooks/clawtext-optimize",
     "./hooks/clawtext-prune"

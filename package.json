@@ -1,6 +1,6 @@
 {
   "name": "@psiclawops/clawtext",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Layered memory and continuity platform for OpenClaw agents: working memory, ingest, operational learning, ClawBridge transfer, and trusted documentation library retrieval.",
   "repository": {
     "type": "git",

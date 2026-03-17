@@ -6,7 +6,7 @@
 
 <div align="center">
 
-[![version](https://img.shields.io/badge/version-0.2.0-informational)](#install)
+[![version](https://img.shields.io/badge/version-0.3.0-informational)](#install)
 [![OpenClaw Plugin](https://img.shields.io/badge/openclaw-plugin-blueviolet)](#install)
 [![Status](https://img.shields.io/badge/status-deploy--ready-yellow)](#)
 
@@ -158,6 +158,25 @@ This keeps upstream truth, local operating reality, and operational lessons sepa
 | **L3 — Searchable archive** | Daily notes, ingested docs, full session history | Indexed | Permanent |
 | **L4 — Intake / staging** | Raw captures, review queue, scoring candidates | — | Transient |
 
+### Lane 6 — Clawptimization *(v0.3.0)*
+**score → compose → prune → audit**
+
+The prompt compositor. Instead of dumping everything into context and hoping it fits, Clawptimization scores every piece of context, allocates it into named slots with percentage-based budgets, and actively prunes low-value content as the context window fills.
+
+| Component | What it does |
+|---|---|
+| **PromptCompositor** | Orchestrator — allocate → fill → redistribute → prune → log |
+| **SlotProviders** | Pluggable context sources (history tiers, memory, library, ClawBridge, cross-session, decision tree) |
+| **BudgetManager** | % of context window per slot, auto-scales on model switch, overflow redistribution |
+| **ContextPressureMonitor** | Rate-aware burn tracking — continuous aggressiveness, not threshold levels |
+| **ActivePruner** | Per-turn evaluation — drops acks, compresses mid-history, preserves decisions |
+| **ContentTypeClassifier** | Half-lives by content type: decisions=∞, specs=180d, discussion=60d, noise=0 |
+| **ContradictionDetector** | Flags conflicting context before it reaches the prompt |
+| **DecisionTreeMemory** | Operational guidance patterns extracted from journal history |
+| **CrossSessionAwareness** | Journal-scanned multi-channel situational context |
+
+Every decision is logged and auditable. Nothing is lost — pruned content is always recoverable from the journal. The agent never knows less, it just stores smarter.
+
 ---
 
 ## Where ClawText fits
@@ -172,6 +191,9 @@ This keeps upstream truth, local operating reality, and operational lessons sepa
 | Human review before promotion | n/a | ✅ | ❌ | ❌ | ❌ |
 | Active context transfer (ClawBridge) | ❌ | ✅ | ❌ | ❌ | ❌ |
 | Structured session handoffs | ❌ | ✅ | ❌ | ❌ | ❌ |
+| Intelligent prompt composition | ❌ | ✅ scored slots + budgets | ❌ | ❌ | ❌ |
+| Active context pruning | ❌ | ✅ rate-aware | ⚠️ tiered eviction | ❌ | ❌ |
+| Cross-session awareness | ❌ | ✅ journal-based | ❌ | ❌ | ❌ |
 | External ingest (docs/repos/URLs) | ❌ | ✅ | ❌ | ⚠️ partial | ⚠️ partial |
 | File-first, auditable state | ✅ | ✅ | ❌ | ❌ | ❌ |
 | OpenClaw-native plugin | ✅ | ✅ | ❌ | ❌ | ❌ |
