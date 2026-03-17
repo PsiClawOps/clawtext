@@ -131,7 +131,13 @@ The first version should stay narrow.
    - eligible for prompt-time retrieval when query intent is reference-seeking
    - weighted differently than transient conversation memory
 
-4. **Operator workflows**
+4. **Agent-led import workflow**
+   - natural-language library import requests
+   - manifest-backed collection creation
+   - minimal clarification when trust/source ambiguity matters
+   - structured reporting after import
+
+5. **Operator workflows**
    - add a library entry
    - refresh an entry
    - mark stale

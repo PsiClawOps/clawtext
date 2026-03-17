@@ -258,3 +258,4 @@ openclaw run clawtext --operational:status    # review queue summary, recurrence
 - [`docs/LIBRARY_LANE.md`](docs/LIBRARY_LANE.md) — post-2.0 design for curated project/library knowledge
 - [`docs/LIBRARY_PROXMOX_9_1_COLLECTION_PLAN.md`](docs/LIBRARY_PROXMOX_9_1_COLLECTION_PLAN.md) — first external library collection plan using official Proxmox VE 9.1 docs
 - [`docs/LIBRARY_LANE_INTEGRATION_SPEC.md`](docs/LIBRARY_LANE_INTEGRATION_SPEC.md) — technical integration plan for collections, overlays, indexing, and retrieval
+- [`docs/LIBRARY_AGENT_IMPORT_WORKFLOW.md`](docs/LIBRARY_AGENT_IMPORT_WORKFLOW.md) — agent-led workflow for turning natural-language library import requests into structured collection ingest

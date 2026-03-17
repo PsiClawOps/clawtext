@@ -122,6 +122,7 @@ Teams need agents to reference current repo state, architecture decisions, proje
 - named library collections for trusted imported doc corpora
 - curated Markdown entries with machine-usable metadata
 - optional overlays for local/operator environment notes
+- agent-led library import workflow backed by collection manifests
 - separate retrieval weighting for reference-seeking questions
 - refresh / stale / superseded workflow for collections and entries
 
