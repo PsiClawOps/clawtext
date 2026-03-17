@@ -3,6 +3,7 @@ import { ClawTextRAG } from './rag';
 
 export { ClawTextInjectionPlugin, ClawTextRAG };
 export * from './library';
+export * from './library-ingest';
 export * from './runtime-paths';
 
 function extractUserText(messages: unknown[] = []): string {
