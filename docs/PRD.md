@@ -38,6 +38,7 @@ In this phase, the product being built and hardened is:
 - autonomous pattern promotion without review
 
 ### Deferred intentionally
+- documentation / library lane for curated, queryable project knowledge
 - deeper graph-native relationship retrieval
 - broader org/tenant governance
 - platform-native execution surfaces beyond existing contracts
@@ -101,3 +102,31 @@ ClawText 2.0+ hardening is complete when:
 - architecture/UX assumptions should continue respecting the layered memory model
 - release hardening should prioritize proof of supported behavior over new feature expansion
 - changes that alter retrieval semantics, isolation guarantees, or continuity contracts should escalate and update canon
+- post-2.0 feature intake should update both `docs/NORTHSTAR.md` and this PRD so roadmap intent and executable product direction stay aligned
+
+## 9. Post-2.0 feature intake — Documentation / Library Lane
+### Feature summary
+Add a dedicated library lane for curated, queryable project knowledge.
+
+### Why it matters
+Teams need agents to reference current repo state, architecture decisions, project status, and canonical docs without re-reading an entire repo or confusing reference material with conversational memory.
+
+### Intended outcomes
+- project-status questions resolve against curated library entries first
+- architecture and repo-shape questions retrieve reviewed summaries before raw ingest
+- source lineage stays visible and auditable
+- library knowledge remains separate from operational patterns and continuity artifacts
+
+### Initial implementation shape
+- file-first storage under `state/clawtext/prod/library/`
+- curated Markdown entries with machine-usable metadata
+- separate retrieval weighting for reference-seeking questions
+- refresh / stale / superseded workflow for library entries
+
+### Non-goals for this phase
+- no graph-native knowledge engine
+- no autonomous promotion without review
+- no collapse of the existing working-memory / ingest / operational-learning / continuity lanes
+
+### Canonical design reference
+See `docs/LIBRARY_LANE.md` for the current design draft.

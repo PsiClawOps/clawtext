@@ -270,6 +270,9 @@ These are valuable but not required for 2.0:
 - **Phase 6: Multi-surface scaling** — Clawback-native app surfaces, webhook adapters, broader platform integration
 - **Phase 7: Advanced learning** — ML-based pattern detection, automatic safety classification, risk-aware promotion
 
+**Phase 3 intent lock:**
+The Documentation/Library Lane is the first planned post-2.0 expansion because ClawText needs a dedicated home for curated project knowledge that is neither raw ingest, nor conversational recall, nor operational failure learning. Its job is to make project status, architecture summaries, repo maps, and canonical documentation retrievable as reference-quality memory.
+
 ---
 
 ## VIII. Success Metrics & Northstar Vision
