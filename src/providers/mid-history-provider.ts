@@ -182,7 +182,12 @@ export class MidHistoryProvider implements SlotProvider {
           ...slot,
           content,
           bytes: Buffer.byteLength(content, 'utf8'),
-          score: classification.type === 'decision' ? Math.max(slot.score, 0.9) : slot.score,
+          score:
+            classification.type === 'decision'
+              ? Math.max(slot.score, 0.9)
+              : classification.type === 'preference'
+                ? Math.max(slot.score, 0.8)
+                : slot.score,
           reason: `${slot.reason} prune:compressed(a=${aggressiveness.toFixed(2)})`,
           included: true,
         };
@@ -194,7 +199,10 @@ export class MidHistoryProvider implements SlotProvider {
     let retainedBytes = retained.reduce((sum, slot) => sum + slot.bytes, 0);
 
     while (originalBytes - retainedBytes < targetFreeBytes && retained.length > 1) {
-      const dropIndex = retained.findIndex((slot) => classifyContentType(slot.content).type !== 'decision');
+      const dropIndex = retained.findIndex((slot) => {
+        const type = classifyContentType(slot.content).type;
+        return type !== 'decision' && type !== 'preference';
+      });
       if (dropIndex < 0) break;
       retained.splice(dropIndex, 1);
       retainedBytes = retained.reduce((sum, slot) => sum + slot.bytes, 0);

@@ -44,7 +44,8 @@
     "discord:backfill": "node scripts/discord-backfill.mjs",
     "discord:backfill:dry": "node scripts/discord-backfill.mjs --dry-run --verbose",
     "prefetch": "node scripts/discord-prefetch.mjs",
-    "clawbridge:check": "node -e \"const p = require('./dist/providers/clawbridge-provider.js'); console.log('ClawBridge provider loaded');\""
+    "clawbridge:check": "node -e \"const p = require('./dist/providers/clawbridge-provider.js'); console.log('ClawBridge provider loaded');\"",
+    "test:content-types": "npm run build && node --test tests/content-type-classifier.test.mjs"
   },
   "keywords": [
     "memory",

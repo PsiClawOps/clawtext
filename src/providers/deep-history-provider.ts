@@ -39,18 +39,30 @@ function estimateCount(messages: HistoryMessage[], budgetBytes: number, fallback
 
 function halfLifeAdjustedScore(content: string, ts: number | null): number {
   const classification = classifyContentType(content);
-  if (classification.type === 'decision') return 1;
-  if (classification.type !== 'spec') return 0;
 
-  if (!ts) return 0.75;
+  if (classification.type === 'decision') return 1;
+
+  const baseScoreByType: Partial<Record<typeof classification.type, number>> = {
+    spec: 0.75,
+    preference: 0.72,
+    skill: 0.65,
+    attribute: 0.55,
+  };
+
+  const baseScore = baseScoreByType[classification.type] ?? 0;
+  if (baseScore <= 0) return 0;
+
+  if (!ts) return baseScore;
   const ageDays = Math.max(0, Date.now() - ts) / (1000 * 60 * 60 * 24);
   const decay = Math.pow(0.5, ageDays / classification.halfLifeDays);
-  return 0.75 * decay;
+  return baseScore * decay;
 }
 
 function firstSentence(content: string): string {
   return (content.trim().split(/(?<=[.!?])\s+/)[0] ?? content.trim()).trim();
 }
+
+const DEEP_ELIGIBLE_TYPES = new Set(['decision', 'spec', 'preference', 'skill', 'attribute']);
 
 export class DeepHistoryProvider implements SlotProvider {
   readonly id = 'deep-history';
@@ -108,7 +120,7 @@ export class DeepHistoryProvider implements SlotProvider {
       if (!content) continue;
 
       const classification = classifyContentType(content);
-      if (classification.type !== 'decision' && classification.type !== 'spec') continue;
+      if (!DEEP_ELIGIBLE_TYPES.has(classification.type)) continue;
 
       if (classification.type === 'decision' && contradicts(content, recentContents)) {
         continue;
@@ -139,14 +151,18 @@ export class DeepHistoryProvider implements SlotProvider {
     if (slots.length === 0) return [];
 
     const bullets = slots
-      .map((slot) => classifyContentType(slot.content).type === 'decision' ? firstSentence(slot.content) : '')
+      .map((slot) => {
+        const type = classifyContentType(slot.content).type;
+        if (!DEEP_ELIGIBLE_TYPES.has(type)) return '';
+        return `[${type}] ${firstSentence(slot.content)}`;
+      })
       .filter((text) => Boolean(text));
 
     if (bullets.length === 0) {
       return slots.slice(0, Math.max(1, Math.floor(slots.length * (1 - aggressiveness * 0.5))));
     }
 
-    const content = ['Deep-history decisions:', ...bullets.map((line) => `- ${line}`)].join('\n');
+    const content = ['Deep-history durable context:', ...bullets.map((line) => `- ${line}`)].join('\n');
     return [
       {
         id: 'deep-history:summary',
