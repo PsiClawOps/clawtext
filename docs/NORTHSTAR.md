@@ -1,3 +1,12 @@
+---
+doc: NORTHSTAR
+version: 2.0
+project_structure: standalone
+northstar_maturity: baseline locked
+owner: PsiClawOps
+last_updated: 2026-03-16
+---
+
 # ClawText Northstar — Strategic Definition
 
 **Owner:** ClawText project | **Version:** 2.0 | **Status:** Frozen for v2.0 release | **Last Updated:** 2026-03-16

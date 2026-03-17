@@ -9,7 +9,8 @@ last_updated: 2026-03-17
 # Lifecycle Baseline — ClawText
 
 ## Repo identity
-- Project name: ClawText
+- Ancestors (if child): none
+- Project name: clawtext
 - GitHub identity profile: psiclawops
 - Repo state: attach
 - Project structure: standalone
@@ -17,20 +18,21 @@ last_updated: 2026-03-17
 - Blade path: none
 
 ## ClawTomation baseline status
-- Framework version: 2026-03-17.e
-- Baseline version: 2026-03-17.e
+- Framework version: 2026-03-17.f
+- Baseline version: 2026-03-17.a
 - Last sync date: 2026-03-17
-- Sync result: synced
+- Sync result: partially-synced-needs-github-settings
 
 ## Installed modules
 - Core lifecycle docs: yes
 - Enforcement stack: yes
 - Output artifact discipline: yes
-- Workstream clearinghouse: no (standalone — no registered children)
+- Workstream clearinghouse: no
 - Master/child coordination: no
 - Private stealth hooks: yes
 
 ## GitHub settings status
+- Conversation resolution required: no
 - Workflow installed: yes
 - PR template installed: yes
 - Labels configured: yes
