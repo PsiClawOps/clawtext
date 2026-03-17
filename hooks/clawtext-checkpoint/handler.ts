@@ -59,6 +59,28 @@ function inferTopicName(params: {
   return sanitizeTopicName(params.sessionKey || 'general');
 }
 
+function isFilteredSession(ctx: Record<string, unknown>, content = ''): boolean {
+  const trigger = String(ctx.trigger || '').toLowerCase();
+  if (trigger.includes('heartbeat')) return true;
+  if (/(^|[\s:_./-])cron($|[\s:_./-])/.test(trigger)) return true;
+  if (/memory[\s:_-]*internal/.test(trigger)) return true;
+
+  const identities = [ctx.sessionKey, ctx.sessionId, ctx.agentId, ctx.conversationId, ctx.channelId]
+    .map((value) => String(value || '').toLowerCase())
+    .filter(Boolean);
+
+  for (const identity of identities) {
+    if (identity.includes('heartbeat')) return true;
+    if (/(^|[\s:_./-])cron($|[\s:_./-])/.test(identity)) return true;
+    if (/memory[\s:_-]*internal/.test(identity)) return true;
+  }
+
+  const normalized = content.trim().toLowerCase();
+  if (normalized.startsWith('read heartbeat.md if it exists')) return true;
+
+  return false;
+}
+
 // ── Write checkpoint record to journal ───────────────────────────────────────
 function writeCheckpoint(params: {
   sessionKey: string;
@@ -105,6 +127,8 @@ const handler = async (event: { type: string; action: string; sessionKey: string
     const channel = (ctx.channelId as string) || (ctx.conversationId as string) || 'unknown';
     const channelName = (ctx.channelName as string) || (ctx.groupSubject as string) || undefined;
 
+    if (isFilteredSession({ ...ctx, sessionKey })) return;
+
     // ── RESET / NEW: immediate checkpoint ──
     if (event.type === 'agent' && (event.action === 'reset' || event.action === 'new')) {
       const state = readState();
@@ -137,6 +161,7 @@ const handler = async (event: { type: string; action: string; sessionKey: string
         ? ((ctx.bodyForAgent || ctx.body || '') as string).trim()
         : ((ctx.content || '') as string).trim();
       if (!content || content.length < 10) return;
+      if (isFilteredSession({ ...ctx, sessionKey }, content)) return;
       if (content.startsWith('HEARTBEAT_OK') || content.startsWith('NO_REPLY')) return;
 
       const sender = (ctx.senderUsername || ctx.senderName || ctx.from || (event.action === 'sent' ? 'agent' : 'user')) as string;
