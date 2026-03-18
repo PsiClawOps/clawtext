@@ -58,3 +58,11 @@ export function getClawTextLibrarySnapshotsDir(workspacePath) {
 export function getClawTextLibraryManifestsDir(workspacePath) {
   return path.join(getClawTextLibraryDir(workspacePath), 'manifests');
 }
+
+export function getClawTextSessionTopicMapPath(workspacePath) {
+  return path.join(getClawTextProdStateRoot(workspacePath), 'session-topic-map.json');
+}
+
+export function getClawTextTopicAnchorsDir(workspacePath) {
+  return path.join(getClawTextProdStateRoot(workspacePath), 'topic-anchors');
+}

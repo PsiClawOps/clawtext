@@ -56,6 +56,28 @@ function isRawLog(content) {
   return false;
 }
 
+function isFilteredSession(ctx, content = '') {
+  const trigger = (ctx?.trigger || '').toString().toLowerCase();
+  if (trigger.includes('heartbeat')) return true;
+  if (/(^|[\s:_./-])cron($|[\s:_./-])/.test(trigger)) return true;
+  if (/memory[\s:_-]*internal/.test(trigger)) return true;
+
+  const identities = [ctx?.sessionKey, ctx?.sessionId, ctx?.agentId, ctx?.conversationId, ctx?.channelId]
+    .map(value => (value || '').toString().toLowerCase())
+    .filter(Boolean);
+
+  for (const identity of identities) {
+    if (identity.includes('heartbeat')) return true;
+    if (/(^|[\s:_./-])cron($|[\s:_./-])/.test(identity)) return true;
+    if (/memory[\s:_-]*internal/.test(identity)) return true;
+  }
+
+  const normalized = content.trim().toLowerCase();
+  if (normalized.startsWith('read heartbeat.md if it exists')) return true;
+
+  return false;
+}
+
 const handler = async (event) => {
   // Only care about message events
   if (event.type !== 'message') return;
@@ -69,6 +91,9 @@ const handler = async (event) => {
       ? (ctx.bodyForAgent || ctx.body || '').trim()
       : (ctx.content || '').trim();
     if (!content || content.length < 10) return;
+
+    // Skip heartbeat/cron/memory-internal sessions and poll prompts
+    if (isFilteredSession(ctx, content)) return;
 
     // Skip bot system noise
     if (content.startsWith('HEARTBEAT_OK') || content.startsWith('NO_REPLY')) return;

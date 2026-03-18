@@ -85,10 +85,34 @@ export class ClawTextMemory {
   }
 
   async add(content: string, options: MemoryOptions = {}): Promise<Record<string, any>> {
-    const id = this._generateId();
     const now = new Date().toISOString();
     const dedupeHash = this._hashContent(content);
-    
+    const existing = this._findByDedupeHash(dedupeHash);
+
+    if (existing) {
+      const mentionCount = Number.isFinite(existing.mentionCount)
+        ? Math.max(1, Number(existing.mentionCount)) + 1
+        : 2;
+
+      const merged = {
+        ...existing,
+        mentionCount,
+        lastMentionedAt: now,
+        updatedAt: now,
+        observedAt: now,
+        keywords: this._mergeUnique(existing.keywords || [], options.keywords || this._extractKeywords(content)),
+        tags: this._mergeUnique(existing.tags || [], options.tags || []),
+        entities: this._mergeUnique(existing.entities || [], options.entities || []),
+      };
+
+      const existingPath = path.join(this.memoriesDir, `${existing.id}.json`);
+      fs.writeFileSync(existingPath, JSON.stringify(merged, null, 2));
+      this.hotCache.admit([merged as unknown as CacheableMemory]);
+      await this._refreshClusters();
+      return merged;
+    }
+
+    const id = this._generateId();
     const memory = {
       id,
       sourceType: 'api',
@@ -107,6 +131,8 @@ export class ClawTextMemory {
       tags: options.tags || [],
       keywords: options.keywords || this._extractKeywords(content),
       dedupeHash,
+      mentionCount: 1,
+      lastMentionedAt: now,
       summary: content.slice(0, 200),
       body: content,
       relations: { supersedes: [], related: [], derivedFrom: [] },
@@ -123,7 +149,7 @@ export class ClawTextMemory {
 
     const filepath = path.join(this.memoriesDir, `${id}.json`);
     fs.writeFileSync(filepath, JSON.stringify(memory, null, 2));
-    
+
     this.hotCache.admit([memory as unknown as CacheableMemory]);
     await this._refreshClusters();
 
@@ -215,7 +241,9 @@ export class ClawTextMemory {
         }
         
         if (score > 0) {
-          results.push({ ...memory, score: score * (memory.confidence || 0.8) });
+          const mentionCount = Number.isFinite(memory.mentionCount) ? Math.max(1, Number(memory.mentionCount)) : 1;
+          const mentionBoost = 1 + Math.min(1, Math.log2(mentionCount) * 0.2);
+          results.push({ ...memory, score: score * (memory.confidence || 0.8) * mentionBoost });
         }
       } catch (e) { /* skip */ }
     }
@@ -223,6 +251,28 @@ export class ClawTextMemory {
     return results
       .sort((a, b) => b.score - a.score)
       .slice(0, options.limit || 10);
+  }
+
+  private _findByDedupeHash(dedupeHash: string): Record<string, any> | null {
+    if (!fs.existsSync(this.memoriesDir)) return null;
+
+    for (const file of fs.readdirSync(this.memoriesDir).filter(f => f.endsWith('.json'))) {
+      try {
+        const filepath = path.join(this.memoriesDir, file);
+        const memory = JSON.parse(fs.readFileSync(filepath, 'utf8'));
+        if (memory.dedupeHash === dedupeHash && memory.id) {
+          return memory;
+        }
+      } catch {
+        // Ignore malformed files
+      }
+    }
+
+    return null;
+  }
+
+  private _mergeUnique(existing: string[], incoming: string[]): string[] {
+    return [...new Set([...(Array.isArray(existing) ? existing : []), ...(Array.isArray(incoming) ? incoming : [])])];
   }
 
   private _extractKeywords(text: string): string[] {

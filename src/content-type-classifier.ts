@@ -1,4 +1,12 @@
-export type ContentType = 'decision' | 'spec' | 'discussion' | 'ack' | 'noise';
+export type ContentType =
+  | 'decision'
+  | 'spec'
+  | 'preference'
+  | 'skill'
+  | 'attribute'
+  | 'discussion'
+  | 'ack'
+  | 'noise';
 
 export interface ContentTypeResult {
   type: ContentType;
@@ -20,6 +28,29 @@ const SPEC_PATTERNS = [
   /\barchitecture\b/i,
   /\bapi\b/i,
   /\bcontract\b/i,
+];
+
+const PREFERENCE_PATTERNS = [
+  /\b(?:i|we)\s+(?:prefer|like|love|favor)\b/i,
+  /\bmy\s+preferred\b/i,
+  /\bpreference\b/i,
+  /\bi(?:\'|’)d\s+rather\b/i,
+  /\bdefault\s+to\b/i,
+  /\b(?:always|usually)\s+use\b/i,
+];
+
+const SKILL_PATTERNS = [
+  /\b(?:i|we)\s+(?:know|understand|can|able to)\b/i,
+  /\b(?:experienced|proficient|expert)\s+with\b/i,
+  /\b(?:skill|strength|competenc(?:y|ies))\b/i,
+  /\b(?:familiar|comfortable)\s+with\b/i,
+];
+
+const ATTRIBUTE_PATTERNS = [
+  /\b(?:i|we)\s+(?:am|are)\b/i,
+  /\bmy\s+(?:role|timezone|location|name|pronouns|schedule|availability)\b/i,
+  /\b(?:timezone|pronouns|role|availability|schedule)\s*:/i,
+  /\b(?:working\s+hours|hard\s+stop|deadline)\b/i,
 ];
 
 const NOISE_PATTERNS = [
@@ -47,6 +78,9 @@ const ACK_PHRASES = new Set([
 const HALF_LIFE: Record<ContentType, number> = {
   decision: Number.POSITIVE_INFINITY,
   spec: 180,
+  preference: 180,
+  skill: 120,
+  attribute: 30,
   discussion: 60,
   ack: 0,
   noise: 0,
@@ -79,6 +113,18 @@ export function classifyContentType(content: string): ContentTypeResult {
 
   if (SPEC_PATTERNS.some((rx) => rx.test(body))) {
     return { type: 'spec', confidence: 0.82, halfLifeDays: HALF_LIFE.spec };
+  }
+
+  if (PREFERENCE_PATTERNS.some((rx) => rx.test(body))) {
+    return { type: 'preference', confidence: 0.8, halfLifeDays: HALF_LIFE.preference };
+  }
+
+  if (SKILL_PATTERNS.some((rx) => rx.test(body))) {
+    return { type: 'skill', confidence: 0.78, halfLifeDays: HALF_LIFE.skill };
+  }
+
+  if (ATTRIBUTE_PATTERNS.some((rx) => rx.test(body))) {
+    return { type: 'attribute', confidence: 0.72, halfLifeDays: HALF_LIFE.attribute };
   }
 
   if (/\?$/.test(body) || /\b(why|how|maybe|could|should|explore|question)\b/i.test(body)) {

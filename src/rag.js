@@ -95,6 +95,20 @@ export class ClawTextRAG {
     // Apply confidence multiplier
     score *= memory.confidence;
 
+    // Mention frequency boost (backward compatible default = 1)
+    const mentionCount = Number.isFinite(memory.mentionCount) ? Math.max(1, Number(memory.mentionCount)) : 1;
+    const mentionBoost = 1 + Math.min(1, Math.log2(mentionCount) * 0.2);
+    score *= mentionBoost;
+
+    // Mild recency boost from lastMentionedAt
+    if (memory.lastMentionedAt) {
+      const ageMs = Date.now() - new Date(memory.lastMentionedAt).getTime();
+      if (Number.isFinite(ageMs) && ageMs >= 0) {
+        const days = ageMs / (24 * 60 * 60 * 1000);
+        score *= 1 + Math.max(0, 0.1 * Math.exp(-days / 30));
+      }
+    }
+
     // Project-aware weighting (prevent cross-domain pollution)
     if (targetProjects.length > 0 && memory.project) {
       const isTargetProject = targetProjects.some(p => 

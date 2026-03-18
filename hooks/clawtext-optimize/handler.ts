@@ -10,6 +10,8 @@ import {
 } from '../../src/clawptimization.ts';
 import { PromptCompositor } from '../../src/prompt-compositor.ts';
 import type { SlotProvider } from '../../src/slot-provider.ts';
+import { TopicAnchorProvider } from '../../src/providers/topic-anchor-provider.ts';
+import { stripInjectedContext } from '../../src/injected-context.ts';
 
 type PluginHookBeforePromptBuildEvent = {
   prompt: string;
@@ -135,6 +137,7 @@ function inferSource(title: string, content: string): ContextSlotSource {
   if (haystack.includes('journal') || haystack.includes('restored context')) return 'journal';
   if (haystack.includes('memory') || haystack.includes('memories')) return 'memory';
   if (haystack.includes('clawbridge') || haystack.includes('handoff')) return 'clawbridge';
+  if (haystack.includes('topic anchor') || haystack.includes('topic_anchor')) return 'topic-anchor';
   if (haystack.includes('library') || haystack.includes('reference')) return 'library';
   if (haystack.includes('decision')) return 'decision-tree';
   if (haystack.includes('deep history')) return 'deep-history';
@@ -198,6 +201,7 @@ function priorityForSource(source: ContextSlotSource): number {
   const ordering: Record<ContextSlotSource, number> = {
     system: 10,
     memory: 20,
+    'topic-anchor': 25,
     library: 30,
     clawbridge: 40,
     'recent-history': 50,
@@ -231,7 +235,8 @@ const handler = async (
     return;
   }
 
-  const parsed = parsePromptSections(prompt);
+  const promptForComposition = stripInjectedContext(prompt);
+  const parsed = parsePromptSections(promptForComposition);
   if (parsed.length === 0) {
     logDiagnostic({ type: 'skip', reason: 'no-sections', channel: ctx.messageChannel, promptLength: prompt.length });
     return;
@@ -253,6 +258,8 @@ const handler = async (
       overflowMode: config.budget?.overflowMode,
     },
   });
+
+  compositor.register(new TopicAnchorProvider({ workspacePath: WORKSPACE }));
 
   const bySource = new Map<ContextSlotSource, ParsedSection[]>();
   for (const section of parsed) {

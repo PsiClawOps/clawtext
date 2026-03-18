@@ -18,9 +18,9 @@ last_updated: 2026-03-17
 - Blade path: none
 
 ## ClawTomation baseline status
-- Framework version: 2026-03-17.f
+- Framework version: 2026-03-18.b
 - Baseline version: 2026-03-17.a
-- Last sync date: 2026-03-17
+- Last sync date: 2026-03-18
 - Sync result: partially-synced-needs-github-settings
 
 ## Installed modules
@@ -30,6 +30,10 @@ last_updated: 2026-03-17
 - Workstream clearinghouse: no
 - Master/child coordination: no
 - Private stealth hooks: yes
+- Model policy: yes
+  - policy doc: docs/MODEL_POLICY.md (inherited from ClawTomation framework)
+  - model_policy_version: 1.0.0
+  - tuning telemetry: heartbeat model_used + role_invoked fields
 
 ## GitHub settings status
 - Conversation resolution required: no

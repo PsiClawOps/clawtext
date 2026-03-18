@@ -139,6 +139,9 @@ Journal records get a `content_type` classification:
 |------|-----------|---------|
 | decision | ∞ (never decays) | "we decided to use X", "the approach is Y" |
 | spec | 180 days | Architecture docs, API specs, interface definitions |
+| preference | 180 days | "I prefer architecture-first", "default to Sonnet" |
+| skill | 120 days | "I can debug this", "we're experienced with TypeScript" |
+| attribute | 30 days | "my timezone is MST", "hard stop is 2am" |
 | discussion | 60 days | Back-and-forth exploration, pros/cons |
 | ack | 0 (immediate decay) | "ok", "sounds good", "lets do it" |
 | noise | 0 (immediate decay) | Raw logs, heartbeats, system messages |

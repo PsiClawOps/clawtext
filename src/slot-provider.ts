@@ -3,6 +3,7 @@ export type ContextSlotSource =
   | 'memory'
   | 'library'
   | 'clawbridge'
+  | 'topic-anchor'
   | 'recent-history'
   | 'mid-history'
   | 'deep-history'

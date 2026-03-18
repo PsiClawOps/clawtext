@@ -326,6 +326,8 @@ function loadApiMemories() {
         sourceType: data.sourceType || 'api',
         createdAt: data.createdAt || data.observedAt || null,
         dedupeHash: data.dedupeHash || dedupeHash(content),
+        mentionCount: Number.isFinite(data.mentionCount) ? Math.max(1, Number(data.mentionCount)) : 1,
+        lastMentionedAt: data.lastMentionedAt || data.updatedAt || data.observedAt || data.createdAt || null,
       });
     } catch (e) {
       console.warn(`  skip api memory ${file}: ${e.message}`);
@@ -343,7 +345,53 @@ console.log(`[build-clusters] Found ${files.length} memory files`);
 
 // Group chunks by project
 const byProject = {};
-const seenHashes = new Set(); // deduplication across all sources
+const dedupeIndex = new Map(); // key -> canonical memory object
+
+function normalizeMentionCount(value) {
+  return Number.isFinite(value) ? Math.max(1, Number(value)) : 1;
+}
+
+function chooseNewerTimestamp(a, b) {
+  const at = a ? new Date(a).getTime() : 0;
+  const bt = b ? new Date(b).getTime() : 0;
+  return bt > at ? b : a;
+}
+
+function addOrMergeMemory(input, mentionIncrement = 1) {
+  const nowIso = new Date().toISOString();
+  const proj = input.project || 'default';
+  const dedupeKey = input.dedupeHash || input.id;
+
+  if (dedupeKey && dedupeIndex.has(dedupeKey)) {
+    const existing = dedupeIndex.get(dedupeKey);
+    existing.mentionCount = normalizeMentionCount(existing.mentionCount) + normalizeMentionCount(mentionIncrement);
+    existing.lastMentionedAt = chooseNewerTimestamp(existing.lastMentionedAt, input.lastMentionedAt || input.createdAt || nowIso) || nowIso;
+    existing.updatedAt = nowIso;
+    existing.keywords = [...new Set([...(existing.keywords || []), ...(input.keywords || [])])];
+    return;
+  }
+
+  if (!byProject[proj]) byProject[proj] = [];
+
+  const memory = {
+    id: input.id,
+    content: input.content,
+    keywords: input.keywords || [],
+    type: input.type,
+    project: proj,
+    confidence: input.confidence,
+    sourceFile: input.sourceFile,
+    sourceType: input.sourceType || 'extracted',
+    createdAt: input.createdAt || null,
+    dedupeHash: input.dedupeHash || null,
+    mentionCount: normalizeMentionCount(mentionIncrement),
+    lastMentionedAt: input.lastMentionedAt || input.createdAt || nowIso,
+    updatedAt: nowIso,
+  };
+
+  byProject[proj].push(memory);
+  if (dedupeKey) dedupeIndex.set(dedupeKey, memory);
+}
 
 files.forEach(filePath => {
   const rel = path.relative(WORKSPACE, filePath);
@@ -356,55 +404,14 @@ files.forEach(filePath => {
   }
 
   const chunks = splitIntoChunks(content, rel);
-  chunks.forEach(chunk => {
-    // Deduplicate by content hash
-    if (chunk.dedupeHash && seenHashes.has(chunk.dedupeHash)) return;
-    if (chunk.dedupeHash) seenHashes.add(chunk.dedupeHash);
-
-    const proj = chunk.project || 'default';
-    if (!byProject[proj]) byProject[proj] = [];
-    byProject[proj].push({
-      id:          chunk.id,
-      content:     chunk.content,
-      keywords:    chunk.keywords,
-      type:        chunk.type,
-      project:     proj,
-      confidence:  chunk.confidence,
-      sourceFile:  chunk.sourceFile,
-      sourceType:  chunk.sourceType || 'extracted',
-      createdAt:   chunk.createdAt || null,
-      dedupeHash:  chunk.dedupeHash || null,
-      updatedAt:   new Date().toISOString(),
-    });
-  });
+  chunks.forEach(chunk => addOrMergeMemory(chunk, 1));
 });
 
 // Also load API memories (fixes dual storage gap)
 const apiMemories = loadApiMemories();
-let apiCount = 0;
-apiMemories.forEach(mem => {
-  if (mem.dedupeHash && seenHashes.has(mem.dedupeHash)) return;
-  if (mem.dedupeHash) seenHashes.add(mem.dedupeHash);
-
-  const proj = mem.project || 'default';
-  if (!byProject[proj]) byProject[proj] = [];
-  byProject[proj].push({
-    id:          mem.id,
-    content:     mem.content,
-    keywords:    mem.keywords,
-    type:        mem.type,
-    project:     proj,
-    confidence:  mem.confidence,
-    sourceFile:  mem.sourceFile,
-    sourceType:  mem.sourceType,
-    createdAt:   mem.createdAt,
-    dedupeHash:  mem.dedupeHash,
-    updatedAt:   new Date().toISOString(),
-  });
-  apiCount++;
-});
-if (apiCount > 0) {
-  console.log(`[build-clusters] Loaded ${apiCount} API memories from ${API_MEMORIES_DIR}`);
+apiMemories.forEach(mem => addOrMergeMemory(mem, mem.mentionCount || 1));
+if (apiMemories.length > 0) {
+  console.log(`[build-clusters] Loaded ${apiMemories.length} API memories from ${API_MEMORIES_DIR}`);
 }
 
 // Write cluster files

@@ -7,6 +7,8 @@ import { Clawptimizer, DEFAULT_CLAWPTIMIZATION_CONFIG } from './clawptimization'
 import type { ClawptimizationConfig, ContextSlotSource } from './clawptimization';
 import { PromptCompositor } from './prompt-compositor';
 import type { SlotProvider, ContextSlot } from './slot-provider';
+import { TopicAnchorProvider } from './providers/topic-anchor-provider';
+import { stripInjectedContext } from './injected-context';
 
 export { ClawTextInjectionPlugin, ClawTextRAG };
 export { cleanQueryForSearch } from './rag';
@@ -14,6 +16,9 @@ export * from './library';
 export * from './library-index';
 export * from './library-ingest';
 export * from './runtime-paths';
+export * from './session-topic-map';
+export * from './topic-anchor';
+export * from './injected-context';
 export * from './clawptimization';
 export * from './slot-provider';
 export * from './budget-manager';
@@ -28,6 +33,7 @@ export * from './providers/index';
 export * from './providers/cross-session-provider';
 export * from './providers/situational-awareness-provider';
 export * from './providers/clawbridge-provider';
+export * from './providers/topic-anchor-provider';
 
 const WORKSPACE = path.join(os.homedir(), '.openclaw', 'workspace');
 const OPT_CONFIG_PATH = path.join(WORKSPACE, 'state', 'clawtext', 'prod', 'optimize-config.json');
@@ -62,6 +68,7 @@ function inferSource(title: string, content: string): ContextSlotSource {
   if (haystack.includes('journal') || haystack.includes('restored context')) return 'journal';
   if (haystack.includes('memory') || haystack.includes('memories')) return 'memory';
   if (haystack.includes('clawbridge') || haystack.includes('handoff')) return 'clawbridge';
+  if (haystack.includes('topic anchor') || haystack.includes('topic_anchor')) return 'topic-anchor';
   if (haystack.includes('library') || haystack.includes('reference')) return 'library';
   if (haystack.includes('decision')) return 'decision-tree';
   if (haystack.includes('deep history')) return 'deep-history';
@@ -101,7 +108,7 @@ function parsePromptSections(prompt: string): Array<{ title: string; content: st
 
 function priorityForSource(source: ContextSlotSource): number {
   const ordering: Record<string, number> = {
-    system: 10, memory: 20, library: 30, clawbridge: 40,
+    system: 10, memory: 20, 'topic-anchor': 25, library: 30, clawbridge: 40,
     'recent-history': 50, 'mid-history': 60, 'deep-history': 70,
     'decision-tree': 80, journal: 90, 'cross-session': 100,
     'situational-awareness': 110, custom: 120,
@@ -127,8 +134,8 @@ function runClawptimization(
     return undefined;
   }
 
-  // Strip prior recall injection tags before scoring
-  const promptForComposition = prompt.replace(/<relevant-memories>[\s\S]*?<\/relevant-memories>/g, '').trim();
+  // Strip prior injected context before scoring to avoid recursive re-ingestion.
+  const promptForComposition = stripInjectedContext(prompt);
 
   const parsed = parsePromptSections(promptForComposition);
   if (parsed.length === 0) {
@@ -151,6 +158,8 @@ function runClawptimization(
       overflowMode: config.budget?.overflowMode,
     },
   });
+
+  compositor.register(new TopicAnchorProvider({ workspacePath: WORKSPACE }));
 
   const bySource = new Map<ContextSlotSource, Array<{ title: string; content: string; source: ContextSlotSource }>>();
   for (const section of parsed) {
@@ -257,6 +266,36 @@ function extractUserText(messages: unknown[] = []): string {
   return contentFromMessage(lastMessage);
 }
 
+function hasDelimitedToken(value: string, token: string): boolean {
+  const escaped = token.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const pattern = new RegExp(`(?:^|[\\s:_./-])${escaped}(?:$|[\\s:_./-])`, 'i');
+  return pattern.test(value);
+}
+
+function getAutomationSkipReason(ctx: any, userMessage: string): string | null {
+  const trigger = typeof ctx?.trigger === 'string' ? ctx.trigger.trim().toLowerCase() : '';
+  if (trigger) {
+    if (trigger.includes('heartbeat')) return 'trigger-heartbeat';
+    if (hasDelimitedToken(trigger, 'cron')) return 'trigger-cron';
+    if (/memory[\s:_-]*internal/i.test(trigger)) return 'trigger-memory-internal';
+  }
+
+  const identityFields = [ctx?.sessionKey, ctx?.sessionId, ctx?.agentId, ctx?.messageChannel]
+    .filter((value): value is string => typeof value === 'string' && value.trim().length > 0);
+
+  for (const field of identityFields) {
+    const normalized = field.trim().toLowerCase();
+    if (normalized.includes('heartbeat')) return 'session-heartbeat';
+    if (hasDelimitedToken(normalized, 'cron')) return 'session-cron';
+    if (/memory[\s:_-]*internal/i.test(normalized)) return 'session-memory-internal';
+  }
+
+  const normalizedMessage = userMessage.trim().toLowerCase();
+  if (normalizedMessage.startsWith('read heartbeat.md if it exists')) return 'message-heartbeat-poll';
+
+  return null;
+}
+
 export default {
   id: "clawtext",
   name: "ClawText",
@@ -273,10 +312,22 @@ export default {
     api.on(
       "before_prompt_build",
       async (event: { prompt?: unknown; messages?: unknown[] }, ctx?: any) => {
-        // Step 1: RAG-based memory injection (existing behavior)
         const systemPrompt = typeof event.prompt === "string" ? event.prompt : "";
-        const userMessage = extractUserText(Array.isArray(event.messages) ? event.messages : []);
+        const messages = Array.isArray(event.messages) ? event.messages : [];
+        const userMessage = extractUserText(messages);
 
+        const skipReason = getAutomationSkipReason(ctx, userMessage);
+        if (skipReason) {
+          logPluginDiagnostic({
+            type: 'skip-automation-session',
+            reason: skipReason,
+            trigger: ctx?.trigger,
+            channel: ctx?.messageChannel || 'unknown',
+          });
+          return undefined;
+        }
+
+        // Step 1: RAG-based memory injection (existing behavior)
         const ragResult = await plugin.onBeforePromptBuild({
           systemPrompt,
           userMessage,
@@ -288,7 +339,6 @@ export default {
         try {
           const channelId = ctx?.messageChannel || 'unknown';
           const sessionKey = ctx?.sessionKey || ctx?.sessionId || `session-${Date.now()}`;
-          const messages = Array.isArray(event.messages) ? event.messages : [];
 
           const optimizeResult = runClawptimization(promptAfterRag, messages, channelId, sessionKey);
 

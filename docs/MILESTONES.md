@@ -486,3 +486,11 @@ See detailed finish plan: `docs/RELEASE_HARDENING_PACKET.md`
 - publication framing was tightened to reflect supported behavior and current proof gaps more honestly
 - quantified impact ranges are now treated as directional rather than fully proven release facts
 - evidence note: `docs/LANE_E_PUBLICATION_READINESS_ASSESSMENT.md`
+
+### Hardening batch progress note (2026-03-17)
+- topic-anchor continuity lane landed in code: session→topic binding, topic-anchor slot source/provider, automatic writer-side topic-anchor materialization, and compaction-safe stripping of injected context
+- automation filtering landed: heartbeat / cron / memory-internal sessions are now skipped for prompt optimization, extract-buffer capture, and checkpoint noise
+- retrieval durability improved: repeated mentions now accumulate `mentionCount` / `lastMentionedAt` and boost ranking instead of being silently discarded as duplicates
+- content semantics improved: `preference`, `skill`, and `attribute` are now recognized as structured durable content types and participate in deep-history scoring/pruning
+- writer-side anchor path now materializes rolling + checkpoint snapshots into `state/clawtext/prod/topic-anchors/`, enabling real session-bound anchor injection without manual files
+- status effect: ClawText continuity and retrieval hardening moved forward materially, but end-to-end proof docs should still be refreshed after live validation

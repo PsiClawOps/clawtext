@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { getClawTextLibraryIndexesDir } from './runtime-paths';
+import { stripInjectedContext } from './injected-context';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -17,6 +18,8 @@ interface Memory {
   sourceType?: string;
   createdAt?: string;
   dedupeHash?: string;
+  mentionCount?: number;
+  lastMentionedAt?: string;
   sourceFile?: string;
   provenanceKind?: 'memory' | 'library-entry' | 'collection-doc' | 'library-overlay';
   provenanceLabel?: string;
@@ -55,6 +58,7 @@ interface LibraryIndexRecord {
  * Gateway prompts carry noise that degrades search quality:
  *   - `<relevant-memories>` blocks from prior recall injections
  *   - `<!-- CLAWPTIMIZATION: ... -->` compositor markers
+ *   - `<!-- TOPIC_ANCHOR: ... -->` injected topic anchor blocks
  *   - `System: ...` event lines (exec failures, lifecycle events)
  *   - `Sender (untrusted metadata):` + JSON blocks
  *   - `OpenClaw runtime context (internal):` blocks
@@ -65,14 +69,7 @@ interface LibraryIndexRecord {
  * Inspired by openclaw-memory-core-plus's `extractUserQuery()`.
  */
 export function cleanQueryForSearch(rawQuery: string): string {
-  let cleaned = rawQuery;
-
-  // Strip <relevant-memories>...</relevant-memories> blocks
-  cleaned = cleaned.replace(/<relevant-memories>[\s\S]*?<\/relevant-memories>/g, '');
-
-  // Strip <!-- CLAWPTIMIZATION: ... --> blocks and END markers
-  cleaned = cleaned.replace(/<!--\s*CLAWPTIMIZATION[\s\S]*?-->/g, '');
-  cleaned = cleaned.replace(/<!--\s*END\s+CLAWPTIMIZATION\s*-->/g, '');
+  let cleaned = stripInjectedContext(rawQuery);
 
   // Strip "System: ..." single-line event entries
   cleaned = cleaned.replace(/^System:.*$/gm, '');
@@ -253,6 +250,22 @@ export class ClawTextRAG {
 
     // Boost by confidence
     score *= memory.confidence;
+
+    // Mention frequency boost (local importance signal). Backward compatible: default mentionCount=1.
+    const mentionCount = Number.isFinite(memory.mentionCount) ? Math.max(1, Number(memory.mentionCount)) : 1;
+    const mentionBoost = 1 + Math.min(1, Math.log2(mentionCount) * 0.2);
+    score *= mentionBoost;
+
+    // Mild recency boost from lastMentionedAt when present.
+    if (memory.lastMentionedAt) {
+      const ageMs = Date.now() - new Date(memory.lastMentionedAt).getTime();
+      if (Number.isFinite(ageMs) && ageMs >= 0) {
+        const dayMs = 24 * 60 * 60 * 1000;
+        const days = ageMs / dayMs;
+        const recencyBoost = 1 + Math.max(0, 0.1 * Math.exp(-days / 30));
+        score *= recencyBoost;
+      }
+    }
 
     return score;
   }
