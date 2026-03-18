@@ -118,7 +118,25 @@ What happens automatically:
 
 Agent edits `~/.openclaw/openclaw.json` only for **plugin configuration**, not as the primary install mechanism.
 
-### Step 2a: Configure memory behavior
+### Step 2a: Installation interview (required)
+
+Before writing runtime config, the agent should ask a short interview so ClawText doesn't silently assume the wrong operational model.
+
+Agent asks:
+
+> "Before I finalize ClawText, I want to confirm 4 things so the install matches how you actually work:
+>
+> 1. **Memory tuning** — keep defaults, or customize `maxMemories`, `minConfidence`, or token budget?
+> 2. **Maintenance scheduler** — keep ClawText maintenance under OpenClaw agent-cron, or move deterministic jobs to system cron/systemd timers? I recommend **system cron** for deterministic script jobs.
+> 3. **Extract freshness** — keep working-memory extraction at **30 minutes**, or tighten to **20 minutes**? I recommend **20 minutes** for better freshness without much extra churn.
+> 4. **Discord history strategy** — if you use Discord, should I:
+>    - run **prefetch** for recent cold-start context,
+>    - run **backfill** for older thread/channel history,
+>    - and wire **journal reindex** so backfilled history becomes searchable memory instead of journal-only history?
+>
+> If you don't have strong preferences, I'll use the recommended defaults: default memory tuning, system cron for deterministic maintenance, 20-minute extraction, and prefetch + optional backfill/reindex for Discord-heavy setups."
+
+### Step 2b: Configure memory behavior
 
 Agent asks the user about tuning:
 
@@ -261,11 +279,38 @@ cd /path/to/clawtext
 node scripts/discord-prefetch.mjs --force
 ```
 
-### Step 3g: Set up journal maintenance cron
+### Step 3g: Choose maintenance scheduler explicitly
 
-> "I'll set up nightly maintenance to keep the journal and memory clusters healthy."
+Agent should not silently assume that all maintenance belongs inside OpenClaw agent-cron.
 
-The nightly cron should run:
+Agent asks:
+
+> "ClawText has 3 recurring maintenance jobs:
+> - extract working memory from the buffer
+> - nightly cluster rebuild + validation
+> - operational maintenance sweep
+>
+> These are deterministic script jobs, so I usually recommend **system cron/systemd timers** for cost and reliability, and reserving OpenClaw agent-cron for jobs that genuinely need model reasoning. Do you want that recommendation, or do you want everything to stay under OpenClaw cron?"
+
+**Recommended default:**
+- move deterministic maintenance jobs to **system cron / systemd timers**
+- keep any truly agent/LLM-owned jobs in OpenClaw cron
+- when an OpenClaw agent-turn cron is still needed, prefer model **`gpt-5.4-mini`** unless the job needs a heavier model
+
+### Step 3h: Set maintenance cadence and Discord history strategy
+
+Agent asks:
+
+> "For memory freshness, I recommend **20-minute** extract-buffer runs instead of 30 minutes. It's still cheap and reduces stale-memory windows.
+>
+> If you're using Discord heavily, I also recommend deciding up front how aggressive to be about history:
+> - **prefetch** for recent/cold-start history
+> - **backfill** for older thread/channel history
+> - **journal reindex** after backfill so old Discord history becomes searchable memory, not just journal coverage
+>
+> Do you want the recommended setup, or something more conservative?"
+
+The nightly maintenance stack should still include:
 - `build-clusters.js --force` — rebuild memory clusters
 - `validate-rag.js` — verify retrieval quality
 - `journal-maintenance.mjs --verbose` — compress old journal files, report health
@@ -320,15 +365,19 @@ If anything fails, agent should troubleshoot before continuing.
 
 After install, the agent should talk through:
 
-### Question 1: Cluster rebuild strategy
+### Question 1: Scheduler ownership
 
-> "ClawText can rebuild automatically or on-demand. Nightly rebuilds are the default. If you expect heavy ingest activity, I can help set a more active maintenance cadence."
+> "Do you want deterministic ClawText maintenance jobs under OpenClaw agent-cron, or do you want them moved to system cron/systemd timers? I recommend system timers for extract-buffer, nightly rebuild, and operational maintenance because they don't need model reasoning."
 
-### Question 2: What knowledge should we ingest?
+### Question 2: Freshness vs churn
 
-> "ClawText can ingest repos, docs, Discord history, and structured exports. Do you want me to ingest anything now to bootstrap memory?"
+> "Do you want the extract-buffer cadence left at 30 minutes, or tightened to 20 minutes for fresher memory promotion? I recommend 20 minutes."
 
-### Question 3: What should we remember?
+### Question 3: What knowledge should we ingest?
+
+> "ClawText can ingest repos, docs, Discord history, and structured exports. If you're using Discord, should I only prefetch recent history, or should I also backfill older channels/threads and run journal reindex so that history becomes searchable memory?"
+
+### Question 4: What should we remember?
 
 > "ClawText will capture decisions and patterns automatically, but I can also record any important project facts or gotchas you want preserved immediately."
 
@@ -350,7 +399,7 @@ Agent may create a local setup summary such as `memory/clawtext-setup.md` includ
 
 Agent explains what happens automatically now:
 - messages can be captured to memory
-- extraction/clustering/validation can run on schedule
+- extraction/clustering/validation can run on schedule (OpenClaw cron or system timers, depending on the install interview)
 - relevant memories can be injected into prompts automatically
 - operational learning can surface recurring failures and recoveries
 

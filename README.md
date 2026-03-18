@@ -210,7 +210,11 @@ Paste this into your agent:
 Install and configure the ClawText plugin for OpenClaw.
 Run: openclaw plugins install github:PsiClawOps/clawtext
 Then verify: openclaw plugins list, openclaw hooks list, openclaw cron list
-Confirm the extraction cron and before_prompt_build hook are both active.
+Before finalizing, interview me about:
+- whether deterministic ClawText maintenance should stay in OpenClaw cron or move to system cron/systemd timers
+- whether extract-buffer should stay at 30m or tighten to 20m
+- whether Discord history should use prefetch only, or prefetch + backfill + journal reindex
+Confirm the extraction path, retrieval path, and Discord history plan before reporting done.
 If anything is missing, fix it before reporting done.
 ```
 
