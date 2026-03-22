@@ -14,6 +14,7 @@ import { ExtractionProvider } from './providers/extraction-provider';
 import { stripInjectedContext } from './injected-context';
 import { isMultiAgentMode } from './agent-identity';
 import { extractIdentityAnchorContent } from './slots/identity-anchor-provider';
+import { wrapWithAgentScope } from './providers/agent-scoped-provider';
 
 export { ClawTextInjectionPlugin, ClawTextRAG };
 export { cleanQueryForSearch } from './rag';
@@ -22,6 +23,8 @@ export * from './library-index';
 export * from './library-ingest';
 export * from './agent-identity';
 export * from './decoherence';
+export * from './council-bus';
+export * from './providers/agent-scoped-provider';
 export * from './runtime-paths';
 export * from './session-topic-map';
 export * from './topic-anchor';
@@ -277,10 +280,10 @@ function runClawptimization(
     },
   });
 
-  compositor.register(new TopicAnchorProvider({ workspacePath: WORKSPACE }));
-  compositor.register(new AdvisorProvider({ workspacePath: WORKSPACE }));
-  compositor.register(new SessionMatrixProvider({ workspacePath: WORKSPACE }));
-  compositor.register(new ExtractionProvider({ workspacePath: WORKSPACE }));
+  compositor.register(wrapWithAgentScope(new TopicAnchorProvider({ workspacePath: WORKSPACE }), WORKSPACE));
+  compositor.register(wrapWithAgentScope(new AdvisorProvider({ workspacePath: WORKSPACE }), WORKSPACE));
+  compositor.register(wrapWithAgentScope(new SessionMatrixProvider({ workspacePath: WORKSPACE }), WORKSPACE));
+  compositor.register(wrapWithAgentScope(new ExtractionProvider({ workspacePath: WORKSPACE }), WORKSPACE));
 
   // Identity anchor — always-on in multi-agent mode, no-op in single-agent
   if (isMultiAgentMode(WORKSPACE)) {
