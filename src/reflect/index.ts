@@ -437,9 +437,21 @@ export async function clearCache(): Promise<void> {
   const stateRoot = process.env.CLAWTEXT_STATE_ROOT || join(process.env.HOME || '', '.openclaw/workspace/state/clawtext/prod');
   const cacheDir = join(stateRoot, 'reflect', 'cache');
   
-  // Note: In production, implement proper cache clearing
-  // For now, this is a placeholder
-  console.log('[reflect] Cache clearing not implemented');
+  if (!existsSync(cacheDir)) {
+    console.log('[reflect] No cache directory found');
+    return;
+  }
+
+  const { readdirSync, unlinkSync } = await import('fs');
+  const files = readdirSync(cacheDir).filter(f => f.endsWith('.json'));
+  for (const file of files) {
+    try {
+      unlinkSync(join(cacheDir, file));
+    } catch {
+      // skip locked files
+    }
+  }
+  console.log(`[reflect] Cleared ${files.length} cached entries`);
 }
 
 /**
