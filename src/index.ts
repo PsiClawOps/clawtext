@@ -21,6 +21,7 @@ export * from './library';
 export * from './library-index';
 export * from './library-ingest';
 export * from './agent-identity';
+export * from './decoherence';
 export * from './runtime-paths';
 export * from './session-topic-map';
 export * from './topic-anchor';

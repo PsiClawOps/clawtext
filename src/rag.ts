@@ -3,6 +3,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { getClawTextLibraryIndexesDir } from './runtime-paths';
 import { stripInjectedContext } from './injected-context';
+import { logDecoherenceEvent } from './decoherence';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -470,8 +471,22 @@ export class ClawTextRAG {
           if (agentId) {
             const vis = (memory as any).visibility ?? 'shared';
             const memAgentId = (memory as any).agentId;
-            if (vis === 'private' && memAgentId !== agentId) return; // filter private memories from other agents
-            if (vis === 'cross-agent' && (memory as any).targetAgent !== agentId) return; // filter directed memories not for us
+            if (vis === 'private' && memAgentId && memAgentId !== agentId) {
+              // Phase 5: Log filtered cross-agent access
+              try {
+                logDecoherenceEvent({
+                  timestamp: new Date().toISOString(),
+                  currentAgentId: agentId,
+                  leakedAgentId: memAgentId,
+                  memoryId: (memory as any).id || 'unknown',
+                  visibility: vis,
+                  query: cleanedQuery.slice(0, 100),
+                  action: 'filtered',
+                });
+              } catch { /* don't break retrieval for logging */ }
+              return;
+            }
+            if (vis === 'cross-agent' && (memory as any).targetAgent !== agentId) return;
             // 'shared' and 'council' visibility pass through
           }
           candidates.push({ ...memory, provenanceKind: 'memory', provenanceLabel: memory.project || 'memory' });
