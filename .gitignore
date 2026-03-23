@@ -45,3 +45,28 @@ cognee/venv/
 
 # Mikk internal
 .mikk/
+
+# Internal deliberation docs — live in PsiClawOps/clawtext-internal
+docs/NORTHSTAR*.md
+docs/PRD.md
+docs/POST_BRIEF.md
+docs/MILESTONES.md
+docs/MILESTONE_OUTPUT_SPEC.md
+docs/LIFECYCLE_BASELINE.md
+docs/ENFORCEMENT.md
+docs/FLIGHT_CONTROL.md
+docs/CHANGE_ROUTING.md
+docs/RETROFIT_REPORT.md
+docs/STRATEGIC_PACKAGE_INDEX.md
+docs/AGENT_TIER_ARCHITECTURE.md
+docs/RELEASE_HARDENING_PACKET.md
+docs/PROJECT_DOCS_SCHEMA.md
+docs/DECISIONS/
+docs/handoffs/
+docs/templates/
+docs/foundation/
+AGENTS.md
+CODEBASE.md
+mikk.json
+mikk.lock.json
+.mikkignore
