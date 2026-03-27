@@ -2,8 +2,10 @@
  * Session Intelligence local types.
  *
  * This module defines SQLite row types, content taxonomy, runtime config,
- * and internal state used by the Walk 1a context-engine implementation.
+ * and internal state used by the context-engine implementation.
  */
+
+import type { CompactorConfig } from './compactor';
 
 export enum ContentType {
   System = 'system',
@@ -35,6 +37,7 @@ export type MessageRow = {
   token_count: number | null;
   message_index: number;
   is_heartbeat: number;
+  summarized: number;
   created_at: string;
 };
 
@@ -48,8 +51,11 @@ export type MessagePartRow = {
 
 export type SessionIntelligenceConfig = {
   workspacePath: string;
-  summarizationModel?: string;
   defaultTokenBudget?: number;
+  compactor?: Partial<CompactorConfig>;
+  summarizationApi?: {
+    complete(model: string, prompt: string): Promise<string>;
+  };
 };
 
 export type ConversationState = {

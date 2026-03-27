@@ -514,8 +514,13 @@ function isSessionIntelligenceEnabled(config: unknown): boolean {
 function resolveSessionIntelligenceConfig(config: unknown): SessionIntelligenceConfig {
   const base: SessionIntelligenceConfig = {
     workspacePath: WORKSPACE,
-    summarizationModel: 'anthropic/claude-haiku-4-5',
     defaultTokenBudget: 128_000,
+    compactor: {
+      summarizationModel: 'anthropic/claude-haiku-4-5',
+      maxSummarizationsPerHour: 10,
+      freshTailSize: 20,
+      leafBatchSize: 30,
+    },
   };
 
   if (!config || typeof config !== 'object') return base;
@@ -528,6 +533,12 @@ function resolveSessionIntelligenceConfig(config: unknown): SessionIntelligenceC
             workspacePath?: unknown;
             summarizationModel?: unknown;
             defaultTokenBudget?: unknown;
+            compactor?: {
+              summarizationModel?: unknown;
+              maxSummarizationsPerHour?: unknown;
+              freshTailSize?: unknown;
+              leafBatchSize?: unknown;
+            };
           };
         };
       };
@@ -537,16 +548,40 @@ function resolveSessionIntelligenceConfig(config: unknown): SessionIntelligenceC
   const si = root.plugins?.entries?.clawtext?.sessionIntelligence;
   if (!si) return base;
 
+  const configuredCompactor = si.compactor;
+
   return {
     workspacePath: typeof si.workspacePath === 'string' && si.workspacePath.trim().length > 0
       ? si.workspacePath
       : base.workspacePath,
-    summarizationModel: typeof si.summarizationModel === 'string' && si.summarizationModel.trim().length > 0
-      ? si.summarizationModel
-      : base.summarizationModel,
     defaultTokenBudget: typeof si.defaultTokenBudget === 'number' && Number.isFinite(si.defaultTokenBudget) && si.defaultTokenBudget > 0
       ? si.defaultTokenBudget
       : base.defaultTokenBudget,
+    compactor: {
+      summarizationModel: typeof configuredCompactor?.summarizationModel === 'string' && configuredCompactor.summarizationModel.trim().length > 0
+        ? configuredCompactor.summarizationModel
+        : typeof si.summarizationModel === 'string' && si.summarizationModel.trim().length > 0
+          ? si.summarizationModel
+          : base.compactor?.summarizationModel,
+      maxSummarizationsPerHour:
+        typeof configuredCompactor?.maxSummarizationsPerHour === 'number'
+          && Number.isFinite(configuredCompactor.maxSummarizationsPerHour)
+          && configuredCompactor.maxSummarizationsPerHour > 0
+          ? configuredCompactor.maxSummarizationsPerHour
+          : base.compactor?.maxSummarizationsPerHour,
+      freshTailSize:
+        typeof configuredCompactor?.freshTailSize === 'number'
+          && Number.isFinite(configuredCompactor.freshTailSize)
+          && configuredCompactor.freshTailSize >= 0
+          ? configuredCompactor.freshTailSize
+          : base.compactor?.freshTailSize,
+      leafBatchSize:
+        typeof configuredCompactor?.leafBatchSize === 'number'
+          && Number.isFinite(configuredCompactor.leafBatchSize)
+          && configuredCompactor.leafBatchSize > 0
+          ? configuredCompactor.leafBatchSize
+          : base.compactor?.leafBatchSize,
+    },
   };
 }
 

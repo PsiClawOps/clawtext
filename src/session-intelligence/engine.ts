@@ -1,9 +1,9 @@
 /**
- * Session Intelligence context engine (Walk 1a).
+ * Session Intelligence context engine (Walk 1b).
  *
  * Implements OpenClaw ContextEngine lifecycle with SQLite-backed message
- * persistence, deterministic recent-history assembly, and stubbed compaction
- * lifecycle hooks for later walks.
+ * persistence, deterministic recent-history assembly, and DAG-backed
+ * compaction orchestration.
  */
 
 import fs from 'fs';
@@ -15,6 +15,7 @@ import type {
   ContextEngine,
   IngestResult,
 } from 'openclaw/plugin-sdk/context-engine';
+import { runCompaction, resolveCompactorConfig, SummarizationTracker } from './compactor';
 import { openDatabase, withTransaction } from './db';
 import { estimateTokens, persistMessage, persistMessageParts } from './ingest';
 import type { SessionIntelligenceConfig } from './types';
@@ -100,6 +101,8 @@ export function createSessionIntelligenceEngine(config: SessionIntelligenceConfi
   const workspacePath = path.resolve(config.workspacePath);
   const db: DatabaseSync = openDatabase(workspacePath);
   const conversationIdBySession = new Map<string, number>();
+  const compactorConfig = resolveCompactorConfig(config.compactor);
+  const summarizationTracker = new SummarizationTracker(compactorConfig.maxSummarizationsPerHour);
 
   function getOrCreateConversationId(sessionId: string): number {
     const cached = conversationIdBySession.get(sessionId);
@@ -276,7 +279,7 @@ export function createSessionIntelligenceEngine(config: SessionIntelligenceConfi
     }
   }
 
-  async function compact(_params: {
+  async function compact(params: {
     sessionId: string;
     sessionFile: string;
     tokenBudget?: number;
@@ -286,11 +289,41 @@ export function createSessionIntelligenceEngine(config: SessionIntelligenceConfi
     customInstructions?: string;
     legacyParams?: Record<string, unknown>;
   }): Promise<CompactResult> {
-    return {
-      ok: true,
-      compacted: false,
-      reason: 'Walk 1b not yet implemented',
-    };
+    console.log(
+      `[${ENGINE_ID}] compact preflight: ACA kernel slot check deferred to Walk 2 (kernel slots not yet implemented).`,
+    );
+
+    try {
+      const conversationId = getOrCreateConversationId(params.sessionId);
+
+      if (!config.summarizationApi) {
+        return {
+          ok: true,
+          compacted: false,
+          reason: 'no_summarization_api_configured',
+        };
+      }
+
+      return await runCompaction(
+        db,
+        config.summarizationApi,
+        conversationId,
+        compactorConfig,
+        summarizationTracker,
+        {
+          force: params.force,
+          tokenBudget: params.tokenBudget ?? config.defaultTokenBudget,
+          currentTokenCount: params.currentTokenCount,
+        },
+      );
+    } catch (error) {
+      console.warn(`[${ENGINE_ID}] compact failed: ${error instanceof Error ? error.message : String(error)}`);
+      return {
+        ok: false,
+        compacted: false,
+        reason: 'compaction_error',
+      };
+    }
   }
 
   async function afterTurn(params: {
@@ -345,7 +378,7 @@ export function createSessionIntelligenceEngine(config: SessionIntelligenceConfi
     info: {
       id: ENGINE_ID,
       name: 'ClawText Session Intelligence',
-      version: '0.1.0-walk1a',
+      version: '0.1.0-walk1b',
       ownsCompaction: true,
     },
     bootstrap,
