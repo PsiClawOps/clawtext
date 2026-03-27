@@ -1,5 +1,7 @@
 import type { DatabaseSync } from 'node:sqlite';
 import { withTransaction } from './db';
+import { externalizePayload } from './large-file';
+import { insertPayloadRef } from './payload-store';
 
 export type ProactivePassResult = {
   messagesMarked: number;
@@ -7,7 +9,7 @@ export type ProactivePassResult = {
   passType: 'noise_sweep' | 'tool_decay' | 'staleness';
 };
 
-const TOOL_DECAY_SUFFIX = '\n[truncated by proactive pass]';
+const MAX_EXTERNALIZATIONS_PER_PASS = 10;
 
 function resolveSafeWindow(recentWindowSize: number): number {
   if (Number.isFinite(recentWindowSize) && recentWindowSize > 0) {
@@ -83,11 +85,13 @@ export function runNoiseSweep(
 
 export function runToolDecay(
   db: DatabaseSync,
-  conversationId: number,
+  dbConversationId: number,
+  workspacePath: string,
+  conversationId: string,
   recentWindowSize: number = 20,
 ): ProactivePassResult {
   const safeWindow = resolveSafeWindow(recentWindowSize);
-  const maxIndex = getMaxMessageIndex(db, conversationId);
+  const maxIndex = getMaxMessageIndex(db, dbConversationId);
   const cutoffIndexExclusive = maxIndex - safeWindow;
 
   const candidates = db
@@ -97,9 +101,11 @@ export function runToolDecay(
         WHERE conversation_id = ?
           AND content_type = 'tool_result'
           AND message_index < ?
-          AND length(content) > 2000`,
+          AND length(content) > 2000
+          AND (truncated_payload_ref IS NULL OR truncated_payload_ref = '')
+        ORDER BY message_index ASC`,
     )
-    .all(conversationId, cutoffIndexExclusive) as Array<{ id: number; content: string }>;
+    .all(dbConversationId, cutoffIndexExclusive) as Array<{ id: number; content: string }>;
 
   if (candidates.length === 0) {
     return {
@@ -111,24 +117,46 @@ export function runToolDecay(
 
   let messagesMarked = 0;
   let tokensFreed = 0;
+  let externalized = 0;
 
-  withTransaction(db, () => {
-    const updateStmt = db.prepare(
-      `UPDATE messages
-          SET content = ?,
-              token_count = ?
-        WHERE id = ?`,
-    );
+  for (const row of candidates) {
+    if (externalized >= MAX_EXTERNALIZATIONS_PER_PASS) break;
 
-    for (const row of candidates) {
-      const originalLength = row.content.length;
-      const truncatedContent = `${row.content.slice(0, 200)}${TOOL_DECAY_SUFFIX}`;
-
-      updateStmt.run(truncatedContent, estimateTokens(truncatedContent.length), row.id);
-      messagesMarked += 1;
-      tokensFreed += Math.max(0, Math.ceil((originalLength - 215) / 4));
+    const payloadRef = externalizePayload(workspacePath, conversationId, row.content);
+    if (!payloadRef.storagePath) {
+      console.warn(`[clawtext-session-intelligence] Tool decay skipped (externalize failed) for message ${row.id}`);
+      continue;
     }
-  });
+
+    const compactToken = `<<PAYLOAD_REF:${payloadRef.refId}:${payloadRef.contentHash}:${payloadRef.originalSize}>>`;
+
+    try {
+      withTransaction(db, () => {
+        insertPayloadRef(db, {
+          ...payloadRef,
+          conversationId,
+        });
+
+        db
+          .prepare(
+            `UPDATE messages
+                SET content = ?,
+                    token_count = ?,
+                    truncated_payload_ref = ?
+              WHERE id = ?`,
+          )
+          .run(compactToken, estimateTokens(compactToken.length), payloadRef.refId, row.id);
+      });
+
+      messagesMarked += 1;
+      tokensFreed += Math.max(0, estimateTokens(row.content.length) - estimateTokens(compactToken.length));
+      externalized += 1;
+    } catch (error) {
+      console.warn(
+        `[clawtext-session-intelligence] Tool decay skipped (DB insert/update failed) for message ${row.id}: ${error instanceof Error ? error.message : String(error)}`,
+      );
+    }
+  }
 
   return {
     messagesMarked,

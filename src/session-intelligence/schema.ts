@@ -9,7 +9,7 @@
 
 import type { DatabaseSync } from 'node:sqlite';
 
-const LATEST_SCHEMA_VERSION = 8;
+const LATEST_SCHEMA_VERSION = 9;
 
 function nowIso(): string {
   return new Date().toISOString();
@@ -202,6 +202,31 @@ function applyVersion8Migration(db: DatabaseSync): void {
   }
 }
 
+function applyVersion9Migration(db: DatabaseSync): void {
+  const messageColumns = db
+    .prepare('PRAGMA table_info(messages)')
+    .all() as Array<{ name: string }>;
+
+  const hasTruncatedPayloadRef = messageColumns.some((column) => column.name === 'truncated_payload_ref');
+  if (!hasTruncatedPayloadRef) {
+    db.exec('ALTER TABLE messages ADD COLUMN truncated_payload_ref TEXT');
+  }
+
+  const payloadColumns = db
+    .prepare('PRAGMA table_info(payload_refs)')
+    .all() as Array<{ name: string }>;
+
+  const hasExpiresAt = payloadColumns.some((column) => column.name === 'expires_at');
+  if (!hasExpiresAt) {
+    db.exec('ALTER TABLE payload_refs ADD COLUMN expires_at INTEGER');
+  }
+
+  const hasStatus = payloadColumns.some((column) => column.name === 'status');
+  if (!hasStatus) {
+    db.exec("ALTER TABLE payload_refs ADD COLUMN status TEXT NOT NULL DEFAULT 'active'");
+  }
+}
+
 export function migrate(db: DatabaseSync): void {
   createBaseSchema(db);
 
@@ -281,6 +306,14 @@ export function migrate(db: DatabaseSync): void {
     db
       .prepare('INSERT INTO schema_version (version, applied_at) VALUES (?, ?)')
       .run(8, nowIso());
+    version = 8;
+  }
+
+  if (version < 9) {
+    applyVersion9Migration(db);
+    db
+      .prepare('INSERT INTO schema_version (version, applied_at) VALUES (?, ?)')
+      .run(9, nowIso());
   }
 }
 

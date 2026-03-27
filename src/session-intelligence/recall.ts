@@ -1,6 +1,8 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import type { DatabaseSync } from 'node:sqlite';
+import { recoverPayload } from './large-file';
+import { getPayloadRef } from './payload-store';
 
 const DEFAULT_LIMIT = 10;
 const MAX_SNIPPET_LENGTH = 300;
@@ -37,12 +39,28 @@ export type DescribeResult = {
   metadata: Record<string, unknown>;
 };
 
-export type ExpandResult = {
-  type: 'summary_expansion';
-  summaryId: number;
-  messages: Array<{ role: string; content: string; index: number }>;
-  totalMessages: number;
-};
+export type ExpandResult =
+  | {
+    type: 'summary_expansion';
+    summaryId: number;
+    messages: Array<{ role: string; content: string; index: number }>;
+    totalMessages: number;
+  }
+  | {
+    type: 'payload';
+    refId: string;
+    content: string;
+  }
+  | {
+    type: 'missing';
+    refId: string;
+    message: string;
+  }
+  | {
+    type: 'expired';
+    refId: string;
+    message: string;
+  };
 
 function buildSnippet(content: string): string {
   return content.slice(0, MAX_SNIPPET_LENGTH);
@@ -425,18 +443,62 @@ function getLinkedMessageIds(
 export function expand(params: {
   db: DatabaseSync;
   conversationId: number;
-  summaryId: number;
+  targetId?: string;
+  summaryId?: number;
+  workspacePath?: string;
   libraryEntriesDir?: string;
 }): ExpandResult | null {
+  const targetId = typeof params.targetId === 'string'
+    ? params.targetId
+    : (typeof params.summaryId === 'number' ? `sum-${params.summaryId}` : '');
+
+  if (targetId.length === 0) {
+    return null;
+  }
+
+  const payloadRef = getPayloadRef(params.db, targetId);
+  if (payloadRef) {
+    if (payloadRef.status === 'expired') {
+      return {
+        type: 'expired',
+        refId: targetId,
+        message: 'Payload has expired and been cleaned up.',
+      };
+    }
+
+    const content = recoverPayload(params.db, targetId, params.workspacePath ?? process.cwd());
+    if (content === null) {
+      return {
+        type: 'missing',
+        refId: targetId,
+        message: 'Payload file missing or corrupted.',
+      };
+    }
+
+    return {
+      type: 'payload',
+      refId: targetId,
+      content,
+    };
+  }
+
+  const summaryId = targetId.startsWith('sum-')
+    ? Number.parseInt(targetId.slice(4), 10)
+    : params.summaryId;
+
+  if (typeof summaryId !== 'number' || !Number.isFinite(summaryId)) {
+    return null;
+  }
+
   const summaryExists = params.db
     .prepare('SELECT id FROM summaries WHERE id = ? AND conversation_id = ? LIMIT 1')
-    .get(params.summaryId, params.conversationId) as { id: number } | undefined;
+    .get(summaryId, params.conversationId) as { id: number } | undefined;
 
   if (!summaryExists) {
     return null;
   }
 
-  const messageIds = getLinkedMessageIds(params.db, params.summaryId);
+  const messageIds = getLinkedMessageIds(params.db, summaryId);
   if (messageIds.length === 0) {
     return null;
   }
@@ -463,7 +525,7 @@ export function expand(params: {
 
   return {
     type: 'summary_expansion',
-    summaryId: params.summaryId,
+    summaryId,
     messages: rows.map((row) => ({
       role: row.role,
       content: row.content,

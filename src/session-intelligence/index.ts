@@ -44,5 +44,6 @@ export { evaluateTrigger, recordCompactionEvent, resolveTriggerConfig, shouldRun
 export { computePressureSignals, buildPressureReading, classifyPressureBand, PRESSURE_THRESHOLDS } from './pressure';
 export { runNoiseSweep, runToolDecay } from './proactive-pass';
 export { search, describe, expand } from './recall';
-export { shouldExternalize, externalizePayload } from './large-file';
+export { shouldExternalize, externalizePayload, recoverPayload } from './large-file';
+export { insertPayloadRef, getPayloadRef, listPayloadRefs, markPayloadRefExpired } from './payload-store';
 export type { SessionIntelligenceConfig };

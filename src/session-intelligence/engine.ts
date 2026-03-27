@@ -284,7 +284,7 @@ export function createSessionIntelligenceEngine(config: SessionIntelligenceConfi
           compactionInProgress.add(params.sessionId);
           try {
             const ns = runNoiseSweep(db, conversationId);
-            const td = runToolDecay(db, conversationId);
+            const td = runToolDecay(db, conversationId, workspacePath, params.sessionId);
             console.log(`[${ENGINE_ID}] Proactive pass: swept ${ns.messagesMarked} noise, decayed ${td.messagesMarked} tool outputs`);
             recordCompactionEvent({
               db,
@@ -467,6 +467,7 @@ export function createSessionIntelligenceEngine(config: SessionIntelligenceConfi
 
       const historyMessagesFromDb: unknown[] = selected.map((row) => ({
         role: row.role,
+        // Preserve compact payload tokens (<<PAYLOAD_REF:...>>) verbatim so agents can call expand(refId) to recover full content.
         content: row.content,
       }));
 
