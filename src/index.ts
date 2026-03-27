@@ -624,7 +624,37 @@ export default {
   configSchema: {
     type: "object",
     additionalProperties: false,
-    properties: {},
+    properties: {
+      sessionIntelligence: {
+        type: "object",
+        additionalProperties: true,
+        properties: {
+          enabled: { type: "boolean" },
+          workspacePath: { type: "string" },
+          defaultTokenBudget: { type: "number" },
+          summarizationModel: { type: "string" },
+          compactor: {
+            type: "object",
+            additionalProperties: true,
+            properties: {
+              summarizationModel: { type: "string" },
+              maxSummarizationsPerHour: { type: "number" },
+              freshTailSize: { type: "number" },
+              leafBatchSize: { type: "number" },
+            },
+          },
+          compactionTrigger: {
+            type: "object",
+            additionalProperties: true,
+            properties: {
+              pressureThreshold: { type: "number" },
+              minMessages: { type: "number" },
+              cooldownMs: { type: "number" },
+            },
+          },
+        },
+      },
+    },
   },
   register(api: any) {
     if (isSessionIntelligenceEnabled(api?.config)) {
