@@ -29,7 +29,19 @@ function addJsExtensions(dir) {
       content = content.replace(/from\s+['"](\.[^'"]*?)(['"])/g, (match, importPath, quote) => {
         // Only add if it doesn't already have an extension
         if (!importPath.endsWith('.js') && !importPath.endsWith('.ts') && !importPath.endsWith('.json')) {
-          return `from '${importPath}.js'${quote === '"' ? '"' : ''}`;
+          // Resolve relative to the current file's directory to detect if it's a directory import
+          const currentDir = path.dirname(filePath);
+          const resolvedPath = path.resolve(currentDir, importPath);
+          // If the target is a directory (index.js pattern), use /index.js
+          let suffix = '.js';
+          try {
+            if (fs.statSync(resolvedPath).isDirectory()) {
+              suffix = '/index.js';
+            }
+          } catch {
+            // not a directory or doesn't exist — use .js (normal file import)
+          }
+          return `from '${importPath}${suffix}'${quote === '"' ? '"' : ''}`;
         }
         return match;
       });

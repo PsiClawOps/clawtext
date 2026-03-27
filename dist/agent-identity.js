@@ -8,10 +8,8 @@
  * - docs/AGENT_TIER_ARCHITECTURE.md
  * - docs/AGENT_TIER_ARCHITECTURE.md (Gore's brief)
  */
-import { createRequire } from 'module';
-const _require = createRequire(import.meta.url);
-const { dirname: _dirname, join: _join } = _require('path');
-const { existsSync: _existsSync, readFileSync: _readFileSync } = _require('fs');
+import { readFileSync, existsSync } from 'fs';
+import { join, dirname } from 'path';
 const DEFAULT_MULTI_AGENT_CONFIG = {
     enabled: false,
     defaultVisibility: 'shared',
@@ -85,8 +83,7 @@ export function loadMultiAgentConfig(workspacePath) {
         // For non-default workspaces (other agents), skip env identity — let workspace path
         // derivation in resolveAgentIdentity() determine the correct agent.
         // This prevents the gateway's env vars from bleeding one agent's identity into all agents.
-        const home = process.env.HOME || process.env.USERPROFILE || '';
-        const defaultWorkspace = home + '/.openclaw/workspace';
+        const defaultWorkspace = join(process.env.HOME || '', '.openclaw', 'workspace');
         const isDefaultWorkspace = !workspacePath || workspacePath === defaultWorkspace;
         if (envAgentId && isDefaultWorkspace) {
             config.agentIdentity = {
@@ -100,8 +97,7 @@ export function loadMultiAgentConfig(workspacePath) {
     }
     // Strategy: Walk up from workspace until we find openclaw.json
     // Fall back to canonical ~/.openclaw/openclaw.json
-    const { dirname, join } = { dirname: _dirname, join: _join };
-    const { existsSync } = { existsSync: _existsSync };
+    // dirname, join, existsSync, readFileSync all imported at module scope
     // Start at workspace, walk up to find config
     let searchPath = workspacePath;
     const maxWalk = 10; // prevent infinite loop
@@ -109,7 +105,7 @@ export function loadMultiAgentConfig(workspacePath) {
         const configPath = join(searchPath, 'openclaw.json');
         if (existsSync(configPath)) {
             try {
-                const raw = _readFileSync(configPath, 'utf-8');
+                const raw = readFileSync(configPath, 'utf-8');
                 const config = JSON.parse(raw);
                 const clawtext = config?.clawtext || {};
                 const multiAgent = clawtext?.multiAgent;
@@ -136,7 +132,7 @@ export function loadMultiAgentConfig(workspacePath) {
     const canonicalPath = join(process.env.HOME || '', '.openclaw', 'openclaw.json');
     if (existsSync(canonicalPath)) {
         try {
-            const raw = _readFileSync(canonicalPath, 'utf-8');
+            const raw = readFileSync(canonicalPath, 'utf-8');
             const config = JSON.parse(raw);
             const clawtext = config?.clawtext || {};
             const multiAgent = clawtext?.multiAgent;
