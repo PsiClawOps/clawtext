@@ -32,5 +32,7 @@ export {
   CONTENT_TYPE_COMPACTION_ORDER,
 } from './content-type';
 export { extractStateFromMessage } from './state-extraction';
-export { evaluateTrigger, recordCompactionEvent, resolveTriggerConfig } from './trigger';
+export { evaluateTrigger, recordCompactionEvent, resolveTriggerConfig, shouldRunProactivePass } from './trigger';
+export { computePressureSignals, buildPressureReading, classifyPressureBand, PRESSURE_THRESHOLDS } from './pressure';
+export { runNoiseSweep, runToolDecay } from './proactive-pass';
 export type { SessionIntelligenceConfig };

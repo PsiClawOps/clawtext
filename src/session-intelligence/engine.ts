@@ -24,6 +24,8 @@ import { runCompaction, resolveCompactorConfig, SummarizationTracker } from './c
 import { classifyMessage, type ContentType } from './content-type';
 import { openDatabase, withTransaction } from './db';
 import { estimateTokens, persistMessage, persistMessageParts } from './ingest';
+import { buildPressureReading, computePressureSignals } from './pressure';
+import { runNoiseSweep, runToolDecay } from './proactive-pass';
 import { extractStateFromMessage } from './state-extraction';
 import { getStateSlot, kernelSlotsPresent, upsertStateSlot } from './state-slots';
 import {
@@ -31,12 +33,13 @@ import {
   getMessageCount,
   recordCompactionEvent,
   resolveTriggerConfig,
+  shouldRunProactivePass,
 } from './trigger';
 import type { SessionIntelligenceConfig } from './types';
 
 const ENGINE_ID = 'clawtext-session-intelligence';
 const DEFAULT_TOKEN_BUDGET = 128_000;
-const CIRCUIT_BREAKER_RATIO = 0.85;
+const EMERGENCY_FILL_RATIO = 0.85;
 
 type ConversationLookup = {
   id: number;
@@ -225,7 +228,6 @@ export function createSessionIntelligenceEngine(config: SessionIntelligenceConfi
   async function ingest(params: { sessionId: string; message: unknown; isHeartbeat?: boolean }): Promise<IngestResult> {
     try {
       const conversationId = getOrCreateConversationId(params.sessionId);
-      const tokenBudget = resolveTokenBudget(config.defaultTokenBudget);
 
       withTransaction(db, () => {
         const index = nextMessageIndex(conversationId);
@@ -248,38 +250,57 @@ export function createSessionIntelligenceEngine(config: SessionIntelligenceConfi
         });
       });
 
-      const currentTokenCount = estimatePressureFromDb(conversationId);
-
       const triggerResult = evaluateTrigger({
         db,
         conversationId,
-        currentTokenCount,
-        tokenBudget,
+        currentTokenCount: estimatePressureFromDb(conversationId),
+        tokenBudget: resolveTokenBudget(config.defaultTokenBudget),
         triggerConfig,
       });
 
-      if (triggerResult.shouldCompact) {
-        if (compactionInProgress.has(params.sessionId)) {
-          console.log(`[${ENGINE_ID}] Auto-compaction skipped: already in progress for session ${params.sessionId}`);
-        } else {
-          const sessionFile = '';
-          void (async () => {
-            compactionInProgress.add(params.sessionId);
-            try {
-              await compact({
-                sessionId: params.sessionId,
-                sessionFile,
-                compactionTarget: 'threshold',
-              });
-            } catch (error) {
-              console.warn(
-                `[${ENGINE_ID}] Auto-compaction error: ${error instanceof Error ? error.message : String(error)}`,
-              );
-            } finally {
-              compactionInProgress.delete(params.sessionId);
-            }
-          })();
-        }
+      const pressureReading = triggerResult.pressureReading
+        ?? buildPressureReading(
+          computePressureSignals(db, conversationId, resolveTokenBudget(config.defaultTokenBudget)),
+        );
+
+      if (shouldRunProactivePass(pressureReading)) {
+        console.log(
+          `[${ENGINE_ID}] Pressure action candidate: ${pressureReading.recommendedAction} (score=${pressureReading.score.toFixed(3)})`,
+        );
+      }
+
+      if (triggerResult.reason === 'proactive_pass_needed' && !compactionInProgress.has(params.sessionId)) {
+        void (async () => {
+          compactionInProgress.add(params.sessionId);
+          try {
+            const ns = runNoiseSweep(db, conversationId);
+            const td = runToolDecay(db, conversationId);
+            console.log(`[${ENGINE_ID}] Proactive pass: swept ${ns.messagesMarked} noise, decayed ${td.messagesMarked} tool outputs`);
+            recordCompactionEvent({
+              db,
+              conversationId,
+              triggerReason: 'pressure',
+              pressureBefore: pressureReading.score,
+              messagesBefore: getMessageCount(db, conversationId),
+              outcome: 'success',
+            });
+          } catch (err) {
+            console.warn(`[${ENGINE_ID}] Proactive pass error: ${err instanceof Error ? err.message : String(err)}`);
+          } finally {
+            compactionInProgress.delete(params.sessionId);
+          }
+        })();
+      } else if (triggerResult.shouldCompact && !compactionInProgress.has(params.sessionId)) {
+        void (async () => {
+          compactionInProgress.add(params.sessionId);
+          try {
+            await compact({ sessionId: params.sessionId, sessionFile: '', compactionTarget: 'threshold' });
+          } catch (err) {
+            console.warn(`[${ENGINE_ID}] Auto-compaction error: ${err instanceof Error ? err.message : String(err)}`);
+          } finally {
+            compactionInProgress.delete(params.sessionId);
+          }
+        })();
       }
 
       return { ingested: true };
@@ -344,7 +365,6 @@ export function createSessionIntelligenceEngine(config: SessionIntelligenceConfi
   }): Promise<AssembleResult> {
     try {
       const budget = resolveTokenBudget(params.tokenBudget ?? config.defaultTokenBudget);
-      const breaker = Math.floor(budget * CIRCUIT_BREAKER_RATIO);
       const conversationId = getOrCreateConversationId(params.sessionId);
 
       const kernelSlot = getStateSlot(db, conversationId, 'identity_kernel');
@@ -472,10 +492,21 @@ export function createSessionIntelligenceEngine(config: SessionIntelligenceConfi
 
       const estimatedTokens = kernelTokens + overlayTokens + effectiveHistoryTokens;
 
-      if (estimatedTokens >= breaker) {
-        console.warn(
-          `[${ENGINE_ID}] Context nearing token ceiling: ${estimatedTokens}/${budget} (${Math.round((estimatedTokens / budget) * 100)}%).`,
-        );
+      const emergencyThreshold = Math.floor(budget * EMERGENCY_FILL_RATIO);
+      if (estimatedTokens >= emergencyThreshold) {
+        console.warn(`[${ENGINE_ID}] Emergency circuit breaker: ${estimatedTokens} >= ${emergencyThreshold}`);
+        if (!compactionInProgress.has(params.sessionId)) {
+          void (async () => {
+            compactionInProgress.add(params.sessionId);
+            try {
+              await compact({ sessionId: params.sessionId, sessionFile: '', force: true, compactionTarget: 'budget' });
+            } catch (err) {
+              console.warn(`[${ENGINE_ID}] Emergency compact error: ${err instanceof Error ? err.message : String(err)}`);
+            } finally {
+              compactionInProgress.delete(params.sessionId);
+            }
+          })();
+        }
       }
 
       return {
@@ -602,7 +633,7 @@ export function createSessionIntelligenceEngine(config: SessionIntelligenceConfi
   }): Promise<void> {
     try {
       const budget = resolveTokenBudget(params.tokenBudget ?? config.defaultTokenBudget);
-      const breaker = Math.floor(budget * CIRCUIT_BREAKER_RATIO);
+      const breaker = Math.floor(budget * EMERGENCY_FILL_RATIO);
       const tokens = estimateCurrentPressure(Array.isArray(params.messages) ? params.messages : []);
       if (tokens >= breaker) {
         console.warn(

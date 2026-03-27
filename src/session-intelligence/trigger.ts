@@ -1,4 +1,9 @@
 import type { DatabaseSync } from 'node:sqlite';
+import {
+  buildPressureReading,
+  computePressureSignals,
+  type PressureReading,
+} from './pressure';
 import type { CompactionTriggerConfig } from './types';
 
 const ENGINE_ID = 'clawtext-session-intelligence';
@@ -31,41 +36,43 @@ export function evaluateTrigger(params: {
   currentTokenCount: number;
   tokenBudget: number;
   triggerConfig: CompactionTriggerConfig;
-}): { shouldCompact: boolean; reason: string } {
+}): { shouldCompact: boolean; reason: string; pressureReading?: PressureReading } {
   const messageCount = getMessageCount(params.db, params.conversationId);
   if (messageCount < params.triggerConfig.minMessages) {
     return { shouldCompact: false, reason: 'too_few_messages' };
   }
 
-  const pressure = params.tokenBudget > 0
-    ? params.currentTokenCount / params.tokenBudget
-    : 0;
+  const signals = computePressureSignals(params.db, params.conversationId, params.tokenBudget);
+  const reading = buildPressureReading(signals);
 
-  if (pressure < params.triggerConfig.pressureThreshold) {
-    return { shouldCompact: false, reason: 'below_threshold' };
+  if (reading.recommendedAction === 'none' || reading.recommendedAction === 'monitor') {
+    return { shouldCompact: false, reason: 'below_threshold', pressureReading: reading };
+  }
+
+  if (reading.recommendedAction === 'proactive_pass') {
+    return { shouldCompact: false, reason: 'proactive_pass_needed', pressureReading: reading };
   }
 
   const lastEvent = params.db
     .prepare(
-      `SELECT triggered_at
-         FROM compaction_events
-        WHERE conversation_id = ?
-        ORDER BY triggered_at DESC, id DESC
-        LIMIT 1`,
+      `SELECT triggered_at FROM compaction_events WHERE conversation_id = ? ORDER BY triggered_at DESC, id DESC LIMIT 1`,
     )
     .get(params.conversationId) as { triggered_at: string } | undefined;
 
-  if (lastEvent?.triggered_at) {
-    const lastTriggeredAtMs = Date.parse(lastEvent.triggered_at);
-    if (Number.isFinite(lastTriggeredAtMs)) {
-      const elapsedMs = Date.now() - lastTriggeredAtMs;
-      if (elapsedMs < params.triggerConfig.cooldownMs) {
-        return { shouldCompact: false, reason: 'cooldown' };
-      }
+  if (lastEvent) {
+    const msSinceLast = Date.now() - new Date(lastEvent.triggered_at).getTime();
+    if (msSinceLast < params.triggerConfig.cooldownMs) {
+      return { shouldCompact: false, reason: 'cooldown', pressureReading: reading };
     }
   }
 
-  return { shouldCompact: true, reason: 'pressure_threshold' };
+  return { shouldCompact: true, reason: reading.recommendedAction, pressureReading: reading };
+}
+
+export function shouldRunProactivePass(reading: PressureReading): boolean {
+  return reading.recommendedAction === 'proactive_pass'
+    || reading.recommendedAction === 'compact'
+    || reading.recommendedAction === 'emergency_compact';
 }
 
 export function recordCompactionEvent(params: {

@@ -9,7 +9,7 @@
 
 import type { DatabaseSync } from 'node:sqlite';
 
-const LATEST_SCHEMA_VERSION = 5;
+const LATEST_SCHEMA_VERSION = 6;
 
 function nowIso(): string {
   return new Date().toISOString();
@@ -165,6 +165,17 @@ function applyVersion5Migration(db: DatabaseSync): void {
   }
 }
 
+function applyVersion6Migration(db: DatabaseSync): void {
+  try {
+    db.exec('ALTER TABLE messages ADD COLUMN staleness_score REAL NOT NULL DEFAULT 0.0');
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    if (!message.toLowerCase().includes('duplicate column name')) {
+      throw error;
+    }
+  }
+}
+
 export function migrate(db: DatabaseSync): void {
   createBaseSchema(db);
 
@@ -220,6 +231,14 @@ export function migrate(db: DatabaseSync): void {
     db
       .prepare('INSERT INTO schema_version (version, applied_at) VALUES (?, ?)')
       .run(5, nowIso());
+    version = 5;
+  }
+
+  if (version < 6) {
+    applyVersion6Migration(db);
+    db
+      .prepare('INSERT INTO schema_version (version, applied_at) VALUES (?, ?)')
+      .run(6, nowIso());
   }
 }
 
