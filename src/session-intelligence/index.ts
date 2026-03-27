@@ -22,4 +22,6 @@ export function registerSessionIntelligenceEngine(
 }
 
 export { createSessionIntelligenceEngine };
+export { loadAcaFiles, buildKernelContent, buildOverlayContent } from './aca';
+export { upsertStateSlot, getStateSlot, getAllStateSlots, kernelSlotsPresent } from './state-slots';
 export type { SessionIntelligenceConfig };

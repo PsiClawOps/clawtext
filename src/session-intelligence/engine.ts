@@ -1,12 +1,11 @@
 /**
- * Session Intelligence context engine (Walk 1b).
+ * Session Intelligence context engine (Walk 2).
  *
  * Implements OpenClaw ContextEngine lifecycle with SQLite-backed message
- * persistence, deterministic recent-history assembly, and DAG-backed
- * compaction orchestration.
+ * persistence, ACA identity kernel/overlay lanes, deterministic recent-history
+ * assembly, and DAG-backed compaction orchestration.
  */
 
-import fs from 'fs';
 import path from 'path';
 import type { DatabaseSync } from 'node:sqlite';
 import type {
@@ -15,9 +14,16 @@ import type {
   ContextEngine,
   IngestResult,
 } from 'openclaw/plugin-sdk/context-engine';
+import {
+  allKernelFilesPresent,
+  buildKernelContent,
+  buildOverlayContent,
+  loadAcaFiles,
+} from './aca';
 import { runCompaction, resolveCompactorConfig, SummarizationTracker } from './compactor';
 import { openDatabase, withTransaction } from './db';
 import { estimateTokens, persistMessage, persistMessageParts } from './ingest';
+import { getStateSlot, kernelSlotsPresent, upsertStateSlot } from './state-slots';
 import type { SessionIntelligenceConfig } from './types';
 
 const ENGINE_ID = 'clawtext-session-intelligence';
@@ -87,16 +93,6 @@ function messageToText(message: unknown): string {
   return JSON.stringify(candidate.content ?? message);
 }
 
-function checkActiveOverlayPresence(workspacePath: string): void {
-  const expected = ['JOB.md', 'CHARTER.md', 'COMMS.md'];
-  const missing = expected.filter((filename) => !fs.existsSync(path.join(workspacePath, filename)));
-  if (missing.length > 0) {
-    console.warn(
-      `[${ENGINE_ID}] Active overlay file(s) missing: ${missing.join(', ')}. Continuing in degraded mode.`,
-    );
-  }
-}
-
 export function createSessionIntelligenceEngine(config: SessionIntelligenceConfig): ContextEngine {
   const workspacePath = path.resolve(config.workspacePath);
   const db: DatabaseSync = openDatabase(workspacePath);
@@ -151,8 +147,34 @@ export function createSessionIntelligenceEngine(config: SessionIntelligenceConfi
 
   async function bootstrap(params: { sessionId: string; sessionFile: string }): Promise<BootstrapResult> {
     try {
-      checkActiveOverlayPresence(workspacePath);
-      getOrCreateConversationId(params.sessionId);
+      const conversationId = getOrCreateConversationId(params.sessionId);
+
+      if (typeof config.workspacePath === 'string' && config.workspacePath.trim().length > 0) {
+        const aca = loadAcaFiles(workspacePath);
+
+        if (!allKernelFilesPresent(aca)) {
+          if (aca.kernelMissing.length === 3) {
+            console.error(`[${ENGINE_ID}] bootstrap proceeding without ACA kernel source files.`);
+          } else {
+            console.warn(`[${ENGINE_ID}] ACA kernel partially missing: ${aca.kernelMissing.join(', ')}`);
+          }
+        }
+
+        const kernelContent = buildKernelContent(aca.kernel);
+        upsertStateSlot(db, conversationId, 'identity_kernel', kernelContent, {
+          loadedFrom: workspacePath,
+          isPinned: true,
+        });
+
+        const overlayContent = buildOverlayContent(aca.overlay);
+        if (overlayContent.length > 0) {
+          upsertStateSlot(db, conversationId, 'active_overlay', overlayContent, {
+            loadedFrom: workspacePath,
+            isPinned: false,
+          });
+        }
+      }
+
       return { bootstrapped: true, importedMessages: 0 };
     } catch (error) {
       console.warn(`[${ENGINE_ID}] bootstrap failed: ${error instanceof Error ? error.message : String(error)}`);
@@ -219,6 +241,15 @@ export function createSessionIntelligenceEngine(config: SessionIntelligenceConfi
       const breaker = Math.floor(budget * CIRCUIT_BREAKER_RATIO);
       const conversationId = getOrCreateConversationId(params.sessionId);
 
+      const kernelSlot = getStateSlot(db, conversationId, 'identity_kernel');
+      const kernelContent = kernelSlot?.content ?? '';
+      const kernelTokens = kernelSlot ? estimateTokens(kernelSlot.content) : 0;
+
+      const overlaySlot = getStateSlot(db, conversationId, 'active_overlay');
+      const overlayTokens = overlaySlot ? estimateTokens(overlaySlot.content) : 0;
+
+      const historyBudget = budget - kernelTokens - overlayTokens;
+
       const rows = db
         .prepare(
           `SELECT role, content, token_count
@@ -229,35 +260,53 @@ export function createSessionIntelligenceEngine(config: SessionIntelligenceConfi
         .all(conversationId) as StoredMessage[];
 
       const selected: Array<{ role: string; content: string }> = [];
-      let estimatedTokens = 0;
+      let historyTokens = 0;
 
-      for (const row of rows) {
-        const rowTokens = typeof row.token_count === 'number' && row.token_count > 0
-          ? row.token_count
-          : estimateTokens(row.content);
+      if (historyBudget > 0) {
+        for (const row of rows) {
+          const rowTokens = typeof row.token_count === 'number' && row.token_count > 0
+            ? row.token_count
+            : estimateTokens(row.content);
 
-        if (estimatedTokens + rowTokens > budget && selected.length > 0) {
-          break;
-        }
+          if (historyTokens + rowTokens > historyBudget && selected.length > 0) {
+            break;
+          }
 
-        if (estimatedTokens + rowTokens > budget && selected.length === 0) {
+          if (historyTokens + rowTokens > historyBudget && selected.length === 0) {
+            selected.push({ role: row.role, content: row.content });
+            historyTokens += rowTokens;
+            break;
+          }
+
           selected.push({ role: row.role, content: row.content });
-          estimatedTokens += rowTokens;
-          break;
+          historyTokens += rowTokens;
         }
-
-        selected.push({ role: row.role, content: row.content });
-        estimatedTokens += rowTokens;
       }
 
-      let assembledMessages: unknown[];
+      const historyMessages: unknown[] = selected.length > 0
+        ? selected.reverse()
+        : (Array.isArray(params.messages) ? params.messages : []);
 
-      if (selected.length > 0) {
-        assembledMessages = selected.reverse();
-      } else {
-        assembledMessages = Array.isArray(params.messages) ? params.messages : [];
-        estimatedTokens = estimateCurrentPressure(assembledMessages);
+      const fallbackHistoryTokens = selected.length > 0 ? 0 : estimateCurrentPressure(historyMessages);
+      const effectiveHistoryTokens = selected.length > 0 ? historyTokens : fallbackHistoryTokens;
+
+      const assembledMessages: unknown[] = [
+        {
+          role: 'system',
+          content: kernelContent,
+        },
+      ];
+
+      if (overlaySlot) {
+        assembledMessages.push({
+          role: 'system',
+          content: overlaySlot.content,
+        });
       }
+
+      assembledMessages.push(...historyMessages);
+
+      const estimatedTokens = kernelTokens + overlayTokens + effectiveHistoryTokens;
 
       if (estimatedTokens >= breaker) {
         console.warn(
@@ -289,12 +338,13 @@ export function createSessionIntelligenceEngine(config: SessionIntelligenceConfi
     customInstructions?: string;
     legacyParams?: Record<string, unknown>;
   }): Promise<CompactResult> {
-    console.log(
-      `[${ENGINE_ID}] compact preflight: ACA kernel slot check deferred to Walk 2 (kernel slots not yet implemented).`,
-    );
-
     try {
       const conversationId = getOrCreateConversationId(params.sessionId);
+
+      if (!kernelSlotsPresent(db, conversationId)) {
+        console.warn(`[${ENGINE_ID}] compact() refused: identity_kernel slot missing. Run bootstrap() first.`);
+        return { ok: false, compacted: false, reason: 'kernel_slots_missing' };
+      }
 
       if (!config.summarizationApi) {
         return {
@@ -378,7 +428,7 @@ export function createSessionIntelligenceEngine(config: SessionIntelligenceConfi
     info: {
       id: ENGINE_ID,
       name: 'ClawText Session Intelligence',
-      version: '0.1.0-walk1b',
+      version: '0.2.0-walk2',
       ownsCompaction: true,
     },
     bootstrap,

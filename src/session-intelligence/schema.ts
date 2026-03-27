@@ -3,11 +3,12 @@
  *
  * Walk 1a initialized foundational persistence tables.
  * Walk 1b adds summary DAG tables and message summarized-state tracking.
+ * Walk 2 adds ACA state-slot persistence for identity protection lanes.
  */
 
 import type { DatabaseSync } from 'node:sqlite';
 
-const LATEST_SCHEMA_VERSION = 2;
+const LATEST_SCHEMA_VERSION = 3;
 
 function nowIso(): string {
   return new Date().toISOString();
@@ -107,6 +108,23 @@ function applyVersion2Migration(db: DatabaseSync): void {
   }
 }
 
+function applyVersion3Migration(db: DatabaseSync): void {
+  db.exec(`
+    CREATE TABLE IF NOT EXISTS state_slots (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      conversation_id INTEGER NOT NULL REFERENCES conversations(id),
+      slot_name TEXT NOT NULL,
+      content TEXT NOT NULL,
+      content_hash TEXT,
+      loaded_from TEXT,
+      is_pinned INTEGER NOT NULL DEFAULT 0,
+      created_at TEXT NOT NULL,
+      updated_at TEXT NOT NULL,
+      UNIQUE(conversation_id, slot_name)
+    )
+  `);
+}
+
 export function migrate(db: DatabaseSync): void {
   createBaseSchema(db);
 
@@ -138,6 +156,14 @@ export function migrate(db: DatabaseSync): void {
     db
       .prepare('INSERT INTO schema_version (version, applied_at) VALUES (?, ?)')
       .run(2, nowIso());
+    version = 2;
+  }
+
+  if (version < 3) {
+    applyVersion3Migration(db);
+    db
+      .prepare('INSERT INTO schema_version (version, applied_at) VALUES (?, ?)')
+      .run(3, nowIso());
   }
 }
 
