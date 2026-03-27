@@ -62,33 +62,46 @@ const OPT_CONFIG_PATH = path.join(DEFAULT_WORKSPACE, 'state', 'clawtext', 'prod'
 const OPT_LOG_PATH = path.join(DEFAULT_WORKSPACE, 'state', 'clawtext', 'prod', 'optimization-log.jsonl');
 
 /**
- * Resolve the active agent's workspace directory from the session key.
- * Falls back to the default workspace for single-agent or unresolvable sessions.
+ * Resolve workspace for the active session/agent.
  *
- * Uses openclaw/plugin-sdk/agent-runtime to derive workspace from agentId,
- * which correctly resolves per-agent workspace overrides (e.g. workspace-council/forge).
- * This fixes the identity anchor injection bug where WORKSPACE was hardcoded
- * to the main agent workspace, causing all council agents to receive default/worker identity.
- *
- * Uses api.runtime passed in at call time to avoid top-level static imports
- * that aren't in openclaw's package.json exports map.
+ * Resolution order:
+ * 1) Explicit ctx.agentId (preferred)
+ * 2) Agent ID derived from session key (legacy fallback)
+ * 3) DEFAULT_WORKSPACE
  */
-function resolveWorkspaceForSession(sessionKey: string | undefined, api?: { runtime?: { agent?: { resolveAgentWorkspaceDir?: (cfg: unknown, agentId: string) => string | undefined; resolveAgentIdFromSessionKey?: (sessionKey: string) => string } } }, cfg?: unknown): string {
+function resolveWorkspaceForSession(
+  sessionKey: string | undefined,
+  agentId: string | undefined,
+  api?: {
+    runtime?: {
+      agent?: {
+        resolveAgentWorkspaceDir?: (cfg: unknown, agentId: string) => string | undefined;
+        resolveAgentIdFromSessionKey?: (sessionKey: string) => string;
+      };
+    };
+  },
+  cfg?: unknown,
+): { workspacePath: string; source: 'agentId' | 'sessionKey' | 'default' } {
   try {
-    if (sessionKey && api?.runtime?.agent) {
-      const agentRuntime = api.runtime.agent;
-      const agentId = typeof agentRuntime.resolveAgentIdFromSessionKey === 'function'
-        ? agentRuntime.resolveAgentIdFromSessionKey(sessionKey)
-        : undefined;
-      if (agentId && typeof agentRuntime.resolveAgentWorkspaceDir === 'function') {
-        const resolved = agentRuntime.resolveAgentWorkspaceDir(cfg, agentId);
-        if (resolved) return resolved;
+    const agentRuntime = api?.runtime?.agent;
+    if (agentRuntime && typeof agentRuntime.resolveAgentWorkspaceDir === 'function') {
+      if (agentId) {
+        const fromAgentId = agentRuntime.resolveAgentWorkspaceDir(cfg, agentId);
+        if (fromAgentId) return { workspacePath: fromAgentId, source: 'agentId' };
+      }
+
+      if (sessionKey && typeof agentRuntime.resolveAgentIdFromSessionKey === 'function') {
+        const resolvedAgentId = agentRuntime.resolveAgentIdFromSessionKey(sessionKey);
+        if (resolvedAgentId) {
+          const fromSessionKey = agentRuntime.resolveAgentWorkspaceDir(cfg, resolvedAgentId);
+          if (fromSessionKey) return { workspacePath: fromSessionKey, source: 'sessionKey' };
+        }
       }
     }
   } catch {
     // fall through to default
   }
-  return DEFAULT_WORKSPACE;
+  return { workspacePath: DEFAULT_WORKSPACE, source: 'default' };
 }
 
 function logPluginDiagnostic(entry: Record<string, unknown>): void {
@@ -273,11 +286,27 @@ function runClawptimization(
   messages: unknown[],
   channelId: string,
   sessionKey: string,
+  agentId: string | undefined,
   api?: unknown,
   cfg?: unknown,
 ): { prependContext?: string } | undefined {
   const config = loadOptimizeConfig();
-  const WORKSPACE = resolveWorkspaceForSession(sessionKey, api as Parameters<typeof resolveWorkspaceForSession>[1], cfg);
+  const resolvedWorkspace = resolveWorkspaceForSession(
+    sessionKey,
+    agentId,
+    api as Parameters<typeof resolveWorkspaceForSession>[2],
+    cfg,
+  );
+  const WORKSPACE = resolvedWorkspace.workspacePath;
+
+  logPluginDiagnostic({
+    type: 'workspace-resolve',
+    channel: channelId,
+    sessionKey,
+    agentId: agentId ?? null,
+    workspacePath: WORKSPACE,
+    source: resolvedWorkspace.source,
+  });
 
   if (!config.enabled || config.strategy === 'passthrough') {
     logPluginDiagnostic({ type: 'skip', reason: !config.enabled ? 'disabled' : 'passthrough', channel: channelId });
@@ -706,7 +735,15 @@ export default {
           const channelId = ctx?.messageChannel || 'unknown';
           const sessionKey = ctx?.sessionKey || ctx?.sessionId || `session-${Date.now()}`;
 
-          const optimizeResult = runClawptimization(promptAfterRag, messages, channelId, sessionKey, api, api.config);
+          const optimizeResult = runClawptimization(
+            promptAfterRag,
+            messages,
+            channelId,
+            sessionKey,
+            ctx?.agentId,
+            api,
+            api.config,
+          );
 
           if (optimizeResult?.prependContext) {
             return {
