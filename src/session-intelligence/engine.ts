@@ -188,6 +188,16 @@ export function createSessionIntelligenceEngine(config: SessionIntelligenceConfi
     return typeof row.total === 'number' ? row.total : 0;
   }
 
+  function buildRecallHint(conversationId: number): string {
+    const summaryCount = (db
+      .prepare('SELECT COUNT(*) as count FROM summaries WHERE conversation_id = ?')
+      .get(conversationId) as { count: number }).count;
+
+    if (summaryCount === 0) return '';
+
+    return `[Session Intelligence] This session has ${summaryCount} summary node(s) from prior compaction. Use search/describe/expand recall tools to query session history beyond the current context window.`;
+  }
+
   async function bootstrap(params: { sessionId: string; sessionFile: string }): Promise<BootstrapResult> {
     try {
       const conversationId = getOrCreateConversationId(params.sessionId);
@@ -512,6 +522,7 @@ export function createSessionIntelligenceEngine(config: SessionIntelligenceConfi
       return {
         messages: assembledMessages as AssembleResult['messages'],
         estimatedTokens,
+        systemPromptAddition: buildRecallHint(conversationId),
       };
     } catch (error) {
       console.warn(`[${ENGINE_ID}] assemble failed: ${error instanceof Error ? error.message : String(error)}`);
@@ -525,6 +536,7 @@ export function createSessionIntelligenceEngine(config: SessionIntelligenceConfi
       return {
         messages: fallbackMessages as AssembleResult['messages'],
         estimatedTokens: estimateCurrentPressure(fallbackMessages),
+        systemPromptAddition: '',
       };
     }
   }

@@ -9,7 +9,7 @@
 
 import type { DatabaseSync } from 'node:sqlite';
 
-const LATEST_SCHEMA_VERSION = 6;
+const LATEST_SCHEMA_VERSION = 7;
 
 function nowIso(): string {
   return new Date().toISOString();
@@ -176,6 +176,21 @@ function applyVersion6Migration(db: DatabaseSync): void {
   }
 }
 
+function applyVersion7Migration(db: DatabaseSync): void {
+  db.exec(`
+    CREATE TABLE IF NOT EXISTS payload_refs (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      conversation_id INTEGER NOT NULL REFERENCES conversations(id),
+      ref_id TEXT NOT NULL UNIQUE,
+      original_size INTEGER NOT NULL,
+      stored_at TEXT NOT NULL,
+      content_hash TEXT,
+      hint TEXT,
+      created_at TEXT NOT NULL
+    )
+  `);
+}
+
 export function migrate(db: DatabaseSync): void {
   createBaseSchema(db);
 
@@ -239,6 +254,14 @@ export function migrate(db: DatabaseSync): void {
     db
       .prepare('INSERT INTO schema_version (version, applied_at) VALUES (?, ?)')
       .run(6, nowIso());
+    version = 6;
+  }
+
+  if (version < 7) {
+    applyVersion7Migration(db);
+    db
+      .prepare('INSERT INTO schema_version (version, applied_at) VALUES (?, ?)')
+      .run(7, nowIso());
   }
 }
 

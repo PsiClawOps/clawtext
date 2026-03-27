@@ -35,4 +35,6 @@ export { extractStateFromMessage } from './state-extraction';
 export { evaluateTrigger, recordCompactionEvent, resolveTriggerConfig, shouldRunProactivePass } from './trigger';
 export { computePressureSignals, buildPressureReading, classifyPressureBand, PRESSURE_THRESHOLDS } from './pressure';
 export { runNoiseSweep, runToolDecay } from './proactive-pass';
+export { search, describe, expand } from './recall';
+export { shouldExternalize, externalizePayload } from './large-file';
 export type { SessionIntelligenceConfig };
