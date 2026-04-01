@@ -9,7 +9,7 @@
  * - docs/AGENT_TIER_ARCHITECTURE.md (Gore's brief)
  */
 import { readFileSync, existsSync } from 'fs';
-import { join, dirname } from 'path';
+import { join, basename, dirname } from 'path';
 const DEFAULT_MULTI_AGENT_CONFIG = {
     enabled: false,
     defaultVisibility: 'shared',
@@ -28,12 +28,7 @@ function resolveRoleFromIdentityFile(workspacePath) {
         for (const line of lines) {
             const match = line.match(/^\s*-\s*\*\*Role:\*\*\s*(.+)/i);
             if (match) {
-                const roleText = match[1].toLowerCase();
-                if (roleText.includes('council'))
-                    return 'council';
-                if (roleText.includes('director'))
-                    return 'director';
-                return 'worker';
+                return mapRoleToTier(match[1]);
             }
         }
     }
@@ -41,11 +36,46 @@ function resolveRoleFromIdentityFile(workspacePath) {
     return null;
 }
 /**
+ * Resolve agent name from IDENTITY.md in the workspace.
+ * Reads the **Name:** line and returns the agent name.
+ * Returns null if IDENTITY.md is absent or has no Name line.
+ */
+function resolveNameFromIdentityFile(workspacePath) {
+    const identityPath = join(workspacePath, 'IDENTITY.md');
+    if (!existsSync(identityPath))
+        return null;
+    try {
+        const lines = readFileSync(identityPath, 'utf-8').split('\n');
+        for (const line of lines) {
+            const match = line.match(/^\s*-\s*\*\*Name:\*\*\s*(.+)/i);
+            if (match) {
+                return match[1].trim().toLowerCase();
+            }
+        }
+    }
+    catch { /* fall through */ }
+    return null;
+}
+/**
+ * Map a role string from IDENTITY.md to the AgentIdentity role type.
+ * Handles specialist/research roles by mapping them to 'worker' tier
+ * (since the type only supports council/director/worker).
+ */
+function mapRoleToTier(roleText) {
+    const lower = roleText.toLowerCase();
+    if (lower.includes('council'))
+        return 'council';
+    if (lower.includes('director'))
+        return 'director';
+    // Specialists, researchers, and everything else → worker tier
+    return 'worker';
+}
+/**
  * Resolve agent identity from workspace path or config.
  *
  * Priority:
  * 1. Explicit config (clawtext.multiAgent.agentIdentity)
- * 2. IDENTITY.md in workspace (reads Name + Role)
+ * 2. IDENTITY.md in workspace (reads Name + Role — authoritative source)
  * 3. Workspace path derivation (workspace-council/{agent} → council role)
  * 4. Fallback to 'default'
  */
@@ -54,34 +84,56 @@ export function resolveAgentIdentity(workspacePath, config) {
     if (config?.agentIdentity) {
         return config.agentIdentity;
     }
-    // Priority 2: Derive from workspace path structure
-    // E.g., /home/.../workspace-council/gore-antagonist → council role, agent "gore-antagonist"
-    // Works for any council seat: gore-antagonist, sentinel-security, compass-vision, etc.
+    // Priority 2: IDENTITY.md — the authoritative identity source
+    // This handles ALL workspace patterns (council, director, research, custom)
+    // without needing to enumerate path patterns.
+    const identityName = resolveNameFromIdentityFile(workspacePath);
+    const identityRole = resolveRoleFromIdentityFile(workspacePath);
+    if (identityName && identityRole !== null) {
+        return {
+            agentId: identityName,
+            agentRole: identityRole,
+            agentName: identityName,
+            workspacePath,
+        };
+    }
+    // Priority 3: Derive from workspace path structure
+    // Fallback for agents that don't have IDENTITY.md yet.
     const pathParts = workspacePath.split('/');
-    const councilIndex = pathParts.indexOf('workspace-council');
-    if (councilIndex !== -1 && councilIndex < pathParts.length - 1) {
-        const agentDir = pathParts[councilIndex + 1]; // e.g., "forge", "pylon", "chisel"
-        // Read actual role from IDENTITY.md — don't assume council just because of parent dir
-        const role = resolveRoleFromIdentityFile(workspacePath) ?? 'council';
+    // Known workspace patterns: workspace-council, workspace-director, workspace-research
+    const workspacePatterns = [
+        { pattern: 'workspace-council', defaultRole: 'council' },
+        { pattern: 'workspace-director', defaultRole: 'director' },
+        { pattern: 'workspace-research', defaultRole: 'worker' },
+    ];
+    for (const { pattern, defaultRole } of workspacePatterns) {
+        const index = pathParts.indexOf(pattern);
+        if (index !== -1 && index < pathParts.length - 1) {
+            const agentDir = pathParts[index + 1];
+            // If we got a partial read from IDENTITY.md (name or role but not both),
+            // use what we got and fill in the rest from the path.
+            const role = identityRole ?? defaultRole;
+            const name = identityName ?? agentDir;
+            return {
+                agentId: name,
+                agentRole: role,
+                agentName: name,
+                workspacePath,
+            };
+        }
+    }
+    // Priority 4: Fallback — use directory name as agent ID
+    // Even without a known workspace pattern, try the directory basename
+    const dirName = basename(workspacePath);
+    if (identityName || identityRole !== null) {
+        // Partial IDENTITY.md read — use what we have
         return {
-            agentId: agentDir,
-            agentRole: role,
-            agentName: agentDir,
+            agentId: identityName ?? dirName,
+            agentRole: identityRole ?? 'worker',
+            agentName: identityName ?? dirName,
             workspacePath,
         };
     }
-    // Also check for workspace-director pattern
-    const directorIndex = pathParts.indexOf('workspace-director');
-    if (directorIndex !== -1 && directorIndex < pathParts.length - 1) {
-        const agentDir = pathParts[directorIndex + 1];
-        return {
-            agentId: agentDir,
-            agentRole: 'director',
-            agentName: agentDir,
-            workspacePath,
-        };
-    }
-    // Priority 3: Fallback
     return {
         agentId: 'default',
         agentRole: 'worker',

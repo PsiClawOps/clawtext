@@ -28,9 +28,16 @@ export class ExtractionProvider implements SlotProvider {
     // Extract topic from channel or session
     const topic = this.inferTopic(ctx);
     if (!topic) return false;
-    
+
     const state = loadExtractionState(this.workspacePath);
-    return state.strategies && Object.keys(state.strategies).length > 0;
+    if (!state.strategies || Object.keys(state.strategies).length === 0) return false;
+
+    // TUNE-005: suppress slot when resolved strategy has no useful signal
+    // Only emit when extraction is actively running (mode='full').
+    // Lightweight/recall/disabled modes produce no actionable extraction context.
+    const strategy = getStrategyForTopic(this.workspacePath, topic);
+    if (!strategy) return false;
+    return strategy.mode === 'full';
   }
 
   private inferTopic(ctx: SlotContext): string | null {

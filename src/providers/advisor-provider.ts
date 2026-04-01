@@ -83,7 +83,11 @@ export class AdvisorProvider implements SlotProvider {
       .filter((entry) => entry.status === 'active')
       .slice(0, 4);
 
-    if (perspectives.length > 0) {
+    // TUNE-006: only add perspectives list when there's a routing signal.
+    // A bare seat list ("Council perspectives: Compass, Vanguard, ...") with no
+    // ownerAdvisorId and no domain route match adds zero information — suppress it.
+    const hasDomainSignal = !!session?.ownerAdvisorId || lines.some(l => l.startsWith('- Domain route'));
+    if (perspectives.length > 0 && hasDomainSignal) {
       lines.push(`- Council perspectives: ${perspectives.map((entry) => entry.label).join(', ')}`);
     }
 

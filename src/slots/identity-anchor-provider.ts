@@ -95,6 +95,11 @@ export function extractIdentityAnchorContent(workspacePath: string): string | nu
   if (!config.enabled) return null;
 
   const identity = resolveAgentIdentity(workspacePath, config);
+
+  // TUNE-007: a "default/worker" identity anchor is worse than no anchor —
+  // it actively misleads models with wrong identity. Return null to suppress.
+  if (identity.agentId === 'default') return null;
+
   const soulAnchors = extractSoulAnchors(join(workspacePath, 'SOUL.md'));
   const roleGuidance = extractRoleGuidance(identity, workspacePath);
 
