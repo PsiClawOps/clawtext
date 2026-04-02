@@ -1,0 +1,96 @@
+{
+  "$schema": "https://clawmap.dev/schemas/clawmap.json/v1",
+  "name": "@psiclawops/clawtext",
+  "version": "0.4.0",
+  "description": "Layered memory and continuity platform for OpenClaw agents",
+  "layers": [
+    "cli",
+    "integrations",
+    "fleet",
+    "core",
+    "providers"
+  ],
+  "layerRules": [
+    {
+      "from": "providers",
+      "to": "cli",
+      "severity": "error",
+      "message": "Providers must not depend on CLI layer"
+    },
+    {
+      "from": "providers",
+      "to": "fleet",
+      "severity": "error",
+      "message": "Providers must not depend on fleet orchestration"
+    },
+    {
+      "from": "core",
+      "to": "cli",
+      "severity": "error",
+      "message": "Core modules must not depend on CLI"
+    }
+  ],
+  "modules": {
+    "cli": {
+      "path": "src/cli",
+      "layer": "cli",
+      "description": "CLI entrypoint and command handling"
+    },
+    "ingest": {
+      "path": "src/ingest",
+      "layer": "core",
+      "description": "Memory ingestion pipeline"
+    },
+    "extraction": {
+      "path": "src/extraction",
+      "layer": "core",
+      "description": "Content extraction from sessions and transcripts"
+    },
+    "record": {
+      "path": "src/record",
+      "layer": "core",
+      "description": "Record storage and retrieval"
+    },
+    "slots": {
+      "path": "src/slots",
+      "layer": "core",
+      "description": "Memory slot management"
+    },
+    "reflect": {
+      "path": "src/reflect",
+      "layer": "core",
+      "description": "Reflection and self-evaluation"
+    },
+    "session-intelligence": {
+      "path": "src/session-intelligence",
+      "layer": "core",
+      "description": "Session analysis and intelligence extraction"
+    },
+    "permissions": {
+      "path": "src/permissions",
+      "layer": "core",
+      "description": "Access control for memory operations"
+    },
+    "fleet": {
+      "path": "src/fleet",
+      "layer": "fleet",
+      "description": "Fleet-level memory orchestration"
+    },
+    "peer": {
+      "path": "src/peer",
+      "layer": "fleet",
+      "description": "Peer-to-peer memory sharing"
+    },
+    "integrations": {
+      "path": "src/integrations",
+      "layer": "integrations",
+      "description": "External system integrations"
+    },
+    "providers": {
+      "path": "src/providers",
+      "layer": "providers",
+      "description": "Storage and embedding providers"
+    }
+  },
+  "adrs": []
+}
