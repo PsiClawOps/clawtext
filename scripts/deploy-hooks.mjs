@@ -38,6 +38,8 @@ const ALL_HOOKS = [
   'clawtext-extract',
   'clawtext-flush',
   'clawtext-restore',
+  'clawtext-ingest',
+  'clawtext-si-shadow',
 ];
 
 const hooks = targetHooks ? ALL_HOOKS.filter(h => targetHooks.includes(h)) : ALL_HOOKS;

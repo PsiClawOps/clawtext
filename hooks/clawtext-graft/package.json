@@ -1,0 +1,9 @@
+{
+  "openclaw": {
+    "emoji": "🔗",
+    "events": ["message:preprocessed"],
+    "requires": {
+      "bins": ["node"]
+    }
+  }
+}

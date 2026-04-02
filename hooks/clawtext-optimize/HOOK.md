@@ -1,57 +1,42 @@
 ---
 name: clawtext-optimize
-description: "Before prompt build, score/select context sections within budget. Defaults to passthrough unless explicitly enabled."
-metadata: { "openclaw": { "emoji": "🧠", "events": ["plugin:before_prompt_build"] } }
+description: "Context pressure management hook. Monitors token usage and applies graduated relevance-weighted pruning before OpenClaw core's oldest-first eviction fires. Prevents context overflow crashes."
+metadata: { "openclaw": { "emoji": "⚡", "events": ["message:preprocessed"], "requires": { "bins": ["node"] } } }
 ---
 
-# Clawptimization Hook
+# ClawText Context Optimizer
 
-Clawptimization runs at `before_prompt_build` and evaluates context sections using scoring + byte budget constraints.
+Monitors context pressure on every `message:preprocessed` event and applies graduated
+relevance-weighted pruning when pressure exceeds thresholds — before OpenClaw core's
+`tool-result-context-guard` fires its blunt oldest-first eviction.
 
-## Passthrough-by-default guarantee
+## When It Fires
 
-No behavior changes occur unless you explicitly enable it.
+- **`message:preprocessed`**: Runs on every incoming message. No-ops when pressure is
+  below the trigger threshold (0.60). Invisible until needed.
 
-Default config (`~/.openclaw/workspace/state/clawtext/prod/optimize-config.json`):
+## Pruning Passes
 
-```json
-{
-  "enabled": false,
-  "budgetBytes": 32000,
-  "minScore": 0.25,
-  "preserveReasons": true,
-  "strategy": "passthrough",
-  "logDecisions": true
-}
-```
+- **Pass 1 (60–70%)**: Tool result compression. Truncates large tool outputs, aggressively
+  compresses outputs from completed WORKQUEUE items.
+- **Pass 2 (70–80%)**: Mid-history de-duplication. Collapses repeated file reads, repeated
+  status commands, and removes compaction marker stubs.
+- **Pass 3 (80–85%)**: Deep scored pruning. Scores messages by recency, content type, and
+  WORKQUEUE relevance. Writes checkpoint before shedding. Removes lowest-scoring messages
+  to bring pressure below 75%.
 
-If `enabled` is `false` **or** `strategy` is `"passthrough"`, the hook returns nothing.
+## Protected Content (never pruned)
 
-## Strategies
+- System messages
+- Last 20 messages (recent window)
+- Checkpoint markers
+- Messages from active WORKQUEUE item creation forward
 
-- `passthrough`: include everything, no mutation.
-- `scored-select`: sort by score and include highest value sections within budget.
-- `budget-trim`: keep order, include while it fits and meets minimum score.
+## Config
 
-## What gets logged
+Reads `optimize-config.json` from `{workspace}/state/clawtext/prod/optimize-config.json`.
+Falls back to hardcoded defaults if missing.
 
-Append-only JSONL log file:
+## Observability
 
-`~/.openclaw/workspace/state/clawtext/prod/optimization-log.jsonl`
-
-Each entry includes session key, channel hint, budget, included/dropped counts, byte usage, token estimate, per-slot reasons, and drop reasons.
-
-## Reading reports
-
-Use:
-
-```bash
-npm run optimize:report
-npm run optimize:report:last
-```
-
-Optional flags:
-
-```bash
-node scripts/optimization-report.mjs --last 25 --channel C123 --verbose
-```
+Logs all pruning decisions to `state/clawtext/prod/optimize-log.jsonl`.

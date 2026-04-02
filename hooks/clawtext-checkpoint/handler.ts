@@ -144,6 +144,138 @@ function writeCheckpoint(params: {
   });
 }
 
+// ── WORKQUEUE checkpoint helpers ──────────────────────────────────────────────
+
+/**
+ * Extract agent name from sessionKey.
+ * agent:pylon:webchat:pylon-main → pylon
+ */
+function extractAgentNameFromSession(sessionKey: string): string | null {
+  if (!sessionKey.startsWith('agent:')) return null;
+  const parts = sessionKey.split(':');
+  return parts[1] || null;
+}
+
+/**
+ * Resolve agent workspace path. Council agents live under workspace-council/{agent}.
+ */
+function resolveAgentWorkspacePath(agentName: string): string | null {
+  const councilPath = path.join(os.homedir(), '.openclaw', 'workspace-council', agentName);
+  if (fs.existsSync(councilPath)) return councilPath;
+  return null;
+}
+
+/**
+ * Parse WORKQUEUE.md for Active items. Returns WQ IDs.
+ */
+function parseActiveWorkqueueItems(workqueuePath: string): string[] {
+  if (!fs.existsSync(workqueuePath)) return [];
+  try {
+    const content = fs.readFileSync(workqueuePath, 'utf8');
+    const lines = content.split('\n');
+    let inActive = false;
+    const activeIds: string[] = [];
+
+    for (const line of lines) {
+      if (line.startsWith('## Active')) {
+        inActive = true;
+        continue;
+      }
+      if (line.startsWith('## ') && inActive) break;
+      if (inActive && line.match(/^- \[ \]/)) {
+        const idMatch = line.match(/`(WQ-\d{8}-\d{3})`/);
+        if (idMatch) activeIds.push(idMatch[1]);
+      }
+    }
+    return activeIds;
+  } catch {
+    return [];
+  }
+}
+
+/**
+ * Write/update a WORKQUEUE checkpoint file for an active item.
+ * Captures recent work context so clawtext-restore can inject it on long-idle recovery.
+ */
+function writeWorkqueueCheckpoint(
+  agentWorkspace: string,
+  wqId: string,
+  sessionKey: string,
+  recentContent: string[],
+  lastSender: string,
+): void {
+  const activeDir = path.join(agentWorkspace, 'active');
+  if (!fs.existsSync(activeDir)) fs.mkdirSync(activeDir, { recursive: true });
+
+  const checkpointPath = path.join(activeDir, `${wqId}_checkpoint.md`);
+  const now = new Date().toISOString();
+
+  // Read existing checkpoint to preserve accumulated data
+  let existingDone = '';
+  let existingFiles = '';
+  if (fs.existsSync(checkpointPath)) {
+    try {
+      const existing = fs.readFileSync(checkpointPath, 'utf8');
+      const doneMatch = existing.match(/## What's Been Done\n([\s\S]*?)(?:\n## |$)/);
+      if (doneMatch) existingDone = doneMatch[1].trim();
+      const filesMatch = existing.match(/## Files Modified\n([\s\S]*?)(?:\n## |$)/);
+      if (filesMatch) existingFiles = filesMatch[1].trim();
+    } catch { /* start fresh */ }
+  }
+
+  // Build "What's been done" from recent content (last 5 assistant-like snippets)
+  const recentWork = recentContent
+    .filter(s => s.length > 20)
+    .slice(-5)
+    .map(s => `- ${s}`)
+    .join('\n');
+
+  // Combine existing and new
+  const doneSection = existingDone
+    ? `${existingDone}\n${recentWork}`
+    : recentWork || '(no recent work captured)';
+
+  // Extract file paths from recent content
+  const filePathRe = /(?:\/[\w.@-]+){2,}(?:\.\w+)?/g;
+  const files = new Set<string>();
+  for (const snippet of recentContent) {
+    const matches = snippet.match(filePathRe);
+    if (matches) matches.forEach(p => files.add(p));
+  }
+  const filesSection = existingFiles
+    ? `${existingFiles}\n${Array.from(files).map(f => `- ${f}`).join('\n')}`
+    : Array.from(files).map(f => `- ${f}`).join('\n') || '(none captured)';
+
+  // "Next Step" — last user instruction or last content snippet
+  const lastInstruction = recentContent.filter(s => s.length > 10).slice(-1)[0] || '(resume from WORKQUEUE.md)';
+
+  const checkpoint = `# Checkpoint: ${wqId}
+
+_Last updated: ${now}_
+_Session: ${sessionKey}_
+
+## What's Been Done
+${doneSection}
+
+## Files Modified
+${filesSection}
+
+## Next Step
+${lastInstruction}
+`;
+
+  fs.writeFileSync(checkpointPath, checkpoint);
+
+  logDiagnostic({
+    type: 'wq-checkpoint-written',
+    wqId,
+    sessionKey,
+    checkpointPath,
+    doneLines: doneSection.split('\n').length,
+    fileCount: files.size,
+  });
+}
+
 // ── Hook handler ──────────────────────────────────────────────────────────────
 const handler = async (event: { type: string; action: string; sessionKey: string; context: Record<string, unknown> }) => {
   try {
@@ -376,6 +508,28 @@ const handler = async (event: { type: string; action: string; sessionKey: string
           topic,
           messageCount: state.messageCount,
         });
+
+        // WQ-C: Write WORKQUEUE checkpoint files for Active items
+        const agentName = extractAgentNameFromSession(sessionKey);
+        if (agentName) {
+          const agentWs = resolveAgentWorkspacePath(agentName);
+          if (agentWs) {
+            const wqPath = path.join(agentWs, 'WORKQUEUE.md');
+            const activeIds = parseActiveWorkqueueItems(wqPath);
+            for (const wqId of activeIds) {
+              try {
+                writeWorkqueueCheckpoint(agentWs, wqId, sessionKey, state.recentContent, state.lastSender);
+              } catch (wqErr) {
+                logDiagnostic({
+                  type: 'wq-checkpoint-error',
+                  wqId,
+                  error: wqErr instanceof Error ? wqErr.message : String(wqErr),
+                });
+              }
+            }
+          }
+        }
+
         state.messageCount = 0;
         state.lastCheckpointTs = Date.now();
         state.recentContent = [];
